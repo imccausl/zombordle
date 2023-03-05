@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react";
-import Tile from ".";
-import { VariantColor, VariantBorder } from "./Tile.styles";
+import StaticTile from ".";
+import { VariantColor, VariantBorder } from "./StaticTile.styles";
 
 const variantColors = Object.keys(VariantColor);
-describe("Tile", () => {
+describe("StaticTile", () => {
   it("renders default variant", () => {
-    render(<Tile>A</Tile>);
+    render(<StaticTile>A</StaticTile>);
 
     const tileElement = screen.getByRole('listitem');
 
@@ -27,7 +27,7 @@ describe("Tile", () => {
       "renders with correct background and border colors for variant %s",
       (variantColorName, expectedBackgroundColor, expectedBorderColor) => {
         render(
-          <Tile variant={variantColorName as keyof typeof VariantColor}>A</Tile>
+          <StaticTile variant={variantColorName as keyof typeof VariantColor}>A</StaticTile>
         );
 
         const tileElement = screen.getByRole('listitem');

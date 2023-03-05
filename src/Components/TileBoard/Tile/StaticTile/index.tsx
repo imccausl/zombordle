@@ -1,4 +1,4 @@
-import { TileContainer, VariantColor } from "./Tile.styles";
+import { TileContainer, VariantColor } from "./StaticTile.styles";
 
 type ReactProps = {
   children?: string;
@@ -10,8 +10,8 @@ export type TileProps = {
 
 type Props = ReactProps & TileProps;
 
-const Tile: React.FC<Props> = ({ children = null, variant = "default"}) => {
+const StaticTile: React.FC<Props> = ({ children = null, variant = "default"}) => {
   return <TileContainer role="listitem" variant={variant}><p>{children}</p></TileContainer>;
 };
 
-export default Tile;
+export default StaticTile;

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import Tile from "../Tile";
+import Tile from "../Tile/StaticTile";
 import { TileInputGroup } from './TiledInput.styles'
 
 export type TiledInputProps = {
