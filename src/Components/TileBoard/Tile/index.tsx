@@ -11,7 +11,7 @@ export type TileProps = {
 type Props = ReactProps & TileProps;
 
 const Tile: React.FC<Props> = ({ children = null, variant = "default" }) => {
-  return <TileContainer variant={variant}>{children}</TileContainer>;
+  return <TileContainer role="listitem" variant={variant}><p>{children}</p></TileContainer>;
 };
 
 export default Tile;

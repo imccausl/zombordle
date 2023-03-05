@@ -35,7 +35,7 @@ const TileBoard: React.FC<TileBoardProps> = ({
   const tiledAttemptsRemaining = useMemo(
     () =>
       Array.from({ length: attemptsRemaining - 1 }).map((_, index) => (
-        <TileRowContainer key={index}>
+        <TileRowContainer role="listitem" key={index}>
           <TiledBlank correctWordLength={correctWord.length} />
         </TileRowContainer>
       )),
@@ -43,7 +43,7 @@ const TileBoard: React.FC<TileBoardProps> = ({
   );
 
   return (
-    <ListContainer>
+    <ListContainer role="list">
       {tiledGuesses}
       {Boolean(attemptsRemaining) && (
         <TileRowContainer>

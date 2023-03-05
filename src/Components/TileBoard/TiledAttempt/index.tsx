@@ -20,7 +20,7 @@ const TiledAttempt: React.FC<TilesProps> = ({ word, correctWord }) => {
       });
   }, [word, correctWord]);
 
-  return <TileGroup>{tiledWord}</TileGroup>;
+  return <TileGroup role="list">{tiledWord}</TileGroup>;
 };
 
 export default TiledAttempt;

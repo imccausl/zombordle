@@ -20,7 +20,7 @@ const TiledBlank: React.FC<TiledBlankProps> = ({ correctWordLength }) => {
       });
   }, [correctWordLength]);
 
-  return <TileGroup>{tiledBlank}</TileGroup>;
+  return <TileGroup role="list">{tiledBlank}</TileGroup>;
 };
 
 export default TiledBlank;

@@ -24,7 +24,7 @@ const TiledInput: React.FC<TiledInputProps> = ({
       });
   }, [guess, correctWordLength]);
 
-  return <TileGroup>{tiledBlank}</TileGroup>;
+  return <TileGroup role="list">{tiledBlank}</TileGroup>;
 };
 
 export default TiledInput;
