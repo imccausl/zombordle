@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
-export const TileBoardContainer = styled.ul`
+export const ListContainer = styled.ul`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   text-indent: 0;
 `
@@ -18,4 +22,12 @@ export const TileRowContainer = styled.li`
   &:last-of-type {
     margin-bottom: 0;
   }
+`
+export const TileGroup = styled.ul`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-indent: 0;
+  list-style-type: none;
 `

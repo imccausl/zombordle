@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import Tile from "../Tile";
 import { getVariant } from "../util";
+import { TileGroup } from '../TileBoard.styles'
 
 type TilesProps = { word: string; correctWord: string };
 
@@ -19,7 +20,7 @@ const TiledAttempt: React.FC<TilesProps> = ({ word, correctWord }) => {
       });
   }, [word, correctWord]);
 
-  return <>{tiledWord}</>;
+  return <TileGroup>{tiledWord}</TileGroup>;
 };
 
 export default TiledAttempt;

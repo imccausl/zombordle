@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import Tile from "../Tile";
+import { TileGroup } from '../TileBoard.styles'
 
 type TiledInputProps = {
   correctWordLength: number;
@@ -23,7 +24,7 @@ const TiledInput: React.FC<TiledInputProps> = ({
       });
   }, [guess, correctWordLength]);
 
-  return <>{tiledBlank}</>;
+  return <TileGroup>{tiledBlank}</TileGroup>;
 };
 
 export default TiledInput;

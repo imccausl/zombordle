@@ -29,10 +29,10 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("keyup", handleKeyup);
+    document.addEventListener("keyup", handleKeyup);
 
     () => {
-      window.removeEventListener("keyup", handleKeyup);
+      document.removeEventListener("keyup", handleKeyup);
     };
   }, []);
 

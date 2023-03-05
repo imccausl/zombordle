@@ -3,7 +3,7 @@ import TiledAttempt from "./TiledAttempt";
 import TiledBlank from "./TiledBlank";
 import TiledInput from "./TiledInput";
 
-import { TileBoardContainer, TileRowContainer } from "./TileBoard.styles";
+import { ListContainer, TileRowContainer } from "./TileBoard.styles";
 export type TileBoardProps = {
   guess: string;
   guesses: string[];
@@ -29,7 +29,7 @@ const TileBoard: React.FC<TileBoardProps> = ({
           <TiledAttempt word={guess} correctWord={correctWord} />
         </TileRowContainer>
       )),
-    [guesses, guess, correctWord]
+    [guesses, correctWord]
   );
 
   const tiledAttemptsRemaining = useMemo(
@@ -43,7 +43,7 @@ const TileBoard: React.FC<TileBoardProps> = ({
   );
 
   return (
-    <TileBoardContainer>
+    <ListContainer>
       {tiledGuesses}
       {Boolean(attemptsRemaining) && (
         <TileRowContainer>
@@ -51,7 +51,7 @@ const TileBoard: React.FC<TileBoardProps> = ({
         </TileRowContainer>
       )}
       {Boolean(attemptsRemaining) && tiledAttemptsRemaining}
-    </TileBoardContainer>
+    </ListContainer>
   );
 };
 

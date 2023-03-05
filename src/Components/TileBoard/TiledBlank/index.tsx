@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import Tile from "../Tile";
-
+import { TileGroup } from '../TileBoard.styles'
 export type TiledBlankProps = {
   correctWordLength: number;
 };
@@ -19,7 +19,7 @@ const TiledBlank: React.FC<TiledBlankProps> = ({ correctWordLength }) => {
       });
   }, [correctWordLength]);
 
-  return <>{tiledBlank}</>;
+  return <TileGroup>{tiledBlank}</TileGroup>;
 };
 
 export default TiledBlank;
