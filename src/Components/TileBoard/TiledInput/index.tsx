@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import Tile from "../Tile/StaticTile";
+import InputTile from "../Tile/InputTile";
 import { TileInputGroup } from './TiledInput.styles'
 
 export type TiledInputProps = {
@@ -17,9 +17,7 @@ const TiledInput: React.FC<TiledInputProps> = ({
       .split("")
       .map((letter: string, index: number) => {
         return (
-          <Tile key={index} variant="default">
-            {letter}
-          </Tile>
+          <InputTile type="text" key={index} /> 
         );
       });
   }, [guess, correctWordLength]);
