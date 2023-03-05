@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import Tile from "../Tile";
 import { TileGroup } from '../TileBoard.styles'
 
-type TiledInputProps = {
+export type TiledInputProps = {
   correctWordLength: number;
   guess: string;
 };

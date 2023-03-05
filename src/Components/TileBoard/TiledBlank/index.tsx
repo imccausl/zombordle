@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import Tile from "../Tile";
 import { TileGroup } from '../TileBoard.styles'
-export type TiledBlankProps = {
+
+type TiledBlankProps = {
   correctWordLength: number;
 };
 

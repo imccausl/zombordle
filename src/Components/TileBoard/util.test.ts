@@ -1,4 +1,4 @@
-import {getVariant} from "./util";
+import { getVariant } from "./util";
 
 
 describe("util", () => {
