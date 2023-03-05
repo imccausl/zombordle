@@ -11,7 +11,7 @@ const KEYS = {
 const App: React.FC = () => {
   const [state, dispatch] = useReducer(guessReducer, {
     currentGuess: "",
-    guesses: ["foundation", "loundation"],
+    guesses: [],
     correctWord,
     error: "",
   });

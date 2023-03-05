@@ -3,14 +3,14 @@ import TiledAttempt from "./TiledAttempt";
 import TiledBlank from "./TiledBlank";
 import TiledInput from "./TiledInput";
 
-import { ListContainer, TileRowContainer } from "./TileBoard.styles";
+import { ListContainer, TileRowContainer, InputRowContainer } from "./TileBoard.styles";
 export type TileBoardProps = {
   guess: string;
   guesses: string[];
   correctWord: string;
 };
 
-const NUMBER_OF_ATTEMPTS = 5;
+const MAX_ATTEMPTS = 5;
 
 const TileBoard: React.FC<TileBoardProps> = ({
   guess,
@@ -18,7 +18,7 @@ const TileBoard: React.FC<TileBoardProps> = ({
   correctWord,
 }) => {
   const attemptsRemaining = useMemo(
-    () => NUMBER_OF_ATTEMPTS - guesses.length,
+    () => MAX_ATTEMPTS - guesses.length,
     [guesses]
   );
 
@@ -42,16 +42,27 @@ const TileBoard: React.FC<TileBoardProps> = ({
     [correctWord, attemptsRemaining]
   );
 
+  let inputRowContainerPosition: 'middle' | 'top' | 'bottom' = 'middle'
+  if (guesses.length === 0) {
+    inputRowContainerPosition = 'top'
+  } else if (guesses.length === MAX_ATTEMPTS - 1) {
+    inputRowContainerPosition = 'bottom'
+  }
+
   return (
-    <ListContainer role="list">
-      {tiledGuesses}
+    <>
+      {Boolean(guesses.length) && (<ListContainer role="list">
+        {tiledGuesses}
+      </ListContainer>)}
       {Boolean(attemptsRemaining) && (
-        <TileRowContainer>
+        <ListContainer as="div">
+        <InputRowContainer position={inputRowContainerPosition}>
           <TiledInput guess={guess} correctWordLength={correctWord.length} />
-        </TileRowContainer>
+        </InputRowContainer>
+        </ListContainer>
       )}
-      {Boolean(attemptsRemaining) && tiledAttemptsRemaining}
-    </ListContainer>
+      {Boolean(attemptsRemaining) && (<ListContainer role="list">{tiledAttemptsRemaining}</ListContainer>)}
+    </>
   );
 };
 
