@@ -10,7 +10,7 @@ export type TileBoardProps = {
   correctWord: string;
 };
 
-const MAX_ATTEMPTS = 5;
+const MAX_ATTEMPTS = 6;
 
 const TileBoard: React.FC<TileBoardProps> = ({
   guess,

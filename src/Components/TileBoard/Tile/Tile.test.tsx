@@ -7,7 +7,7 @@ describe("Tile", () => {
   it("renders default variant", () => {
     render(<Tile>A</Tile>);
 
-    const tileElement = screen.getByText(/A/);
+    const tileElement = screen.getByRole('listitem');
 
     expect(tileElement).toBeInTheDocument();
     expect(tileElement).toHaveStyle(
@@ -30,7 +30,7 @@ describe("Tile", () => {
           <Tile variant={variantColorName as keyof typeof VariantColor}>A</Tile>
         );
 
-        const tileElement = screen.getByText(/A/);
+        const tileElement = screen.getByRole('listitem');
 
         expect(tileElement).toHaveStyle(
           `background-color: ${expectedBackgroundColor}`
