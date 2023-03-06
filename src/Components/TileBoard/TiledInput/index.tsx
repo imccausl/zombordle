@@ -8,6 +8,8 @@ export type TiledInputProps = {
   onChange: (value: string) => void
 };
 
+const isInputElement = (element: ChildNode | null | undefined): element is HTMLInputElement => Boolean(element && 'focus' in element)
+
 const TiledInput: React.FC<TiledInputProps> = ({
   value,
   length,
@@ -17,8 +19,13 @@ const TiledInput: React.FC<TiledInputProps> = ({
   const handleCreateNewValue = useCallback((e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const targetValue = e.target.value
     const newValue = valueWithCorrectLength.substring(0, index).concat(targetValue).concat(valueWithCorrectLength.substring(index + 1));
-    console.log({newValue})
+    const nextElement = index < valueWithCorrectLength.length ? e.target.parentElement?.parentElement?.children[index+1]?.firstChild : null
+
     onChange(newValue)
+
+    if (isInputElement(nextElement)) {
+      nextElement.focus()
+    }
   }, [onChange, valueWithCorrectLength])
   const tiledBlank = useMemo(() => {
     return valueWithCorrectLength.split("")
