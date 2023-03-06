@@ -1,6 +1,6 @@
-import { useReducer, useEffect } from "react";
+import { useReducer, useCallback } from "react";
 import TileBoard from "../TileBoard";
-import guessReducer, { addLetter, deleteLetter, registerGuess } from "./slice";
+import guessReducer, { setGuessValue, deleteLetter, registerGuess } from "./slice";
 
 const correctWord = "dformation";
 const KEYS = {
@@ -15,29 +15,11 @@ const App: React.FC = () => {
     correctWord,
     error: "",
   });
-  const handleKeyup = (event: KeyboardEvent) => {
-    switch (event.key) {
-      case KEYS.Enter:
-        dispatch(registerGuess());
-        break;
-      case KEYS.Backspace:
-        dispatch(deleteLetter());
-        break;
-      default:
-        dispatch(addLetter(event.key));
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("keyup", handleKeyup);
-
-    () => {
-      document.removeEventListener("keyup", handleKeyup);
-    };
-  }, []);
+  const handleOnChange = useCallback((value: string) => dispatch(setGuessValue(value)), [])
 
   return (
     <TileBoard
+    onChange={handleOnChange}
       guess={state.currentGuess}
       guesses={state.guesses}
       correctWord={correctWord}

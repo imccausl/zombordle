@@ -8,6 +8,7 @@ export type TileBoardProps = {
   guess: string;
   guesses: string[];
   correctWord: string;
+  onChange: (value: string) => void
 };
 
 const MAX_ATTEMPTS = 6;
@@ -16,6 +17,7 @@ const TileBoard: React.FC<TileBoardProps> = ({
   guess,
   guesses,
   correctWord,
+  onChange,
 }) => {
   const attemptsRemaining = useMemo(
     () => MAX_ATTEMPTS - guesses.length,
@@ -57,7 +59,7 @@ const TileBoard: React.FC<TileBoardProps> = ({
       {Boolean(attemptsRemaining) && (
         <ListContainer as="div">
         <InputRowContainer position={inputRowContainerPosition}>
-          <TiledInput guess={guess} correctWordLength={correctWord.length} />
+          <TiledInput value={guess} length={correctWord.length} onChange={onChange} />
         </InputRowContainer>
         </ListContainer>
       )}

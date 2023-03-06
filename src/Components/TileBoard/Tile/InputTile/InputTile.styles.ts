@@ -28,6 +28,7 @@ export const TileStyledTextInput = styled.input.attrs(props => ({
   width: 55px;
   height: 55px;
   text-transform: uppercase;
+  caret-color: transparent;
 
   &:last-of-type {
     margin-right: 0;

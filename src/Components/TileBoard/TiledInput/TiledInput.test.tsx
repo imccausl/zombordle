@@ -2,8 +2,9 @@ import { render as renderComponent, screen } from "@testing-library/react";
 import TiledInput, { type TiledInputProps } from ".";
 
 const defaultProps: TiledInputProps = {
-  correctWordLength: 10,
-  guess: ''
+  length: 10,
+  value: '',
+  onChange: () => {}
 }
 
 const render = (props: Partial<TiledInputProps> = {}) => renderComponent(<TiledInput {...defaultProps} {...props} />)
@@ -18,7 +19,7 @@ describe("TiledBlank", () => {
   });
 
   it("renders letters for amount of tiles that correspond with the guess", () => {
-    render({guess: "some"});
+    render({value: "some"});
 
     const allTiles = screen.getAllByRole('listitem');
     const allLetterTiles = screen.getAllByText(/(s|o|m|e)/)

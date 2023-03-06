@@ -1,26 +1,35 @@
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import InputTile from "../Tile/InputTile";
-import { TileInputGroup } from './TiledInput.styles'
+import { TileInputGroup, InputTileContainer } from './TiledInput.styles'
 
 export type TiledInputProps = {
-  correctWordLength: number;
-  guess: string;
+  length: number;
+  value: string;
+  onChange: (value: string) => void
 };
 
 const TiledInput: React.FC<TiledInputProps> = ({
-  guess,
-  correctWordLength,
+  value,
+  length,
+  onChange,
 }) => {
+  const valueWithCorrectLength = useMemo(() => value.concat(" ".repeat(length - (value.length || 0))), [length, value])
+  const handleCreateNewValue = useCallback((e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    const targetValue = e.target.value
+    const newValue = valueWithCorrectLength.substring(0, index).concat(targetValue).concat(valueWithCorrectLength.substring(index + 1));
+    console.log({newValue})
+    onChange(newValue)
+  }, [onChange, valueWithCorrectLength])
   const tiledBlank = useMemo(() => {
-    return guess
-      .concat(" ".repeat(correctWordLength - (guess.length || 0)))
-      .split("")
+    return valueWithCorrectLength.split("")
       .map((letter: string, index: number) => {
         return (
-          <InputTile type="text" key={index} /> 
+          <InputTileContainer key={`input-${index+1}`}>
+            <InputTile name={`input-${index+1}`} value={letter === " " ? "" : letter} onChange={(e: React.ChangeEvent<HTMLInputElement>): void => handleCreateNewValue(e, index)}  /> 
+          </InputTileContainer>
         );
       });
-  }, [guess, correctWordLength]);
+  }, [valueWithCorrectLength, handleCreateNewValue]);
 
   return <TileInputGroup role="list">{tiledBlank}</TileInputGroup>;
 };
