@@ -1,23 +1,23 @@
-const BLANK = " ";
+const BLANK = ' '
 
 export const getVariant = ({
-  correctWord,
-  letter,
-  index,
+    correctWord,
+    letter,
+    index,
 }: {
-  correctWord: string;
-  letter: string;
-  index: number;
+    correctWord: string
+    letter: string
+    index: number
 }) => {
-  if (letter === BLANK || !letter) {
-    return "default";
-  }
+    if (letter === BLANK || !letter) {
+        return 'default'
+    }
 
-  if (correctWord.toLowerCase()[index] === letter) {
-    return "correct-place";
-  }
+    if (correctWord.toLowerCase()[index] === letter) {
+        return 'correct-place'
+    }
 
-  return correctWord.toLowerCase().includes(letter)
-    ? "contains-letter"
-    : "no-letter";
-};
+    return correctWord.toLowerCase().includes(letter)
+        ? 'contains-letter'
+        : 'no-letter'
+}

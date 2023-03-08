@@ -1,26 +1,31 @@
-import { useMemo } from "react";
-import Tile from "../Tile/StaticTile";
-import { getVariant } from "../util";
-import { TileGroup } from '../TileBoard.styles'
+import { useMemo } from 'react'
 
-type TilesProps = { word: string; correctWord: string };
+import Tile from '../Tile/StaticTile'
+import { TileGroup } from '../TileBoard.styles'
+import { getVariant } from '../util'
+
+type TilesProps = { word: string; correctWord: string }
 
 const TiledAttempt: React.FC<TilesProps> = ({ word, correctWord }) => {
-  const tiledWord = useMemo(() => {
-    return word
-      .toLowerCase()
-      .split("")
-      .map((letter: string, index: number) => {
-        const tileVariant = getVariant({ correctWord, letter, index });
-        return (
-          <Tile key={`${letter}-${index}`} variant={tileVariant}>
-            {letter}
-          </Tile>
-        );
-      });
-  }, [word, correctWord]);
+    const tiledWord = useMemo(() => {
+        return word
+            .toLowerCase()
+            .split('')
+            .map((letter: string, index: number) => {
+                const tileVariant = getVariant({ correctWord, letter, index })
+                return (
+                    <Tile key={`${letter}-${index}`} variant={tileVariant}>
+                        {letter}
+                    </Tile>
+                )
+            })
+    }, [word, correctWord])
 
-  return <TileGroup role="list" aria-label={word}>{tiledWord}</TileGroup>;
-};
+    return (
+        <TileGroup role="list" aria-label={word}>
+            {tiledWord}
+        </TileGroup>
+    )
+}
 
-export default TiledAttempt;
+export default TiledAttempt

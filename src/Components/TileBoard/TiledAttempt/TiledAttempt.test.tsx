@@ -1,14 +1,15 @@
-import { render, screen } from "@testing-library/react";
-import TiledAttempt from ".";
+import { render, screen } from '@testing-library/react'
 
-describe("TiledAttempt", () => {
-  it("renders a word as separate tiles", () => {
-    render(<TiledAttempt word="test" correctWord="best" />);
+import TiledAttempt from '.'
 
-    screen.getByText(/e/)
-    screen.getByText(/s/)
+describe('TiledAttempt', () => {
+    it('renders a word as separate tiles', () => {
+        render(<TiledAttempt word="test" correctWord="best" />)
 
-    const repeatedConsonants = screen.getAllByText(/t/);
-    expect(repeatedConsonants).toHaveLength(2);
-  });
-});
+        screen.getByText(/e/)
+        screen.getByText(/s/)
+
+        const repeatedConsonants = screen.getAllByText(/t/)
+        expect(repeatedConsonants).toHaveLength(2)
+    })
+})

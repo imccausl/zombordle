@@ -1,4 +1,17 @@
 {
-  "plugins": ["jest-dom", "testing-library"],
-  "extends": "next/core-web-vitals"
+  "plugins": [
+    "jest-dom",
+    "testing-library",
+    "prettier"
+  ],
+  "extends": [
+    "next/core-web-vitals",
+    "@tophat/eslint-config/base",
+    "@tophat/eslint-config/web"
+  ],
+  "parserOptions": {
+    "project": [
+      "./tsconfig.json"
+    ]
+  }
 }
