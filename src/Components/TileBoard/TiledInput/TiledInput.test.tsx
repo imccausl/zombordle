@@ -31,4 +31,19 @@ describe('TiledBlank', () => {
             expect(tile.value).toBe(correctContent[index])
         })
     })
+
+    describe('Basic Functions', () => {
+        it.todo(
+            'moves focus forward as each typed letter goes in a separate input',
+        )
+        it.todo('moves focus backward and removes letters when deleting')
+        it.todo(
+            'can remove letters from the middle of a word and keep the remainder in place',
+        )
+        it.todo('calls onChange when the input changes')
+        it.todo('calls onSubmit when the input is submitted')
+        it.todo('can move focus between inputs with the left/right arrow keys')
+    })
+
+    describe.todo('Input Validation')
 })

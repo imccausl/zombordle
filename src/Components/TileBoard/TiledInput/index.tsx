@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
 
 import InputTile from '../Tile/InputTile'
 
@@ -97,7 +97,7 @@ const TiledInput: React.FC<TiledInputProps> = ({
                 firstElementRef.current?.focus()
             }
         },
-        [onSubmit, updateValue, valueWithCorrectLength.length],
+        [onSubmit, updateValue, valueWithCorrectLength],
     )
     const handleOnFocus = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
