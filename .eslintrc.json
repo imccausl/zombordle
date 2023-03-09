@@ -5,7 +5,7 @@
     "prettier"
   ],
   "extends": [
-    "next/core-web-vitals",
+    "next",
     "@tophat/eslint-config/base",
     "@tophat/eslint-config/web"
   ],

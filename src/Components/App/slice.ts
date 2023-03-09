@@ -14,19 +14,12 @@ const initialState: GameState = {
     error: '',
 }
 
-const alphabet = 'abcdefghijklmnopqrstuvwxyz'
-
 const gameSlice = createSlice({
     name: 'game',
     initialState,
     reducers: {
         setGuessValue(state, action: PayloadAction<string>) {
             state.currentGuess = action.payload
-        },
-        deleteLetter(state) {
-            if (state.currentGuess.length !== 0) {
-                state.currentGuess = state.currentGuess.slice(0, -1)
-            }
         },
         registerGuess(state) {
             if (state.currentGuess.length === state.correctWord.length) {
@@ -37,5 +30,5 @@ const gameSlice = createSlice({
     },
 })
 
-export const { setGuessValue, deleteLetter, registerGuess } = gameSlice.actions
+export const { setGuessValue, registerGuess } = gameSlice.actions
 export default gameSlice.reducer

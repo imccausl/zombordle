@@ -2,17 +2,9 @@ import { useCallback, useReducer } from 'react'
 
 import TileBoard from '../TileBoard'
 
-import guessReducer, {
-    deleteLetter,
-    registerGuess,
-    setGuessValue,
-} from './slice'
+import guessReducer, { registerGuess, setGuessValue } from './slice'
 
 const correctWord = 'dformation'
-const KEYS = {
-    Backspace: 'Backspace',
-    Enter: 'Enter',
-}
 
 const App: React.FC = () => {
     const [state, dispatch] = useReducer(guessReducer, {
@@ -25,10 +17,12 @@ const App: React.FC = () => {
         (value: string) => void dispatch(setGuessValue(value)),
         [],
     )
+    const handleOnSubmit = useCallback(() => void dispatch(registerGuess()), [])
 
     return (
         <TileBoard
             onChange={handleOnChange}
+            onSubmit={handleOnSubmit}
             guess={state.currentGuess}
             guesses={state.guesses}
             correctWord={correctWord}
