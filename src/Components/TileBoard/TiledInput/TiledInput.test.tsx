@@ -6,6 +6,7 @@ const defaultProps: TiledInputProps = {
     length: 10,
     value: '',
     onChange: () => {},
+    onSubmit: () => {},
 }
 
 const render = (props: Partial<TiledInputProps> = {}) =>
@@ -15,23 +16,19 @@ describe('TiledBlank', () => {
     it('renders blank squares corresponding to the length of the correct word', () => {
         render()
 
-        const allBlankTiles = screen.getAllByRole('listitem')
+        const allBlankTiles = screen.getAllByRole('textbox')
 
         expect(allBlankTiles).toHaveLength(10)
     })
 
-    it('renders letters for amount of tiles that correspond with the guess', () => {
+    it('renders letters of guess in 1 tile per letter with blank tiles for any letters remaining', () => {
         render({ value: 'some' })
-
-        const allTiles = screen.getAllByRole('listitem')
-        const allLetterTiles = screen.getAllByText(/(s|o|m|e)/)
-
-        screen.getByText(/s/)
-        screen.getByText(/o/)
-        screen.getByText(/m/)
-        screen.getByText(/e/)
+        const correctContent = ['s', 'o', 'm', 'e'].concat(Array(6).fill(''))
+        const allTiles: HTMLInputElement[] = screen.getAllByRole('textbox')
 
         expect(allTiles).toHaveLength(10)
-        expect(allLetterTiles).toHaveLength(4)
+        allTiles.forEach((tile, index) => {
+            expect(tile.value).toBe(correctContent[index])
+        })
     })
 })
