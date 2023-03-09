@@ -7,12 +7,12 @@ type InputTileProps = {
     label?: string
     value: string
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-    onKeyUp: (e: React.KeyboardEvent<HTMLInputElement>) => void
+    onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void
     onFocus: (e: React.FocusEvent<HTMLInputElement>) => void
 }
 
 const InputTile = forwardRef<HTMLInputElement, InputTileProps>(
-    ({ name, label, onChange, onKeyUp, onFocus, value }, ref) => {
+    ({ name, label, onChange, onKeyDown, onFocus, value }, ref) => {
         return (
             <TileStyledTextInput
                 ref={ref}
@@ -20,7 +20,7 @@ const InputTile = forwardRef<HTMLInputElement, InputTileProps>(
                 value={value}
                 aria-label={label}
                 onChange={onChange}
-                onKeyUp={onKeyUp}
+                onKeyDown={onKeyDown}
                 onFocus={onFocus}
             />
         )

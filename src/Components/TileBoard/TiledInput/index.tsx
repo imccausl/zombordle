@@ -11,6 +11,10 @@ export type TiledInputProps = {
     onSubmit: () => void
 }
 
+const CHARS = {
+    Space: ' ',
+}
+
 const KEYS = {
     Backspace: 'Backspace',
     Enter: 'Enter',
@@ -28,12 +32,8 @@ const TiledInput: React.FC<TiledInputProps> = ({
 }) => {
     const firstElementRef = useRef<HTMLInputElement>(null)
 
-    useEffect(() => {
-        firstElementRef.current?.focus()
-    }, [])
-
     const valueWithCorrectLength = useMemo(
-        () => value.concat(' '.repeat(length - (value.length || 0))),
+        () => value.concat(CHARS.Space.repeat(length - (value.length || 0))),
         [length, value],
     )
 
@@ -72,7 +72,7 @@ const TiledInput: React.FC<TiledInputProps> = ({
         },
         [updateValue, valueWithCorrectLength.length],
     )
-    const handleKeyUp = useCallback(
+    const handleKeyDown = useCallback(
         (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
             const target = e.target as HTMLInputElement
             target.setSelectionRange(0, target.value.length)
@@ -87,8 +87,12 @@ const TiledInput: React.FC<TiledInputProps> = ({
                           ]?.firstChild
                         : null
 
-                updateValue(' ', index, prevElement)
+                updateValue(CHARS.Space, index, prevElement)
             } else if (e.key === KEYS.Enter) {
+                if (valueWithCorrectLength.includes(CHARS.Space)) {
+                    return
+                }
+
                 onSubmit()
                 firstElementRef.current?.focus()
             }
@@ -112,19 +116,19 @@ const TiledInput: React.FC<TiledInputProps> = ({
                         <InputTile
                             ref={index === 0 ? firstElementRef : null}
                             name={`input-${index + 1}`}
-                            value={letter === ' ' ? '' : letter}
+                            value={letter === CHARS.Space ? '' : letter}
                             onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>,
                             ): void => void handleOnChange(e, index)}
-                            onKeyUp={(
+                            onKeyDown={(
                                 e: React.KeyboardEvent<HTMLInputElement>,
-                            ) => void handleKeyUp(e, index)}
+                            ) => void handleKeyDown(e, index)}
                             onFocus={handleOnFocus}
                         />
                     </InputTileContainer>
                 )
             })
-    }, [valueWithCorrectLength, handleOnFocus, handleOnChange, handleKeyUp])
+    }, [valueWithCorrectLength, handleOnFocus, handleOnChange, handleKeyDown])
 
     return <TileInputGroup role="list">{tiledBlank}</TileInputGroup>
 }
