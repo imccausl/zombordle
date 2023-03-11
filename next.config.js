@@ -4,7 +4,7 @@ const nextConfig = {
     compiler: {
         styledComponents: true,
     },
-    assetPrefiX: '/zombordle',
+    assetPrefix: '/zombordle',
 }
 
 module.exports = nextConfig
