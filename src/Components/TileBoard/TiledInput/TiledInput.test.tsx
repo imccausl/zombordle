@@ -190,7 +190,7 @@ describe('TiledBlank', () => {
             expect(onChangeSpy).toHaveBeenCalledTimes(4)
         })
 
-        it('calls onSubmit when the input is submitted', async () => {
+        it('calls onSubmit when the a word is submitted', async () => {
             const onSubmitSpy = vi.fn()
             const user = userEvent.setup()
             render(
@@ -204,6 +204,21 @@ describe('TiledBlank', () => {
             await userEvent.keyboard('{Enter}')
             expect(onSubmitSpy).toHaveBeenCalledWith('foundation')
             expect(onSubmitSpy).toHaveBeenCalledTimes(1)
+        })
+
+        it('does not call onSubmit if there are too few letters in the word', async () => {
+            const onSubmitSpy = vi.fn()
+            const user = userEvent.setup()
+            render(
+                <StatefulTiledInput initialValue="" onSubmit={onSubmitSpy} />,
+            )
+
+            await user.type(screen.getByLabelText(/1st/), 'something')
+            expect(screen.getByLabelText(/10th/)).toHaveFocus()
+            expect(onSubmitSpy).not.toHaveBeenCalled()
+
+            await userEvent.keyboard('{Enter}')
+            expect(onSubmitSpy).not.toHaveBeenCalled()
         })
 
         it.todo('can move focus between inputs with the left/right arrow keys')
