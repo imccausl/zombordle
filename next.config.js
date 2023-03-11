@@ -6,7 +6,7 @@ const nextConfig = {
     },
 }
 
-if (process.env.NODE_ENV === 'production' && process.env.CI === 1) {
+if (process.env.CI === '1') {
     nextConfig.assetPrefix = '/zombordle'
 }
 
