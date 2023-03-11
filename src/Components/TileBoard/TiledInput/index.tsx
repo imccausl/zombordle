@@ -18,6 +18,8 @@ const CHARS = {
 const KEYS = {
     Backspace: 'Backspace',
     Enter: 'Enter',
+    ArrowLeft: 'ArrowLeft',
+    ArrowRight: 'ArrowRight',
 }
 
 const toOrdinal = (num: number) => {
@@ -58,6 +60,26 @@ const TiledInput: React.FC<TiledInputProps> = ({
         [length, value],
     )
 
+    const getPrevElement = useCallback(
+        (currentElement: HTMLInputElement, index: number) =>
+            index > 0 && index < valueWithCorrectLength.length
+                ? currentElement.parentElement?.parentElement?.children[
+                      index - 1
+                  ]?.firstChild
+                : null,
+        [valueWithCorrectLength.length],
+    )
+
+    const getNextElement = useCallback(
+        (currentElement: HTMLInputElement, index: number) =>
+            index < valueWithCorrectLength.length
+                ? currentElement.parentElement?.parentElement?.children[
+                      index + 1
+                  ]?.firstChild
+                : null,
+        [valueWithCorrectLength.length],
+    )
+
     const updateValue = useCallback(
         (
             targetValue: string,
@@ -83,30 +105,21 @@ const TiledInput: React.FC<TiledInputProps> = ({
     )
     const handleOnChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-            const targetValue = e.target.value
-            const nextElement =
-                index < valueWithCorrectLength.length
-                    ? e.target.parentElement?.parentElement?.children[index + 1]
-                          ?.firstChild
-                    : null
-            updateValue(targetValue, index, nextElement)
+            const target = e.target
+
+            updateValue(target.value, index, getNextElement(target, index))
         },
-        [updateValue, valueWithCorrectLength.length],
+        [updateValue, getNextElement],
     )
     const handleKeyDown = useCallback(
         (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
             const target = e.target as HTMLInputElement
-            const prevElement =
-                index > 0 && index < valueWithCorrectLength.length
-                    ? target.parentElement?.parentElement?.children[index - 1]
-                          ?.firstChild
-                    : null
 
             target.setSelectionRange(0, target.value.length)
             if (e.key === KEYS.Backspace) {
                 e.preventDefault()
 
-                updateValue(CHARS.Space, index, prevElement)
+                updateValue(CHARS.Space, index, getPrevElement(target, index))
             } else if (e.key === KEYS.Enter) {
                 if (valueWithCorrectLength.includes(CHARS.Space)) {
                     return
@@ -114,9 +127,27 @@ const TiledInput: React.FC<TiledInputProps> = ({
 
                 onSubmit()
                 firstElementRef.current?.focus()
+            } else if (e.key === KEYS.ArrowLeft) {
+                const prevElement = getPrevElement(target, index)
+
+                if (isInputElement(prevElement)) {
+                    prevElement.focus()
+                }
+            } else if (e.key === KEYS.ArrowRight) {
+                const nextElement = getNextElement(target, index)
+
+                if (isInputElement(nextElement)) {
+                    nextElement.focus()
+                }
             }
         },
-        [onSubmit, updateValue, valueWithCorrectLength],
+        [
+            getNextElement,
+            getPrevElement,
+            onSubmit,
+            updateValue,
+            valueWithCorrectLength,
+        ],
     )
     const handleOnFocus = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
