@@ -59,11 +59,10 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            ~/.yarn
-            ${{ github.workspace }}/.next
+            ./.yarn
+            ./.next
           key: ${{ runner.os }}-build-cache-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-          restore-keys: |
-            ${{ runner.os }}-build-cache-${{ hashFiles('**/yarn.lock') }}-
+          restore-keys: ${{ runner.os }}-build-cache-${{ hashFiles('**/yarn.lock') }}-
       - name: Build
         run: yarn build
 
@@ -79,10 +78,14 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v3
       - uses: actions/cache@v3
+        id: restore-cached-build
         with:
           path: |
-            ${{ github.workspace }}/.next
+            ./.next
           key: ${{ runner.os }}-build-cache-${{ hashFiles('**/yarn.lock') }}-
+      - name: Build if no cached build
+        if: steps.restore-cached-build.output.cache-hit != 'true'
+        run: yarn build
       - name: Export Static Assets
         run: yarn export
       - uses: actions/upload-pages-artifact@v1
