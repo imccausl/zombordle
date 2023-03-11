@@ -16,7 +16,7 @@ const StaticTile: React.FC<Props> = ({
 }) => {
     return (
         <TileContainer role="listitem" variant={variant}>
-            <p>{children}</p>
+            {children}
         </TileContainer>
     )
 }

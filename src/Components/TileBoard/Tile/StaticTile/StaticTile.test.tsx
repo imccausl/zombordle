@@ -9,7 +9,7 @@ describe('StaticTile', () => {
     it('renders default variant', () => {
         render(<StaticTile>A</StaticTile>)
 
-        const tileElement = screen.getByRole('listitem')
+        const tileElement = screen.getByText(/A/)
 
         expect(tileElement).toBeInTheDocument()
         expect(tileElement).toHaveStyle(

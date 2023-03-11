@@ -15,7 +15,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "yarn lint",
+      "yarn eslint --fix",
       "yarn test:related",
       "yarn stylelint --fix"
     ]
