@@ -14,7 +14,7 @@ export const VariantBorder = {
     default: '#d2d4dc',
 }
 
-export const TileStyledTextInput = styled.input.attrs((props) => ({
+export const TileStyledTextInput = styled.input.attrs(() => ({
     type: 'text',
     maxLength: 1,
 }))`

@@ -19,7 +19,6 @@ export const VariantBorder = {
 export type VariantColor = keyof typeof VariantColor
 
 export const TileContainer = styled.li<TileProps>`
-    text-indent: 0;
     list-style-type: none;
     text-indent: 0;
     margin: 0 5px 0 0;
