@@ -1,5 +1,5 @@
 {
-  "*.{ts,tsx,json,js}": "yarn eslint --fix",
+  "*.{ts,tsx,js,jsx}": "yarn eslint --fix",
   "*.{ts,tsx}": [
     "yarn stylelint --fix",
     "yarn test:related"
