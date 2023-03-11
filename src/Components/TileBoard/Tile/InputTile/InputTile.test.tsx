@@ -1,56 +1,79 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import { VariantBorder, VariantColor } from './InputTile.styles'
 
-import StaticTile from '.'
+import InputTile, { type InputTileProps } from '.'
 
-const variantColors = Object.keys(VariantColor)
-describe('StaticTile', () => {
+const defaultProps: InputTileProps = {
+    onChange: () => {},
+    onKeyDown: () => {},
+    onFocus: () => {},
+    name: '',
+    value: '',
+}
+
+const renderWithProps = (props: Partial<InputTileProps> = {}) =>
+    render(<InputTile {...defaultProps} {...props} />)
+
+describe('InputTile', () => {
     it('renders default variant', () => {
-        render(<StaticTile>A</StaticTile>)
+        renderWithProps()
 
-        const tileElement = screen.getByRole('listitem')
+        const inputTile = screen.getByRole('textbox')
 
-        expect(tileElement).toBeInTheDocument()
-        expect(tileElement).toHaveStyle(
+        expect(inputTile).toBeInTheDocument()
+        expect(inputTile).toHaveStyle(
             `background-color: ${VariantColor.default}`,
         )
-        expect(tileElement).toHaveStyle(
-            `border-color: ${VariantBorder.default}`,
-        )
+        expect(inputTile).toHaveStyle(`border-color: ${VariantBorder.default}`)
     })
 
-    describe('Variants', () => {
-        it.each([
-            ...variantColors.map((color) => [
-                color,
-                VariantColor[color as keyof typeof VariantColor],
-                VariantBorder[color as keyof typeof VariantColor],
-            ]),
-        ])(
-            'renders with correct background and border colors for variant %s',
-            (
-                variantColorName,
-                expectedBackgroundColor,
-                expectedBorderColor,
-            ) => {
-                render(
-                    <StaticTile
-                        variant={variantColorName as keyof typeof VariantColor}
-                    >
-                        A
-                    </StaticTile>,
-                )
+    it('can be initialized with a value', () => {
+        renderWithProps({ value: 'f' })
 
-                const tileElement = screen.getByRole('listitem')
+        const inputTile: HTMLInputElement = screen.getByRole('textbox')
 
-                expect(tileElement).toHaveStyle(
-                    `background-color: ${expectedBackgroundColor}`,
-                )
-                expect(tileElement).toHaveStyle(
-                    `border-color: ${expectedBorderColor}`,
-                )
-            },
-        )
+        expect(inputTile.value).toBe('f')
+    })
+
+    it('can be provided with an accessible name', () => {
+        renderWithProps({ label: '1st letter' })
+
+        const inputTile: HTMLInputElement = screen.getByRole('textbox')
+
+        expect(inputTile).toHaveAccessibleName('1st letter')
+    })
+
+    it('calls onChange when value changes', async () => {
+        const onChangeSpy = vi.fn()
+        const user = userEvent.setup()
+        renderWithProps({ onChange: onChangeSpy })
+
+        const inputTile: HTMLInputElement = screen.getByRole('textbox')
+        await user.type(inputTile, 'd')
+        expect(onChangeSpy).toHaveBeenCalledOnce()
+    })
+
+    it('calls onKeyDown when value changes', async () => {
+        const onKeyDownSpy = vi.fn()
+        const user = userEvent.setup()
+        renderWithProps({ onKeyDown: onKeyDownSpy })
+
+        const inputTile: HTMLInputElement = screen.getByRole('textbox')
+        await user.type(inputTile, 'd')
+        expect(onKeyDownSpy).toHaveBeenCalledOnce()
+    })
+
+    it('calls onFocus when it has focus', () => {
+        const onFocusSpy = vi.fn()
+        renderWithProps({ onFocus: onFocusSpy })
+
+        const inputTile: HTMLInputElement = screen.getByRole('textbox')
+
+        expect(onFocusSpy).not.toHaveBeenCalled()
+
+        inputTile.focus()
+        expect(onFocusSpy).toHaveBeenCalledOnce()
     })
 })

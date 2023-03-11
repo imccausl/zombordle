@@ -96,17 +96,15 @@ const TiledInput: React.FC<TiledInputProps> = ({
     const handleKeyDown = useCallback(
         (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
             const target = e.target as HTMLInputElement
-            target.setSelectionRange(0, target.value.length)
+            const prevElement =
+                index > 0 && index < valueWithCorrectLength.length
+                    ? target.parentElement?.parentElement?.children[index - 1]
+                          ?.firstChild
+                    : null
 
+            target.setSelectionRange(0, target.value.length)
             if (e.key === KEYS.Backspace) {
                 e.preventDefault()
-
-                const prevElement =
-                    index > 0 && index < valueWithCorrectLength.length
-                        ? target.parentElement?.parentElement?.children[
-                              index - 1
-                          ]?.firstChild
-                        : null
 
                 updateValue(CHARS.Space, index, prevElement)
             } else if (e.key === KEYS.Enter) {

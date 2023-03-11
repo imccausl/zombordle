@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 
 import { TileStyledTextInput } from './InputTile.styles'
 
-type InputTileProps = {
+export type InputTileProps = {
     name: string
     label?: string
     value: string

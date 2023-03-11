@@ -6,6 +6,8 @@ const defaultProps: TileBoardProps = {
     guess: '',
     guesses: [],
     correctWord: 'foundation',
+    onChange: () => {},
+    onSubmit: () => {},
 }
 
 const render = (props: Partial<TileBoardProps> = {}) =>
@@ -13,9 +15,8 @@ const render = (props: Partial<TileBoardProps> = {}) =>
 
 describe('TileBoard', () => {
     it('renders blank squares corresponding to the length of the correct word', () => {
-        const { debug } = render()
-        debug()
-        const allBlankTiles = screen.getAllByRole('listitem')
+        render()
+        const allBlankTiles = screen.getAllByLabelText(/letter/)
 
         expect(allBlankTiles).toHaveLength(10)
     })
