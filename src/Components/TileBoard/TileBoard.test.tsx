@@ -14,9 +14,9 @@ const render = (props: Partial<TileBoardProps> = {}) =>
     renderComponent(<TileBoard {...defaultProps} {...props} />)
 
 describe('TileBoard', () => {
-    it('renders blank squares corresponding to the length of the correct word', () => {
+    it('renders tiled input squares corresponding to the length of the correct word', () => {
         render()
-        const allBlankTiles = screen.getAllByLabelText(/letter/)
+        const allBlankTiles = screen.getAllByRole('textbox')
 
         expect(allBlankTiles).toHaveLength(10)
     })
