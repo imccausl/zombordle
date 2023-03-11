@@ -20,6 +20,27 @@ const KEYS = {
     Enter: 'Enter',
 }
 
+const toOrdinal = (num: number) => {
+    const number = num.toString()
+    const lastTwoDigits = Math.abs(num % 100)
+    const isBetween11and13 = lastTwoDigits <= 11 && lastTwoDigits >= 13
+
+    if (isBetween11and13) {
+        return `${number}th`
+    }
+    if (number.endsWith('1')) {
+        return `${number}st`
+    }
+    if (number.endsWith('2')) {
+        return `${number}nd`
+    }
+    if (number.endsWith('3')) {
+        return `${number}rd`
+    }
+
+    return `${number}th`
+}
+
 const isInputElement = (
     element: ChildNode | null | undefined,
 ): element is HTMLInputElement => Boolean(element && 'focus' in element)
@@ -116,6 +137,7 @@ const TiledInput: React.FC<TiledInputProps> = ({
                         <InputTile
                             ref={index === 0 ? firstElementRef : null}
                             name={`input-${index + 1}`}
+                            label={`${toOrdinal(index + 1)} letter`}
                             value={letter === CHARS.Space ? '' : letter}
                             onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>,

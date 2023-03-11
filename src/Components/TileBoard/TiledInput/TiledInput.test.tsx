@@ -1,4 +1,6 @@
-import { render as renderComponent, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import React from 'react'
 
 import TiledInput, { type TiledInputProps } from '.'
 
@@ -9,12 +11,12 @@ const defaultProps: TiledInputProps = {
     onSubmit: () => {},
 }
 
-const render = (props: Partial<TiledInputProps> = {}) =>
-    renderComponent(<TiledInput {...defaultProps} {...props} />)
+const renderWithProps = (props: Partial<TiledInputProps> = {}) =>
+    render(<TiledInput {...defaultProps} {...props} />)
 
 describe('TiledBlank', () => {
     it('renders blank squares corresponding to the length of the correct word', () => {
-        render()
+        renderWithProps()
 
         const allBlankTiles = screen.getAllByRole('textbox')
 
@@ -22,7 +24,7 @@ describe('TiledBlank', () => {
     })
 
     it('renders letters of guess in 1 tile per letter with blank tiles for any letters remaining', () => {
-        render({ value: 'some' })
+        renderWithProps({ value: 'some' })
         const correctContent = ['s', 'o', 'm', 'e'].concat(Array(6).fill(''))
         const allTiles: HTMLInputElement[] = screen.getAllByRole('textbox')
 
@@ -33,10 +35,91 @@ describe('TiledBlank', () => {
     })
 
     describe('Basic Functions', () => {
-        it.todo(
-            'moves focus forward as each typed letter goes in a separate input',
-        )
-        it.todo('moves focus backward and removes letters when deleting')
+        it('moves focus forward as each typed letter goes in a separate input', async () => {
+            const user = userEvent.setup()
+            renderWithProps()
+
+            await user.type(screen.getByLabelText('1st letter'), 's')
+
+            const secondLetter = screen.getByLabelText('2nd letter')
+            expect(secondLetter).toHaveFocus()
+            await user.type(secondLetter, 'o')
+
+            const thirdLetter = screen.getByLabelText('3rd letter')
+            expect(thirdLetter).toHaveFocus()
+            await user.type(thirdLetter, 'm')
+
+            const fourthLetter = screen.getByLabelText('4th letter')
+            expect(fourthLetter).toHaveFocus()
+            await user.type(fourthLetter, 'e')
+
+            expect(screen.getByLabelText('5th letter')).toHaveFocus()
+        })
+
+        it('moves focus backward and removes letters when deleting', async () => {
+            const StatefulTiledInput: React.FC = () => {
+                const [value, setValue] = React.useState('some')
+                const handleOnChange = React.useCallback(
+                    (newValue: string) => {
+                        setValue(newValue)
+                    },
+                    [setValue],
+                )
+
+                return (
+                    <TiledInput
+                        {...defaultProps}
+                        value={value}
+                        onChange={handleOnChange}
+                    />
+                )
+            }
+
+            render(<StatefulTiledInput />)
+
+            const fifthLetter: HTMLInputElement =
+                screen.getByLabelText('5th letter')
+            fifthLetter.focus()
+            expect(fifthLetter.value).toBe('')
+
+            await userEvent.keyboard('{Backspace}')
+            const fourthLetter: HTMLInputElement = await screen.findByLabelText(
+                '4th letter',
+            )
+            expect(fourthLetter.value).toBe('e')
+            expect(fourthLetter).toHaveFocus()
+
+            await userEvent.keyboard('{Backspace}')
+            expect(fourthLetter.value).toBe('')
+
+            const thirdLetter: HTMLInputElement = await screen.findByLabelText(
+                '3rd letter',
+            )
+            expect(thirdLetter).toHaveFocus()
+            expect(thirdLetter.value).toBe('m')
+            await userEvent.keyboard('{Backspace}')
+            expect(thirdLetter.value).toBe('')
+
+            const secondLetter: HTMLInputElement = await screen.findByLabelText(
+                '2nd letter',
+            )
+            expect(secondLetter).toHaveFocus()
+            expect(secondLetter.value).toBe('o')
+
+            await userEvent.keyboard('{Backspace}')
+            expect(secondLetter.value).toBe('')
+
+            const firstLetter: HTMLInputElement = await screen.findByLabelText(
+                '1st letter',
+            )
+            expect(firstLetter).toHaveFocus()
+            expect(firstLetter.value).toBe('s')
+
+            await userEvent.keyboard('{Backspace}')
+            expect(firstLetter.value).toBe('')
+            expect(firstLetter).toHaveFocus()
+        })
+
         it.todo(
             'can remove letters from the middle of a word and keep the remainder in place',
         )
