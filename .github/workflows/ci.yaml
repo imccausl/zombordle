@@ -60,7 +60,7 @@ jobs:
         with:
           path: |
             ~/.yarn
-            ${{ github.workspace }}/.next/cache
+            ${{ github.workspace }}/.next
           key: ${{ runner.os }}-build-cache-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
           restore-keys: |
             ${{ runner.os }}-build-cache-${{ hashFiles('**/yarn.lock') }}-
@@ -81,7 +81,7 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: |
-            ${{ github.workspace }}/out
+            ${{ github.workspace }}/.next
           key: ${{ runner.os }}-build-cache-${{ hashFiles('**/yarn.lock') }}-
       - name: Export Static Assets
         run: yarn export
