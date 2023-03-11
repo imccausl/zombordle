@@ -1,0 +1,7 @@
+{
+  "*.{ts,tsx}": [
+    "yarn eslint --fix",
+    "yarn test:related",
+    "yarn stylelint --fix"
+  ]
+}

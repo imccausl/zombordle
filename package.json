@@ -13,13 +13,6 @@
     "lint:css": "stylelint ./src/**/*.{ts,tsx}",
     "postinstall": "husky install"
   },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "yarn eslint --fix",
-      "yarn test:related",
-      "yarn stylelint --fix"
-    ]
-  },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "next": "^13.2.3",
