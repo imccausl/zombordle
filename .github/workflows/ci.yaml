@@ -71,6 +71,11 @@ jobs:
     if: ${{ github.ref_name == 'main' }}
     runs-on: ubuntu-latest
     needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
     steps: 
       - uses: actions/checkout@v3
       - name: Prepare Environment
@@ -92,6 +97,7 @@ jobs:
         with:
           path: ./out
       - name: Deploy to Pages
+        id: deployment
         uses: actions/deploy-pages@v1
 
 
