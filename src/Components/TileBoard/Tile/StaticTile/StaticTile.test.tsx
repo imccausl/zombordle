@@ -38,7 +38,7 @@ describe('StaticTile', () => {
                     <StaticTile
                         variant={variantColorName as keyof typeof VariantColor}
                     >
-                        A
+                        B
                     </StaticTile>,
                 )
 
