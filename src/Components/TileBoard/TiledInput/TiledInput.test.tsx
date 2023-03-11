@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 
@@ -35,13 +35,22 @@ describe('TiledBlank', () => {
     })
 
     describe('Basic Functions', () => {
-        const StatefulTiledInput: React.FC = () => {
-            const [value, setValue] = React.useState('some')
+        const StatefulTiledInput: React.FC<{
+            initialValue: string
+            onChange?: (value: string) => void
+            onSubmit?: (value: string) => void
+        }> = ({ initialValue, onChange, onSubmit }) => {
+            const [value, setValue] = React.useState(initialValue)
             const handleOnChange = React.useCallback(
                 (newValue: string) => {
                     setValue(newValue)
+                    onChange?.(newValue)
                 },
-                [setValue],
+                [setValue, onChange],
+            )
+            const handleOnSubmit = React.useCallback(
+                () => void onSubmit?.(value),
+                [onSubmit, value],
             )
 
             return (
@@ -49,6 +58,7 @@ describe('TiledBlank', () => {
                     {...defaultProps}
                     value={value}
                     onChange={handleOnChange}
+                    onSubmit={handleOnSubmit}
                 />
             )
         }
@@ -57,28 +67,29 @@ describe('TiledBlank', () => {
             const user = userEvent.setup()
             renderWithProps()
 
-            await user.type(screen.getByLabelText('1st letter'), 's')
+            await user.type(screen.getByLabelText(/1st/), 's')
 
-            const secondLetter = screen.getByLabelText('2nd letter')
+            const secondLetter = screen.getByLabelText(/2nd/)
             expect(secondLetter).toHaveFocus()
             await user.type(secondLetter, 'o')
 
-            const thirdLetter = screen.getByLabelText('3rd letter')
+            const thirdLetter = screen.getByLabelText(/3rd/)
             expect(thirdLetter).toHaveFocus()
             await user.type(thirdLetter, 'm')
 
-            const fourthLetter = screen.getByLabelText('4th letter')
+            const fourthLetter = screen.getByLabelText(/4th/)
             expect(fourthLetter).toHaveFocus()
             await user.type(fourthLetter, 'e')
 
-            expect(screen.getByLabelText('5th letter')).toHaveFocus()
+            expect(screen.getByLabelText(/5th/)).toHaveFocus()
+            await user.type(screen.getByLabelText(/5th/), 'things')
+            expect(screen.getByLabelText(/10th/)).toHaveFocus()
         })
 
         it('moves focus backward and removes letters when deleting', async () => {
-            render(<StatefulTiledInput />)
+            render(<StatefulTiledInput initialValue="some" />)
 
-            const fifthLetter: HTMLInputElement =
-                screen.getByLabelText('5th letter')
+            const fifthLetter: HTMLInputElement = screen.getByLabelText(/5th/)
             fifthLetter.focus()
             expect(fifthLetter.value).toBe('')
 
@@ -93,7 +104,7 @@ describe('TiledBlank', () => {
             expect(fourthLetter.value).toBe('')
 
             const thirdLetter: HTMLInputElement = await screen.findByLabelText(
-                '3rd letter',
+                /3rd/,
             )
             expect(thirdLetter).toHaveFocus()
             expect(thirdLetter.value).toBe('m')
@@ -101,7 +112,7 @@ describe('TiledBlank', () => {
             expect(thirdLetter.value).toBe('')
 
             const secondLetter: HTMLInputElement = await screen.findByLabelText(
-                '2nd letter',
+                /2nd/,
             )
             expect(secondLetter).toHaveFocus()
             expect(secondLetter.value).toBe('o')
@@ -110,7 +121,7 @@ describe('TiledBlank', () => {
             expect(secondLetter.value).toBe('')
 
             const firstLetter: HTMLInputElement = await screen.findByLabelText(
-                '1st letter',
+                /1st/,
             )
             expect(firstLetter).toHaveFocus()
             expect(firstLetter.value).toBe('s')
@@ -120,11 +131,81 @@ describe('TiledBlank', () => {
             expect(firstLetter).toHaveFocus()
         })
 
-        it.todo(
-            'can remove letters from the middle of a word and keep the remainder in place',
-        )
-        it.todo('calls onChange when the input changes')
-        it.todo('calls onSubmit when the input is submitted')
+        it('can remove letters from the middle of a word and keep the remainder in place', async () => {
+            const deriveStringFromInputs = (inputEls: HTMLInputElement[]) =>
+                inputEls.reduce(
+                    (acc, input) =>
+                        acc.concat(input.value === '' ? ' ' : input.value),
+                    '',
+                )
+            render(<StatefulTiledInput initialValue="foundation" />)
+
+            const middleLetter: HTMLInputElement = screen.getByLabelText(/5th/)
+            middleLetter.focus()
+            expect(middleLetter.value).toBe('d')
+
+            await userEvent.keyboard('{Backspace}')
+            expect(middleLetter.value).toBe('')
+
+            expect(deriveStringFromInputs(screen.getAllByRole('textbox'))).toBe(
+                'foun ation',
+            )
+
+            const secondLastLetter: HTMLInputElement =
+                screen.getByLabelText(/9th/)
+            secondLastLetter.focus()
+            expect(secondLastLetter.value).toBe('o')
+
+            await userEvent.keyboard('{Backspace}')
+            expect(secondLastLetter.value).toBe('')
+
+            expect(deriveStringFromInputs(screen.getAllByRole('textbox'))).toBe(
+                'foun ati n',
+            )
+
+            const firstLetter: HTMLInputElement = screen.getByLabelText(/1st/)
+            firstLetter.focus()
+            expect(firstLetter.value).toBe('f')
+
+            await userEvent.keyboard('{Backspace}')
+            expect(firstLetter.value).toBe('')
+
+            expect(deriveStringFromInputs(screen.getAllByRole('textbox'))).toBe(
+                ' oun ati n',
+            )
+        })
+
+        it('calls onChange when the input changes', async () => {
+            const onChangeSpy = vi.fn()
+            const user = userEvent.setup()
+            render(
+                <StatefulTiledInput initialValue="" onChange={onChangeSpy} />,
+            )
+
+            await user.type(screen.getByLabelText(/1st/), 'test')
+            expect(screen.getByLabelText(/5th/)).toHaveFocus()
+            expect(onChangeSpy).toHaveBeenCalledWith(
+                expect.stringContaining('test'),
+            )
+            expect(onChangeSpy).toHaveBeenCalledTimes(4)
+        })
+
+        it('calls onSubmit when the input is submitted', async () => {
+            const onSubmitSpy = vi.fn()
+            const user = userEvent.setup()
+            render(
+                <StatefulTiledInput initialValue="" onSubmit={onSubmitSpy} />,
+            )
+
+            await user.type(screen.getByLabelText(/1st/), 'foundation')
+            expect(screen.getByLabelText(/10th/)).toHaveFocus()
+            expect(onSubmitSpy).not.toHaveBeenCalled()
+
+            await userEvent.keyboard('{Enter}')
+            expect(onSubmitSpy).toHaveBeenCalledWith('foundation')
+            expect(onSubmitSpy).toHaveBeenCalledTimes(1)
+        })
+
         it.todo('can move focus between inputs with the left/right arrow keys')
     })
 
