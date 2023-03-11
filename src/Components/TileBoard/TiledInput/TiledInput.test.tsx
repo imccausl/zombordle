@@ -221,7 +221,63 @@ describe('TiledBlank', () => {
             expect(onSubmitSpy).not.toHaveBeenCalled()
         })
 
-        it.todo('can move focus between inputs with the left/right arrow keys')
+        describe('Arrow Key Navigation', () => {
+            it('moves focus right when right arrow key pressed', async () => {
+                renderWithProps()
+
+                const firstInput: HTMLInputElement =
+                    screen.getByLabelText(/1st/)
+                firstInput.focus()
+
+                await userEvent.keyboard('{ArrowRight}')
+                expect(screen.getByLabelText(/2nd/)).toHaveFocus()
+                await userEvent.keyboard('{ArrowRight}')
+                expect(screen.getByLabelText(/3rd/)).toHaveFocus()
+                await userEvent.keyboard('{ArrowRight}')
+                expect(screen.getByLabelText(/4th/)).toHaveFocus()
+            })
+
+            it('moves focus left when left arrow key pressed', async () => {
+                renderWithProps()
+
+                const lastInput: HTMLInputElement =
+                    screen.getByLabelText(/10th/)
+                lastInput.focus()
+
+                await userEvent.keyboard('{ArrowLeft}')
+                expect(screen.getByLabelText(/9th/)).toHaveFocus()
+                await userEvent.keyboard('{ArrowLeft}')
+                expect(screen.getByLabelText(/8th/)).toHaveFocus()
+                await userEvent.keyboard('{ArrowLeft}')
+                expect(screen.getByLabelText(/7th/)).toHaveFocus()
+            })
+
+            it('does not move focus with left arrow key if on first element', async () => {
+                renderWithProps()
+
+                const firstInput = screen.getByLabelText(/1st/)
+                screen.getByLabelText(/2nd/).focus()
+
+                expect(firstInput).not.toHaveFocus()
+                await userEvent.keyboard('{ArrowLeft}')
+                expect(firstInput).toHaveFocus()
+                await userEvent.keyboard('{ArrowLeft}')
+                expect(firstInput).toHaveFocus()
+            })
+
+            it('does not move focus with right arrow key if on last element', async () => {
+                renderWithProps()
+
+                const lastInput = screen.getByLabelText(/10th/)
+                screen.getByLabelText(/9th/).focus()
+
+                expect(lastInput).not.toHaveFocus()
+                await userEvent.keyboard('{ArrowRight}')
+                expect(lastInput).toHaveFocus()
+                await userEvent.keyboard('{ArrowRight}')
+                expect(lastInput).toHaveFocus()
+            })
+        })
     })
 
     describe.todo('Input Validation')
