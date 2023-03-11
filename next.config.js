@@ -4,7 +4,10 @@ const nextConfig = {
     compiler: {
         styledComponents: true,
     },
-    assetPrefix: '/zombordle',
+}
+
+if (process.env.NODE_ENV === 'production' && process.env.CI === 1) {
+    nextConfig.assetPrefix = '/zombordle'
 }
 
 module.exports = nextConfig
