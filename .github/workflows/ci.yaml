@@ -68,7 +68,7 @@ jobs:
         run: yarn build
 
   deploy:
-    name: deploy
+    name: Deploy
     if: ${{ github.ref_name == 'main' }}
     runs-on: ubuntu-latest
     needs: build
