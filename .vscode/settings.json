@@ -5,5 +5,8 @@
   },
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "eslint.nodePath": ".yarn/sdks"
+  "eslint.nodePath": ".yarn/sdks",
+  "css.validate": false,
+  "scss.validate": false,
+  "stylelint.packageManager": "yarn"
 }

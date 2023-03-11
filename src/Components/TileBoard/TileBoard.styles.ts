@@ -17,7 +17,7 @@ export const TileRowContainer = styled.li`
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin: 0 0 5px 0;
+    margin: 0 0 5px;
     list-style-type: none;
     text-indent: 0;
 
@@ -41,7 +41,6 @@ export const InputRowContainer = styled.div<InputRowContainerProps>`
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin: 0 0 5px 0;
     list-style-type: none;
     text-indent: 0;
     margin: ${({ position }) => positionMargin[position ?? 'middle']};
