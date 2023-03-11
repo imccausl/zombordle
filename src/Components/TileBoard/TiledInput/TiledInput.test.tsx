@@ -35,6 +35,24 @@ describe('TiledBlank', () => {
     })
 
     describe('Basic Functions', () => {
+        const StatefulTiledInput: React.FC = () => {
+            const [value, setValue] = React.useState('some')
+            const handleOnChange = React.useCallback(
+                (newValue: string) => {
+                    setValue(newValue)
+                },
+                [setValue],
+            )
+
+            return (
+                <TiledInput
+                    {...defaultProps}
+                    value={value}
+                    onChange={handleOnChange}
+                />
+            )
+        }
+
         it('moves focus forward as each typed letter goes in a separate input', async () => {
             const user = userEvent.setup()
             renderWithProps()
@@ -57,24 +75,6 @@ describe('TiledBlank', () => {
         })
 
         it('moves focus backward and removes letters when deleting', async () => {
-            const StatefulTiledInput: React.FC = () => {
-                const [value, setValue] = React.useState('some')
-                const handleOnChange = React.useCallback(
-                    (newValue: string) => {
-                        setValue(newValue)
-                    },
-                    [setValue],
-                )
-
-                return (
-                    <TiledInput
-                        {...defaultProps}
-                        value={value}
-                        onChange={handleOnChange}
-                    />
-                )
-            }
-
             render(<StatefulTiledInput />)
 
             const fifthLetter: HTMLInputElement =
