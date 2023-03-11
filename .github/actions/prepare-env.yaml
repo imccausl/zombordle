@@ -1,0 +1,34 @@
+name: prepare-env
+description: Prepares Envionrment
+
+runs:
+  using: 'composite'
+
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v3.5.1
+      with:
+        node-version-file: '.nvmrc'
+
+    - name: Enable corepack
+      run: corepack enable
+      shell: bash
+
+    - name: Restore Yarn Cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          .yarn/cache
+          .pnp.*
+        key: default-yarndeps-${{ hashFiles('yarn.lock') }}
+
+    - name: Yarn Install
+      run: yarn install --immutable
+      shell: bash
+
+    - name: Configure git
+      run: |
+        git config --global user.name ci-zombordle
+        git config --global user.email imccausl@gmail.com
+        git config --global init.defaultBranch main
+      shell: bash

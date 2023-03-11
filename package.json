@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "vitest --watch",
+    "test": "yarn test",
+    "test:watch": "test --watch",
     "lint:css": "stylelint ./src/**/*.{ts,tsx}"
   },
   "dependencies": {
