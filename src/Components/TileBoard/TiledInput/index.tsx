@@ -126,29 +126,6 @@ const TiledInput: React.FC<TiledInputProps> = ({ value, length, onSubmit }) => {
         [valueWithCorrectLength.length],
     )
 
-    const updateValue = useCallback(
-        (
-            targetValue: string,
-            index: number,
-            nextElement?: ChildNode | null,
-        ) => {
-            // const newValue = valueWithCorrectLength
-            //     .substring(0, index)
-            //     .concat(targetValue)
-            //     .concat(valueWithCorrectLength.substring(index + 1))
-
-            //onChange(newValue)
-
-            if (targetValue === '') {
-                return
-            }
-
-            if (isInputElement(nextElement)) {
-                nextElement.focus()
-            }
-        },
-        [],
-    )
     const handleOnValidateError = useCallback(
         (e: React.FocusEvent<HTMLInputElement>, index: number) => {
             const prevElement = getPrevElement(e.target, index)

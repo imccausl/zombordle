@@ -14,7 +14,7 @@ export type FormStateComponentProps = {
 }
 
 export type FormProps = {
-    errors: Record<string, string>
+    errors: Record<string, string | undefined>
     values: Record<string, string>
     touched: Record<string, boolean>
 }

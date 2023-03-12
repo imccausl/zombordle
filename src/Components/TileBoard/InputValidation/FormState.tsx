@@ -29,7 +29,6 @@ export const FormState: React.FC<
         touched: {},
     })
     const trackedFields = useRef<TrackedFields>(new Map())
-
     const setFieldValue = useCallback((field: string, value: string) => {
         dispatch(
             setFieldValueAction({
@@ -38,22 +37,28 @@ export const FormState: React.FC<
             }),
         )
     }, [])
+
+    const isInputValid = useCallback(
+        (field: string, value: string) =>
+            !trackedFields.current.get(field)?.validate(value),
+        [],
+    )
     const handleOnChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             if (
-                (validateOnChange === true ||
-                    (validateOnChange === undefined &&
-                        validateOnBlur === false)) &&
-                !trackedFields.current
-                    .get(e.target.name)
-                    ?.validate(e.target.value)
+                validateOnChange === true ||
+                (validateOnChange === undefined && validateOnBlur === false)
             ) {
-                dispatch(
-                    setErrors({
-                        [e.target.name]: 'Validation error goes here',
-                    }),
-                )
-                trackedFields.current.get(e.target.name)?.onError?.(e)
+                if (!isInputValid(e.target.name, e.target.value)) {
+                    dispatch(
+                        setErrors({
+                            [e.target.name]: 'Validation error goes here',
+                        }),
+                    )
+                    trackedFields.current.get(e.target.name)?.onError?.(e)
+                } else {
+                    dispatch(setErrors({ [e.target.value]: undefined }))
+                }
             }
 
             dispatch(
@@ -62,25 +67,28 @@ export const FormState: React.FC<
                 }),
             )
         },
-        [validateOnBlur, validateOnChange],
+        [isInputValid, validateOnBlur, validateOnChange],
     )
     const handleOnBlur = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
-            if (
-                validateOnBlur &&
-                !trackedFields.current
-                    .get(e.target.name)
-                    ?.validate(e.target.value)
-            ) {
-                dispatch(
-                    setErrors({
-                        [e.target.name]: 'Invalid hint goes here',
-                    }),
-                )
-                trackedFields.current.get(e.target.name)?.onError?.(e)
+            if (validateOnBlur) {
+                if (isInputValid(e.target.name, e.target.value)) {
+                    dispatch(
+                        setErrors({
+                            [e.target.name]: 'Invalid hint goes here',
+                        }),
+                    )
+                    trackedFields.current.get(e.target.name)?.onError?.(e)
+                } else {
+                    dispatch(
+                        setErrors({
+                            [e.target.name]: undefined,
+                        }),
+                    )
+                }
             }
         },
-        [validateOnBlur],
+        [isInputValid, validateOnBlur],
     )
 
     const registerField = useCallback(
