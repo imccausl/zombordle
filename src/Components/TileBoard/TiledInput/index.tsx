@@ -1,5 +1,8 @@
 import { useCallback, useMemo, useRef } from 'react'
 
+import { useFormContext } from '../InputValidation/FormContext'
+import { FormField } from '../InputValidation/FormField'
+import { FormState } from '../InputValidation/FormState'
 import InputTile from '../Tile/InputTile'
 
 import { InputTileContainer, TileInputGroup } from './TiledInput.styles'
@@ -7,8 +10,7 @@ import { InputTileContainer, TileInputGroup } from './TiledInput.styles'
 export type TiledInputProps = {
     length: number
     value: string
-    onChange: (value: string) => void
-    onSubmit: () => void
+    onSubmit: (value: string) => void
 }
 
 const CHARS = {
@@ -47,12 +49,56 @@ const isInputElement = (
     element: ChildNode | null | undefined,
 ): element is HTMLInputElement => Boolean(element && 'focus' in element)
 
-const TiledInput: React.FC<TiledInputProps> = ({
-    value,
-    length,
+type InputElementProps = {
+    index: number
+    firstElementRef: React.RefObject<HTMLInputElement>
+    onValidateError: (
+        e: React.FocusEvent<HTMLInputElement>,
+        index: number,
+    ) => void
+    onChange: (e: React.ChangeEvent<HTMLInputElement>, index: number) => void
+    onKeyDown: (
+        e: React.KeyboardEvent<HTMLInputElement>,
+        index: number,
+        setFieldValue: (field: string, value: string) => void,
+    ) => void
+    onFocus: (e: React.FocusEvent<HTMLInputElement>) => void
+}
+const InputElement: React.FC<InputElementProps> = ({
+    index,
+    onValidateError,
+    firstElementRef,
     onChange,
-    onSubmit,
+    onKeyDown,
+    onFocus,
 }) => {
+    const { setFieldValue } = useFormContext()
+
+    return (
+        <InputTileContainer key={`input-${index + 1}`}>
+            <FormField
+                validate={(value) => {
+                    return /^[a-z]$/.test(value) || value === ''
+                }}
+                onError={(e) => void onValidateError(e, index + 1)}
+            >
+                <InputTile
+                    ref={index === 0 ? firstElementRef : null}
+                    name={`input-${index + 1}`}
+                    label={`${toOrdinal(index + 1)} letter`}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        void onChange(e, index)
+                    }
+                    onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
+                        void onKeyDown(e, index, setFieldValue)
+                    }
+                    onFocus={onFocus}
+                />
+            </FormField>
+        </InputTileContainer>
+    )
+}
+const TiledInput: React.FC<TiledInputProps> = ({ value, length, onSubmit }) => {
     const firstElementRef = useRef<HTMLInputElement>(null)
 
     const valueWithCorrectLength = useMemo(
@@ -86,12 +132,12 @@ const TiledInput: React.FC<TiledInputProps> = ({
             index: number,
             nextElement?: ChildNode | null,
         ) => {
-            const newValue = valueWithCorrectLength
-                .substring(0, index)
-                .concat(targetValue)
-                .concat(valueWithCorrectLength.substring(index + 1))
+            // const newValue = valueWithCorrectLength
+            //     .substring(0, index)
+            //     .concat(targetValue)
+            //     .concat(valueWithCorrectLength.substring(index + 1))
 
-            onChange(newValue)
+            //onChange(newValue)
 
             if (targetValue === '') {
                 return
@@ -101,31 +147,56 @@ const TiledInput: React.FC<TiledInputProps> = ({
                 nextElement.focus()
             }
         },
-        [onChange, valueWithCorrectLength],
+        [],
+    )
+    const handleOnValidateError = useCallback(
+        (e: React.FocusEvent<HTMLInputElement>, index: number) => {
+            const prevElement = getPrevElement(e.target, index)
+            console.log('onErrorFired', prevElement)
+
+            if (isInputElement(prevElement)) {
+                prevElement.focus()
+            }
+        },
+        [getPrevElement],
     )
     const handleOnChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-            const target = e.target
+            const nextElement = getNextElement(e.target, index)
 
-            updateValue(target.value, index, getNextElement(target, index))
+            if (isInputElement(nextElement)) {
+                nextElement.focus()
+            }
         },
-        [updateValue, getNextElement],
+        [getNextElement],
     )
+
     const handleKeyDown = useCallback(
-        (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+        (
+            e: React.KeyboardEvent<HTMLInputElement>,
+            index: number,
+            setFieldValue: (field: string, value: string) => void,
+        ) => {
             const target = e.target as HTMLInputElement
 
             target.setSelectionRange(0, target.value.length)
             if (e.key === KEYS.Backspace) {
                 e.preventDefault()
+                if (!isInputElement(target)) {
+                    return
+                }
 
-                updateValue(CHARS.Space, index, getPrevElement(target, index))
+                setFieldValue(target.name, '')
+                const prevElement = getPrevElement(target, index)
+                if (isInputElement(prevElement)) {
+                    prevElement.focus()
+                }
             } else if (e.key === KEYS.Enter) {
                 if (valueWithCorrectLength.includes(CHARS.Space)) {
                     return
                 }
 
-                onSubmit()
+                // on submit goes here
                 firstElementRef.current?.focus()
             } else if (e.key === KEYS.ArrowLeft) {
                 const prevElement = getPrevElement(target, index)
@@ -141,13 +212,7 @@ const TiledInput: React.FC<TiledInputProps> = ({
                 }
             }
         },
-        [
-            getNextElement,
-            getPrevElement,
-            onSubmit,
-            updateValue,
-            valueWithCorrectLength,
-        ],
+        [getNextElement, getPrevElement, valueWithCorrectLength],
     )
     const handleOnFocus = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
@@ -158,30 +223,32 @@ const TiledInput: React.FC<TiledInputProps> = ({
         [],
     )
     const tiledBlank = useMemo(() => {
-        return valueWithCorrectLength
-            .split('')
-            .map((letter: string, index: number) => {
-                return (
-                    <InputTileContainer key={`input-${index + 1}`}>
-                        <InputTile
-                            ref={index === 0 ? firstElementRef : null}
-                            name={`input-${index + 1}`}
-                            label={`${toOrdinal(index + 1)} letter`}
-                            value={letter === CHARS.Space ? '' : letter}
-                            onChange={(
-                                e: React.ChangeEvent<HTMLInputElement>,
-                            ): void => void handleOnChange(e, index)}
-                            onKeyDown={(
-                                e: React.KeyboardEvent<HTMLInputElement>,
-                            ) => void handleKeyDown(e, index)}
-                            onFocus={handleOnFocus}
-                        />
-                    </InputTileContainer>
-                )
-            })
-    }, [valueWithCorrectLength, handleOnFocus, handleOnChange, handleKeyDown])
+        return valueWithCorrectLength.split('').map((_, index: number) => {
+            return (
+                <InputElement
+                    key={`input-element-${index + 1}`}
+                    firstElementRef={firstElementRef}
+                    index={index}
+                    onChange={handleOnChange}
+                    onFocus={handleOnFocus}
+                    onValidateError={handleOnValidateError}
+                    onKeyDown={handleKeyDown}
+                />
+            )
+        })
+    }, [
+        valueWithCorrectLength,
+        handleOnFocus,
+        handleOnValidateError,
+        handleOnChange,
+        handleKeyDown,
+    ])
 
-    return <TileInputGroup role="list">{tiledBlank}</TileInputGroup>
+    return (
+        <TileInputGroup role="list">
+            <FormState validateOnBlur={true}>{tiledBlank}</FormState>
+        </TileInputGroup>
+    )
 }
 
 export default TiledInput
