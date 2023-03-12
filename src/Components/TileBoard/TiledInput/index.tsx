@@ -152,7 +152,6 @@ const TiledInput: React.FC<TiledInputProps> = ({ value, length, onSubmit }) => {
     const handleOnValidateError = useCallback(
         (e: React.FocusEvent<HTMLInputElement>, index: number) => {
             const prevElement = getPrevElement(e.target, index)
-            console.log('onErrorFired', prevElement)
 
             if (isInputElement(prevElement)) {
                 prevElement.focus()

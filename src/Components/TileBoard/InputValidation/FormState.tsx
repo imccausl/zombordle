@@ -66,14 +66,6 @@ export const FormState: React.FC<
     )
     const handleOnBlur = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
-            console.log(
-                'validating field',
-                e.target.name,
-                e.target.value,
-                trackedFields.current
-                    .get(e.target.name)
-                    ?.validate(e.target.value),
-            )
             if (
                 validateOnBlur &&
                 !trackedFields.current
