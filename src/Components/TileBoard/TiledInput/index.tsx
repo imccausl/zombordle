@@ -7,6 +7,7 @@ import InputTile from '../Tile/InputTile'
 
 import {
     InputTileContainer,
+    StyledButton,
     StyledForm,
     TileInputGroup,
 } from './TiledInput.styles'
@@ -226,7 +227,7 @@ const TiledInput: React.FC<TiledInputProps> = ({ value, length, onSubmit }) => {
             <FormState validateOnBlur={true} onSubmit={handleOnSubmit}>
                 <StyledForm>
                     {tiledInput}
-                    <button type="submit">submit</button>
+                    <StyledButton type="submit">Answer</StyledButton>
                 </StyledForm>
             </FormState>
         </TileInputGroup>

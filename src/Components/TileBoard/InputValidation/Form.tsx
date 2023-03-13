@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useRef } from 'react'
 
 import { useFormContext } from './FormContext'
 
@@ -12,7 +12,7 @@ export const Form: React.FC<FormProps & React.PropsWithChildren> = ({
     children,
 }) => {
     const { values, errors, onSubmit: contextOnSubmit } = useFormContext()
-
+    const formRef = useRef<HTMLFormElement>(null)
     const handleOnSubmit = useCallback(
         (e: React.FormEvent<HTMLFormElement>) => {
             console.log('submit', e)
@@ -24,7 +24,7 @@ export const Form: React.FC<FormProps & React.PropsWithChildren> = ({
     )
 
     return (
-        <form className={className} onSubmit={handleOnSubmit}>
+        <form ref={formRef} className={className} onSubmit={handleOnSubmit}>
             {children}
         </form>
     )
