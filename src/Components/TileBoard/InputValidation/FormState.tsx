@@ -3,9 +3,6 @@ import { useCallback, useMemo, useReducer, useRef } from 'react'
 import FormContext, {
     type ContextProps,
     type FormStateComponentProps,
-    type OnValidateError,
-    type OnValidateSuccess,
-    type ValidateFn,
 } from './FormContext'
 import formReducer, {
     setErrors,
@@ -13,16 +10,22 @@ import formReducer, {
     setValues,
 } from './slice'
 
+import type {
+    OnValidateErrorCallback,
+    OnValidateSuccessCallback,
+    ValidateFn,
+} from './types'
+
 type TrackedFieldCallbacks = {
     validate: ValidateFn
-    onSuccess?: OnValidateSuccess
-    onError?: OnValidateError
+    onSuccess?: OnValidateSuccessCallback
+    onError?: OnValidateErrorCallback
 }
 type TrackedFields = Map<string, TrackedFieldCallbacks>
 
 export const FormState: React.FC<
     FormStateComponentProps & React.PropsWithChildren
-> = ({ children, validateOnBlur, validateOnChange }) => {
+> = ({ children, validateOnBlur, validateOnChange, onSubmit }) => {
     const [state, dispatch] = useReducer(formReducer, {
         values: {},
         errors: {},
@@ -91,6 +94,10 @@ export const FormState: React.FC<
         [isInputValid, validateOnBlur],
     )
 
+    const handleOnSubmit = useCallback(() => {
+        onSubmit(state)
+    }, [onSubmit, state])
+
     const registerField = useCallback(
         (
             fieldName: string,
@@ -115,6 +122,7 @@ export const FormState: React.FC<
                 ...state,
                 onChange: handleOnChange,
                 onBlur: handleOnBlur,
+                onSubmit: handleOnSubmit,
                 registerField,
                 unRegisterField,
                 validateOnBlur,
@@ -124,6 +132,7 @@ export const FormState: React.FC<
         [
             handleOnBlur,
             handleOnChange,
+            handleOnSubmit,
             registerField,
             setFieldValue,
             state,

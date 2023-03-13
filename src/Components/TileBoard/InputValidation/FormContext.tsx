@@ -1,16 +1,15 @@
 import { createContext, useContext } from 'react'
 
-export type ValidateFn = (value: string) => boolean | undefined
-export type OnValidateSuccess = <T extends HTMLElement>(
-    e: React.FocusEvent<T>,
-) => void
-export type OnValidateError = <T extends HTMLElement>(
-    e: React.FocusEvent<T>,
-) => void
+import type {
+    OnValidateErrorCallback,
+    OnValidateSuccessCallback,
+    ValidateFn,
+} from './types'
 
 export type FormStateComponentProps = {
     validateOnChange?: boolean
     validateOnBlur?: boolean
+    onSubmit: (arg: any) => void
 }
 
 export type FormProps = {
@@ -30,8 +29,8 @@ type FormFunctions = {
         fieldName: string,
         validateFn: ValidateFn,
         optionalCallbacks?: Partial<{
-            onSuccess: OnValidateSuccess
-            onError: OnValidateError
+            onSuccess: OnValidateSuccessCallback
+            onError: OnValidateErrorCallback
         }>,
     ) => void
     unRegisterField: (fieldName: string) => void

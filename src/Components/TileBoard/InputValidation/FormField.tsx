@@ -8,10 +8,16 @@ import {
 
 import { useFormContext } from './FormContext'
 
+import type {
+    OnValidateErrorCallback,
+    OnValidateSuccessCallback,
+    ValidateFn,
+} from './types'
+
 export type FormFieldProps = {
-    validate: (value: string) => boolean | undefined
-    onSuccess?: <T extends HTMLElement>(e: React.FocusEvent<T>) => void
-    onError?: <T extends HTMLElement>(e: React.FocusEvent<T>) => void
+    validate: ValidateFn
+    onSuccess?: OnValidateSuccessCallback
+    onError?: OnValidateErrorCallback
     name?: string
     children: React.ReactNode
 }
@@ -25,11 +31,7 @@ export const FormField: React.FC<FormFieldProps> = ({
 }) => {
     const { registerField, unRegisterField, values, onChange, onBlur } =
         useFormContext()
-    const {
-        name: fieldName,
-        onChange: childOnChange,
-        onKeyDown: childOnKeyDown,
-    } = useMemo(() => {
+    const { name: fieldName, onChange: childOnChange } = useMemo(() => {
         if (Children.count(children) > 1) {
             throw new Error('FormField cannot have more than one child.')
         }

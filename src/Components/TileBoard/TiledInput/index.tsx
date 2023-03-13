@@ -5,7 +5,11 @@ import { FormField } from '../InputValidation/FormField'
 import { FormState } from '../InputValidation/FormState'
 import InputTile from '../Tile/InputTile'
 
-import { InputTileContainer, TileInputGroup } from './TiledInput.styles'
+import {
+    InputTileContainer,
+    StyledForm,
+    TileInputGroup,
+} from './TiledInput.styles'
 
 export type TiledInputProps = {
     length: number
@@ -167,13 +171,6 @@ const TiledInput: React.FC<TiledInputProps> = ({ value, length, onSubmit }) => {
                 if (isInputElement(prevElement)) {
                     prevElement.focus()
                 }
-            } else if (e.key === KEYS.Enter) {
-                if (valueWithCorrectLength.includes(CHARS.Space)) {
-                    return
-                }
-
-                // on submit goes here
-                firstElementRef.current?.focus()
             } else if (e.key === KEYS.ArrowLeft) {
                 const prevElement = getPrevElement(target, index)
 
@@ -198,7 +195,7 @@ const TiledInput: React.FC<TiledInputProps> = ({ value, length, onSubmit }) => {
         },
         [],
     )
-    const tiledBlank = useMemo(() => {
+    const tiledInput = useMemo(() => {
         return valueWithCorrectLength.split('').map((_, index: number) => {
             return (
                 <InputElement
@@ -219,10 +216,19 @@ const TiledInput: React.FC<TiledInputProps> = ({ value, length, onSubmit }) => {
         handleOnChange,
         handleKeyDown,
     ])
+    const handleOnSubmit = useCallback((props) => {
+        console.log(props)
+        firstElementRef.current?.focus()
+    }, [])
 
     return (
         <TileInputGroup role="list">
-            <FormState validateOnBlur={true}>{tiledBlank}</FormState>
+            <FormState validateOnBlur={true} onSubmit={handleOnSubmit}>
+                <StyledForm>
+                    {tiledInput}
+                    <button type="submit">submit</button>
+                </StyledForm>
+            </FormState>
         </TileInputGroup>
     )
 }

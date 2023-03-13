@@ -1,10 +1,8 @@
 import styled from 'styled-components'
 
+import { Form } from '../InputValidation/Form'
+
 export const TileInputGroup = styled.ul`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
     text-indent: 0;
     list-style-type: none;
     padding: 0;
@@ -20,4 +18,11 @@ export const InputTileContainer = styled.li`
     &:last-of-type {
         margin-right: 0;
     }
+`
+
+export const StyledForm = styled(Form)`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 `
