@@ -78,7 +78,7 @@ const InputElement: React.FC<InputElementProps> = ({
         <InputTileContainer key={`input-${index + 1}`}>
             <FormField
                 validate={(value) => {
-                    return /^[a-z]$/.test(value) || value === ''
+                    return /^[a-z]$/.test(value)
                 }}
                 onError={(e) => void onValidateError(e, index + 1)}
             >
@@ -130,7 +130,7 @@ const TiledInput: React.FC<TiledInputProps> = ({ value, length, onSubmit }) => {
         (e: React.FocusEvent<HTMLInputElement>, index: number) => {
             const prevElement = getPrevElement(e.target, index)
 
-            if (isInputElement(prevElement)) {
+            if (isInputElement(prevElement) && e.target.value !== '') {
                 prevElement.focus()
             }
         },
