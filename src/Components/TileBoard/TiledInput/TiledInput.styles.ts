@@ -28,7 +28,7 @@ export const StyledForm = styled(Form)`
     justify-content: center;
 `
 
-export const StyledButton = styled.button`
+export const StyledButton = styled.button.attrs({ tabIndex: -1 })`
     position: absolute;
     display: block;
     margin: 0 0 0 5px;

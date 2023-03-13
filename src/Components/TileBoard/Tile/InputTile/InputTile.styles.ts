@@ -14,10 +14,10 @@ export const VariantBorder = {
     default: '#d2d4dc',
 }
 
-export const TileStyledTextInput = styled.input.attrs(() => ({
+export const TileStyledTextInput = styled.input.attrs({
     type: 'text',
     maxLength: 1,
-}))`
+})`
     margin: 0 5px 0 0;
     padding: 0;
     text-align: center;

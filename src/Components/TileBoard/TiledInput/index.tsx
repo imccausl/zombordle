@@ -227,7 +227,7 @@ const TiledInput: React.FC<TiledInputProps> = ({ value, length, onSubmit }) => {
             <FormState validateOnBlur={true} onSubmit={handleOnSubmit}>
                 <StyledForm>
                     {tiledInput}
-                    <StyledButton type="submit">Answer</StyledButton>
+                    <StyledButton type="submit">Submit</StyledButton>
                 </StyledForm>
             </FormState>
         </TileInputGroup>
