@@ -1,8 +1,8 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { type FormProps } from './FormContext'
+import { type FormState } from './FormContext'
 
-const initialState: FormProps = {
+const initialState: FormState = {
     errors: {},
     values: {},
     touched: {},

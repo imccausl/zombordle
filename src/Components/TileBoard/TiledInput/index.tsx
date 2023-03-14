@@ -223,14 +223,12 @@ const TiledInput: React.FC<TiledInputProps> = ({ value, length, onSubmit }) => {
     }, [])
 
     return (
-        <TileInputGroup role="list">
-            <FormState validateOnBlur={true} onSubmit={handleOnSubmit}>
-                <StyledForm>
-                    {tiledInput}
-                    <StyledButton type="submit">Submit</StyledButton>
-                </StyledForm>
-            </FormState>
-        </TileInputGroup>
+        <FormState validateOnBlur={true} onSubmit={handleOnSubmit}>
+            <StyledForm>
+                <TileInputGroup role="list">{tiledInput}</TileInputGroup>
+                <StyledButton type="submit">Submit</StyledButton>
+            </StyledForm>
+        </FormState>
     )
 }
 

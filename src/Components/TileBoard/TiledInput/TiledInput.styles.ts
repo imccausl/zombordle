@@ -3,6 +3,10 @@ import styled from 'styled-components'
 import { Form } from '../InputValidation/Form'
 
 export const TileInputGroup = styled.ul`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     text-indent: 0;
     list-style-type: none;
     padding: 0;
@@ -22,10 +26,6 @@ export const InputTileContainer = styled.li`
 
 export const StyledForm = styled(Form)`
     position: relative;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
 `
 
 export const StyledButton = styled.button.attrs({ tabIndex: -1 })`
@@ -33,6 +33,7 @@ export const StyledButton = styled.button.attrs({ tabIndex: -1 })`
     display: block;
     margin: 0 0 0 5px;
     right: -115px;
+    top: 0;
     padding: 5px 10px;
     text-align: center;
     background-color: lightblue;

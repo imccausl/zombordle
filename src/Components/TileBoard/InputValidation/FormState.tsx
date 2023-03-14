@@ -32,6 +32,7 @@ export const FormState: React.FC<
         touched: {},
     })
     const trackedFields = useRef<TrackedFields>(new Map())
+
     const setFieldValue = useCallback((field: string, value: string) => {
         dispatch(
             setFieldValueAction({
@@ -40,12 +41,22 @@ export const FormState: React.FC<
             }),
         )
     }, [])
-
+    const getFieldState = useCallback(
+        (name: string) => {
+            return {
+                value: state.values?.[name],
+                error: state.errors?.[name],
+                touched: state.touched?.[name],
+            }
+        },
+        [state],
+    )
     const isInputValid = useCallback(
         (field: string, value: string) =>
-            !trackedFields.current.get(field)?.validate(value),
+            trackedFields.current.get(field)?.validate(value),
         [],
     )
+
     const handleOnChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             if (
@@ -93,7 +104,6 @@ export const FormState: React.FC<
         },
         [isInputValid, validateOnBlur],
     )
-
     const handleOnSubmit = useCallback(() => {
         onSubmit(state)
     }, [onSubmit, state])
@@ -128,8 +138,10 @@ export const FormState: React.FC<
                 validateOnBlur,
                 validateOnChange,
                 setFieldValue,
+                getFieldState,
             } satisfies ContextProps),
         [
+            getFieldState,
             handleOnBlur,
             handleOnChange,
             handleOnSubmit,

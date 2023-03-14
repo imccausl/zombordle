@@ -15,7 +15,6 @@ export const Form: React.FC<FormProps & React.PropsWithChildren> = ({
     const formRef = useRef<HTMLFormElement>(null)
     const handleOnSubmit = useCallback(
         (e: React.FormEvent<HTMLFormElement>) => {
-            console.log('submit', e)
             e.preventDefault()
             const submitFn = onSubmit ?? contextOnSubmit
             submitFn({ values, errors, formEvent: e })
