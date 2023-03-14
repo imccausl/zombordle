@@ -86,7 +86,7 @@ export const FormState: React.FC<
     const handleOnBlur = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
             if (validateOnBlur) {
-                if (isInputValid(e.target.name, e.target.value)) {
+                if (!isInputValid(e.target.name, e.target.value)) {
                     dispatch(
                         setErrors({
                             [e.target.name]: 'Invalid hint goes here',
