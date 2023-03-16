@@ -1,16 +1,16 @@
 import { useCallback, useMemo, useReducer, useRef } from 'react'
 
-import FormContext, {
-    type ContextProps,
-    type FormStateComponentProps,
-} from './FormContext'
+import FormContext, { type ContextProps } from './FormContext'
 import formReducer, {
+    resetState,
     setErrors,
     setFieldValue as setFieldValueAction,
+    setTouched,
     setValues,
 } from './slice'
 
 import type {
+    FormStateComponentProps,
     OnValidateErrorCallback,
     OnValidateSuccessCallback,
     ValidateFn,
@@ -23,14 +23,16 @@ type TrackedFieldCallbacks = {
 }
 type TrackedFields = Map<string, TrackedFieldCallbacks>
 
+const initialState = {
+    values: {},
+    errors: {},
+    touched: {},
+}
+
 export const FormState: React.FC<
     FormStateComponentProps & React.PropsWithChildren
 > = ({ children, validateOnBlur, validateOnChange, onSubmit }) => {
-    const [state, dispatch] = useReducer(formReducer, {
-        values: {},
-        errors: {},
-        touched: {},
-    })
+    const [state, dispatch] = useReducer(formReducer, initialState)
     const trackedFields = useRef<TrackedFields>(new Map())
 
     const setFieldValue = useCallback((field: string, value: string) => {
@@ -51,6 +53,9 @@ export const FormState: React.FC<
         },
         [state],
     )
+    const resetFormState = useCallback(() => {
+        dispatch(resetState())
+    }, [])
     const isInputValid = useCallback(
         (field: string, value: string) =>
             trackedFields.current.get(field)?.validate(value),
@@ -139,6 +144,7 @@ export const FormState: React.FC<
                 validateOnChange,
                 setFieldValue,
                 getFieldState,
+                resetFormState,
             } satisfies ContextProps),
         [
             getFieldState,
@@ -146,6 +152,7 @@ export const FormState: React.FC<
             handleOnChange,
             handleOnSubmit,
             registerField,
+            resetFormState,
             setFieldValue,
             state,
             unRegisterField,

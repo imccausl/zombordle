@@ -60,10 +60,14 @@ const TileBoard: React.FC<TileBoardProps> = ({
                 <ListContainer role="list">{tiledGuesses}</ListContainer>
             )}
             {Boolean(attemptsRemaining) && (
-                <ListContainer as="div">
+                <ListContainer
+                    as="div"
+                    key={`input-form-attempt-${
+                        guesses.length - attemptsRemaining
+                    }`}
+                >
                     <InputRowContainer position={inputRowContainerPosition}>
                         <TiledInput
-                            value={''}
                             length={correctWord.length}
                             onSubmit={onSubmit}
                         />

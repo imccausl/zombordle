@@ -29,7 +29,7 @@ export const FormField: React.FC<FormFieldProps> = ({
     onError,
     children,
 }) => {
-    const { registerField, unRegisterField, values, onChange, onBlur } =
+    const { registerField, unRegisterField, getFieldState, onChange, onBlur } =
         useFormContext()
     const { name: fieldName, onChange: childOnChange } = useMemo(() => {
         if (Children.count(children) > 1) {
@@ -54,11 +54,11 @@ export const FormField: React.FC<FormFieldProps> = ({
         unRegisterField,
         validate,
     ])
-
+    console.log({ value: getFieldState(fieldName).value })
     return isValidElement(children)
         ? cloneElement(children, {
               ...children.props,
-              value: values[fieldName],
+              value: getFieldState(fieldName).value,
               onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
                   onChange(e)
                   childOnChange(e)

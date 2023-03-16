@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 
 import { useFormContext } from '../InputValidation/FormContext'
 import { FormField } from '../InputValidation/FormField'
@@ -12,9 +12,10 @@ import {
     TileInputGroup,
 } from './TiledInput.styles'
 
+import type { FormState as FormStateType } from '../InputValidation/types'
+
 export type TiledInputProps = {
     length: number
-    value: string
     onSubmit: (value: string) => void
 }
 
@@ -103,32 +104,31 @@ const InputElement: React.FC<InputElementProps> = ({
         </InputTileContainer>
     )
 }
-const TiledInput: React.FC<TiledInputProps> = ({ value, length, onSubmit }) => {
+const TiledInput: React.FC<TiledInputProps> = ({ length, onSubmit }) => {
     const firstElementRef = useRef<HTMLInputElement>(null)
 
-    const valueWithCorrectLength = useMemo(
-        () => value.concat(CHARS.Space.repeat(length - (value.length || 0))),
-        [length, value],
-    )
+    useEffect(() => {
+        firstElementRef.current?.focus()
+    }, [])
 
     const getPrevElement = useCallback(
         (currentElement: HTMLInputElement, index: number) =>
-            index > 0 && index < valueWithCorrectLength.length
+            index > 0 && index < length
                 ? currentElement.parentElement?.parentElement?.children[
                       index - 1
                   ]?.firstChild
                 : null,
-        [valueWithCorrectLength.length],
+        [length],
     )
 
     const getNextElement = useCallback(
         (currentElement: HTMLInputElement, index: number) =>
-            index < valueWithCorrectLength.length
+            index < length
                 ? currentElement.parentElement?.parentElement?.children[
                       index + 1
                   ]?.firstChild
                 : null,
-        [valueWithCorrectLength.length],
+        [length],
     )
 
     const handleOnValidateError = useCallback(
@@ -186,7 +186,7 @@ const TiledInput: React.FC<TiledInputProps> = ({ value, length, onSubmit }) => {
                 }
             }
         },
-        [getNextElement, getPrevElement, valueWithCorrectLength],
+        [getNextElement, getPrevElement, length],
     )
     const handleOnFocus = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
@@ -197,7 +197,7 @@ const TiledInput: React.FC<TiledInputProps> = ({ value, length, onSubmit }) => {
         [],
     )
     const tiledInput = useMemo(() => {
-        return valueWithCorrectLength.split('').map((_, index: number) => {
+        return new Array(length).fill('').map((_, index: number) => {
             return (
                 <InputElement
                     key={`input-element-${index + 1}`}
@@ -211,16 +211,22 @@ const TiledInput: React.FC<TiledInputProps> = ({ value, length, onSubmit }) => {
             )
         })
     }, [
-        valueWithCorrectLength,
+        length,
         handleOnFocus,
         handleOnValidateError,
         handleOnChange,
         handleKeyDown,
     ])
-    const handleOnSubmit = useCallback((props) => {
-        console.log(props)
-        firstElementRef.current?.focus()
-    }, [])
+    const handleOnSubmit = useCallback(
+        (props: FormStateType) => {
+            const wordSubmission = Object.values(props.values).reduce(
+                (word, letter) => word.concat(letter),
+                '',
+            )
+            onSubmit(wordSubmission)
+        },
+        [onSubmit],
+    )
 
     return (
         <FormState validateOnBlur={true} onSubmit={handleOnSubmit}>

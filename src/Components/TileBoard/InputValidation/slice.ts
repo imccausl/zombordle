@@ -1,6 +1,6 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { type FormState } from './FormContext'
+import { type FormState } from './types'
 
 const initialState: FormState = {
     errors: {},
@@ -12,6 +12,11 @@ const formSlice = createSlice({
     name: 'form',
     initialState,
     reducers: {
+        resetState(state) {
+            state.errors = { ...initialState.errors }
+            state.values = { ...initialState.values }
+            state.touched = { ...initialState.touched }
+        },
         setValues(state, action: PayloadAction<Record<string, string>>) {
             state.values = {
                 ...state.values,
@@ -45,6 +50,6 @@ const formSlice = createSlice({
     },
 })
 
-export const { setValues, setFieldValue, setErrors, setTouched } =
+export const { resetState, setValues, setFieldValue, setErrors, setTouched } =
     formSlice.actions
 export default formSlice.reducer
