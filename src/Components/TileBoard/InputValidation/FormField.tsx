@@ -20,6 +20,11 @@ export type FormFieldProps = {
     onError?: OnValidateErrorCallback
     name?: string
     children: React.ReactNode
+    /**
+     * Indicates whether the input field is required or not. Same as `<input required ...>`.
+     * Although false by default, `required` may also be specified in your field validation.
+     */
+    required?: boolean
 }
 
 export const FormField: React.FC<FormFieldProps> = ({
@@ -28,6 +33,7 @@ export const FormField: React.FC<FormFieldProps> = ({
     onSuccess,
     onError,
     children,
+    required = false,
 }) => {
     const { registerField, unRegisterField, getFieldState, onChange, onBlur } =
         useFormContext()
@@ -40,7 +46,11 @@ export const FormField: React.FC<FormFieldProps> = ({
     }, [children])
 
     useEffect(() => {
-        registerField(fieldName ?? name, validate, { onSuccess, onError })
+        registerField(fieldName ?? name, validate, {
+            onSuccess,
+            onError,
+            required,
+        })
 
         return () => {
             unRegisterField(fieldName ?? name)
@@ -51,6 +61,7 @@ export const FormField: React.FC<FormFieldProps> = ({
         onError,
         onSuccess,
         registerField,
+        required,
         unRegisterField,
         validate,
     ])

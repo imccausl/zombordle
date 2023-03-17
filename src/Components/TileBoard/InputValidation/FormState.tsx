@@ -10,17 +10,12 @@ import formReducer, {
 
 import type {
     FormStateComponentProps,
-    OnValidateErrorCallback,
-    OnValidateSuccessCallback,
+    TrackedFieldConfig,
+    TrackedFieldOptionalConfig,
     ValidateFn,
 } from './types'
 
-type TrackedFieldCallbacks = {
-    validate: ValidateFn
-    onSuccess?: OnValidateSuccessCallback
-    onError?: OnValidateErrorCallback
-}
-type TrackedFields = Map<string, TrackedFieldCallbacks>
+type TrackedFields = Map<string, TrackedFieldConfig>
 
 const initialState = {
     values: {},
@@ -109,6 +104,10 @@ export const FormState: React.FC<
         [isInputValid, validateOnBlur],
     )
     const handleOnSubmit = useCallback(() => {
+        // this runs the validation logic, but realistically it should probably check if
+        // there are any errors, since validation should run either on submit or onblur.
+        // one outstanding question, though, in this case. If onblur validation, will the last
+        // input not get validated if the user presses enter?
         const isValid = Object.entries(state.values).every(([name, value]) => {
             console.log(name, value)
             return isInputValid(name, value)
@@ -117,6 +116,9 @@ export const FormState: React.FC<
             Object.keys(state.values).length,
             trackedFields.current.size,
         )
+
+        // TODO: submit requirements are: are all required fields filled in and does the form match the validation criteria?
+
         if (
             Object.keys(state.values).length === trackedFields.current.size &&
             isValid
@@ -130,11 +132,17 @@ export const FormState: React.FC<
         (
             fieldName: string,
             validateFn: ValidateFn,
-            optionalCallbacks?: Omit<TrackedFieldCallbacks, 'validate'>,
+            optionalConfig?: TrackedFieldOptionalConfig,
         ) => {
+            if (trackedFields.current.has(fieldName)) {
+                throw new Error(
+                    `Field name ${fieldName} already exists. Name must be unique.`,
+                )
+            }
+
             trackedFields.current.set(fieldName, {
                 validate: validateFn,
-                ...optionalCallbacks,
+                ...optionalConfig,
             })
         },
         [],

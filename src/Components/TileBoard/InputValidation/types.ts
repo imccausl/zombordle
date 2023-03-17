@@ -31,14 +31,24 @@ export type FormStateActions = {
     resetFormState: () => void
 }
 
+type TrackedFieldCallbacks = {
+    validate: ValidateFn
+    onSuccess?: OnValidateSuccessCallback
+    onError?: OnValidateErrorCallback
+}
+
+export type TrackedFieldConfig = TrackedFieldCallbacks &
+    Partial<{
+        required: boolean
+    }>
+
+export type TrackedFieldOptionalConfig = Omit<TrackedFieldConfig, 'validate'>
+
 export type FormFunctions = {
     registerField: (
         fieldName: string,
         validateFn: ValidateFn,
-        optionalCallbacks?: Partial<{
-            onSuccess: OnValidateSuccessCallback
-            onError: OnValidateErrorCallback
-        }>,
+        optionalConfig?: TrackedFieldOptionalConfig,
     ) => void
     unRegisterField: (fieldName: string) => void
 }
