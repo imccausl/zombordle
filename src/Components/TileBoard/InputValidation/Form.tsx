@@ -7,26 +7,19 @@ type FormProps = {
     className?: string
 }
 export const Form: React.FC<FormProps & React.PropsWithChildren> = ({
-    onSubmit,
     className,
     children,
     ...props
 }) => {
-    const {
-        values,
-        errors,
-        onSubmit: contextOnSubmit,
-        resetFormState,
-    } = useFormContext()
+    const { values, errors, onSubmit, resetFormState } = useFormContext()
     const formRef = useRef<HTMLFormElement>(null)
     const handleOnSubmit = useCallback(
         (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault()
-            const submitFn = onSubmit ?? contextOnSubmit
-            submitFn({ values, errors, formEvent: e })
+            onSubmit({ values, errors, formEvent: e })
             resetFormState()
         },
-        [contextOnSubmit, errors, onSubmit, resetFormState, values],
+        [errors, onSubmit, resetFormState, values],
     )
     const handleOnReset = useCallback(() => {
         resetFormState()

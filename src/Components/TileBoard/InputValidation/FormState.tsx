@@ -5,7 +5,6 @@ import formReducer, {
     resetState,
     setErrors,
     setFieldValue as setFieldValueAction,
-    setTouched,
     setValues,
 } from './slice'
 
@@ -110,8 +109,22 @@ export const FormState: React.FC<
         [isInputValid, validateOnBlur],
     )
     const handleOnSubmit = useCallback(() => {
-        onSubmit(state)
-    }, [onSubmit, state])
+        const isValid = Object.entries(state.values).every(([name, value]) => {
+            console.log(name, value)
+            return isInputValid(name, value)
+        })
+        console.log(
+            Object.keys(state.values).length,
+            trackedFields.current.size,
+        )
+        if (
+            Object.keys(state.values).length === trackedFields.current.size &&
+            isValid
+        ) {
+            onSubmit(state)
+            return
+        }
+    }, [isInputValid, onSubmit, state])
 
     const registerField = useCallback(
         (

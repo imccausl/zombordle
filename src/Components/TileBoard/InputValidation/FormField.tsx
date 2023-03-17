@@ -54,7 +54,7 @@ export const FormField: React.FC<FormFieldProps> = ({
         unRegisterField,
         validate,
     ])
-    console.log({ value: getFieldState(fieldName).value })
+
     return isValidElement(children)
         ? cloneElement(children, {
               ...children.props,

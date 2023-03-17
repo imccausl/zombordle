@@ -186,7 +186,7 @@ const TiledInput: React.FC<TiledInputProps> = ({ length, onSubmit }) => {
                 }
             }
         },
-        [getNextElement, getPrevElement, length],
+        [getNextElement, getPrevElement],
     )
     const handleOnFocus = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
