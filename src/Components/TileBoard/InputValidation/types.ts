@@ -1,4 +1,4 @@
-export type ValidateFn = (value: string) => boolean | undefined
+export type ValidateFn = (value: string) => string | undefined
 
 export type OnValidateSuccessCallback = (
     e: React.FocusEvent<HTMLInputElement>,
@@ -33,8 +33,8 @@ export type FormStateActions = {
 
 type TrackedFieldCallbacks = {
     validate: ValidateFn
-    onSuccess?: OnValidateSuccessCallback
-    onError?: OnValidateErrorCallback
+    onValid?: OnValidateSuccessCallback
+    onInvalid?: OnValidateErrorCallback
 }
 
 export type TrackedFieldConfig = TrackedFieldCallbacks &

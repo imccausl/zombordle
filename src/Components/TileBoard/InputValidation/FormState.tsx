@@ -10,6 +10,8 @@ import formReducer, {
 
 import type {
     FormStateComponentProps,
+    OnValidateErrorCallback,
+    OnValidateSuccessCallback,
     TrackedFieldConfig,
     TrackedFieldOptionalConfig,
     ValidateFn,
@@ -47,32 +49,82 @@ export const FormState: React.FC<
         },
         [state],
     )
+
     const resetFormState = useCallback(() => {
         dispatch(resetState())
     }, [])
-    const isInputValid = useCallback(
-        (field: string, value: string) =>
-            trackedFields.current.get(field)?.validate(value),
+
+    const doFieldValiation = useCallback(
+        ({
+            shouldValidate,
+            fieldName,
+            value,
+            onValid,
+            onInvalid,
+        }: {
+            shouldValidate: boolean
+            fieldName: string
+            value: string
+            onValid?: () => OnValidateSuccessCallback | void
+            onInvalid?: () => OnValidateErrorCallback | void
+        }) => {
+            if (shouldValidate) {
+                const validationMessage = trackedFields.current
+                    .get(fieldName)
+                    ?.validate(value)
+
+                if (validationMessage) {
+                    dispatch(
+                        setErrors({
+                            [fieldName]: validationMessage,
+                        }),
+                    )
+                    onInvalid?.()
+                } else {
+                    dispatch(setErrors({ [fieldName]: undefined }))
+                    onValid?.()
+                }
+            }
+        },
         [],
     )
 
+    const doAllValidations = useCallback(() => {
+        /* perform all validations */
+        for (const fieldName in trackedFields.current.keys()) {
+            doFieldValiation({
+                shouldValidate: true,
+                fieldName,
+                value: state.values[fieldName],
+            })
+        }
+
+        /* check for errors */
+
+        /* check for required */
+
+        /* move focus if input is invalid */
+    }, [doFieldValiation, state.values])
+
     const handleOnChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-            if (
+            const shouldValidate =
                 validateOnChange === true ||
                 (validateOnChange === undefined && validateOnBlur === false)
-            ) {
-                if (!isInputValid(e.target.name, e.target.value)) {
-                    dispatch(
-                        setErrors({
-                            [e.target.name]: 'Validation error goes here',
-                        }),
-                    )
-                    trackedFields.current.get(e.target.name)?.onError?.(e)
-                } else {
-                    dispatch(setErrors({ [e.target.value]: undefined }))
-                }
-            }
+
+            doFieldValiation({
+                shouldValidate,
+                fieldName: e.target.name,
+                value: e.target.value,
+                onInvalid: () =>
+                    trackedFields.current
+                        .get(e.target.name)
+                        ?.onInvalid?.(e as any),
+                onValid: () =>
+                    trackedFields.current
+                        .get(e.target.name)
+                        ?.onValid?.(e as any),
+            })
 
             dispatch(
                 setValues({
@@ -80,38 +132,36 @@ export const FormState: React.FC<
                 }),
             )
         },
-        [isInputValid, validateOnBlur, validateOnChange],
+        [doFieldValiation, validateOnBlur, validateOnChange],
     )
     const handleOnBlur = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
-            if (validateOnBlur) {
-                if (!isInputValid(e.target.name, e.target.value)) {
-                    dispatch(
-                        setErrors({
-                            [e.target.name]: 'Invalid hint goes here',
-                        }),
-                    )
-                    trackedFields.current.get(e.target.name)?.onError?.(e)
-                } else {
-                    dispatch(
-                        setErrors({
-                            [e.target.name]: undefined,
-                        }),
-                    )
-                }
-            }
+            doFieldValiation({
+                shouldValidate: !!validateOnBlur,
+                fieldName: e.target.name,
+                value: e.target.value,
+                onInvalid: () =>
+                    trackedFields.current
+                        .get(e.target.name)
+                        ?.onInvalid?.(e as any),
+                onValid: () =>
+                    trackedFields.current
+                        .get(e.target.name)
+                        ?.onValid?.(e as any),
+            })
         },
-        [isInputValid, validateOnBlur],
+        [doFieldValiation, validateOnBlur],
     )
     const handleOnSubmit = useCallback(() => {
         // this runs the validation logic, but realistically it should probably check if
         // there are any errors, since validation should run either on submit or onblur.
         // one outstanding question, though, in this case. If onblur validation, will the last
         // input not get validated if the user presses enter?
-        const isValid = Object.entries(state.values).every(([name, value]) => {
-            console.log(name, value)
-            return isInputValid(name, value)
+        const isValid = Object.values(state.errors).some((error) => {
+            console.log(error)
+            return Boolean(error)
         })
+
         console.log(
             Object.keys(state.values).length,
             trackedFields.current.size,
@@ -126,7 +176,7 @@ export const FormState: React.FC<
             onSubmit(state)
             return
         }
-    }, [isInputValid, onSubmit, state])
+    }, [onSubmit, state])
 
     const registerField = useCallback(
         (
@@ -148,6 +198,17 @@ export const FormState: React.FC<
         [],
     )
 
+    const getFieldValues = useCallback(
+        (name: string) => {
+            return {
+                value: state.values?.[name],
+                onChange: handleOnChange,
+                onBlur: handleOnBlur,
+            }
+        },
+        [handleOnBlur, handleOnChange, state.values],
+    )
+
     const unRegisterField = useCallback((fieldName: string) => {
         trackedFields.current.delete(fieldName)
     }, [])
@@ -165,10 +226,12 @@ export const FormState: React.FC<
                 validateOnChange,
                 setFieldValue,
                 getFieldState,
+                getFieldValues,
                 resetFormState,
             } satisfies ContextProps),
         [
             getFieldState,
+            getFieldValues,
             handleOnBlur,
             handleOnChange,
             handleOnSubmit,
