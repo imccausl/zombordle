@@ -72,11 +72,18 @@ export const FormState: React.FC<
                 const validationMessage = trackedFields.current
                     .get(fieldName)
                     ?.validate(value)
+                const requiredFieldValidationMessage =
+                    trackedFields.current.get(fieldName)?.required
+                        ? // TODO: Customize validation  or display validation message from valdiate function?
+                          'This field cannot be empty'
+                        : undefined
 
-                if (validationMessage) {
+                if (validationMessage || requiredFieldValidationMessage) {
                     dispatch(
                         setErrors({
-                            [fieldName]: validationMessage,
+                            [fieldName]:
+                                validationMessage ??
+                                requiredFieldValidationMessage,
                         }),
                     )
                     onInvalid?.()
@@ -99,12 +106,10 @@ export const FormState: React.FC<
             })
         }
 
-        /* check for errors */
-
-        /* check for required */
-
-        /* move focus if input is invalid */
-    }, [doFieldValiation, state.values])
+        // return the first error/field, so onSubmit can do something with it
+        // if undefined, then there are no validation issues
+        return Object.values(state.errors).find((error) => !!error)
+    }, [doFieldValiation, state.errors, state.values])
 
     const handleOnChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -153,30 +158,21 @@ export const FormState: React.FC<
         [doFieldValiation, validateOnBlur],
     )
     const handleOnSubmit = useCallback(() => {
-        // this runs the validation logic, but realistically it should probably check if
-        // there are any errors, since validation should run either on submit or onblur.
-        // one outstanding question, though, in this case. If onblur validation, will the last
-        // input not get validated if the user presses enter?
-        const isValid = Object.values(state.errors).some((error) => {
-            console.log(error)
-            return Boolean(error)
-        })
+        const firstValidationError = doAllValidations()
 
-        console.log(
-            Object.keys(state.values).length,
-            trackedFields.current.size,
-        )
-
-        // TODO: submit requirements are: are all required fields filled in and does the form match the validation criteria?
-
-        if (
-            Object.keys(state.values).length === trackedFields.current.size &&
-            isValid
-        ) {
-            onSubmit(state)
-            return
+        if (!firstValidationError) {
+            // submit the values if there's no first validation error,
+            // form is valid.
+            onSubmit(state.values)
         }
-    }, [onSubmit, state])
+
+        // We have a validation error, so we have to handle moving
+        // focus to the first invalid field. We should have enough
+        // data from `firstValidationError` to do this. We might actually
+        // only need the fieldName.
+
+        // handleInvalidFieldFocus(fieldName)
+    }, [doAllValidations, onSubmit, state.values])
 
     const registerField = useCallback(
         (
