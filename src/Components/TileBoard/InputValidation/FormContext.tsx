@@ -4,13 +4,13 @@ import type {
     FormFunctions,
     FormState,
     FormStateActions,
-    FormStateComponentProps,
+    SharedFormProviderProps,
 } from './types'
 
 export type ContextProps = FormState &
     FormStateActions &
     FormFunctions &
-    FormStateComponentProps
+    SharedFormProviderProps
 
 const FormContext = createContext<ContextProps | null>(null)
 FormContext.displayName = 'FormContext'

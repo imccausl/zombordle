@@ -10,11 +10,10 @@ export type FormState = {
     touched: Record<string, boolean>
 }
 
-export type FormStateComponentProps = {
+export type SharedFormProviderProps = {
     validateOnChange?: boolean
     validateOnBlur?: boolean
     onSubmit: (arg: any) => void
-    initialValues: Record<string, string>
 }
 
 type FormFieldValues = {

@@ -10,8 +10,8 @@ import formReducer, {
 
 import type {
     FormState,
-    FormStateComponentProps,
     RegisterFieldFunction,
+    SharedFormProviderProps,
     TrackedFieldConfig,
     UnRegisterFieldFunction,
 } from './types'
@@ -26,8 +26,11 @@ const initialStateWithInitialValues = (
     touched: {},
 })
 
+type FormProviderProps = SharedFormProviderProps & {
+    initialValues: Record<string, string>
+}
 export const FormProvider: React.FC<
-    FormStateComponentProps & React.PropsWithChildren
+    FormProviderProps & React.PropsWithChildren
 > = ({
     children,
     validateOnBlur,

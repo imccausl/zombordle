@@ -33,10 +33,6 @@ const isInputElement = (
 type InputElementProps = {
     index: number
     firstElementRef: React.RefObject<HTMLInputElement>
-    onValidateError: (
-        e: React.FocusEvent<HTMLInputElement>,
-        index: number,
-    ) => void
     onChange: (e: React.ChangeEvent<HTMLInputElement>, index: number) => void
     onKeyDown: (
         e: React.KeyboardEvent<HTMLInputElement>,
@@ -47,32 +43,22 @@ type InputElementProps = {
 }
 const InputElement: React.FC<InputElementProps> = ({
     index,
-    onValidateError,
     onChange,
     onKeyDown,
     onFocus,
 }) => {
-    const onInvalid = useCallback(
-        (
-            e:
-                | React.ChangeEvent<HTMLInputElement>
-                | React.FocusEvent<HTMLInputElement>,
-        ) => void onValidateError(e, index + 1),
-        [index, onValidateError],
-    )
+    const handleValidation = useCallback((value: string) => {
+        if (/^[a-z]$/.test(value)) return
 
+        return 'Value must be an alphabetic character (A-Z).'
+    }, [])
     const {
         meta: { setFieldValue },
         field: { onChange: fieldOnChange, ...field },
     } = useField({
         name: `input-${index + 1}`,
-        validate: (value) => {
-            if (/^[a-z]$/.test(value)) return
-
-            return 'Value must be an alphabetic character (A-Z).'
-        },
+        validate: handleValidation,
         required: true,
-        onInvalid,
     })
 
     const handleOnChange = useCallback(
@@ -128,16 +114,6 @@ const TiledInput: React.FC<TiledInputProps> = ({ length, onSubmit }) => {
         [length],
     )
 
-    const handleOnValidateError = useCallback(
-        (e: React.FocusEvent<HTMLInputElement>, index: number) => {
-            const prevElement = getPrevElement(e.target, index)
-
-            if (isInputElement(prevElement) && e.target.value !== '') {
-                prevElement.focus()
-            }
-        },
-        [getPrevElement],
-    )
     const handleOnChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
             const nextElement = getNextElement(e.target, index)
@@ -206,19 +182,12 @@ const TiledInput: React.FC<TiledInputProps> = ({ length, onSubmit }) => {
                         index={index}
                         onChange={handleOnChange}
                         onFocus={handleOnFocus}
-                        onValidateError={handleOnValidateError}
                         onKeyDown={handleKeyDown}
                     />
                 )
             }),
 
-        [
-            length,
-            handleOnFocus,
-            handleOnValidateError,
-            handleOnChange,
-            handleKeyDown,
-        ],
+        [length, handleOnFocus, handleOnChange, handleKeyDown],
     )
     const initialValues = useMemo(
         () =>
