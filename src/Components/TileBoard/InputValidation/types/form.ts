@@ -32,7 +32,7 @@ export type FormStateActions = {
         touched: FormState['touched'][string]
     }
     getFieldValues: (name: string) => FormFieldValues
-    getAllFieldRefs: () => Array<React.RefObject<HTMLInputElement>>
+    getFieldRefs: () => Array<React.RefObject<HTMLInputElement>>
     getFieldRef: (name: string) => React.RefObject<HTMLInputElement> | undefined
     resetFormState: () => void
 }

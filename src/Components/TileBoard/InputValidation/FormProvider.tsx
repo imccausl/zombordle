@@ -185,7 +185,7 @@ export const FormProvider: React.FC<
         [handleOnBlur, handleOnChange, state.values],
     )
 
-    const getAllFieldRefs = useCallback(() => {
+    const getFieldRefs = useCallback(() => {
         const fieldRefs: Array<React.RefObject<HTMLInputElement>> = []
 
         trackedFields.current.forEach(({ ref }) => {
@@ -256,12 +256,12 @@ export const FormProvider: React.FC<
                 setFieldValue,
                 getFieldState,
                 getFieldValues,
-                getAllFieldRefs,
+                getFieldRefs,
                 getFieldRef,
                 resetFormState,
             } satisfies ContextProps),
         [
-            getAllFieldRefs,
+            getFieldRefs,
             getFieldRef,
             getFieldState,
             getFieldValues,
