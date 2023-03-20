@@ -14,6 +14,7 @@ export type FormStateComponentProps = {
     validateOnChange?: boolean
     validateOnBlur?: boolean
     onSubmit: (arg: any) => void
+    initialValues: Record<string, string>
 }
 
 type FormFieldValues = {

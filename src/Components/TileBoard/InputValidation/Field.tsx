@@ -66,16 +66,10 @@ export const useField = ({
         return () => {
             unRegisterField(name)
         }
-    }, [
-        name,
-        onInvalid,
-        onValid,
-        fieldRef,
-        registerField,
-        required,
-        unRegisterField,
-        validate,
-    ])
+
+        // should only register on mount
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const setFieldValue = useCallback(
         (value: string) => {

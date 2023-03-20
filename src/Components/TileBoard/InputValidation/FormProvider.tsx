@@ -9,6 +9,7 @@ import formReducer, {
 } from './slice'
 
 import type {
+    FormState,
     FormStateComponentProps,
     RegisterFieldFunction,
     TrackedFieldConfig,
@@ -17,16 +18,26 @@ import type {
 
 type TrackedFields = Map<string, TrackedFieldConfig>
 
-const initialState = {
-    values: {},
+const initialStateWithInitialValues = (
+    initialValues: FormState['values'] = {},
+): FormState => ({
+    values: { ...initialValues },
     errors: {},
     touched: {},
-}
+})
 
-export const FormState: React.FC<
+export const FormProvider: React.FC<
     FormStateComponentProps & React.PropsWithChildren
-> = ({ children, validateOnBlur, validateOnChange, onSubmit }) => {
-    const [state, dispatch] = useReducer(formReducer, initialState)
+> = ({
+    children,
+    validateOnBlur,
+    validateOnChange,
+    onSubmit,
+    initialValues = {},
+}) => {
+    const [state, dispatch] = useReducer(formReducer, {
+        ...initialStateWithInitialValues(initialValues),
+    })
     const trackedFields = useRef<TrackedFields>(new Map())
 
     const setFieldValue = useCallback((field: string, value: string) => {
@@ -147,8 +158,10 @@ export const FormState: React.FC<
                 ref,
                 ...optionalConfig,
             })
+
+            setFieldValue(fieldName, initialValues[fieldName] ?? '')
         },
-        [],
+        [initialValues, setFieldValue],
     )
 
     const unRegisterField: UnRegisterFieldFunction = useCallback(

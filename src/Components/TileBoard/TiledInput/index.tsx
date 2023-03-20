@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 
 import { useField } from '../InputValidation/Field'
-import { FormState } from '../InputValidation/FormState'
+import { FormProvider } from '../InputValidation/FormProvider'
 import InputTile from '../Tile/InputTile'
 
 import {
@@ -196,27 +196,38 @@ const TiledInput: React.FC<TiledInputProps> = ({ length, onSubmit }) => {
         },
         [],
     )
-    const tiledInput = useMemo(() => {
-        return new Array(length).fill('').map((_, index: number) => {
-            return (
-                <InputElement
-                    key={`input-element-${index + 1}`}
-                    firstElementRef={firstElementRef}
-                    index={index}
-                    onChange={handleOnChange}
-                    onFocus={handleOnFocus}
-                    onValidateError={handleOnValidateError}
-                    onKeyDown={handleKeyDown}
-                />
-            )
-        })
-    }, [
-        length,
-        handleOnFocus,
-        handleOnValidateError,
-        handleOnChange,
-        handleKeyDown,
-    ])
+    const tiledInput = useMemo(
+        () =>
+            new Array(length).fill('').map((_, index: number) => {
+                return (
+                    <InputElement
+                        key={`input-element-${index + 1}`}
+                        firstElementRef={firstElementRef}
+                        index={index}
+                        onChange={handleOnChange}
+                        onFocus={handleOnFocus}
+                        onValidateError={handleOnValidateError}
+                        onKeyDown={handleKeyDown}
+                    />
+                )
+            }),
+
+        [
+            length,
+            handleOnFocus,
+            handleOnValidateError,
+            handleOnChange,
+            handleKeyDown,
+        ],
+    )
+    const initialValues = useMemo(
+        () =>
+            new Array(length).fill('').reduce((acc, _, index: number) => {
+                acc[`input-${index + 1}`] = ''
+                return acc
+            }, {}),
+        [length],
+    )
     const handleOnSubmit = useCallback(
         (values: FormStateType['values']) => {
             const wordSubmission = Object.values(values).reduce(
@@ -229,12 +240,16 @@ const TiledInput: React.FC<TiledInputProps> = ({ length, onSubmit }) => {
     )
 
     return (
-        <FormState validateOnBlur={true} onSubmit={handleOnSubmit}>
+        <FormProvider
+            validateOnBlur={true}
+            onSubmit={handleOnSubmit}
+            initialValues={initialValues}
+        >
             <StyledForm>
                 <TileInputGroup role="list">{tiledInput}</TileInputGroup>
                 <StyledButton type="submit">Submit</StyledButton>
             </StyledForm>
-        </FormState>
+        </FormProvider>
     )
 }
 
