@@ -6,6 +6,8 @@ export type InputTileProps = {
     name: string
     label?: string
     value?: string
+    valid?: boolean
+    required?: boolean
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void
     onFocus: (e: React.FocusEvent<HTMLInputElement>) => void
@@ -13,9 +15,23 @@ export type InputTileProps = {
 }
 
 const InputTile = forwardRef<HTMLInputElement, InputTileProps>(
-    ({ name, label, onChange, onKeyDown, onFocus, onBlur, value }, ref) => {
+    (
+        {
+            name,
+            label,
+            valid = true,
+            onChange,
+            onKeyDown,
+            onFocus,
+            onBlur,
+            value,
+            required,
+        },
+        ref,
+    ) => {
         return (
             <TileStyledTextInput
+                $valid={valid}
                 ref={ref}
                 name={name}
                 value={value}
@@ -24,7 +40,7 @@ const InputTile = forwardRef<HTMLInputElement, InputTileProps>(
                 onKeyDown={onKeyDown}
                 onFocus={onFocus}
                 onBlur={onBlur}
-                required={true}
+                required={required}
             />
         )
     },

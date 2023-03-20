@@ -24,6 +24,7 @@ export const InputElement: React.FC<InputElementProps> = ({
         return 'Value must be an alphabetic character (A-Z).'
     }, [])
     const {
+        meta: { error },
         field: { onChange: fieldOnChange, ...field },
     } = useField({
         name: `input-${index + 1}`,
@@ -48,6 +49,7 @@ export const InputElement: React.FC<InputElementProps> = ({
         <InputTileContainer key={`input-${index + 1}`}>
             <InputTile
                 {...field}
+                valid={!error}
                 label={`${toOrdinal(index + 1)} letter`}
                 onChange={handleOnChange}
                 onKeyDown={handleOnKeyDown}
