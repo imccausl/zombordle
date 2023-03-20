@@ -74,7 +74,7 @@ const InputElement: React.FC<InputElementProps> = ({
         required: true,
         onInvalid,
     })
-    console.log({ value: field.value })
+
     const handleOnChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             void onChange(e, index)

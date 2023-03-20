@@ -10,8 +10,6 @@ import formReducer, {
 
 import type {
     FormStateComponentProps,
-    OnValidateErrorCallback,
-    OnValidateSuccessCallback,
     RegisterFieldFunction,
     TrackedFieldConfig,
     UnRegisterFieldFunction,
@@ -196,6 +194,11 @@ export const FormState: React.FC<
     )
 
     const handleOnSubmit = useCallback(() => {
+        /* this is kind of weird but we aren't able to
+         * access the updated state immediately after dispatch
+         * so we create a local version which we dispatch to
+         * setErrors and use to figure out if the first validation error
+         */
         const allErrors: Record<string, string | undefined> = {}
 
         for (const fieldName of trackedFields.current.keys()) {
@@ -219,10 +222,7 @@ export const FormState: React.FC<
         }
 
         // We have a validation error, so we have to handle moving
-        // focus to the first invalid field. We should have enough
-        // data from `firstValidationError` to do this. We might actually
-        // only need the fieldName.
-
+        // focus to the first invalid field.
         handleInvalidFieldFocus(fieldName)
     }, [doFieldValidation, handleInvalidFieldFocus, onSubmit, state.values])
 
