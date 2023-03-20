@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 
-import { Field } from '../InputValidation/Field'
-import { useFormContext } from '../InputValidation/FormContext'
+import { useField } from '../InputValidation/Field'
 import { FormState } from '../InputValidation/FormState'
 import InputTile from '../Tile/InputTile'
 
@@ -18,10 +17,6 @@ import type { FormState as FormStateType } from '../InputValidation/types'
 export type TiledInputProps = {
     length: number
     onSubmit: (value: string) => void
-}
-
-const CHARS = {
-    Space: ' ',
 }
 
 const KEYS = {
@@ -53,34 +48,56 @@ type InputElementProps = {
 const InputElement: React.FC<InputElementProps> = ({
     index,
     onValidateError,
-    firstElementRef,
     onChange,
     onKeyDown,
     onFocus,
 }) => {
-    const { setFieldValue } = useFormContext()
+    const onInvalid = useCallback(
+        (
+            e:
+                | React.ChangeEvent<HTMLInputElement>
+                | React.FocusEvent<HTMLInputElement>,
+        ) => void onValidateError(e, index + 1),
+        [index, onValidateError],
+    )
+
+    const {
+        meta: { setFieldValue },
+        field: { onChange: fieldOnChange, ...field },
+    } = useField({
+        name: `input-${index + 1}`,
+        validate: (value) => {
+            if (/^[a-z]$/.test(value)) return
+
+            return 'Value must be an alphabetic character (A-Z).'
+        },
+        required: true,
+        onInvalid,
+    })
+    console.log({ value: field.value })
+    const handleOnChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            void onChange(e, index)
+            void fieldOnChange(e)
+        },
+        [fieldOnChange, index, onChange],
+    )
+
+    const handleOnKeyDown = useCallback(
+        (e: React.KeyboardEvent<HTMLInputElement>) =>
+            void onKeyDown(e, index, setFieldValue),
+        [index, onKeyDown, setFieldValue],
+    )
 
     return (
         <InputTileContainer key={`input-${index + 1}`}>
-            <Field
-                validate={(value) => {
-                    return /^[a-z]$/.test(value)
-                }}
-                onInvalid={(e) => void onValidateError(e, index + 1)}
-            >
-                <InputTile
-                    ref={index === 0 ? firstElementRef : null}
-                    name={`input-${index + 1}`}
-                    label={`${toOrdinal(index + 1)} letter`}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        void onChange(e, index)
-                    }
-                    onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
-                        void onKeyDown(e, index, setFieldValue)
-                    }
-                    onFocus={onFocus}
-                />
-            </Field>
+            <InputTile
+                {...field}
+                label={`${toOrdinal(index + 1)} letter`}
+                onChange={handleOnChange}
+                onKeyDown={handleOnKeyDown}
+                onFocus={onFocus}
+            />
         </InputTileContainer>
     )
 }
@@ -136,7 +153,7 @@ const TiledInput: React.FC<TiledInputProps> = ({ length, onSubmit }) => {
         (
             e: React.KeyboardEvent<HTMLInputElement>,
             index: number,
-            setFieldValue: (field: string, value: string) => void,
+            setFieldValue: (value: string) => void,
         ) => {
             const target = e.target as HTMLInputElement
 
@@ -146,19 +163,22 @@ const TiledInput: React.FC<TiledInputProps> = ({ length, onSubmit }) => {
                 if (!isInputElement(target)) {
                     return
                 }
-
-                setFieldValue(target.name, '')
+                setFieldValue('')
                 const prevElement = getPrevElement(target, index)
                 if (isInputElement(prevElement)) {
                     prevElement.focus()
                 }
             } else if (e.key === KEYS.ArrowLeft) {
+                e.preventDefault()
+                e.stopPropagation()
                 const prevElement = getPrevElement(target, index)
 
                 if (isInputElement(prevElement)) {
                     prevElement.focus()
                 }
             } else if (e.key === KEYS.ArrowRight) {
+                e.preventDefault()
+                e.stopPropagation()
                 const nextElement = getNextElement(target, index)
 
                 if (isInputElement(nextElement)) {
@@ -198,8 +218,8 @@ const TiledInput: React.FC<TiledInputProps> = ({ length, onSubmit }) => {
         handleKeyDown,
     ])
     const handleOnSubmit = useCallback(
-        (props: FormStateType) => {
-            const wordSubmission = Object.values(props.values).reduce(
+        (values: FormStateType['values']) => {
+            const wordSubmission = Object.values(values).reduce(
                 (word, letter) => word.concat(letter),
                 '',
             )

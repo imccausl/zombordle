@@ -31,6 +31,16 @@ const formSlice = createSlice({
             state.values[action.payload.fieldName] = action.payload.value
         },
 
+        setError(
+            state,
+            action: PayloadAction<{
+                fieldName: string
+                error: string | undefined
+            }>,
+        ) {
+            state.errors[action.payload.fieldName] = action.payload.error
+        },
+
         setErrors(
             state,
             action: PayloadAction<Record<string, string | undefined>>,
@@ -50,6 +60,12 @@ const formSlice = createSlice({
     },
 })
 
-export const { resetState, setValues, setFieldValue, setErrors, setTouched } =
-    formSlice.actions
+export const {
+    resetState,
+    setValues,
+    setFieldValue,
+    setError,
+    setErrors,
+    setTouched,
+} = formSlice.actions
 export default formSlice.reducer

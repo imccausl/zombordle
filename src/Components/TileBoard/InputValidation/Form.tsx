@@ -17,9 +17,9 @@ export const Form: React.FC<FormProps & React.PropsWithChildren> = ({
         (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault()
             onSubmit({ values, errors, formEvent: e })
-            resetFormState()
+            //   resetFormState()
         },
-        [errors, onSubmit, resetFormState, values],
+        [errors, onSubmit, values],
     )
     const handleOnReset = useCallback(() => {
         resetFormState()

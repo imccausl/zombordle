@@ -1,11 +1,10 @@
 import {
-    Children,
     cloneElement,
-    createElement,
     isValidElement,
     useCallback,
     useEffect,
     useMemo,
+    useRef,
 } from 'react'
 
 import { useFormContext } from './FormContext'
@@ -30,33 +29,20 @@ export type FormFieldProps = {
 }
 
 export type UseFieldProps = {
-    validate: ValidateFn
+    validate?: ValidateFn
     onValid?: OnValidateSuccessCallback
     onInvalid?: OnValidateErrorCallback
     name: string
-    required: boolean
-}
-
-export type FieldProps = {
-    setFieldValue: (value: string) => void
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-    onBlur: (e: React.FocusEvent<HTMLInputElement>) => void
-    name: string
-    required: boolean
-    value: string
-    meta: {
-        error: string | undefined
-        touched: boolean
-    }
+    required?: boolean
 }
 
 export const useField = ({
     name,
-    required,
+    required = false,
     validate,
     onInvalid,
     onValid,
-}: UseFieldProps): FieldProps => {
+}: UseFieldProps) => {
     const {
         registerField,
         unRegisterField,
@@ -66,11 +52,12 @@ export const useField = ({
         onBlur,
     } = useFormContext()
 
+    const fieldRef = useRef<HTMLInputElement>(null)
     /* validate, onValid, and onInvalid need to be registered with
      * the form context
      */
     useEffect(() => {
-        registerField(name, validate, {
+        registerField(name, fieldRef, validate, {
             onValid,
             onInvalid,
             required,
@@ -83,20 +70,12 @@ export const useField = ({
         name,
         onInvalid,
         onValid,
+        fieldRef,
         registerField,
         required,
         unRegisterField,
         validate,
     ])
-
-    const { value, meta } = useMemo(() => {
-        const { value, ...rest } = getFieldState(name)
-
-        return {
-            value,
-            meta: { ...rest },
-        }
-    }, [getFieldState, name])
 
     const setFieldValue = useCallback(
         (value: string) => {
@@ -105,14 +84,30 @@ export const useField = ({
         [name, setFormContextFieldValue],
     )
 
+    const { value, meta } = useMemo(() => {
+        const { value, ...rest } = getFieldState(name)
+
+        return {
+            value,
+            meta: { ...rest, setFieldValue },
+        }
+    }, [getFieldState, name, setFieldValue])
+
+    const fieldElementProps = useMemo(
+        () => ({
+            name,
+            value,
+            onBlur,
+            onChange,
+            ref: fieldRef,
+            required,
+        }),
+        [name, onBlur, onChange, required, value],
+    )
+
     return {
-        name,
-        onChange,
-        onBlur,
-        setFieldValue,
-        required,
-        value,
         meta,
+        field: { ...fieldElementProps },
     }
 }
 
@@ -124,7 +119,7 @@ export const Field: React.FC<FormFieldProps> = ({
     children,
     required = false,
 }) => {
-    const fieldProps = useField({
+    const { meta, field } = useField({
         name,
         validate,
         onValid,
@@ -141,14 +136,13 @@ export const Field: React.FC<FormFieldProps> = ({
     // }, [children])
 
     if (typeof children === 'function') {
-        children({ ...fieldProps })
+        children({ meta, field })
     }
 
     return isValidElement(children)
         ? cloneElement(children, {
-              ...children.props,
-
-              onBlur,
+              ...children.props, // this will override required and name without them being registered
+              ...field,
           })
         : null
 }

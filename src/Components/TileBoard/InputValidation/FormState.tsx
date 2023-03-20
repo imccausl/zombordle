@@ -12,9 +12,9 @@ import type {
     FormStateComponentProps,
     OnValidateErrorCallback,
     OnValidateSuccessCallback,
+    RegisterFieldFunction,
     TrackedFieldConfig,
-    TrackedFieldOptionalConfig,
-    ValidateFn,
+    UnRegisterFieldFunction,
 } from './types'
 
 type TrackedFields = Map<string, TrackedFieldConfig>
@@ -54,62 +54,28 @@ export const FormState: React.FC<
         dispatch(resetState())
     }, [])
 
-    const doFieldValiation = useCallback(
-        ({
-            shouldValidate,
-            fieldName,
-            value,
-            onValid,
-            onInvalid,
-        }: {
-            shouldValidate: boolean
-            fieldName: string
-            value: string
-            onValid?: () => OnValidateSuccessCallback | void
-            onInvalid?: () => OnValidateErrorCallback | void
-        }) => {
-            if (shouldValidate) {
-                const validationMessage = trackedFields.current
-                    .get(fieldName)
-                    ?.validate(value)
-                const requiredFieldValidationMessage =
-                    trackedFields.current.get(fieldName)?.required
-                        ? // TODO: Customize validation  or display validation message from valdiate function?
-                          'This field cannot be empty'
-                        : undefined
+    const doFieldValidation = useCallback(
+        ({ fieldName, value }: { fieldName: string; value: string }) => {
+            const validationMessage = trackedFields.current
+                .get(fieldName)
+                ?.validate?.(value)
+            const requiredFieldValidationMessage =
+                trackedFields.current.get(fieldName)?.required && !value
+                    ? // TODO: Customize validation  or display validation message from valdiate function?
+                      'This field cannot be empty'
+                    : undefined
 
-                if (validationMessage || requiredFieldValidationMessage) {
-                    dispatch(
-                        setErrors({
-                            [fieldName]:
-                                validationMessage ??
-                                requiredFieldValidationMessage,
-                        }),
-                    )
-                    onInvalid?.()
-                } else {
-                    dispatch(setErrors({ [fieldName]: undefined }))
-                    onValid?.()
+            if (validationMessage || requiredFieldValidationMessage) {
+                return {
+                    fieldName,
+                    errorMessage:
+                        validationMessage ?? requiredFieldValidationMessage,
                 }
             }
+            return { fieldName, errorMessage: undefined }
         },
         [],
     )
-
-    const doAllValidations = useCallback(() => {
-        /* perform all validations */
-        for (const fieldName in trackedFields.current.keys()) {
-            doFieldValiation({
-                shouldValidate: true,
-                fieldName,
-                value: state.values[fieldName],
-            })
-        }
-
-        // return the first error/field, so onSubmit can do something with it
-        // if undefined, then there are no validation issues
-        return Object.values(state.errors).find((error) => !!error)
-    }, [doFieldValiation, state.errors, state.values])
 
     const handleOnChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,19 +83,24 @@ export const FormState: React.FC<
                 validateOnChange === true ||
                 (validateOnChange === undefined && validateOnBlur === false)
 
-            doFieldValiation({
-                shouldValidate,
-                fieldName: e.target.name,
-                value: e.target.value,
-                onInvalid: () =>
-                    trackedFields.current
-                        .get(e.target.name)
-                        ?.onInvalid?.(e as any),
-                onValid: () =>
-                    trackedFields.current
-                        .get(e.target.name)
-                        ?.onValid?.(e as any),
-            })
+            if (shouldValidate) {
+                const { errorMessage } = doFieldValidation({
+                    fieldName: e.target.name,
+                    value: e.target.value,
+                })
+
+                dispatch(
+                    setErrors({
+                        [e.target.name]: errorMessage,
+                    }),
+                )
+
+                if (errorMessage) {
+                    trackedFields.current.get(e.target.name)?.onInvalid?.(e)
+                } else {
+                    trackedFields.current.get(e.target.name)?.onValid?.(e)
+                }
+            }
 
             dispatch(
                 setValues({
@@ -137,59 +108,54 @@ export const FormState: React.FC<
                 }),
             )
         },
-        [doFieldValiation, validateOnBlur, validateOnChange],
+        [doFieldValidation, validateOnBlur, validateOnChange],
     )
     const handleOnBlur = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
-            doFieldValiation({
-                shouldValidate: !!validateOnBlur,
-                fieldName: e.target.name,
-                value: e.target.value,
-                onInvalid: () =>
-                    trackedFields.current
-                        .get(e.target.name)
-                        ?.onInvalid?.(e as any),
-                onValid: () =>
-                    trackedFields.current
-                        .get(e.target.name)
-                        ?.onValid?.(e as any),
-            })
+            if (validateOnBlur) {
+                const { errorMessage } = doFieldValidation({
+                    fieldName: e.target.name,
+                    value: e.target.value,
+                })
+
+                dispatch(
+                    setErrors({
+                        [e.target.name]: errorMessage,
+                    }),
+                )
+
+                if (errorMessage) {
+                    trackedFields.current.get(e.target.name)?.onInvalid?.(e)
+                } else {
+                    trackedFields.current.get(e.target.name)?.onValid?.(e)
+                }
+            }
         },
-        [doFieldValiation, validateOnBlur],
+        [doFieldValidation, validateOnBlur],
     )
-    const handleOnSubmit = useCallback(() => {
-        const firstValidationError = doAllValidations()
 
-        if (!firstValidationError) {
-            // submit the values if there's no first validation error,
-            // form is valid.
-            onSubmit(state.values)
-        }
-
-        // We have a validation error, so we have to handle moving
-        // focus to the first invalid field. We should have enough
-        // data from `firstValidationError` to do this. We might actually
-        // only need the fieldName.
-
-        // handleInvalidFieldFocus(fieldName)
-    }, [doAllValidations, onSubmit, state.values])
-
-    const registerField = useCallback(
-        (
-            fieldName: string,
-            validateFn: ValidateFn,
-            optionalConfig?: TrackedFieldOptionalConfig,
-        ) => {
+    const registerField: RegisterFieldFunction = useCallback(
+        (fieldName, ref, validateFn, optionalConfig) => {
             if (trackedFields.current.has(fieldName)) {
                 throw new Error(
                     `Field name ${fieldName} already exists. Name must be unique.`,
                 )
             }
 
+            if (!ref) throw new Error('Ref cannot be null')
+
             trackedFields.current.set(fieldName, {
                 validate: validateFn,
+                ref,
                 ...optionalConfig,
             })
+        },
+        [],
+    )
+
+    const unRegisterField: UnRegisterFieldFunction = useCallback(
+        (fieldName: string) => {
+            trackedFields.current.delete(fieldName)
         },
         [],
     )
@@ -205,9 +171,60 @@ export const FormState: React.FC<
         [handleOnBlur, handleOnChange, state.values],
     )
 
-    const unRegisterField = useCallback((fieldName: string) => {
-        trackedFields.current.delete(fieldName)
+    const getAllFieldRefs = useCallback(() => {
+        const fieldRefs: Array<React.RefObject<HTMLInputElement>> = []
+
+        trackedFields.current.forEach(({ ref }) => {
+            fieldRefs.push(ref)
+        })
+
+        return fieldRefs
     }, [])
+
+    const getFieldRef = useCallback(
+        (name: string) => trackedFields.current.get(name)?.ref,
+        [],
+    )
+
+    const handleInvalidFieldFocus = useCallback(
+        (name: string | undefined) => {
+            if (!name) return
+
+            getFieldRef(name)?.current?.focus()
+        },
+        [getFieldRef],
+    )
+
+    const handleOnSubmit = useCallback(() => {
+        const allErrors: Record<string, string | undefined> = {}
+
+        for (const fieldName of trackedFields.current.keys()) {
+            const { errorMessage } = doFieldValidation({
+                fieldName,
+                value: state.values[fieldName],
+            })
+
+            allErrors[fieldName] = errorMessage
+        }
+
+        dispatch(setErrors(allErrors))
+
+        const [fieldName, firstValidationError] =
+            Object.entries(allErrors).find(([_, error]) => !!error) ?? []
+
+        if (!firstValidationError) {
+            // submit the values if there's no first validation error,
+            // form is valid.
+            onSubmit(state.values)
+        }
+
+        // We have a validation error, so we have to handle moving
+        // focus to the first invalid field. We should have enough
+        // data from `firstValidationError` to do this. We might actually
+        // only need the fieldName.
+
+        handleInvalidFieldFocus(fieldName)
+    }, [doFieldValidation, handleInvalidFieldFocus, onSubmit, state.values])
 
     const ctx = useMemo(
         () =>
@@ -223,9 +240,13 @@ export const FormState: React.FC<
                 setFieldValue,
                 getFieldState,
                 getFieldValues,
+                getAllFieldRefs,
+                getFieldRef,
                 resetFormState,
             } satisfies ContextProps),
         [
+            getAllFieldRefs,
+            getFieldRef,
             getFieldState,
             getFieldValues,
             handleOnBlur,
