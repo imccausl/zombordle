@@ -13,29 +13,24 @@ export const VariantBorder = {
 }
 
 const shake = keyframes`
-  10%, 90% {
-    transform: translate3d(-1px, 0, 0);
+  0% {
+    margin-left: 0rem;
   }
-  
-  20%, 80% {
-    transform: translate3d(2px, 0, 0);
+  25% {
+    margin-left: 0.5rem;
   }
-
-  30%, 50%, 70% {
-    transform: translate3d(-4px, 0, 0);
+  75% {
+    margin-left: -0.5rem;
   }
-
-  40%, 60% {
-    transform: translate3d(4px, 0, 0);
+  100% {
+    margin-left: 0rem;
   }
 `
 
 const invalidAnimation = css`
-    ${shake} cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-`
-
-const invalidShake = css`
-    animation: ${invalidAnimation};
+    @media screen and (prefers-reduced-motion: no-preference) {
+        animation: ${shake} 0.2s ease-in-out 0s 2;
+    }
 `
 
 export const TileStyledTextInput = styled.input.attrs({
@@ -55,8 +50,26 @@ export const TileStyledTextInput = styled.input.attrs({
     height: 55px;
     text-transform: uppercase;
     caret-color: transparent;
-    ${({ $valid }) => !$valid && invalidShake}
+
+    ${({ $valid }) => !$valid && invalidAnimation}
     &:last-of-type {
         margin-right: 0;
+    }
+`
+
+export const InputContainer = styled.div`
+    position: relative;
+`
+export const ImageContainer = styled.div`
+    position: absolute;
+    padding: 4px;
+    right: 0;
+    top: 0;
+
+    svg {
+        display: block;
+        height: 18px;
+        width: 18px;
+        color: ${VariantBorder.invalid};
     }
 `

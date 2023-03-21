@@ -100,8 +100,10 @@ export const useField = ({
             onChange,
             ref: fieldRef,
             required,
+            'aria-required': required,
+            'aria-invalid': !!meta.error,
         }),
-        [name, onBlur, onChange, required, value],
+        [meta.error, name, onBlur, onChange, required, value],
     )
 
     return {

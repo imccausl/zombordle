@@ -1,47 +1,33 @@
 import { forwardRef } from 'react'
 
-import { TileStyledTextInput } from './InputTile.styles'
+import {
+    ImageContainer,
+    InputContainer,
+    TileStyledTextInput,
+} from './InputTile.styles'
+import ExclamationMark from './assets/exclamation.svg'
 
 export type InputTileProps = {
-    name: string
     label?: string
-    value?: string
     valid?: boolean
-    required?: boolean
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-    onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void
-    onFocus: (e: React.FocusEvent<HTMLInputElement>) => void
-    onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
 }
 
 const InputTile = forwardRef<HTMLInputElement, InputTileProps>(
-    (
-        {
-            name,
-            label,
-            valid = true,
-            onChange,
-            onKeyDown,
-            onFocus,
-            onBlur,
-            value,
-            required,
-        },
-        ref,
-    ) => {
+    ({ label, valid = true, ...inputProps }, ref) => {
         return (
-            <TileStyledTextInput
-                $valid={valid}
-                ref={ref}
-                name={name}
-                value={value}
-                aria-label={label}
-                onChange={onChange}
-                onKeyDown={onKeyDown}
-                onFocus={onFocus}
-                onBlur={onBlur}
-                required={required}
-            />
+            <InputContainer>
+                {!valid && (
+                    <ImageContainer>
+                        <ExclamationMark />
+                    </ImageContainer>
+                )}
+                <TileStyledTextInput
+                    $valid={valid}
+                    ref={ref}
+                    aria-label={label}
+                    {...inputProps}
+                />
+            </InputContainer>
         )
     },
 )
