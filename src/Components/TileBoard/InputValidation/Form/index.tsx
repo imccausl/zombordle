@@ -1,6 +1,6 @@
 import { useCallback, useRef } from 'react'
 
-import { useFormContext } from './FormContext'
+import { useFormContext } from '../FormContext'
 
 type FormProps = {
     onSubmit?: (arg: any) => void

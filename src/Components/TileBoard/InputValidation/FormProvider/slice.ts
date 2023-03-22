@@ -1,6 +1,6 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { type FormState } from './types'
+import { type FormState } from '../types'
 
 const initialState: FormState = {
     errors: {},

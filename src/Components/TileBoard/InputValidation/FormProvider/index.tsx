@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useReducer, useRef } from 'react'
 
-import FormContext, { type ContextProps } from './FormContext'
+import FormContext, { type ContextProps } from '../FormContext'
+
 import formReducer, {
     resetState,
     setErrors,
@@ -15,7 +16,7 @@ import type {
     SharedFormProviderProps,
     TrackedFieldConfig,
     UnRegisterFieldFunction,
-} from './types'
+} from '../types'
 
 type TrackedFields = Map<string, TrackedFieldConfig>
 
@@ -25,7 +26,7 @@ const initialStateWithInitialValues = (
     values: { ...initialValues },
     errors: {},
     touched: {},
-    isValid: true,
+    isFormValid: true,
 })
 
 type FormProviderProps = SharedFormProviderProps & {

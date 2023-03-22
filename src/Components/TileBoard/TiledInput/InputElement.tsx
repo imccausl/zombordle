@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { useField } from '../InputValidation/Field'
+import { useField } from '../InputValidation/Field/Field'
 import InputTile from '../Tile/InputTile'
 
 import { InputTileContainer } from './TiledInput.styles'

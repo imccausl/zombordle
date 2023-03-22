@@ -5,7 +5,7 @@ import type {
     FormState,
     FormStateActions,
     SharedFormProviderProps,
-} from './types'
+} from '../types'
 
 export type ContextProps = FormState &
     FormStateActions &

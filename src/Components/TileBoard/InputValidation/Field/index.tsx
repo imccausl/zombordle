@@ -7,13 +7,13 @@ import {
     useRef,
 } from 'react'
 
-import { useFormContext } from './FormContext'
+import { useFormContext } from '../FormContext'
 
 import type {
     OnValidateErrorCallback,
     OnValidateSuccessCallback,
     ValidateFn,
-} from './types'
+} from '../types'
 
 export type FormFieldProps = {
     validate: ValidateFn
