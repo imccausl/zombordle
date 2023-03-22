@@ -20,7 +20,7 @@ type TiledInputFormProps = {
     length: number
 }
 export const TiledInputForm: React.FC<TiledInputFormProps> = ({ length }) => {
-    const { getFieldRefs, setFieldValue } = useFormContext()
+    const { getFieldRefs, setFieldValue, isFormValid } = useFormContext()
 
     useEffect(() => {
         getFieldRefs()[0]?.current?.focus()
@@ -107,7 +107,9 @@ export const TiledInputForm: React.FC<TiledInputFormProps> = ({ length }) => {
 
     return (
         <StyledForm>
-            <TileInputGroup role="list">{tiledInput}</TileInputGroup>
+            <TileInputGroup role="list" valid={isFormValid}>
+                {tiledInput}
+            </TileInputGroup>
             <StyledButton type="submit">Submit</StyledButton>
         </StyledForm>
     )

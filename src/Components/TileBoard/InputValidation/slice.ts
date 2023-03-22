@@ -6,6 +6,7 @@ const initialState: FormState = {
     errors: {},
     values: {},
     touched: {},
+    isFormValid: false,
 }
 
 const formSlice = createSlice({
@@ -31,14 +32,8 @@ const formSlice = createSlice({
             state.values[action.payload.fieldName] = action.payload.value
         },
 
-        setError(
-            state,
-            action: PayloadAction<{
-                fieldName: string
-                error: string | undefined
-            }>,
-        ) {
-            state.errors[action.payload.fieldName] = action.payload.error
+        setIsFormValid(state, action) {
+            state.isFormValid = action.payload
         },
 
         setErrors(
@@ -64,8 +59,8 @@ export const {
     resetState,
     setValues,
     setFieldValue,
-    setError,
     setErrors,
     setTouched,
+    setIsFormValid,
 } = formSlice.actions
 export default formSlice.reducer

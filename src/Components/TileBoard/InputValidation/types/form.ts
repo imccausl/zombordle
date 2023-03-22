@@ -8,6 +8,7 @@ export type FormState = {
     errors: Record<string, string | undefined>
     values: Record<string, string>
     touched: Record<string, boolean>
+    isFormValid: boolean
 }
 
 export type SharedFormProviderProps = {

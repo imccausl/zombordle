@@ -1,11 +1,6 @@
 import { forwardRef } from 'react'
 
-import {
-    ImageContainer,
-    InputContainer,
-    TileStyledTextInput,
-} from './InputTile.styles'
-import ExclamationMark from './assets/exclamation.svg'
+import { TileStyledTextInput } from './InputTile.styles'
 
 export type InputTileProps = {
     label?: string
@@ -15,19 +10,12 @@ export type InputTileProps = {
 const InputTile = forwardRef<HTMLInputElement, InputTileProps>(
     ({ label, valid = true, ...inputProps }, ref) => {
         return (
-            <InputContainer>
-                {!valid && (
-                    <ImageContainer>
-                        <ExclamationMark />
-                    </ImageContainer>
-                )}
-                <TileStyledTextInput
-                    $valid={valid}
-                    ref={ref}
-                    aria-label={label}
-                    {...inputProps}
-                />
-            </InputContainer>
+            <TileStyledTextInput
+                $valid={valid}
+                ref={ref}
+                aria-label={label}
+                {...inputProps}
+            />
         )
     },
 )

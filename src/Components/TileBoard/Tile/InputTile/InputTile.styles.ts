@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from 'styled-components'
+import styled from 'styled-components'
 
 type TileStyledTextInputProps = {
     $valid: boolean
@@ -8,30 +8,10 @@ export const VariantColor = {
 }
 
 export const VariantBorder = {
-    invalid: '#FF0000',
-    default: '#d2d4dc',
+    invalid: '#FF0800',
+    focused: '#1F75FE',
+    default: '#8E8787',
 }
-
-const shake = keyframes`
-  0% {
-    margin-left: 0rem;
-  }
-  25% {
-    margin-left: 0.5rem;
-  }
-  75% {
-    margin-left: -0.5rem;
-  }
-  100% {
-    margin-left: 0rem;
-  }
-`
-
-const invalidAnimation = css`
-    @media screen and (prefers-reduced-motion: no-preference) {
-        animation: ${shake} 0.2s ease-in-out 0s 2;
-    }
-`
 
 export const TileStyledTextInput = styled.input.attrs({
     type: 'text',
@@ -51,9 +31,16 @@ export const TileStyledTextInput = styled.input.attrs({
     text-transform: uppercase;
     caret-color: transparent;
 
-    ${({ $valid }) => !$valid && invalidAnimation}
     &:last-of-type {
         margin-right: 0;
+    }
+
+    &:focus {
+        outline: none;
+        border-radius: 5px;
+        border: 2px solid ${VariantBorder.focused};
+        box-shadow: 0 0 0 2px ${VariantBorder.focused};
+        margin: 1px;
     }
 `
 

@@ -1,8 +1,33 @@
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
 import { Form } from '../InputValidation/Form'
 
-export const TileInputGroup = styled.ul`
+const shake = keyframes`
+  0% {
+    margin-left: 0rem;
+  }
+  25% {
+    margin-left: 0.5rem;
+  }
+  75% {
+    margin-left: -0.5rem;
+  }
+  100% {
+    margin-left: 0rem;
+  }
+`
+
+const invalidAnimation = css`
+    @media screen and (prefers-reduced-motion: no-preference) {
+        animation: ${shake} 0.2s ease-in-out 0s 2;
+    }
+`
+
+type TileInputGroupProps = {
+    $valid?: boolean
+}
+
+export const TileInputGroup = styled.ul<TileInputGroupProps>`
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -11,6 +36,7 @@ export const TileInputGroup = styled.ul`
     list-style-type: none;
     padding: 0;
     margin: 0;
+    ${({ $valid }) => !$valid && invalidAnimation}
 `
 
 export const InputTileContainer = styled.li`

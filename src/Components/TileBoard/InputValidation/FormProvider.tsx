@@ -5,6 +5,7 @@ import formReducer, {
     resetState,
     setErrors,
     setFieldValue as setFieldValueAction,
+    setIsFormValid,
     setValues,
 } from './slice'
 
@@ -24,6 +25,7 @@ const initialStateWithInitialValues = (
     values: { ...initialValues },
     errors: {},
     touched: {},
+    isValid: true,
 })
 
 type FormProviderProps = SharedFormProviderProps & {
@@ -78,12 +80,15 @@ export const FormProvider: React.FC<
                     : undefined
 
             if (validationMessage || requiredFieldValidationMessage) {
+                dispatch(setIsFormValid(false))
                 return {
                     fieldName,
                     errorMessage:
                         validationMessage ?? requiredFieldValidationMessage,
                 }
             }
+
+            dispatch(setIsFormValid(true))
             return { fieldName, errorMessage: undefined }
         },
         [],
@@ -234,11 +239,13 @@ export const FormProvider: React.FC<
         if (!firstValidationError) {
             // submit the values if there's no first validation error,
             // form is valid.
+            dispatch(setIsFormValid(true))
             onSubmit(state.values)
         }
 
         // We have a validation error, so we have to handle moving
         // focus to the first invalid field.
+        dispatch(setIsFormValid(false))
         handleInvalidFieldFocus(fieldName)
     }, [doFieldValidation, handleInvalidFieldFocus, onSubmit, state.values])
 
