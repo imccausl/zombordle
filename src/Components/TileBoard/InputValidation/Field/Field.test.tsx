@@ -1,25 +1,35 @@
 import { render, renderHook, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { FormProvider } from '../FormProvider'
+import { FormProvider, type FormProviderProps } from '../FormProvider'
 
 import { Field, type FormFieldProps, useField } from '.'
 
-const defaultProps: FormFieldProps = {}
+const defaultHookProps = { name: 'test-field' }
 const initialValues = {}
 
-const HookComponent: React.FC = () => {
-    const { field, meta } = useField({ name: 'my-field' })
+const wrapper: React.FC<FormProviderProps> = ({
+    children,
+    validateOnBlur,
+    validateOnChange,
+    onSubmit,
+    initialValues = {},
+}) => (
+    <FormProvider
+        validateOnBlur={validateOnBlur}
+        validateOnChange={validateOnChange}
+        onSubmit={onSubmit}
+        initialValues={initialValues}
+    >
+        {children}{' '}
+    </FormProvider>
+)
 
-    return (
-        <div>
-            <input type="text" {...field} />
-        </div>
-    )
-}
-const renderWithProvider = (Component, props: Partial<FormFieldProps>) => {
-    render(<FormProvider></FormProvider>)
-}
+const renderHookWithProvider = (useFieldArgs = {}, providerProps = {}) =>
+    renderHook(() => useField({ ...useFieldArgs, ...defaultHookProps }), {
+        wrapper,
+        initialProps: { ...providerProps },
+    })
 
 describe('Field', () => {
     describe('useField hook', () => {})

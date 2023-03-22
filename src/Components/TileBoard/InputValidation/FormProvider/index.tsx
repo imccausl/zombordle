@@ -29,12 +29,11 @@ const initialStateWithInitialValues = (
     isFormValid: true,
 })
 
-type FormProviderProps = SharedFormProviderProps & {
+export type FormProviderProps = SharedFormProviderProps & {
     initialValues: Record<string, string>
-}
-export const FormProvider: React.FC<
-    FormProviderProps & React.PropsWithChildren
-> = ({
+} & React.PropsWithChildren
+
+export const FormProvider: React.FC<FormProviderProps> = ({
     children,
     validateOnBlur,
     validateOnChange,
