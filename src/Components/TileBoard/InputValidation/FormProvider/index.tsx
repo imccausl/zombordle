@@ -73,21 +73,24 @@ export const FormProvider: React.FC<FormProviderProps> = ({
             const validationMessage = trackedFields.current
                 .get(fieldName)
                 ?.validate?.(value)
-            const requiredFieldValidationMessage =
-                trackedFields.current.get(fieldName)?.required && !value
-                    ? // TODO: Customize validation  or display validation message from valdiate function?
-                      'This field cannot be empty'
-                    : undefined
+            const isRequiredField = Boolean(
+                trackedFields.current.get(fieldName)?.required,
+            )
+            const isRequiredInputFailed = isRequiredField && !value
 
-            if (validationMessage || requiredFieldValidationMessage) {
+            if (validationMessage || isRequiredInputFailed) {
+                const requiredField =
+                    trackedFields.current.get(fieldName)?.required
+                const requiredFieldMessage =
+                    typeof requiredField === 'string'
+                        ? requiredField
+                        : 'This field cannot be empty'
                 dispatch(setIsFormValid(false))
                 return {
                     fieldName,
-                    errorMessage:
-                        validationMessage ?? requiredFieldValidationMessage,
+                    errorMessage: validationMessage ?? requiredFieldMessage,
                 }
             }
-
             dispatch(setIsFormValid(true))
             return { fieldName, errorMessage: undefined }
         },

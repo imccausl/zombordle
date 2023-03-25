@@ -25,7 +25,7 @@ export type FormFieldProps = {
      * Indicates whether the input field is required or not. Same as `<input required ...>`.
      * Although false by default, `required` may also be specified in your field validation.
      */
-    required?: boolean
+    required?: string | boolean
 }
 
 export type UseFieldProps = Omit<FormFieldProps, 'children'>
@@ -93,8 +93,8 @@ export const useField = ({
             onBlur,
             onChange,
             ref: fieldRef,
-            required,
-            'aria-required': required,
+            required: !!required,
+            'aria-required': !!required,
             'aria-invalid': !!meta.error,
         }),
         [meta.error, name, onBlur, onChange, required, value],

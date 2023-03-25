@@ -40,7 +40,7 @@ export type FormStateActions = {
 
 export type TrackedFieldConfig = TrackedFieldCallbacks & {
     ref: React.RefObject<HTMLInputElement>
-    required?: boolean
+    required?: string | boolean
 }
 
 export type TrackedFieldOptionalConfig = Omit<
