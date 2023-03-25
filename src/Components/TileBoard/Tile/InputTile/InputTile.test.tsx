@@ -6,11 +6,8 @@ import { VariantBorder, VariantColor } from './InputTile.styles'
 import InputTile, { type InputTileProps } from '.'
 
 const defaultProps: InputTileProps = {
-    onChange: () => {},
-    onKeyDown: () => {},
-    onFocus: () => {},
-    name: '',
-    value: '',
+    label: 'test label',
+    valid: true,
 }
 
 const renderWithProps = (props: Partial<InputTileProps> = {}) =>
@@ -30,7 +27,7 @@ describe('InputTile', () => {
     })
 
     it('can be initialized with a value', () => {
-        renderWithProps({ value: 'f' })
+        renderWithProps({ defaultValue: 'f' })
 
         const inputTile: HTMLInputElement = screen.getByRole('textbox')
 
@@ -76,4 +73,6 @@ describe('InputTile', () => {
         inputTile.focus()
         expect(onFocusSpy).toHaveBeenCalledOnce()
     })
+
+    describe.todo('Validation')
 })

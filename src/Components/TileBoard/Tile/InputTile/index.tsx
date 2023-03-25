@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 
 import { TileStyledTextInput } from './InputTile.styles'
 
-export type InputTileProps = {
+export type InputTileProps = React.ComponentPropsWithoutRef<'input'> & {
     label?: string
     valid?: boolean
 }
@@ -15,6 +15,8 @@ const InputTile = forwardRef<HTMLInputElement, InputTileProps>(
                 ref={ref}
                 aria-label={label}
                 {...inputProps}
+                maxLength={1}
+                type="text"
             />
         )
     },

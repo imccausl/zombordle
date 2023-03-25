@@ -13,10 +13,7 @@ export const VariantBorder = {
     default: '#8E8787',
 }
 
-export const TileStyledTextInput = styled.input.attrs({
-    type: 'text',
-    maxLength: 1,
-})<TileStyledTextInputProps>`
+export const TileStyledTextInput = styled.input<TileStyledTextInputProps>`
     margin: 0 5px 0 0;
     padding: 0;
     text-align: center;
