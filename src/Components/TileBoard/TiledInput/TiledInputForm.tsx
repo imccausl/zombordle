@@ -107,7 +107,7 @@ export const TiledInputForm: React.FC<TiledInputFormProps> = ({ length }) => {
 
     return (
         <StyledForm>
-            <TileInputGroup role="list" valid={isFormValid}>
+            <TileInputGroup role="list" $valid={isFormValid}>
                 {tiledInput}
             </TileInputGroup>
             <StyledButton type="submit">Submit</StyledButton>

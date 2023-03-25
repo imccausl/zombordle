@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from 'styled-components'
 
-import { Form } from '../InputValidation/Form/Form'
+import { Form } from '../InputValidation/Form'
 
 const shake = keyframes`
   0% {

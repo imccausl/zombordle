@@ -1,40 +1,58 @@
-import { render, renderHook, screen } from '@testing-library/react'
+import { act, renderHook, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { FormProvider, type FormProviderProps } from '../FormProvider'
 
-import { Field, type FormFieldProps, useField } from '.'
+import { Field, type FormFieldProps, type UseFieldProps, useField } from '.'
 
 const defaultHookProps = { name: 'test-field' }
-const initialValues = {}
+const initialValues = { 'test-field': 'some text' }
 
-const wrapper: React.FC<FormProviderProps> = ({
-    children,
-    validateOnBlur,
-    validateOnChange,
-    onSubmit,
-    initialValues = {},
-}) => (
-    <FormProvider
-        validateOnBlur={validateOnBlur}
-        validateOnChange={validateOnChange}
-        onSubmit={onSubmit}
-        initialValues={initialValues}
-    >
-        {children}{' '}
+const defaultProviderProps: FormProviderProps = {
+    onSubmit: () => {},
+    initialValues,
+}
+
+const wrapper: React.FC<any> = ({ children, ...props }) => (
+    <FormProvider {...defaultProviderProps} {...props}>
+        {children}
     </FormProvider>
 )
 
-const renderHookWithProvider = (useFieldArgs = {}, providerProps = {}) =>
-    renderHook(() => useField({ ...useFieldArgs, ...defaultHookProps }), {
+const renderHookWithProvider = (
+    wrapperProps: Partial<FormProviderProps> = {},
+) =>
+    renderHook(() => useField({ ...defaultHookProps }), {
         wrapper,
-        initialProps: { ...providerProps },
+        initialProps: {
+            ...wrapperProps,
+        },
     })
 
 describe('Field', () => {
-    describe('useField hook', () => {})
+    describe('useField hook', () => {
+        it('provides an initial value for the field', () => {
+            const { result } = renderHookWithProvider()
 
-    describe('child prop render function', () => {})
+            expect(result.current.field.value).toBe('some text')
+        })
 
-    describe('single child element', () => {})
+        it('provides the name of the field', () => {
+            const { result } = renderHookWithProvider()
+
+            expect(result.current.field.name).toBe('test-field')
+        })
+
+        it('changes the value of the field with setFieldValue', () => {
+            const { result } = renderHookWithProvider()
+            expect(result.current.field.value).toBe('some text')
+
+            act(() => void result.current.meta.setFieldValue('something new'))
+            expect(result.current.field.value).toBe('something new')
+        })
+    })
+
+    describe.todo('child prop render function', () => {})
+
+    describe.todo('single child element', () => {})
 })

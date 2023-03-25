@@ -130,16 +130,19 @@ export const FormProvider: React.FC<FormProviderProps> = ({
     const handleOnBlur = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
             if (validateOnBlur) {
+                const previousErrorMessage = state.errors[e.target.name]
                 const { errorMessage } = doFieldValidation({
                     fieldName: e.target.name,
                     value: e.target.value,
                 })
 
-                dispatch(
-                    setErrors({
-                        [e.target.name]: errorMessage,
-                    }),
-                )
+                if (previousErrorMessage !== errorMessage) {
+                    dispatch(
+                        setErrors({
+                            [e.target.name]: errorMessage,
+                        }),
+                    )
+                }
 
                 if (errorMessage) {
                     trackedFields.current.get(e.target.name)?.onInvalid?.(e)
@@ -148,7 +151,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
                 }
             }
         },
-        [doFieldValidation, validateOnBlur],
+        [doFieldValidation, state.errors, validateOnBlur],
     )
 
     const registerField: RegisterFieldFunction = useCallback(

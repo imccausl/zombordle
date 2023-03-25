@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 
-import { FormProvider } from '../InputValidation/FormProvider/FormProvider'
+import { FormProvider } from '../InputValidation/FormProvider'
 
 import { TiledInputForm } from './TiledInputForm'
 
