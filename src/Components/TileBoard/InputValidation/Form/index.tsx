@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react'
+import { useCallback } from 'react'
 
 import { useFormContext } from '../FormContext'
 
@@ -6,13 +6,9 @@ type FormProps = {
     onSubmit?: (arg: any) => void
     className?: string
 }
-export const Form: React.FC<FormProps & React.PropsWithChildren> = ({
-    className,
-    children,
-    ...props
-}) => {
+
+export const useForm = () => {
     const { values, errors, onSubmit, resetFormState } = useFormContext()
-    const formRef = useRef<HTMLFormElement>(null)
     const handleOnSubmit = useCallback(
         (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault()
@@ -25,12 +21,24 @@ export const Form: React.FC<FormProps & React.PropsWithChildren> = ({
         resetFormState()
     }, [resetFormState])
 
+    return {
+        onFormReset: handleOnReset,
+        onFormSubmit: handleOnSubmit,
+    }
+}
+
+export const Form: React.FC<FormProps & React.PropsWithChildren> = ({
+    className,
+    children,
+    ...props
+}) => {
+    const { onFormReset, onFormSubmit } = useForm()
+
     return (
         <form
-            ref={formRef}
             className={className}
-            onSubmit={handleOnSubmit}
-            onReset={handleOnReset}
+            onSubmit={onFormSubmit}
+            onReset={onFormReset}
             noValidate
             {...props}
         >
