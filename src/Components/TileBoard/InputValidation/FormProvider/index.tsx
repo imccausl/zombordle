@@ -1,7 +1,6 @@
 import { useCallback, useMemo, useReducer, useRef } from 'react'
 
-import FormContext, { type ContextProps } from '../FormContext'
-
+import FormContext, { type ContextProps } from './FormContext'
 import formReducer, {
     resetState,
     setErrors,
