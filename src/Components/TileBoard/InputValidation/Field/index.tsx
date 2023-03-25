@@ -16,7 +16,7 @@ import type {
 } from '../types'
 
 export type FormFieldProps = {
-    validate: ValidateFn
+    validate?: ValidateFn
     onValid?: OnValidateSuccessCallback
     onInvalid?: OnValidateErrorCallback
     name: string
@@ -28,13 +28,7 @@ export type FormFieldProps = {
     required?: boolean
 }
 
-export type UseFieldProps = {
-    validate?: ValidateFn
-    onValid?: OnValidateSuccessCallback
-    onInvalid?: OnValidateErrorCallback
-    name: string
-    required?: boolean
-}
+export type UseFieldProps = Omit<FormFieldProps, 'children'>
 
 export const useField = ({
     name,
