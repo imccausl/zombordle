@@ -36,6 +36,13 @@ export type FormStateActions = {
     getFieldRefs: () => Array<React.RefObject<HTMLInputElement>>
     getFieldRef: (name: string) => React.RefObject<HTMLInputElement> | undefined
     resetFormState: () => void
+    validateField: ({
+        fieldName,
+        value,
+    }: {
+        fieldName: string
+        value: string
+    }) => { fieldName: string; errorMessage: string | undefined }
 }
 
 export type TrackedFieldConfig = TrackedFieldCallbacks & {
