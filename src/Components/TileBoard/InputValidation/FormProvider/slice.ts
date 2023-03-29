@@ -13,9 +13,9 @@ const formSlice = createSlice({
     name: 'form',
     initialState,
     reducers: {
-        resetState(state) {
+        resetState(state, action: PayloadAction<Record<string, string>>) {
             state.errors = { ...initialState.errors }
-            state.values = { ...initialState.values }
+            state.values = { ...action.payload }
             state.touched = { ...initialState.touched }
         },
         setValues(state, action: PayloadAction<Record<string, string>>) {

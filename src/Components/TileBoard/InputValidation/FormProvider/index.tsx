@@ -64,8 +64,8 @@ export const FormProvider: React.FC<FormProviderProps> = ({
     )
 
     const resetFormState = useCallback(() => {
-        dispatch(resetState())
-    }, [])
+        dispatch(resetState(initialValues))
+    }, [initialValues])
 
     const doFieldValidation = useCallback(
         ({ fieldName, value }: { fieldName: string; value: string }) => {
@@ -235,7 +235,6 @@ export const FormProvider: React.FC<FormProviderProps> = ({
 
             allErrors[fieldName] = errorMessage
         }
-
         dispatch(setErrors(allErrors))
 
         const [fieldName, firstValidationError] =
