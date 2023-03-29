@@ -2,26 +2,21 @@ import { forwardRef } from 'react'
 
 import { TileStyledTextInput } from './InputTile.styles'
 
-export type InputTileProps = {
-    name: string
+export type InputTileProps = React.ComponentPropsWithoutRef<'input'> & {
     label?: string
-    value: string
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-    onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void
-    onFocus: (e: React.FocusEvent<HTMLInputElement>) => void
+    valid?: boolean
 }
 
 const InputTile = forwardRef<HTMLInputElement, InputTileProps>(
-    ({ name, label, onChange, onKeyDown, onFocus, value }, ref) => {
+    ({ label, valid = true, ...inputProps }, ref) => {
         return (
             <TileStyledTextInput
+                $valid={valid}
                 ref={ref}
-                name={name}
-                value={value}
                 aria-label={label}
-                onChange={onChange}
-                onKeyDown={onKeyDown}
-                onFocus={onFocus}
+                {...inputProps}
+                maxLength={1}
+                type="text"
             />
         )
     },

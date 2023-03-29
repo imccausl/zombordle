@@ -10,20 +10,16 @@ import TiledBlank from './TiledBlank'
 import TiledInput from './TiledInput'
 
 export type TileBoardProps = {
-    guess: string
     guesses: string[]
     correctWord: string
-    onChange: (value: string) => void
-    onSubmit: () => void
+    onSubmit: (value: string) => void
 }
 
 const MAX_ATTEMPTS = 6
 
 const TileBoard: React.FC<TileBoardProps> = ({
-    guess,
     guesses,
     correctWord,
-    onChange,
     onSubmit,
 }) => {
     const attemptsRemaining = useMemo(
@@ -64,12 +60,15 @@ const TileBoard: React.FC<TileBoardProps> = ({
                 <ListContainer role="list">{tiledGuesses}</ListContainer>
             )}
             {Boolean(attemptsRemaining) && (
-                <ListContainer as="div">
+                <ListContainer
+                    as="div"
+                    key={`input-form-attempt-${
+                        guesses.length - attemptsRemaining
+                    }`}
+                >
                     <InputRowContainer position={inputRowContainerPosition}>
                         <TiledInput
-                            value={guess}
                             length={correctWord.length}
-                            onChange={onChange}
                             onSubmit={onSubmit}
                         />
                     </InputRowContainer>

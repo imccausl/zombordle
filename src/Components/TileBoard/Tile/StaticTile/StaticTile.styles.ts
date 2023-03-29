@@ -13,7 +13,7 @@ export const VariantBorder = {
     'correct-place': VariantColor['correct-place'],
     'contains-letter': VariantColor['contains-letter'],
     'no-letter': VariantColor['no-letter'],
-    default: '#d2d4dc',
+    default: '#8E8787',
 }
 
 export type VariantColor = keyof typeof VariantColor
