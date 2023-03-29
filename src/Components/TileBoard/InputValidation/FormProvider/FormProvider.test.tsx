@@ -163,7 +163,55 @@ describe('FormProvider', () => {
     })
 
     describe('input functions', () => {
-        it.todo('validates input on blur when `validateOnBlur` is true')
+        const InputComponent: React.FC = () => {
+            const inputRef = React.useRef(null)
+            const {
+                getFieldState,
+                onChange,
+                onBlur,
+                registerField,
+                unRegisterField,
+            } = useFormContext()
+
+            React.useEffect(() => {
+                registerField('test-input', inputRef, (value) =>
+                    value === 'invalid' ? 'invalid input' : undefined,
+                )
+
+                return () => {
+                    unRegisterField('test-input')
+                }
+            })
+
+            const { error } = getFieldState('test-input')
+            return (
+                <>
+                    <input
+                        ref={inputRef}
+                        type="text"
+                        name="test-input"
+                        onChange={onChange}
+                        onBlur={onBlur}
+                    />
+                    <div role="alert">{error ?? ''}</div>
+                </>
+            )
+        }
+
+        const renderInputComponent = (
+            props: Partial<FormProviderProps> = {},
+        ) => {
+            render(
+                <FormProvider {...defaultProps} {...props}>
+                    <InputComponent />
+                </FormProvider>,
+            )
+        }
+
+        it('validates input on blur when `validateOnBlur` is true', async () => {
+            renderInputComponent({ validateOnBlur: true })
+        })
+
         it.todo('validates input on change when `validateOnChange is true')
     })
 
