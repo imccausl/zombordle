@@ -251,6 +251,44 @@ describe('FormProvider', () => {
             await user.type(screen.getByRole('textbox'), '{Backspace}')
             expect(screen.getByRole('alert').textContent).toBe('')
         })
+
+        it('can register and validate a field with the register function', async () => {
+            const RegisteredInput: React.FC = () => {
+                const { register, getFieldState } = useFormContext()
+                const { error } = getFieldState('test-input')
+                return (
+                    <>
+                        <input
+                            {...register({
+                                name: 'test-input',
+                                required: 'enter something',
+                            })}
+                        />
+                        <div role="alert">{error}</div>
+                    </>
+                )
+            }
+
+            const user = userEvent.setup()
+            render(
+                <FormProvider
+                    {...defaultProps}
+                    initialValues={{ 'test-input': '' }}
+                >
+                    <RegisteredInput />
+                </FormProvider>,
+            )
+
+            screen.getByRole('textbox').focus()
+            expect(screen.getByRole('alert').textContent).toBe('')
+            await userEvent.tab()
+            expect(screen.getByRole('alert').textContent).toBe(
+                'enter something',
+            )
+            await user.type(screen.getByRole('textbox'), 'something')
+            await userEvent.tab()
+            expect(screen.getByRole('alert').textContent).toBe('')
+        })
     })
 
     describe('form functions', () => {
