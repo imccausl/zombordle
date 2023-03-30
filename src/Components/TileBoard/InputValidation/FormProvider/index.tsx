@@ -10,6 +10,7 @@ import formReducer, {
 } from './slice'
 
 import type {
+    FieldConfig,
     FormState,
     RegisterFieldFunction,
     SharedFormProviderProps,
@@ -76,7 +77,6 @@ export const FormProvider: React.FC<FormProviderProps> = ({
                 trackedFields.current.get(fieldName)?.required,
             )
             const isRequiredInputFailed = isRequiredField && !value
-
             if (validationMessage || isRequiredInputFailed) {
                 const requiredField =
                     trackedFields.current.get(fieldName)?.required
@@ -253,6 +253,41 @@ export const FormProvider: React.FC<FormProviderProps> = ({
         handleInvalidFieldFocus(fieldName)
     }, [doFieldValidation, handleInvalidFieldFocus, onSubmit, state.values])
 
+    const register = useCallback(
+        (config: FieldConfig & Omit<TrackedFieldConfig, 'ref'>) => {
+            const {
+                validate,
+                onInvalid,
+                onValid,
+                required,
+                type,
+                ...fieldProps
+            } = config
+
+            const refCallback = (ref: HTMLInputElement | null) => {
+                if (ref) {
+                    registerField(fieldProps.name, { current: ref }, validate, {
+                        onInvalid,
+                        onValid,
+                        required,
+                    })
+                } else {
+                    unRegisterField(fieldProps.name)
+                }
+            }
+
+            return {
+                ...fieldProps,
+                onChange: handleOnChange,
+                onBlur: handleOnBlur,
+                required: !!required,
+                type: type ?? 'text',
+                ref: refCallback,
+            }
+        },
+        [handleOnBlur, handleOnChange, registerField, unRegisterField],
+    )
+
     const ctx = useMemo(
         () =>
             ({
@@ -260,6 +295,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
                 onChange: handleOnChange,
                 onBlur: handleOnBlur,
                 onSubmit: handleOnSubmit,
+                register,
                 registerField,
                 unRegisterField,
                 validateField: doFieldValidation,
@@ -277,6 +313,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
             handleOnChange,
             handleOnBlur,
             handleOnSubmit,
+            register,
             registerField,
             unRegisterField,
             doFieldValidation,

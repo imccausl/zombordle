@@ -1,4 +1,5 @@
 import { type TrackedFieldCallbacks, type ValidateFn } from './callbacks'
+import { type FieldConfig, type FieldProps } from './field'
 
 import type React from 'react'
 
@@ -43,6 +44,12 @@ export type FormStateActions = {
         fieldName: string
         value: string
     }) => { fieldName: string; errorMessage: string | undefined }
+    register: (
+        config: FieldConfig & Omit<TrackedFieldConfig, 'ref'>,
+    ) => FieldConfig &
+        Omit<FieldProps, 'ref'> & {
+            ref: (ref: HTMLInputElement | null) => void
+        }
 }
 
 export type TrackedFieldConfig = TrackedFieldCallbacks & {

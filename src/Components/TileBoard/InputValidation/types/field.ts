@@ -3,7 +3,6 @@ export type FieldProps = {
     onBlur: (e: React.FocusEvent<HTMLInputElement>) => void
     name: string
     required: boolean
-    value: string
     ref: React.RefObject<HTMLInputElement>
 }
 
@@ -11,4 +10,14 @@ export type MetaProps = {
     error: string | undefined
     touched: boolean
     setFieldValue: (value: string) => void
+}
+
+export type FieldConfig = {
+    type?: string
+    name: string
+    defaultValue?: string
+    maxLength?: number
+    minLength?: number
+    pattern?: string
+    autofocus?: boolean
 }
