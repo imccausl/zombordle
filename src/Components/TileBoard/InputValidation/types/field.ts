@@ -1,9 +1,17 @@
+type ElementEventHandler<EventType> = (event: EventType) => void
+
+export type OnChangeFn = ElementEventHandler<
+    React.ChangeEvent<HTMLInputElement>
+>
+export type OnBlurFn = ElementEventHandler<React.FocusEvent<HTMLInputElement>>
+export type FieldRef = React.RefObject<HTMLInputElement>
+
 export type FieldProps = {
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-    onBlur: (e: React.FocusEvent<HTMLInputElement>) => void
+    onChange: OnChangeFn
+    onBlur: OnBlurFn
     name: string
     required: boolean
-    ref: React.RefObject<HTMLInputElement>
+    ref: FieldRef
 }
 
 export type MetaProps = {

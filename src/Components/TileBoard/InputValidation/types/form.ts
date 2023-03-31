@@ -1,9 +1,11 @@
 import { type TrackedFieldCallbacks, type ValidateFn } from './callbacks'
-import { type FieldConfig, type FieldProps } from './field'
-
-import type React from 'react'
-
-type FormEventHandler<EventType> = (event: EventType) => void
+import {
+    type FieldConfig,
+    type FieldProps,
+    type FieldRef,
+    type OnBlurFn,
+    type OnChangeFn,
+} from './field'
 
 export type FormState = {
     errors: Record<string, string | undefined>
@@ -20,13 +22,13 @@ export type SharedFormProviderProps = {
 
 type FormFieldValues = {
     value: string
-    onChange: FormEventHandler<React.ChangeEvent<HTMLInputElement>>
-    onBlur: FormEventHandler<React.FocusEvent<HTMLInputElement>>
+    onChange: OnChangeFn
+    onBlur: OnBlurFn
 }
 
 export type FormStateActions = {
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-    onBlur: (e: React.FocusEvent<HTMLInputElement>) => void
+    onChange: OnChangeFn
+    onBlur: OnBlurFn
     setFieldValue: (field: string, value: string) => void
     getFieldState: (name: string) => {
         error: FormState['errors'][string]
@@ -34,8 +36,8 @@ export type FormStateActions = {
         touched: FormState['touched'][string]
     }
     getFieldValues: (name: string) => FormFieldValues
-    getFieldRefs: () => Array<React.RefObject<HTMLInputElement>>
-    getFieldRef: (name: string) => React.RefObject<HTMLInputElement> | undefined
+    getFieldRefs: () => Array<FieldRef>
+    getFieldRef: (name: string) => FieldRef | undefined
     resetFormState: () => void
     validateField: ({
         fieldName,
@@ -53,7 +55,7 @@ export type FormStateActions = {
 }
 
 export type TrackedFieldConfig = TrackedFieldCallbacks & {
-    ref: React.RefObject<HTMLInputElement>
+    ref: FieldRef
     required?: string | boolean
 }
 
@@ -64,7 +66,7 @@ export type TrackedFieldOptionalConfig = Omit<
 
 export type RegisterFieldFunction = (
     fieldName: string,
-    ref: React.RefObject<HTMLInputElement>,
+    ref: FieldRef,
     validateFn?: ValidateFn,
     optionalConfig?: TrackedFieldOptionalConfig,
 ) => void
