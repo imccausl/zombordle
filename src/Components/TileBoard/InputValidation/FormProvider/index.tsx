@@ -11,6 +11,7 @@ import formReducer, {
 
 import type {
     FieldConfig,
+    FieldRef,
     FormState,
     RegisterFieldFunction,
     SharedFormProviderProps,
@@ -196,7 +197,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
     )
 
     const getFieldRefs = useCallback(() => {
-        const fieldRefs: Array<React.RefObject<HTMLInputElement>> = []
+        const fieldRefs: Array<FieldRef> = []
 
         trackedFields.current.forEach(({ ref }) => {
             fieldRefs.push(ref)
