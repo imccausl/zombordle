@@ -1,5 +1,5 @@
 {
-  "name": "zombordle",
+  "name": "@app/zombordle",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,8 +11,7 @@
     "test": "vitest run",
     "test:watch": "vitest dev",
     "test:related": "vitest related --run",
-    "lint:css": "stylelint ./src/**/*.{ts,tsx}",
-    "postinstall": "husky install"
+    "lint:css": "stylelint ./src/**/*.{ts,tsx}"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",

@@ -28,10 +28,11 @@
     }
   },
   "include": [
+    ".eslintrc.js",
     "app/next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "next.config.js"
+    "app/next.config.js"
   ],
   "exclude": [
     "node_modules"
