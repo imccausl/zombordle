@@ -2,6 +2,7 @@
   "name": "@app/zombordle",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -21,5 +22,11 @@
     "react-is": "^18.2.0",
     "styled-components": "^5.3.8"
   },
-  "packageManager": "yarn@3.4.1"
+  "packageManager": "yarn@3.4.1",
+  "devDependencies": {
+    "@types/node": "18.15.11",
+    "@types/react": "18.0.33",
+    "eslint": "^8.35.0",
+    "typescript": "^5.0.3"
+  }
 }
