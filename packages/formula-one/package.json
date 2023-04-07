@@ -10,9 +10,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "test": "vitest run",
-    "test:watch": "vitest dev",
-    "test:related": "vitest related --run",
-    "lint:css": "stylelint ./src/**/*.{ts,tsx}"
+    "test-watch": "vitest dev",
+    "test-related": "vitest related --run",
+    "lint-css": "stylelint ./src/**/*.{ts,tsx}"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
