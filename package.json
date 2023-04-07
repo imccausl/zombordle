@@ -14,7 +14,7 @@
     "lint": "yarn turbo run lint",
     "test": "yarn turbo run test",
     "lint-css": "stylelint ./**/*.{ts,tsx}",
-    "test-related": "yarn turbo run test-related",
+    "test-related": "yarn workspaces foreach run test-related",
     "postinstall": "husky install"
   },
   "devDependencies": {

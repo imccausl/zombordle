@@ -24,7 +24,6 @@
         "test/**/*.ts",
         "test/**/*.tsx"
       ]
-    },
-    "test-related": {}
+    }
   }
 }

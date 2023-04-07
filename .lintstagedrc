@@ -1,7 +1,7 @@
 {
   "*.{ts,tsx,js,jsx}": "yarn eslint --fix",
-  "**/*/src/*.{ts,tsx}": [
+  "*.{ts,tsx}": [
     "yarn stylelint --fix",
-    "yarn test-related"
+    "yarn run test-related"
   ]
 }
