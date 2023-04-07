@@ -2,9 +2,6 @@
 const nextConfig = {
     transpilePackages: ['formula-one'],
     reactStrictMode: true,
-    // experimental: {
-    //     externalDir: true,
-    // },
     compiler: {
         styledComponents: true,
     },
