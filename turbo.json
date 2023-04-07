@@ -22,6 +22,9 @@
     },
     "//#lint-css": {},
     "test": {
+      "dependsOn": [
+        "build"
+      ],
       "inputs": [
         "src/**/*.tsx",
         "src/**/*.ts",
