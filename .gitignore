@@ -8,13 +8,15 @@
 
 !.yarn/releases
 !.yarn/sdks
+!.yarn/plugins
 
 # testing
 /coverage
 
 # next.js
-/.next/
-/out/
+app/.next
+app/out
+app/node_modules
 
 # production
 /build
@@ -38,3 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#turbo
+.turbo

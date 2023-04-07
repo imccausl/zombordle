@@ -1,10 +1,7 @@
+import { FormProvider, type FormState as FormStateType } from 'formula-one'
 import { useCallback, useMemo } from 'react'
 
-import { FormProvider } from '../InputValidation/FormProvider'
-
 import { TiledInputForm } from './TiledInputForm'
-
-import type { FormState as FormStateType } from '../InputValidation/types'
 
 export type TiledInputProps = {
     length: number

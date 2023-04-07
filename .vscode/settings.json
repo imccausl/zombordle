@@ -8,5 +8,6 @@
   "eslint.nodePath": ".yarn/sdks",
   "css.validate": false,
   "scss.validate": false,
-  "stylelint.packageManager": "yarn"
+  "stylelint.packageManager": "yarn",
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.js"
 }

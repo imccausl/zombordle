@@ -1,0 +1,39 @@
+{
+  "name": "@app/zombordle",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "export": "next export",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "vitest run",
+    "test-watch": "vitest dev",
+    "test-related": "vitest related --run"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.3",
+    "formula-one": "workspace:packages/formula-one",
+    "next": "^13.2.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-is": "^18.2.0",
+    "styled-components": "^5.3.8"
+  },
+  "packageManager": "yarn@3.4.1",
+  "devDependencies": {
+    "@testing-library/dom": "^9.0.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/node": "18.15.11",
+    "@types/react": "18.0.33",
+    "@types/styled-components": "^5.1.26",
+    "@vitejs/plugin-react": "^3.1.0",
+    "eslint": "^8.35.0",
+    "jsdom": "^21.1.1",
+    "typescript": "^5.0.3",
+    "vite": "^4.2.1",
+    "vitest": "^0.29.2"
+  }
+}

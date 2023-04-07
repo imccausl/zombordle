@@ -39,7 +39,7 @@ export const Form: React.FC<FormProps & React.PropsWithChildren> = ({
             className={className}
             onSubmit={onFormSubmit}
             onReset={onFormReset}
-            noValidate
+            noValidate // TODO: this should be an option (although probably the default?)
             {...props}
         >
             {children}

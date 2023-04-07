@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    transpilePackages: ['formula-one'],
     reactStrictMode: true,
     compiler: {
         styledComponents: true,
