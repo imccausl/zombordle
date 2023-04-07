@@ -8,14 +8,13 @@
   ],
   "scripts": {
     "dev": "yarn workspace @app/zombordle dev",
-    "export": "yarn workspace @app/zombordle export",
+    "export": "yarn turbo run export",
     "start": "yarn workspace @app/zombordle start",
-    "build": "yarn workspace @app/zombordle build",
-    "lint": "yarn workspace @app/zombordle lint",
+    "build": "yarn turbo run build",
+    "lint": "yarn turbo run lint",
+    "test": "yarn turbo run test",
     "lint-css": "stylelint ./**/*.{ts,tsx}",
-    "test": "vitest run",
-    "test-watch": "vitest dev",
-    "test-related": "vitest related --run",
+    "test-related": "yarn turbo run test-related",
     "postinstall": "husky install"
   },
   "devDependencies": {
@@ -60,6 +59,7 @@
     "stylelint": "^15.2.0",
     "stylelint-config-standard": "^30.0.1",
     "supports-color": "^9.3.1",
+    "turbo": "^1.8.8",
     "typescript": "^5.0.3",
     "vite": "^4.1.4",
     "vitest": "^0.29.2"

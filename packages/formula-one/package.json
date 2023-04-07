@@ -7,12 +7,10 @@
     "lib"
   ],
   "scripts": {
-    "build": "vite build",
     "lint": "eslint .",
     "test": "vitest run",
     "test-watch": "vitest dev",
-    "test-related": "vitest related --run",
-    "lint-css": "stylelint ./src/**/*.{ts,tsx}"
+    "test-related": "vitest related --run"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",

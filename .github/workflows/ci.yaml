@@ -34,7 +34,7 @@ jobs:
       - name: Prepare Environment
         uses: ./.github/actions/prepare-env
       - name: stylelint
-        run: yarn lint:css
+        run: yarn turbo run lint-css
 
   tests:
     name: Run All Tests

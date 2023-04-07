@@ -1,0 +1,30 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**"
+      ]
+    },
+    "export": {
+      "dependsOn": [
+        "build"
+      ],
+      "outputs": [
+        "out/**"
+      ]
+    },
+    "lint": {},
+    "//#lint-css": {},
+    "test": {
+      "inputs": [
+        "src/**/*.tsx",
+        "src/**/*.ts",
+        "test/**/*.ts",
+        "test/**/*.tsx"
+      ]
+    },
+    "test-related": {}
+  }
+}
