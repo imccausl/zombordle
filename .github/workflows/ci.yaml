@@ -59,12 +59,12 @@ jobs:
         run: CI=1 yarn build
       - name: Export Static Assets
         if: github.ref_name == 'main'
-        run: yarn export && touch ./out/.nojekyll
+        run: yarn export && touch ./app/out/.nojekyll
       - name: Stash Build Artifacts
         if: github.ref_name == 'main'
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./out
+          path: ./app/out
 
   deploy:
     name: Deploy
