@@ -1,12 +1,21 @@
 {
-  "name": "@app/zombordle",
+  "name": "formula-one",
   "version": "0.1.0",
+  "main": "./lib/index.umd.cjs",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib/index.umd.cjs"
+    }
+  },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "export": "next export",
-    "start": "next start",
-    "lint": "next lint",
+    "build": "vite build",
+    "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest dev",
     "test:related": "vitest related --run",
@@ -14,13 +23,14 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
-    "next": "^13.2.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-is": "^18.2.0",
+    "react-is": "^18.0.2",
     "styled-components": "^5.3.8"
   },
-  "packageManager": "yarn@3.4.1",
+  "peerDependencies": {
+    "react": "^18.0.0 || ^17.0.0 || ^16.8.0",
+    "react-dom": "^18.0.0 || ^17.0.0 || ^16.8.0",
+    "react-is": "^18.0.0 || ^17.0.0 || ^16.8.0"
+  },
   "devDependencies": {
     "@testing-library/dom": "^9.0.1",
     "@testing-library/jest-dom": "^5.16.5",
@@ -32,8 +42,12 @@
     "@vitejs/plugin-react": "^3.1.0",
     "eslint": "^8.35.0",
     "jsdom": "^21.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "typescript": "^5.0.3",
     "vite": "^4.2.1",
+    "vite-plugin-dts": "^2.2.0",
     "vitest": "^0.29.2"
-  }
+  },
+  "packageManager": "yarn@3.4.1"
 }

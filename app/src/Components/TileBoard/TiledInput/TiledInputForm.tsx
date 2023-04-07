@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react'
-
-import { useFormContext } from '../InputValidation/FormProvider/FormContext'
+import { useFormContext } from 'zombordle/packages/formula-one/InputValidation/FormProvider/FormContext'
 
 import { InputElement } from './InputElement'
 import { StyledButton, StyledForm, TileInputGroup } from './TiledInput.styles'

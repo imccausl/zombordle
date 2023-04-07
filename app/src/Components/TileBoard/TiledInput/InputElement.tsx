@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
+import { useField } from 'zombordle/packages/formula-one/InputValidation/Field'
 
-import { useField } from '../InputValidation/Field'
 import InputTile from '../Tile/InputTile'
 
 import { InputTileContainer } from './TiledInput.styles'
