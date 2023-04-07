@@ -7,15 +7,15 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "next dev",
-    "workspace:build": "cd $INIT_CWD && yarn workspace @app/zombordle build",
-    "export": "next export",
-    "start": "next start",
-    "lint": "next lint",
-    "test": "vitest run",
-    "test:watch": "vitest dev",
-    "test:related": "vitest related --run",
-    "lint:css": "stylelint ./src/**/*.{ts,tsx}",
+    "app:dev": "yarn workspace @app/zombordle dev",
+    "app:export": "yarn workspace @app/zombordle export",
+    "app:start": "yarn workspace @app/zombordle start",
+    "workspace:build": "yarn workspace @app/zombordle build",
+    "workspace:lint": "yarn workspace @app/zombordle lint",
+    "workspace:lint-css": "stylelint ./src/**/*.{ts,tsx}",
+    "workspace:test": "vitest run",
+    "workspace:test-watch": "vitest dev",
+    "workspace:test-related": "vitest related --run",
     "postinstall": "husky install"
   },
   "devDependencies": {
