@@ -15,7 +15,11 @@
         "out/**"
       ]
     },
-    "lint": {},
+    "lint": {
+      "dependsOn": [
+        "build"
+      ]
+    },
     "//#lint-css": {},
     "test": {
       "inputs": [
