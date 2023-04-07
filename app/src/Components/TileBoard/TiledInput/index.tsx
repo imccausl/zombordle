@@ -1,9 +1,7 @@
+import { FormProvider, type FormState as FormStateType } from 'formula-one'
 import { useCallback, useMemo } from 'react'
-import { FormProvider } from 'zombordle/packages/formula-one/InputValidation/FormProvider'
 
 import { TiledInputForm } from './TiledInputForm'
-
-import type { FormState as FormStateType } from 'zombordle/packages/formula-one/InputValidation/types'
 
 export type TiledInputProps = {
     length: number

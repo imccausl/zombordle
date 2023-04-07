@@ -1,6 +1,5 @@
+import { Form } from 'formula-one'
 import styled, { css, keyframes } from 'styled-components'
-
-import { Form } from 'zombordle/packages/formula-one/InputValidation/Form'
 
 const shake = keyframes`
   0% {

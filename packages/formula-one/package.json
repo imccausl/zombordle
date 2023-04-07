@@ -1,18 +1,11 @@
 {
   "name": "formula-one",
   "version": "0.1.0",
-  "main": "./lib/index.umd.cjs",
-  "module": "./lib/index.js",
+  "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
     "lib"
   ],
-  "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "require": "./lib/index.umd.cjs"
-    }
-  },
   "scripts": {
     "build": "vite build",
     "lint": "eslint .",
