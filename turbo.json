@@ -16,16 +16,9 @@
         "out/**"
       ]
     },
-    "lint": {
-      "dependsOn": [
-        "build"
-      ]
-    },
+    "lint": {},
     "//#lint-css": {},
     "test": {
-      "dependsOn": [
-        "build"
-      ],
       "inputs": [
         "src/**/*.tsx",
         "src/**/*.ts",
