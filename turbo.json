@@ -4,7 +4,8 @@
     "build": {
       "outputs": [
         ".next/**",
-        "!.next/cache/**"
+        "!.next/cache/**",
+        "lib"
       ]
     },
     "export": {
