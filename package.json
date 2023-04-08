@@ -10,9 +10,9 @@
     "dev": "yarn workspace @app/zombordle dev",
     "export": "yarn turbo run export",
     "start": "yarn workspace @app/zombordle start",
-    "build": "yarn turbo run build",
-    "lint": "yarn turbo run lint",
-    "test": "yarn turbo run test",
+    "build": "yarn turbo run build --cache-dir='./.cache'",
+    "lint": "yarn turbo run lint --color",
+    "test": "yarn turbo run test --color",
     "lint-css": "stylelint ./**/*.{ts,tsx}",
     "test-related": "yarn workspaces foreach run test-related",
     "postinstall": "husky install"
