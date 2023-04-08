@@ -1,5 +1,7 @@
 import { forwardRef } from 'react'
 
+import { Tooltip } from '../../../Tooltip'
+
 import { TileStyledTextInput } from './InputTile.styles'
 
 export type InputTileProps = React.ComponentPropsWithoutRef<'input'> & {
@@ -10,14 +12,17 @@ export type InputTileProps = React.ComponentPropsWithoutRef<'input'> & {
 const InputTile = forwardRef<HTMLInputElement, InputTileProps>(
     ({ label, valid = true, ...inputProps }, ref) => {
         return (
-            <TileStyledTextInput
-                $valid={valid}
-                ref={ref}
-                aria-label={label}
-                {...inputProps}
-                maxLength={1}
-                type="text"
-            />
+            <Tooltip isShowing={false}>
+                <Tooltip.Content>testing</Tooltip.Content>
+                <TileStyledTextInput
+                    $valid={valid}
+                    ref={ref}
+                    aria-label={label}
+                    {...inputProps}
+                    maxLength={1}
+                    type="text"
+                />
+            </Tooltip>
         )
     },
 )
