@@ -1,13 +1,16 @@
 {
   "name": "formula-one",
   "version": "0.1.0",
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "src/index.ts",
+  "publishConfig": {
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts"
+  },
   "files": [
     "lib"
   ],
   "scripts": {
-    "build": "tsc --build",
+    "build": "rm -rf lib && tsc --build",
     "lint": "eslint .",
     "test": "vitest run",
     "test-watch": "vitest dev",
