@@ -7,7 +7,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --build",
     "lint": "eslint .",
     "test": "vitest run",
     "test-watch": "vitest dev",
