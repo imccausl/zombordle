@@ -22,7 +22,7 @@ export const InputElement: React.FC<InputElementProps> = ({
     const [hasFocus, setHasFocus] = useState<boolean>(false)
 
     const handleValidation = useCallback((value: string) => {
-        if (/^[a-z]$/.test(value)) return
+        if (/^[a-z]$/i.test(value)) return
 
         return 'Please enter an alphabetic character (A-Z).'
     }, [])

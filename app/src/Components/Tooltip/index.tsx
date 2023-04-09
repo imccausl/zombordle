@@ -3,9 +3,11 @@ import { createContext, useContext } from 'react'
 import { Pointy } from './Styles/Pointy'
 import { TooltipContainer, TooltipContentContainer } from './Tooltip.styles'
 
+import type { Positions } from './Tooltip.constants'
+
 type TooltipContextValues = {
     isShowing?: boolean
-    defaultPosition?: 'top' | 'bottom' | 'left' | 'right'
+    defaultPosition?: Positions
 }
 const TooltipContext = createContext<TooltipContextValues>({})
 
@@ -14,10 +16,20 @@ interface Tooltip extends React.FC<TooltipProps> {
     Content: typeof TooltipContent
 }
 
+export const useTooltipContext = () => {
+    const context = useContext(TooltipContext)
+
+    if (!context) {
+        throw new Error('Must use `useTooltipContext` within a TooltipProvider')
+    }
+
+    return context
+}
+
 const Tooltip: Tooltip = ({
     children,
     isShowing = false,
-    defaultPosition = 'bottom',
+    defaultPosition = 'bottom-right',
 }) => {
     return (
         <TooltipContext.Provider value={{ isShowing, defaultPosition }}>
@@ -33,7 +45,7 @@ export const TooltipContent: React.FC<TooltipContentProps> = ({
     children,
     className,
 }) => {
-    const { isShowing, defaultPosition } = useContext(TooltipContext)
+    const { isShowing, defaultPosition } = useTooltipContext()
 
     if (!isShowing) {
         return null
@@ -44,7 +56,8 @@ export const TooltipContent: React.FC<TooltipContentProps> = ({
             $defaultPosition={defaultPosition}
             className={className}
         >
-            <Pointy>{children}</Pointy>
+            {/* temporary pointy style for development purposes. This will be optional */}
+            <Pointy variant="danger">{children}</Pointy>
         </TooltipContentContainer>
     )
 }

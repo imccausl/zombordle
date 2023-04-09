@@ -1,4 +1,6 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
+
+import { PositionCSS } from './Tooltip.constants'
 
 import type { TooltipProps } from '.'
 
@@ -11,22 +13,6 @@ export const TooltipContainer = styled.div`
     pointer-events: auto;
 `
 
-const PositionCSS = {
-    top: css`
-        top: 0;
-    `,
-    bottom: css`
-        bottom: 0;
-        left: 50%;
-    `,
-    left: css`
-        left: 0;
-    `,
-    right: css`
-        right: 0;
-    `,
-}
-
 export const TooltipContentContainer = styled.div<ToolTipContentContainerProps>`
     position: absolute;
     width: max-content;
@@ -35,5 +21,6 @@ export const TooltipContentContainer = styled.div<ToolTipContentContainerProps>`
     z-index: 9999;
     pointer-events: none;
 
-    ${({ $defaultPosition }) => PositionCSS[$defaultPosition ?? 'bottom']}
+    ${({ $defaultPosition }) =>
+        PositionCSS[$defaultPosition ?? 'bottom-center']}
 `
