@@ -1,5 +1,5 @@
 import { useField } from 'formula-one'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 
 import InputTile from '../Tile/InputTile'
 
@@ -19,14 +19,17 @@ export const InputElement: React.FC<InputElementProps> = ({
     onKeyDown,
     onFocus,
 }) => {
+    const [hasFocus, setHasFocus] = useState<boolean>(false)
+
     const handleValidation = useCallback((value: string) => {
         if (/^[a-z]$/.test(value)) return
 
         return 'Please enter an alphabetic character (A-Z).'
     }, [])
+
     const {
         meta: { error },
-        field: { onChange: fieldOnChange, ...field },
+        field: { onChange: fieldOnChange, onBlur, ...field },
     } = useField({
         name: `input-${index + 1}`,
         validate: handleValidation,
@@ -46,20 +49,34 @@ export const InputElement: React.FC<InputElementProps> = ({
         [index, onKeyDown],
     )
 
+    const handleOnBlur = useCallback(
+        (e: React.FocusEvent<HTMLInputElement>) => {
+            setHasFocus(false)
+            onBlur(e)
+        },
+        [onBlur],
+    )
+    const handleOnFocus = useCallback(
+        (e: React.FocusEvent<HTMLInputElement>) => {
+            setHasFocus(true)
+            onFocus(e)
+        },
+        [onFocus],
+    )
+
     return (
         <InputTileContainer key={`input-${index + 1}`}>
             <TiledInputValidation
                 error={error}
-                showValidationMessage={
-                    document.activeElement === field.ref.current
-                }
+                showValidationMessage={hasFocus}
             >
                 <InputTile
                     {...field}
                     label={`${toOrdinal(index + 1)} letter`}
                     onChange={handleOnChange}
                     onKeyDown={handleOnKeyDown}
-                    onFocus={onFocus}
+                    onFocus={handleOnFocus}
+                    onBlur={handleOnBlur}
                 />
             </TiledInputValidation>
         </InputTileContainer>
