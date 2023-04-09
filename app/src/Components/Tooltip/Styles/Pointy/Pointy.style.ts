@@ -10,6 +10,7 @@ export const Container = styled.div`
     padding: 10px;
     bottom: -45px;
     border-radius: 0.5rem;
+    box-shadow: 0 3px 10px 1px rgb(0 0 0 / 50%);
 
     &::before {
         content: '';
