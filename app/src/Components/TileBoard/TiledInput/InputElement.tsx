@@ -4,6 +4,7 @@ import { useCallback } from 'react'
 import InputTile from '../Tile/InputTile'
 
 import { InputTileContainer } from './TiledInput.styles'
+import { TiledInputValidation } from './TiledInputValidation'
 import { toOrdinal } from './util'
 
 type InputElementProps = {
@@ -21,7 +22,7 @@ export const InputElement: React.FC<InputElementProps> = ({
     const handleValidation = useCallback((value: string) => {
         if (/^[a-z]$/.test(value)) return
 
-        return 'Value must be an alphabetic character (A-Z).'
+        return 'Please enter an alphabetic character (A-Z).'
     }, [])
     const {
         meta: { error },
@@ -47,14 +48,20 @@ export const InputElement: React.FC<InputElementProps> = ({
 
     return (
         <InputTileContainer key={`input-${index + 1}`}>
-            <InputTile
-                {...field}
-                valid={!error}
-                label={`${toOrdinal(index + 1)} letter`}
-                onChange={handleOnChange}
-                onKeyDown={handleOnKeyDown}
-                onFocus={onFocus}
-            />
+            <TiledInputValidation
+                error={error}
+                showValidationMessage={
+                    document.activeElement === field.ref.current
+                }
+            >
+                <InputTile
+                    {...field}
+                    label={`${toOrdinal(index + 1)} letter`}
+                    onChange={handleOnChange}
+                    onKeyDown={handleOnKeyDown}
+                    onFocus={onFocus}
+                />
+            </TiledInputValidation>
         </InputTileContainer>
     )
 }
