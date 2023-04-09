@@ -12,8 +12,8 @@ export type InputTileProps = React.ComponentPropsWithoutRef<'input'> & {
 const InputTile = forwardRef<HTMLInputElement, InputTileProps>(
     ({ label, valid = true, ...inputProps }, ref) => {
         return (
-            <Tooltip isShowing={false}>
-                <Tooltip.Content>testing</Tooltip.Content>
+            <Tooltip isShowing={!valid}>
+                <Tooltip.Content>This field is required</Tooltip.Content>
                 <TileStyledTextInput
                     $valid={valid}
                     ref={ref}

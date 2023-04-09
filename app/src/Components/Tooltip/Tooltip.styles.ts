@@ -16,6 +16,7 @@ const PositionCSS = {
     `,
     bottom: css`
         bottom: 0;
+        left: 50%;
     `,
     left: css`
         left: 0;
@@ -27,5 +28,10 @@ const PositionCSS = {
 
 export const TooltipContentContainer = styled.div<ToolTipContentContainerProps>`
     position: absolute;
+    width: max-content;
+    left: auto;
+    right: auto;
+    z-index: 9999;
+
     ${({ $defaultPosition }) => PositionCSS[$defaultPosition ?? 'bottom']}
 `

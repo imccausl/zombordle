@@ -1,5 +1,6 @@
 import { createContext, useContext } from 'react'
 
+import { Pointy } from './Styles/Pointy'
 import { TooltipContainer, TooltipContentContainer } from './Tooltip.styles'
 
 type TooltipContextValues = {
@@ -25,8 +26,13 @@ const Tooltip: Tooltip = ({
     )
 }
 
-export type TooltipContentProps = React.PropsWithChildren<{}>
-export const TooltipContent: React.FC<TooltipContentProps> = ({ children }) => {
+export type TooltipContentProps = React.PropsWithChildren<{
+    className?: string
+}>
+export const TooltipContent: React.FC<TooltipContentProps> = ({
+    children,
+    className,
+}) => {
     const { isShowing, defaultPosition } = useContext(TooltipContext)
 
     if (!isShowing) {
@@ -34,8 +40,11 @@ export const TooltipContent: React.FC<TooltipContentProps> = ({ children }) => {
     }
 
     return (
-        <TooltipContentContainer $defaultPosition={defaultPosition}>
-            {children}
+        <TooltipContentContainer
+            $defaultPosition={defaultPosition}
+            className={className}
+        >
+            <Pointy>{children}</Pointy>
         </TooltipContentContainer>
     )
 }
