@@ -8,6 +8,7 @@ type ToolTipContentContainerProps = {
 
 export const TooltipContainer = styled.div`
     position: relative;
+    pointer-events: auto;
 `
 
 const PositionCSS = {
@@ -32,6 +33,7 @@ export const TooltipContentContainer = styled.div<ToolTipContentContainerProps>`
     left: auto;
     right: auto;
     z-index: 9999;
+    pointer-events: none;
 
     ${({ $defaultPosition }) => PositionCSS[$defaultPosition ?? 'bottom']}
 `
