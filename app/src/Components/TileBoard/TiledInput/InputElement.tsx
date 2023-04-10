@@ -19,7 +19,8 @@ export const InputElement: React.FC<InputElementProps> = ({
     onKeyDown,
     onFocus,
 }) => {
-    const [hasFocus, setHasFocus] = useState<boolean>(false)
+    const [hasFocus, setHasFocus] = useState(false)
+    const [isMouseOver, setIsMouseOver] = useState(false)
 
     const handleValidation = useCallback((value: string) => {
         if (/^[a-z]$/i.test(value)) return
@@ -49,6 +50,9 @@ export const InputElement: React.FC<InputElementProps> = ({
         [index, onKeyDown],
     )
 
+    const handleOnMouseEnter = useCallback(() => void setIsMouseOver(true), [])
+    const handleOnMouseLeave = useCallback(() => void setIsMouseOver(false), [])
+
     const handleOnBlur = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
             setHasFocus(false)
@@ -68,7 +72,7 @@ export const InputElement: React.FC<InputElementProps> = ({
         <InputTileContainer key={`input-${index + 1}`}>
             <TiledInputValidation
                 error={error}
-                showValidationMessage={hasFocus}
+                showValidationMessage={hasFocus || isMouseOver}
             >
                 <InputTile
                     {...field}
@@ -77,6 +81,8 @@ export const InputElement: React.FC<InputElementProps> = ({
                     onKeyDown={handleOnKeyDown}
                     onFocus={handleOnFocus}
                     onBlur={handleOnBlur}
+                    onMouseEnter={handleOnMouseEnter}
+                    onMouseLeave={handleOnMouseLeave}
                 />
             </TiledInputValidation>
         </InputTileContainer>
