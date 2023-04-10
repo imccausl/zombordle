@@ -15,7 +15,7 @@ export const VariantThemes = {
     },
 }
 
-export const PositionCSS = {
+export const PointerPositionCSS = {
     top: css`
         top: 0;
     `,
@@ -30,9 +30,9 @@ export const PositionCSS = {
         transform: translateX(92%);
     `,
     'bottom-left': css`
-        left: 92%;
+        right: 0;
+        right: 10%;
         bottom: 100%;
-        transform: translateX(-92%);
     `,
     left: css`
         left: 0;

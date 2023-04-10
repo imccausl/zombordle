@@ -1,4 +1,4 @@
-import { useTooltipContext } from '../..'
+import { useContainerPosition } from '../..'
 
 import { Container } from './Pointy.style'
 
@@ -12,11 +12,12 @@ export const Pointy: React.FC<PontyProps> = ({
     children,
     variant = 'default',
 }) => {
-    const { defaultPosition } = useTooltipContext()
+    const position = useContainerPosition()
+
     return (
         <Container
             $variant={variant}
-            $defaultPosition={defaultPosition ?? 'bottom-center'}
+            $defaultPosition={position ?? 'bottom-left'}
         >
             {children}
         </Container>

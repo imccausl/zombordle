@@ -5,18 +5,19 @@ export const PositionCSS = {
         top: 0;
     `,
     'bottom-center': css`
-        bottom: 0;
         left: 50%;
+        right: 0;
+        transform: translateX(calc(-50% - 14px));
     `,
     'bottom-right': css`
-        bottom: 0;
         left: 0;
-        right: 100%;
+        right: 0;
+        transform: translateX(0);
     `,
     'bottom-left': css`
-        bottom: 0;
-        left: 100%;
         right: 0;
+        left: 0;
+        transform: translateX(-82%);
     `,
     left: css`
         left: 0;
