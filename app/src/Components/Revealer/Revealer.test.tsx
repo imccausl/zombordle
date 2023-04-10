@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react'
 
-import { Tooltip, type TooltipProps } from '.'
+import { type RevealerProps, Tooltip } from '.'
 
-const defaultProps: TooltipProps = {
+const defaultProps: RevealerProps = {
     isShowing: false,
 }
 
-const renderComponent = (props: Partial<TooltipProps> = {}) => {
+const renderComponent = (props: Partial<RevealerProps> = {}) => {
     render(
         <Tooltip {...defaultProps} {...props}>
             <Tooltip.Content>Testing Tooltip</Tooltip.Content>
@@ -14,7 +14,7 @@ const renderComponent = (props: Partial<TooltipProps> = {}) => {
     )
 }
 
-describe('<Tooltip />', () => {
+describe('<ContentRevealer />', () => {
     it('should show the tooltip when isShowing is true', () => {
         renderComponent({ isShowing: true })
 

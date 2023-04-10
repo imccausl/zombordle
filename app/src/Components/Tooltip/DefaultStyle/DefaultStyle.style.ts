@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 
-import { type Positions } from '../../Tooltip.constants'
+import { type Positions } from '../../Revealer/Revealer.constants'
 
 import {
     PointerPositionCSS as PointerPositionCSS,
     VariantThemes,
     type Variants,
-} from './Pointy.constants'
+} from './DefaultStyle.constants'
 
 type ColorTypes = keyof (typeof VariantThemes)[keyof typeof VariantThemes]
 type ContainerProps = {

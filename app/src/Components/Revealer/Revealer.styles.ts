@@ -1,20 +1,20 @@
 import styled from 'styled-components'
 
-import { PositionCSS } from './Tooltip.constants'
+import { PositionCSS } from './Revealer.constants'
 
-import type { TooltipProps } from '.'
+import type { RevealerProps } from '.'
 
-type ToolTipContentContainerProps = {
-    $defaultPosition: TooltipProps['defaultPosition']
-    $isVisible: TooltipProps['isShowing']
+type RevealerContentContainerProps = {
+    $defaultPosition: RevealerProps['defaultPosition']
+    $isVisible: RevealerProps['isShowing']
 }
 
-export const TooltipContainer = styled.div`
+export const RevealerContainer = styled.div`
     position: relative;
     pointer-events: auto;
 `
 
-export const TooltipContentContainer = styled.div<ToolTipContentContainerProps>`
+export const RevealerContentContainer = styled.div<RevealerContentContainerProps>`
     visibility: ${({ $isVisible }) => ($isVisible ? 'visible' : 'hidden')};
     position: absolute;
     width: max-content;

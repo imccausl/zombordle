@@ -1,14 +1,14 @@
-import { useContainerPosition } from '../..'
+import { useContainerPosition } from '../../Revealer'
 
-import { Container } from './Pointy.style'
+import { Container } from './DefaultStyle.style'
 
-import type { Variants } from './Pointy.constants'
+import type { Variants } from './DefaultStyle.constants'
 
 type PontyProps = React.PropsWithChildren<{
     variant?: Variants
 }>
 
-export const Pointy: React.FC<PontyProps> = ({
+export const DefaultStyle: React.FC<PontyProps> = ({
     children,
     variant = 'default',
 }) => {

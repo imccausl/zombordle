@@ -10,7 +10,7 @@ export const TiledInputValidation: React.FC<
     React.PropsWithChildren<TiledInputValidation>
 > = ({ children, error, showValidationMessage = false }) => {
     return (
-        <Tooltip isShowing={!!error && showValidationMessage}>
+        <Tooltip shouldShow={!!error && showValidationMessage}>
             <Tooltip.Content>{error}</Tooltip.Content>
             <ValidationBorder $valid={!error}>{children}</ValidationBorder>
         </Tooltip>
