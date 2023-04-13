@@ -1,5 +1,5 @@
 import { useFormContext } from 'formula-one'
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { InputElement } from './InputElement'
 import { StyledButton, StyledForm, TileInputGroup } from './TiledInput.styles'
@@ -20,6 +20,20 @@ type TiledInputFormProps = {
 }
 export const TiledInputForm: React.FC<TiledInputFormProps> = ({ length }) => {
     const { getFieldRefs, setFieldValue, isFormValid } = useFormContext()
+    const [fieldFocusTracker, setFieldFocusTracker] = useState<{
+        isFocused: undefined | string
+        pending: undefined | string
+    }>({
+        isFocused: undefined,
+        pending: undefined,
+    })
+    const [fieldHoverTracker, setFieldHoverTracker] = useState<{
+        isHovering: undefined | string
+        pending: undefined | string
+    }>({
+        isHovering: undefined,
+        pending: undefined,
+    })
 
     useEffect(() => {
         getFieldRefs()[0]?.current?.focus()
@@ -82,11 +96,66 @@ export const TiledInputForm: React.FC<TiledInputFormProps> = ({ length }) => {
     const handleOnFocus = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
             const target = e.target
+            const currentFieldHover = fieldHoverTracker.isHovering
+
+            if (currentFieldHover) {
+                setFieldHoverTracker({
+                    pending: currentFieldHover,
+                    isHovering: undefined,
+                })
+            }
+            setFieldFocusTracker({
+                isFocused: target.name,
+                pending: undefined,
+            })
 
             target.setSelectionRange(0, target.value.length)
         },
-        [],
+        [fieldHoverTracker.isHovering],
     )
+    const handleOnBlur = useCallback(() => {
+        const pendingHoverField = fieldHoverTracker.pending
+
+        if (pendingHoverField) {
+            setFieldHoverTracker({
+                isHovering: pendingHoverField,
+                pending: undefined,
+            })
+        }
+
+        setFieldFocusTracker({ isFocused: undefined, pending: undefined })
+    }, [fieldHoverTracker.pending])
+
+    const handleOnMouseEnter = useCallback(
+        (e: React.MouseEvent<HTMLInputElement>) => {
+            const fieldHasFocus = fieldFocusTracker.isFocused
+            if (fieldHasFocus) {
+                setFieldFocusTracker({
+                    isFocused: undefined,
+                    pending: fieldHasFocus,
+                })
+            }
+            setFieldHoverTracker({
+                isHovering: e.target.name,
+                pending: undefined,
+            })
+        },
+        [fieldFocusTracker.isFocused],
+    )
+    const handleOnMouseLeave = useCallback(() => {
+        const pendingFieldFocus = fieldFocusTracker.pending
+        if (pendingFieldFocus) {
+            setFieldFocusTracker({
+                isFocused: pendingFieldFocus,
+                pending: undefined,
+            })
+        }
+
+        setFieldHoverTracker({
+            isHovering: undefined,
+            pending: undefined,
+        })
+    }, [fieldFocusTracker.pending])
     const tiledInput = useMemo(
         () =>
             new Array(length).fill('').map((_, index: number) => {
@@ -96,12 +165,27 @@ export const TiledInputForm: React.FC<TiledInputFormProps> = ({ length }) => {
                         index={index}
                         onChange={handleOnChange}
                         onFocus={handleOnFocus}
+                        onBlur={handleOnBlur}
                         onKeyDown={handleKeyDown}
+                        onMouseEnter={handleOnMouseEnter}
+                        onMouseLeave={handleOnMouseLeave}
+                        hasFocus={fieldFocusTracker.isFocused}
+                        isHovering={fieldHoverTracker.isHovering}
                     />
                 )
             }),
 
-        [length, handleOnChange, handleOnFocus, handleKeyDown],
+        [
+            length,
+            handleOnChange,
+            handleOnFocus,
+            handleOnBlur,
+            handleKeyDown,
+            handleOnMouseEnter,
+            handleOnMouseLeave,
+            fieldFocusTracker.isFocused,
+            fieldHoverTracker.isHovering,
+        ],
     )
 
     return (

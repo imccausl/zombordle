@@ -1,5 +1,5 @@
 import { useField } from 'formula-one'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 
 import InputTile from '../Tile/InputTile'
 
@@ -12,16 +12,23 @@ type InputElementProps = {
     onChange: (e: React.ChangeEvent<HTMLInputElement>, index: number) => void
     onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>, index: number) => void
     onFocus: (e: React.FocusEvent<HTMLInputElement>) => void
+    onBlur: (e: React.FocusEvent<HTMLInputElement>) => void
+    onMouseEnter: (e: React.MouseEvent<HTMLInputElement>) => void
+    onMouseLeave: (e: React.MouseEvent<HTMLInputElement>) => void
+    hasFocus: string | undefined
+    isHovering: string | undefined
 }
 export const InputElement: React.FC<InputElementProps> = ({
     index,
     onChange,
     onKeyDown,
     onFocus,
+    onBlur,
+    onMouseEnter,
+    onMouseLeave,
+    hasFocus,
+    isHovering,
 }) => {
-    const [hasFocus, setHasFocus] = useState(false)
-    const [isMouseOver, setIsMouseOver] = useState(false)
-
     const handleValidation = useCallback((value: string) => {
         if (/^[a-z]$/i.test(value)) return
 
@@ -30,7 +37,7 @@ export const InputElement: React.FC<InputElementProps> = ({
 
     const {
         meta: { error },
-        field: { onChange: fieldOnChange, onBlur, ...field },
+        field: { onChange: fieldOnChange, onBlur: fieldOnBlur, ...field },
     } = useField({
         name: `input-${index + 1}`,
         validate: handleValidation,
@@ -50,19 +57,15 @@ export const InputElement: React.FC<InputElementProps> = ({
         [index, onKeyDown],
     )
 
-    const handleOnMouseEnter = useCallback(() => void setIsMouseOver(true), [])
-    const handleOnMouseLeave = useCallback(() => void setIsMouseOver(false), [])
-
     const handleOnBlur = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
-            setHasFocus(false)
+            fieldOnBlur(e)
             onBlur(e)
         },
-        [onBlur],
+        [fieldOnBlur, onBlur],
     )
     const handleOnFocus = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
-            setHasFocus(true)
             onFocus(e)
         },
         [onFocus],
@@ -72,7 +75,9 @@ export const InputElement: React.FC<InputElementProps> = ({
         <InputTileContainer key={`input-${index + 1}`}>
             <TiledInputValidation
                 error={error}
-                showValidationMessage={hasFocus || isMouseOver}
+                showValidationMessage={
+                    hasFocus === field.name || isHovering === field.name
+                }
             >
                 <InputTile
                     {...field}
@@ -81,8 +86,8 @@ export const InputElement: React.FC<InputElementProps> = ({
                     onKeyDown={handleOnKeyDown}
                     onFocus={handleOnFocus}
                     onBlur={handleOnBlur}
-                    onMouseEnter={handleOnMouseEnter}
-                    onMouseLeave={handleOnMouseLeave}
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
                 />
             </TiledInputValidation>
         </InputTileContainer>
