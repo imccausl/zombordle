@@ -1,8 +1,9 @@
 import { useFormContext } from 'formula-one'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 
 import { InputElement } from './InputElement'
 import { StyledButton, StyledForm, TileInputGroup } from './TiledInput.styles'
+import { useValidationTooltipTracker } from './TiledInputValidation/useValidationTooltipTracker'
 
 const KEYS = {
     Backspace: 'Backspace',
@@ -20,21 +21,8 @@ type TiledInputFormProps = {
 }
 export const TiledInputForm: React.FC<TiledInputFormProps> = ({ length }) => {
     const { getFieldRefs, setFieldValue, isFormValid } = useFormContext()
-    const [fieldFocusTracker, setFieldFocusTracker] = useState<{
-        isFocused: undefined | string
-        pending: undefined | string
-    }>({
-        isFocused: undefined,
-        pending: undefined,
-    })
-    const [fieldHoverTracker, setFieldHoverTracker] = useState<{
-        isHovering: undefined | string
-        pending: undefined | string
-    }>({
-        isHovering: undefined,
-        pending: undefined,
-    })
-
+    const { hoverState, focusState, ...eventHandlers } =
+        useValidationTooltipTracker()
     useEffect(() => {
         getFieldRefs()[0]?.current?.focus()
     }, [getFieldRefs])
@@ -96,66 +84,12 @@ export const TiledInputForm: React.FC<TiledInputFormProps> = ({ length }) => {
     const handleOnFocus = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
             const target = e.target
-            const currentFieldHover = fieldHoverTracker.isHovering
-
-            if (currentFieldHover) {
-                setFieldHoverTracker({
-                    pending: currentFieldHover,
-                    isHovering: undefined,
-                })
-            }
-            setFieldFocusTracker({
-                isFocused: target.name,
-                pending: undefined,
-            })
-
+            eventHandlers.onFocus(e)
             target.setSelectionRange(0, target.value.length)
         },
-        [fieldHoverTracker.isHovering],
+        [eventHandlers],
     )
-    const handleOnBlur = useCallback(() => {
-        const pendingHoverField = fieldHoverTracker.pending
 
-        if (pendingHoverField) {
-            setFieldHoverTracker({
-                isHovering: pendingHoverField,
-                pending: undefined,
-            })
-        }
-
-        setFieldFocusTracker({ isFocused: undefined, pending: undefined })
-    }, [fieldHoverTracker.pending])
-
-    const handleOnMouseEnter = useCallback(
-        (e: React.MouseEvent<HTMLInputElement>) => {
-            const fieldHasFocus = fieldFocusTracker.isFocused
-            if (fieldHasFocus) {
-                setFieldFocusTracker({
-                    isFocused: undefined,
-                    pending: fieldHasFocus,
-                })
-            }
-            setFieldHoverTracker({
-                isHovering: e.target.name,
-                pending: undefined,
-            })
-        },
-        [fieldFocusTracker.isFocused],
-    )
-    const handleOnMouseLeave = useCallback(() => {
-        const pendingFieldFocus = fieldFocusTracker.pending
-        if (pendingFieldFocus) {
-            setFieldFocusTracker({
-                isFocused: pendingFieldFocus,
-                pending: undefined,
-            })
-        }
-
-        setFieldHoverTracker({
-            isHovering: undefined,
-            pending: undefined,
-        })
-    }, [fieldFocusTracker.pending])
     const tiledInput = useMemo(
         () =>
             new Array(length).fill('').map((_, index: number) => {
@@ -165,12 +99,12 @@ export const TiledInputForm: React.FC<TiledInputFormProps> = ({ length }) => {
                         index={index}
                         onChange={handleOnChange}
                         onFocus={handleOnFocus}
-                        onBlur={handleOnBlur}
+                        onBlur={eventHandlers.onBlur}
                         onKeyDown={handleKeyDown}
-                        onMouseEnter={handleOnMouseEnter}
-                        onMouseLeave={handleOnMouseLeave}
-                        hasFocus={fieldFocusTracker.isFocused}
-                        isHovering={fieldHoverTracker.isHovering}
+                        onMouseEnter={eventHandlers.onMouseEnter}
+                        onMouseLeave={eventHandlers.onMouseLeave}
+                        hasFocus={focusState.visible}
+                        isHovering={hoverState.visible}
                     />
                 )
             }),
@@ -179,12 +113,12 @@ export const TiledInputForm: React.FC<TiledInputFormProps> = ({ length }) => {
             length,
             handleOnChange,
             handleOnFocus,
-            handleOnBlur,
+            eventHandlers.onBlur,
+            eventHandlers.onMouseEnter,
+            eventHandlers.onMouseLeave,
             handleKeyDown,
-            handleOnMouseEnter,
-            handleOnMouseLeave,
-            fieldFocusTracker.isFocused,
-            fieldHoverTracker.isHovering,
+            focusState.visible,
+            hoverState.visible,
         ],
     )
 

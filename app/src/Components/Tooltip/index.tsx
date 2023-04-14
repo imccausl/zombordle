@@ -22,6 +22,7 @@ const Tooltip: Tooltip = ({
     const handleKeyUp = useCallback(
         (event: KeyboardEvent) => {
             if (isShowing && event.key === 'Escape') {
+                event.stopPropagation()
                 setIsShowing(false)
             }
         },

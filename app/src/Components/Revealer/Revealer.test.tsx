@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import { type RevealerProps, Tooltip } from '.'
+import { Revealer, type RevealerProps } from '.'
 
 const defaultProps: RevealerProps = {
     isShowing: false,
@@ -8,22 +8,22 @@ const defaultProps: RevealerProps = {
 
 const renderComponent = (props: Partial<RevealerProps> = {}) => {
     render(
-        <Tooltip {...defaultProps} {...props}>
-            <Tooltip.Content>Testing Tooltip</Tooltip.Content>
-        </Tooltip>,
+        <Revealer {...defaultProps} {...props}>
+            <Revealer.Content>Testing Revealer</Revealer.Content>
+        </Revealer>,
     )
 }
 
 describe('<ContentRevealer />', () => {
-    it('should show the tooltip when isShowing is true', () => {
+    it('should show the Revealer when isShowing is true', () => {
         renderComponent({ isShowing: true })
 
-        expect(screen.getByText(/Testing Tooltip/i)).toBeInTheDocument()
+        expect(screen.getByText(/Testing Revealer/i)).toBeInTheDocument()
     })
 
-    it('should not show the tooltip when isShowing is false', () => {
+    it('should not show the Revealer when isShowing is false', () => {
         renderComponent({ isShowing: false })
 
-        expect(screen.queryByText(/Testing Tooltip/i)).not.toBeInTheDocument()
+        expect(screen.queryByText(/Testing Revealer/i)).not.toBeInTheDocument()
     })
 })
