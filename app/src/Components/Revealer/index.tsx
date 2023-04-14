@@ -53,11 +53,11 @@ export const useContainerPosition = () => {
             const windowHeight = window.innerHeight
             const windowWidth = window.innerWidth
 
-            // console.log({ left: containerBounds?.left, windowWidth })
-            // console.log({ right: containerBounds?.right, windowWidth })
+            console.log({ left: containerBounds?.left, windowWidth })
+            console.log({ right: containerBounds?.right, windowWidth })
 
-            // console.log({ top: containerBounds?.top, windowHeight })
-            // console.log({ bottom: containerBounds?.bottom, windowHeight })
+            console.log({ top: containerBounds?.top, windowHeight })
+            console.log({ bottom: containerBounds?.bottom, windowHeight })
 
             const containerPosRight = containerBounds?.right ?? 0
             const containerPosLeft = containerBounds?.left ?? 0

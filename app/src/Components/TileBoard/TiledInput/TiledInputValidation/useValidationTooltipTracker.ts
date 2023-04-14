@@ -1,3 +1,4 @@
+import { useFormContext } from 'formula-one'
 import { useCallback, useMemo, useState } from 'react'
 
 const initialState: Record<'visible' | 'pending', string | undefined> = {
@@ -8,11 +9,12 @@ const initialState: Record<'visible' | 'pending', string | undefined> = {
 export const useValidationTooltipTracker = () => {
     const [hoverState, setHoverState] = useState(initialState)
     const [focusState, setFocusState] = useState(initialState)
+    const { errors } = useFormContext()
 
     const handleOnFocus = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
             setFocusState({
-                visible: e.target.name,
+                visible: e.currentTarget.name,
                 pending: undefined,
             })
 
@@ -34,29 +36,40 @@ export const useValidationTooltipTracker = () => {
 
     const handleOnMouseEnter = useCallback(
         (e: React.MouseEvent<HTMLInputElement>) => {
-            setFocusState((prevState) => ({
-                visible: undefined,
-                pending: prevState.visible,
-            }))
+            const hasError = errors[e.currentTarget.name]
 
-            setHoverState({
-                visible: e.target.name,
-                pending: undefined,
-            })
+            if (hasError) {
+                setFocusState((prevState) => ({
+                    visible: undefined,
+                    pending: prevState.visible,
+                }))
+
+                setHoverState({
+                    visible: e.currentTarget.name,
+                    pending: undefined,
+                })
+            }
         },
-        [],
+        [errors],
     )
-    const handleOnMouseLeave = useCallback(() => {
-        setFocusState((prevState) => ({
-            visible: prevState.pending,
-            pending: undefined,
-        }))
+    const handleOnMouseLeave = useCallback(
+        (e: React.MouseEvent<HTMLInputElement>) => {
+            const hasError = errors[e.currentTarget.name]
 
-        setHoverState({
-            visible: undefined,
-            pending: undefined,
-        })
-    }, [])
+            if (hasError) {
+                setFocusState((prevState) => ({
+                    visible: prevState.pending,
+                    pending: undefined,
+                }))
+
+                setHoverState({
+                    visible: undefined,
+                    pending: undefined,
+                })
+            }
+        },
+        [errors],
+    )
 
     return useMemo(
         () => ({
