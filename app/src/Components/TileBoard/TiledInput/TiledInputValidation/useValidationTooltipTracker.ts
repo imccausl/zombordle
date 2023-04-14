@@ -1,5 +1,5 @@
 import { useFormContext } from 'formula-one'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 const initialState: Record<'visible' | 'pending', string | undefined> = {
     visible: undefined,
@@ -10,6 +10,21 @@ export const useValidationTooltipTracker = () => {
     const [hoverState, setHoverState] = useState(initialState)
     const [focusState, setFocusState] = useState(initialState)
     const { errors } = useFormContext()
+
+    const handleEscapeKeyPressed = useCallback((event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+            setFocusState(initialState)
+            setHoverState(initialState)
+        }
+    }, [])
+
+    useEffect(() => {
+        addEventListener('keyup', handleEscapeKeyPressed)
+
+        return () => {
+            removeEventListener('keyup', handleEscapeKeyPressed)
+        }
+    })
 
     const handleOnFocus = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
