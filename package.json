@@ -34,7 +34,7 @@
     "@typescript-eslint/parser": "^5.57.1",
     "@vitejs/plugin-react": "^3.1.0",
     "@yarnpkg/sdks": "^3.0.0-rc.39",
-    "babel-plugin-styled-components": "^2.0.7",
+    "babel-plugin-styled-components": "^2.1.1",
     "eslint": "^8.35.0",
     "eslint-config-next": "^13.2.3",
     "eslint-config-prettier": "^8.7.0",
