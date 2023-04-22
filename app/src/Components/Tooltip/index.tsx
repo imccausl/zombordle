@@ -53,7 +53,9 @@ type TooltipContentProps = React.PropsWithChildren
 const TooltipContent: React.FC<TooltipContentProps> = ({ children }) => {
     return (
         <Revealer.Content>
-            <DefaultStyle variant="danger">{children}</DefaultStyle>
+            <DefaultStyle variant="danger">
+                <div role="tooltip">{children}</div>
+            </DefaultStyle>
         </Revealer.Content>
     )
 }

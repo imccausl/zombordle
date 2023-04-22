@@ -16,7 +16,7 @@ type RevealerContextValues = {
     defaultPosition?: Positions
     containerRef: React.RefObject<HTMLDivElement>
 }
-const RevealerContext = createContext<RevealerContextValues>({})
+const RevealerContext = createContext<RevealerContextValues | null>(null)
 
 export type RevealerProps = React.PropsWithChildren<
     Omit<RevealerContextValues, 'containerRef'>
