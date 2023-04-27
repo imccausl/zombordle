@@ -1,6 +1,11 @@
 import { Tooltip, type TooltipPosition } from '../../../Tooltip'
 
-import { ValidationBorder } from './TiledInputValidation.styles'
+import {
+    ErrorContainer,
+    IconContainer,
+    MessageContainer,
+    ValidationBorder,
+} from './TiledInputValidation.styles'
 import ExclamationIcon from './assets/exclamation.svg'
 
 type TiledInputValidation = {
@@ -25,10 +30,12 @@ export const TiledInputValidation: React.FC<
             shouldShow={!!error && showValidationMessage}
         >
             <Tooltip.Content>
-                <div id={id}>
-                    <ExclamationIcon />
-                    {error}
-                </div>
+                <MessageContainer id={id}>
+                    <IconContainer role="presentation">
+                        <ExclamationIcon />
+                    </IconContainer>
+                    <ErrorContainer>{error}</ErrorContainer>
+                </MessageContainer>
             </Tooltip.Content>
             <ValidationBorder $valid={!error}>{children}</ValidationBorder>
         </Tooltip>

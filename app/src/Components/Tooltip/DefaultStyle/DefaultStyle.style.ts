@@ -30,7 +30,7 @@ export const Container = styled.div<ContainerProps>`
     display: block;
     position: relative;
     text-align: center;
-    max-width: 300px;
+    max-width: 100%;
     padding: 10px;
     border-radius: 0.5rem;
     box-shadow: 0 3px 10px 1px rgb(0 0 0 / 50%);

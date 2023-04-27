@@ -34,7 +34,7 @@ export const InputElement: React.FC<InputElementProps> = ({
     const handleValidation = useCallback((value: string) => {
         if (/^[a-z]$/i.test(value)) return
 
-        return 'Please enter an alphabetic character (A-Z).'
+        return 'An alphabetic character (A-Z) is required'
     }, [])
 
     const getPosition = useCallback(() => {
