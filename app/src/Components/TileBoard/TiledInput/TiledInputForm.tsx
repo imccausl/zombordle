@@ -97,6 +97,7 @@ export const TiledInputForm: React.FC<TiledInputFormProps> = ({ length }) => {
                     <InputElement
                         key={`input-element-${index + 1}`}
                         index={index}
+                        wordLength={length}
                         onChange={handleOnChange}
                         onFocus={handleOnFocus}
                         onBlur={eventHandlers.onBlur}

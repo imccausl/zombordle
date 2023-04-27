@@ -62,4 +62,4 @@ const TooltipContent: React.FC<TooltipContentProps> = ({ children }) => {
 
 Tooltip.Content = TooltipContent
 
-export { Tooltip }
+export { Tooltip, type Positions as TooltipPosition }

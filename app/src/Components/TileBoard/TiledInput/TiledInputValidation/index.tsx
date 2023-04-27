@@ -1,18 +1,35 @@
-import { Tooltip } from '../../../Tooltip'
+import { Tooltip, type TooltipPosition } from '../../../Tooltip'
 
 import { ValidationBorder } from './TiledInputValidation.styles'
+import ExclamationIcon from './assets/exclamation.svg'
 
 type TiledInputValidation = {
     error?: string
     showValidationMessage?: boolean
+    defaultPosition?: TooltipPosition
+    id?: string
 }
 
 export const TiledInputValidation: React.FC<
     React.PropsWithChildren<TiledInputValidation>
-> = ({ children, error, showValidationMessage = false }) => {
+> = ({
+    children,
+    id,
+    error,
+    defaultPosition = 'bottom-left',
+    showValidationMessage = false,
+}) => {
     return (
-        <Tooltip shouldShow={!!error && showValidationMessage}>
-            <Tooltip.Content>{error}</Tooltip.Content>
+        <Tooltip
+            defaultPosition={defaultPosition}
+            shouldShow={!!error && showValidationMessage}
+        >
+            <Tooltip.Content>
+                <div id={id}>
+                    <ExclamationIcon />
+                    {error}
+                </div>
+            </Tooltip.Content>
             <ValidationBorder $valid={!error}>{children}</ValidationBorder>
         </Tooltip>
     )

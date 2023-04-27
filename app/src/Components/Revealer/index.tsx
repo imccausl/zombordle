@@ -63,6 +63,7 @@ export const useContainerPosition = () => {
             const containerPosLeft = containerBounds?.left ?? 0
 
             let position = currentPosition
+            console.log({ currentPosition })
             // rightmost point of the container child
             if (containerPosRight > windowWidth) {
                 console.log('hitting right side', position)

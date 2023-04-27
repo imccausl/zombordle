@@ -9,6 +9,7 @@ import { toOrdinal } from './util'
 
 type InputElementProps = {
     index: number
+    wordLength: number
     onChange: (e: React.ChangeEvent<HTMLInputElement>, index: number) => void
     onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>, index: number) => void
     onFocus: (e: React.FocusEvent<HTMLInputElement>) => void
@@ -20,6 +21,7 @@ type InputElementProps = {
 }
 export const InputElement: React.FC<InputElementProps> = ({
     index,
+    wordLength,
     onChange,
     onKeyDown,
     onFocus,
@@ -34,6 +36,29 @@ export const InputElement: React.FC<InputElementProps> = ({
 
         return 'Please enter an alphabetic character (A-Z).'
     }, [])
+
+    const getPosition = useCallback(() => {
+        // this is always center
+        if (index + 1 === Math.ceil(wordLength / 2)) {
+            return 'bottom-center'
+        }
+
+        //leftmost elements
+        if (index + 1 < Math.ceil(wordLength / 2)) {
+            return 'bottom-right'
+        }
+
+        // check if wordLength is even or odd
+        if (wordLength % 2 === 0) {
+            // even means we have 2 center elements
+            // which are wordLength / 2 and( wordLength / 2) - 1
+            if (index + 1 === Math.ceil(wordLength / 2) + 1) {
+                return 'bottom-center'
+            }
+        }
+
+        return 'bottom-left'
+    }, [index, wordLength])
 
     const {
         meta: { error },
@@ -71,16 +96,21 @@ export const InputElement: React.FC<InputElementProps> = ({
         [onFocus],
     )
 
+    const validationMessageId = `input-${index + 1}-validation-message`
+
     return (
         <InputTileContainer key={`input-${index + 1}`}>
             <TiledInputValidation
+                id={validationMessageId}
                 error={error}
                 showValidationMessage={
                     hasFocus === field.name || isHovering === field.name
                 }
+                defaultPosition={getPosition()}
             >
                 <InputTile
                     {...field}
+                    aria-describedby={validationMessageId}
                     label={`${toOrdinal(index + 1)} letter`}
                     onChange={handleOnChange}
                     onKeyDown={handleOnKeyDown}
