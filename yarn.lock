@@ -27,6 +27,7 @@ __metadata:
   resolution: "@app/zombordle@workspace:app"
   dependencies:
     "@reduxjs/toolkit": ^1.9.3
+    "@svgr/webpack": ^6.5.1
     "@testing-library/dom": ^9.0.1
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^14.0.0
@@ -9616,7 +9617,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "zombordle@workspace:."
   dependencies:
-    "@svgr/webpack": ^6.5.1
     "@testing-library/dom": ^9.0.1
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^14.0.0
