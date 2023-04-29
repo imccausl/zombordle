@@ -6,7 +6,6 @@ import type { RevealerProps } from '.'
 
 type RevealerContentContainerProps = {
     $defaultPosition: RevealerProps['defaultPosition']
-    $isVisible: RevealerProps['isShowing']
 }
 
 export const RevealerContainer = styled.div`
@@ -15,7 +14,6 @@ export const RevealerContainer = styled.div`
 `
 
 export const RevealerContentContainer = styled.div<RevealerContentContainerProps>`
-    visibility: ${({ $isVisible }) => ($isVisible ? 'visible' : 'hidden')};
     position: absolute;
     width: max-content;
     z-index: 9999;

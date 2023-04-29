@@ -157,11 +157,10 @@ export const RevealerContent: React.FC<RevealerContentProps> = ({
     return (
         <RevealerContentContainer
             $defaultPosition={position}
-            $isVisible={isShowing}
             className={className}
             ref={containerRef}
         >
-            {children}
+            {isShowing ? children : null}
         </RevealerContentContainer>
     )
 }
