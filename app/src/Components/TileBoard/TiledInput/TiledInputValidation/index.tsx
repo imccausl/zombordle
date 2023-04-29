@@ -6,7 +6,7 @@ import {
     MessageContainer,
     ValidationBorder,
 } from './TiledInputValidation.styles'
-import ExclamationIcon from './assets/exclamation.svg'
+import { ReactComponent as ExclamationIcon } from './assets/exclamation.svg'
 
 type TiledInputValidation = {
     error?: string
