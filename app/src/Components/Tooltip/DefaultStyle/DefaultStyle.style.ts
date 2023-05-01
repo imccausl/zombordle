@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { type Positions } from '../../Revealer/Revealer.constants'
+import { type Position } from '../../Revealer/Revealer.constants'
 
 import {
     PointerPositionCSS as PointerPositionCSS,
@@ -11,7 +11,7 @@ import {
 type ColorTypes = keyof (typeof VariantThemes)[keyof typeof VariantThemes]
 type ContainerProps = {
     $variant: Variants
-    $defaultPosition: Positions
+    $defaultPosition: Position
 }
 
 const getColor = (colorType: ColorTypes, variant?: Variants) =>

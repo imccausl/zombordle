@@ -7,19 +7,18 @@ import {
     useState,
 } from 'react'
 
+import { Position } from './Revealer.constants'
 import { RevealerContainer, RevealerContentContainer } from './Revealer.styles'
 
-import type { Positions } from './Revealer.constants'
-
 type RevealerContextValues = {
-    isShowing?: boolean
-    defaultPosition?: Positions
+    isShowing: boolean
+    defaultPosition: Position
     containerRef: React.RefObject<HTMLDivElement>
 }
 const RevealerContext = createContext<RevealerContextValues | null>(null)
 
 export type RevealerProps = React.PropsWithChildren<
-    Omit<RevealerContextValues, 'containerRef'>
+    Partial<Omit<RevealerContextValues, 'containerRef'>>
 >
 interface Revealer extends React.FC<RevealerProps> {
     Content: typeof RevealerContent
@@ -37,74 +36,98 @@ export const useRevealerContext = () => {
     return context
 }
 
+export const getContainerPosition = (
+    container: HTMLDivElement | null,
+    currentPosition: Position,
+) => {
+    if (!container || typeof window === 'undefined') return currentPosition
+
+    const containerBounds = container?.getBoundingClientRect()
+    const windowHeight = window.innerHeight
+    const windowWidth = window.innerWidth
+
+    const containerPosRight = containerBounds?.right ?? 0
+    const containerPosLeft = containerBounds?.left ?? 0
+    const containerPosTop = containerBounds?.top ?? 0
+    const containerPosBottom = containerBounds?.bottom ?? 0
+
+    let position = currentPosition
+    // rightmost point of the container child
+    if (containerPosRight > windowWidth) {
+        if (position === Position.bottomLeft) {
+            position = Position.bottomCenter
+        } else if (position === Position.bottomCenter) {
+            position = Position.bottomRight
+        } else if (position === Position.bottomRight) {
+            position = Position.bottomLeft
+        }
+
+        if (position === Position.topLeft) {
+            position = Position.topCenter
+        } else if (position === Position.topCenter) {
+            position = Position.topRight
+        } else if (position === Position.topRight) {
+            position = Position.topLeft
+        }
+    }
+
+    if (containerPosLeft < 0) {
+        if (position === Position.bottomLeft) {
+            position = Position.bottomCenter
+        } else if (position === Position.bottomCenter) {
+            position = Position.bottomRight
+
+            // this one is a problem: if we're hitting the left side with bottom right then we're in trouble
+        } else if (position === Position.bottomRight) {
+            position = Position.bottomLeft
+        }
+
+        if (position === Position.topLeft) {
+            position = Position.topCenter
+        } else if (position === Position.topCenter) {
+            position = Position.topRight
+        } else if (position === Position.topRight) {
+            position = Position.topLeft
+        }
+    }
+
+    if (containerPosTop < 0) {
+        if (position === Position.topLeft) {
+            position = Position.bottomLeft
+        } else if (position === Position.topCenter) {
+            position = Position.bottomCenter
+        } else if (position === Position.topRight) {
+            position = Position.bottomRight
+        }
+    }
+
+    if (containerPosBottom > windowHeight) {
+        if (position === Position.bottomLeft) {
+            position = Position.topLeft
+        } else if (position === Position.bottomCenter) {
+            position = Position.topCenter
+        } else if (position === Position.bottomRight) {
+            position = Position.topRight
+        }
+    }
+
+    return position
+}
+
 export const useContainerPosition = () => {
     const { isShowing, defaultPosition, containerRef } = useRevealerContext()
-    const [position, setPosition] = useState(defaultPosition)
-
-    const getContainerPosition = useCallback(
-        (
-            container: HTMLDivElement | null,
-            currentPosition = defaultPosition,
-        ) => {
-            if (!container || typeof window === 'undefined')
-                return defaultPosition
-
-            const containerBounds = container?.getBoundingClientRect()
-            const windowHeight = window.innerHeight
-            const windowWidth = window.innerWidth
-
-            console.log({ left: containerBounds?.left, windowWidth })
-            console.log({ right: containerBounds?.right, windowWidth })
-
-            console.log({ top: containerBounds?.top, windowHeight })
-            console.log({ bottom: containerBounds?.bottom, windowHeight })
-
-            const containerPosRight = containerBounds?.right ?? 0
-            const containerPosLeft = containerBounds?.left ?? 0
-
-            let position = currentPosition
-            console.log({ currentPosition })
-            // rightmost point of the container child
-            if (containerPosRight > windowWidth) {
-                console.log('hitting right side', position)
-                if (position === 'bottom-left') {
-                    position = 'bottom-center'
-                } else if (position === 'bottom-center') {
-                    position = 'bottom-right'
-                } else if (position === 'bottom-right') {
-                    position = 'bottom-left'
-                }
-            }
-
-            if (containerPosLeft < 0) {
-                console.log('hitting left side', position)
-
-                if (position === 'bottom-left') {
-                    position = 'bottom-center'
-                } else if (position === 'bottom-center') {
-                    position = 'bottom-right'
-                } else if (position === 'bottom-right') {
-                    position = 'bottom-left'
-                }
-            }
-
-            return position
-        },
-        [defaultPosition],
-    )
+    const [position, setPosition] = useState<Position>(defaultPosition)
 
     const handlePositionChange = useCallback(() => {
         const newPosition = getContainerPosition(
             containerRef?.current,
             position,
         )
-        console.log({
-            newPosition,
-        })
+
         if (newPosition !== position) {
             setPosition(newPosition)
         }
-    }, [containerRef, getContainerPosition, position])
+    }, [containerRef, position])
 
     useEffect(() => {
         if (isShowing) {
@@ -168,4 +191,4 @@ export const RevealerContent: React.FC<RevealerContentProps> = ({
 Revealer.Content = RevealerContent
 
 export { Revealer }
-export type { Positions }
+export type { Position as Positions }
