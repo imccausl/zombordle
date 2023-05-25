@@ -35,7 +35,7 @@
     "@types/react": "18.0.33",
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^3.1.0",
-    "eslint": "^8.35.0",
+    "eslint": "^8.41.0",
     "jsdom": "^21.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
