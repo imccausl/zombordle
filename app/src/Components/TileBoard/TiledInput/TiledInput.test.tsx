@@ -12,8 +12,8 @@ const defaultProps: TiledInputProps = {
 const renderWithProps = (props: Partial<TiledInputProps> = {}) =>
     render(<TiledInput {...defaultProps} {...props} />)
 
-describe('TiledBlank', () => {
-    it('renders blank squares corresponding to the length of the correct word', () => {
+describe('TiledInput', () => {
+    it('renders blank textbox squares corresponding to the length of the correct word', () => {
         renderWithProps()
 
         const allBlankTiles = screen.getAllByRole('textbox')
@@ -221,23 +221,6 @@ describe('TiledBlank', () => {
                 expect(await screen.findByLabelText(/7th/)).toHaveFocus()
             })
 
-            it('is only a test', async () => {
-                renderWithProps()
-
-                const lastInput: HTMLInputElement =
-                    await screen.findByLabelText(/10th/)
-
-                // blur triggers validation which updates the state
-                act(() => void lastInput.focus())
-
-                await userEvent.keyboard('{ArrowLeft}')
-                expect(await screen.findByLabelText(/9th/)).toHaveFocus()
-                await userEvent.keyboard('{ArrowLeft}')
-                expect(await screen.findByLabelText(/8th/)).toHaveFocus()
-                await userEvent.keyboard('{ArrowLeft}')
-                expect(await screen.findByLabelText(/7th/)).toHaveFocus()
-            })
-
             it('does not move focus with left arrow key if on first element', async () => {
                 renderWithProps()
 
@@ -268,5 +251,14 @@ describe('TiledBlank', () => {
         })
     })
 
-    describe.todo('Input Validation')
+    describe('Input Validation', () => {
+        it.todo('displays a validation tooltip on focus when input is invalid')
+        it.todo('displays a validation tooltip on hover when input is invalid')
+        it.todo(
+            'validation tooltip goes back to invalid focused element if user hovers over another invalid input',
+        )
+        it.todo("positions leftmost validation tooltips with 'bottom-right")
+        it.todo("postitons centermost validation tooltips with 'bottom-center'")
+        it.todo("positions rightmost validation tooltips with 'bottom-left'")
+    })
 })

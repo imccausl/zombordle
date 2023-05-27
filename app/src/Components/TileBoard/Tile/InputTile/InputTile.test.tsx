@@ -1,13 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { VariantBorder, VariantColor } from './InputTile.styles'
+import { VariantColor } from './InputTile.styles'
 
 import InputTile, { type InputTileProps } from '.'
 
 const defaultProps: InputTileProps = {
     label: 'test label',
-    valid: true,
 }
 
 const renderWithProps = (props: Partial<InputTileProps> = {}) =>
@@ -23,7 +22,6 @@ describe('InputTile', () => {
         expect(inputTile).toHaveStyle(
             `background-color: ${VariantColor.default}`,
         )
-        expect(inputTile).toHaveStyle(`border-color: ${VariantBorder.default}`)
     })
 
     it('can be initialized with a value', () => {
@@ -73,6 +71,4 @@ describe('InputTile', () => {
         inputTile.focus()
         expect(onFocusSpy).toHaveBeenCalledOnce()
     })
-
-    describe.todo('Validation')
 })

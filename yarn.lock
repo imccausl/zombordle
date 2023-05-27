@@ -27,6 +27,7 @@ __metadata:
   resolution: "@app/zombordle@workspace:app"
   dependencies:
     "@reduxjs/toolkit": ^1.9.3
+    "@svgr/webpack": ^6.5.1
     "@testing-library/dom": ^9.0.1
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^14.0.0
@@ -45,6 +46,7 @@ __metadata:
     styled-components: ^5.3.8
     typescript: ^5.0.3
     vite: ^4.2.1
+    vite-plugin-svgr: ^2.4.0
     vitest: ^0.30.1
   languageName: unknown
   linkType: soft
@@ -2423,7 +2425,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tophat/eslint-import-resolver-require@npm:^0.1.3, @tophat/eslint-import-resolver-require@npm:^0.1.4":
+"@tophat/eslint-import-resolver-require@npm:^0.1.4":
   version: 0.1.4
   resolution: "@tophat/eslint-import-resolver-require@npm:0.1.4"
   peerDependencies:
@@ -2734,30 +2736,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^5.42.0, @typescript-eslint/parser@npm:^5.57.1":
-  version: 5.57.1
-  resolution: "@typescript-eslint/parser@npm:5.57.1"
+"@typescript-eslint/parser@npm:^5.42.0, @typescript-eslint/parser@npm:^5.59.0":
+  version: 5.59.0
+  resolution: "@typescript-eslint/parser@npm:5.59.0"
   dependencies:
-    "@typescript-eslint/scope-manager": 5.57.1
-    "@typescript-eslint/types": 5.57.1
-    "@typescript-eslint/typescript-estree": 5.57.1
+    "@typescript-eslint/scope-manager": 5.59.0
+    "@typescript-eslint/types": 5.59.0
+    "@typescript-eslint/typescript-estree": 5.59.0
     debug: ^4.3.4
   peerDependencies:
     eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: db61a12a67bc45d814297e7f089768c0849f18162b330279aa15121223ec3b18d80df4c327f4ca0a40a7bddb9150ba1a9379fce00bc0e4a10cc189d04e36f0e3
+  checksum: 1a442d6b776fc1dca4fe104bac77eae0a59b807ba11cef00dec8f5dbbc0fb4e5fc10519eac03dd94d52e4dd6d814800d0e5c0a3bd43eefce80d829c65ba47ad0
   languageName: node
   linkType: hard
 
-"@typescript-eslint/scope-manager@npm:5.57.1":
-  version: 5.57.1
-  resolution: "@typescript-eslint/scope-manager@npm:5.57.1"
+"@typescript-eslint/scope-manager@npm:5.59.0":
+  version: 5.59.0
+  resolution: "@typescript-eslint/scope-manager@npm:5.59.0"
   dependencies:
-    "@typescript-eslint/types": 5.57.1
-    "@typescript-eslint/visitor-keys": 5.57.1
-  checksum: 4f03d54372f0591fbc5f6e0267a6f1b73e3012e8a319c1893829e0b8e71f882e17a696995dc8b11e700162daf74444fd2d8f55dba314e1a95221a9d3eabcfb2b
+    "@typescript-eslint/types": 5.59.0
+    "@typescript-eslint/visitor-keys": 5.59.0
+  checksum: dd89cd34291f7674edcbe9628748faa61dbf7199f9776586167e81fd91b93ba3a7f0ddd493c559c0dbb805b58629858fae648d56550e8ac5330b2ed1802b0178
   languageName: node
   linkType: hard
 
@@ -2788,10 +2790,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:5.57.1":
-  version: 5.57.1
-  resolution: "@typescript-eslint/types@npm:5.57.1"
-  checksum: 21789eb697904bbb44a18df961d5918e7c5bd90c79df3a8b8b835da81d0c0f42c7eeb2d05f77cafe49a7367ae7f549a0c8281656ea44b6dc56ae1bf19a3a1eae
+"@typescript-eslint/types@npm:5.59.0":
+  version: 5.59.0
+  resolution: "@typescript-eslint/types@npm:5.59.0"
+  checksum: 5dc608a867b07b4262a236a264a65e894f841388b3aba461c4c1a30d76a2c3aed0c6a1e3d1ea2f64cce55e783091bafb826bf01a0ef83258820af63da860addf
   languageName: node
   linkType: hard
 
@@ -2802,12 +2804,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/typescript-estree@npm:5.57.1":
-  version: 5.57.1
-  resolution: "@typescript-eslint/typescript-estree@npm:5.57.1"
+"@typescript-eslint/typescript-estree@npm:5.59.0":
+  version: 5.59.0
+  resolution: "@typescript-eslint/typescript-estree@npm:5.59.0"
   dependencies:
-    "@typescript-eslint/types": 5.57.1
-    "@typescript-eslint/visitor-keys": 5.57.1
+    "@typescript-eslint/types": 5.59.0
+    "@typescript-eslint/visitor-keys": 5.59.0
     debug: ^4.3.4
     globby: ^11.1.0
     is-glob: ^4.0.3
@@ -2816,7 +2818,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: bf96520f6de562838a40c3f009fc61fbee5369621071cd0d1dba4470b2b2f746cf79afe4ffa3fbccb8913295a2fbb3d89681d5178529e8da4987c46ed4e5cbed
+  checksum: d80f2766e2830dc830b9f4f1b9e744e1e7a285ebe72babdf0970f75bfe26cb832c6623bb836a53c48f1e707069d1e407ac1ea095bd583807007f713ba6e2e0e1
   languageName: node
   linkType: hard
 
@@ -2856,13 +2858,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/visitor-keys@npm:5.57.1":
-  version: 5.57.1
-  resolution: "@typescript-eslint/visitor-keys@npm:5.57.1"
+"@typescript-eslint/visitor-keys@npm:5.59.0":
+  version: 5.59.0
+  resolution: "@typescript-eslint/visitor-keys@npm:5.59.0"
   dependencies:
-    "@typescript-eslint/types": 5.57.1
+    "@typescript-eslint/types": 5.59.0
     eslint-visitor-keys: ^3.3.0
-  checksum: d187dfac044b7c0f24264a9ba5eebcf6651412d840b4aaba8eacabff7e771babcd67c738525b1f7c9eb8c94b7edfe7658f6de99f5fdc9745e409c538c1374674
+  checksum: e21656de02e221a27a5fe9f7fd34a1ca28530e47675134425f84fd0d1f276695fe39e35120837a491b02255d49aa2fd871e2c858ecccc66c687db972d057bd1c
   languageName: node
   linkType: hard
 
@@ -4663,7 +4665,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-import-resolver-typescript@npm:^3.5.2, eslint-import-resolver-typescript@npm:^3.5.3, eslint-import-resolver-typescript@npm:^3.5.5":
+"eslint-import-resolver-typescript@npm:^3.5.2, eslint-import-resolver-typescript@npm:^3.5.5":
   version: 3.5.5
   resolution: "eslint-import-resolver-typescript@npm:3.5.5"
   dependencies:
@@ -9015,58 +9017,58 @@ __metadata:
   languageName: node
   linkType: hard
 
-"turbo-darwin-64@npm:1.8.8":
-  version: 1.8.8
-  resolution: "turbo-darwin-64@npm:1.8.8"
+"turbo-darwin-64@npm:1.9.3":
+  version: 1.9.3
+  resolution: "turbo-darwin-64@npm:1.9.3"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-darwin-arm64@npm:1.8.8":
-  version: 1.8.8
-  resolution: "turbo-darwin-arm64@npm:1.8.8"
+"turbo-darwin-arm64@npm:1.9.3":
+  version: 1.9.3
+  resolution: "turbo-darwin-arm64@npm:1.9.3"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo-linux-64@npm:1.8.8":
-  version: 1.8.8
-  resolution: "turbo-linux-64@npm:1.8.8"
+"turbo-linux-64@npm:1.9.3":
+  version: 1.9.3
+  resolution: "turbo-linux-64@npm:1.9.3"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-linux-arm64@npm:1.8.8":
-  version: 1.8.8
-  resolution: "turbo-linux-arm64@npm:1.8.8"
+"turbo-linux-arm64@npm:1.9.3":
+  version: 1.9.3
+  resolution: "turbo-linux-arm64@npm:1.9.3"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo-windows-64@npm:1.8.8":
-  version: 1.8.8
-  resolution: "turbo-windows-64@npm:1.8.8"
+"turbo-windows-64@npm:1.9.3":
+  version: 1.9.3
+  resolution: "turbo-windows-64@npm:1.9.3"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-windows-arm64@npm:1.8.8":
-  version: 1.8.8
-  resolution: "turbo-windows-arm64@npm:1.8.8"
+"turbo-windows-arm64@npm:1.9.3":
+  version: 1.9.3
+  resolution: "turbo-windows-arm64@npm:1.9.3"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo@npm:^1.8.8":
-  version: 1.8.8
-  resolution: "turbo@npm:1.8.8"
+"turbo@npm:^1.9.3":
+  version: 1.9.3
+  resolution: "turbo@npm:1.9.3"
   dependencies:
-    turbo-darwin-64: 1.8.8
-    turbo-darwin-arm64: 1.8.8
-    turbo-linux-64: 1.8.8
-    turbo-linux-arm64: 1.8.8
-    turbo-windows-64: 1.8.8
-    turbo-windows-arm64: 1.8.8
+    turbo-darwin-64: 1.9.3
+    turbo-darwin-arm64: 1.9.3
+    turbo-linux-64: 1.9.3
+    turbo-linux-arm64: 1.9.3
+    turbo-windows-64: 1.9.3
+    turbo-windows-arm64: 1.9.3
   dependenciesMeta:
     turbo-darwin-64:
       optional: true
@@ -9082,7 +9084,7 @@ __metadata:
       optional: true
   bin:
     turbo: bin/turbo
-  checksum: 6dcfd7b38e2dd9abe279bda54e474be3463df51428f0b91c5e0539e9fd8c9b1efec562df629946f5ca92ede05f0aba35027481065d054249334e11692085ddb7
+  checksum: ebf06d3b9b1401a5baabace238cd1e0d8fc1dc062b4f7bd577f644298c555f326d15f331144641c0b43a60ae8058769bcbd9d1660874fa9927ec64b5be8ee9dc
   languageName: node
   linkType: hard
 
@@ -9390,6 +9392,18 @@ __metadata:
   peerDependencies:
     vite: ">=2.9.0"
   checksum: b4247d9f7800bd72addd62fb07fbd3f5a1535a6de771420e4ed896fb5db156335b2abf810091ecd998ac05d6ebbd857a186ec3d468216f0bc6e54064c4886b31
+  languageName: node
+  linkType: hard
+
+"vite-plugin-svgr@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "vite-plugin-svgr@npm:2.4.0"
+  dependencies:
+    "@rollup/pluginutils": ^5.0.2
+    "@svgr/core": ^6.5.1
+  peerDependencies:
+    vite: ^2.6.0 || 3 || 4
+  checksum: 16b333a728ca9ca1904cad4dd288e1bc5ae50f4def578b94187c70c31eda596fb5bb2bd4c78b2f5bf22b61f9b1f1bbac1f8c464a80d2b887a138dbc187264ad9
   languageName: node
   linkType: hard
 
@@ -9769,27 +9783,26 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "zombordle@workspace:."
   dependencies:
-    "@svgr/webpack": ^6.5.1
     "@testing-library/dom": ^9.0.1
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^14.0.0
     "@testing-library/user-event": ^14.4.3
     "@tophat/eslint-config": ^7.0.1
-    "@tophat/eslint-import-resolver-require": ^0.1.3
+    "@tophat/eslint-import-resolver-require": ^0.1.4
     "@types/node": ^18.14.6
     "@types/react": ^18.0.28
     "@types/react-dom": ^18.2.4
     "@types/styled-components": ^5.1.26
     "@types/testing-library__jest-dom": ^5.14.5
     "@typescript-eslint/eslint-plugin": ^5.59.1
-    "@typescript-eslint/parser": ^5.57.1
+    "@typescript-eslint/parser": ^5.59.0
     "@vitejs/plugin-react": ^3.1.0
     "@yarnpkg/sdks": ^3.0.0-rc.42
     babel-plugin-styled-components: ^2.1.1
     eslint: ^8.41.0
     eslint-config-next: ^13.4.4
     eslint-config-prettier: ^8.8.0
-    eslint-import-resolver-typescript: ^3.5.3
+    eslint-import-resolver-typescript: ^3.5.5
     eslint-plugin-import: ^2.27.5
     eslint-plugin-jest-dom: ^4.0.3
     eslint-plugin-prettier: ^4.2.1
@@ -9810,7 +9823,7 @@ __metadata:
     stylelint: ^15.6.2
     stylelint-config-standard: ^30.0.1
     supports-color: ^9.3.1
-    turbo: ^1.8.8
+    turbo: ^1.9.3
     typescript: ^5.0.3
     vite: ^4.1.4
     vitest: ^0.30.1

@@ -4,14 +4,12 @@ import { TileStyledTextInput } from './InputTile.styles'
 
 export type InputTileProps = React.ComponentPropsWithoutRef<'input'> & {
     label?: string
-    valid?: boolean
 }
 
 const InputTile = forwardRef<HTMLInputElement, InputTileProps>(
-    ({ label, valid = true, ...inputProps }, ref) => {
+    ({ label, ...inputProps }, ref) => {
         return (
             <TileStyledTextInput
-                $valid={valid}
                 ref={ref}
                 aria-label={label}
                 {...inputProps}

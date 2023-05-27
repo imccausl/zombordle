@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo } from 'react'
 
 import { InputElement } from './InputElement'
 import { StyledButton, StyledForm, TileInputGroup } from './TiledInput.styles'
+import { useValidationTooltipTracker } from './TiledInputValidation/useValidationTooltipTracker'
 
 const KEYS = {
     Backspace: 'Backspace',
@@ -20,7 +21,8 @@ type TiledInputFormProps = {
 }
 export const TiledInputForm: React.FC<TiledInputFormProps> = ({ length }) => {
     const { getFieldRefs, setFieldValue, isFormValid } = useFormContext()
-
+    const { hoverState, focusState, ...eventHandlers } =
+        useValidationTooltipTracker()
     useEffect(() => {
         getFieldRefs()[0]?.current?.focus()
     }, [getFieldRefs])
@@ -82,11 +84,12 @@ export const TiledInputForm: React.FC<TiledInputFormProps> = ({ length }) => {
     const handleOnFocus = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
             const target = e.target
-
+            eventHandlers.onFocus(e)
             target.setSelectionRange(0, target.value.length)
         },
-        [],
+        [eventHandlers],
     )
+
     const tiledInput = useMemo(
         () =>
             new Array(length).fill('').map((_, index: number) => {
@@ -94,14 +97,30 @@ export const TiledInputForm: React.FC<TiledInputFormProps> = ({ length }) => {
                     <InputElement
                         key={`input-element-${index + 1}`}
                         index={index}
+                        wordLength={length}
                         onChange={handleOnChange}
                         onFocus={handleOnFocus}
+                        onBlur={eventHandlers.onBlur}
                         onKeyDown={handleKeyDown}
+                        onMouseEnter={eventHandlers.onMouseEnter}
+                        onMouseLeave={eventHandlers.onMouseLeave}
+                        hasFocus={focusState.visible}
+                        isHovering={hoverState.visible}
                     />
                 )
             }),
 
-        [length, handleOnChange, handleOnFocus, handleKeyDown],
+        [
+            length,
+            handleOnChange,
+            handleOnFocus,
+            eventHandlers.onBlur,
+            eventHandlers.onMouseEnter,
+            eventHandlers.onMouseLeave,
+            handleKeyDown,
+            focusState.visible,
+            hoverState.visible,
+        ],
     )
 
     return (
