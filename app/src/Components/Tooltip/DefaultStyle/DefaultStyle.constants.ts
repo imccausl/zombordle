@@ -16,7 +16,14 @@ export const VariantThemes = {
 }
 
 export const PointerPositionCSS = {
-    top: css`
+    // TODO: top positions are temporary. not completed yet.
+    'top-center': css`
+        top: 0;
+    `,
+    'top-right': css`
+        top: 0;
+    `,
+    'top-left': css`
         top: 0;
     `,
     'bottom-center': css`
