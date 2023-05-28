@@ -26,11 +26,12 @@ const nextConfig = {
 /**
  * I think this is only needed for hosting on github pages
  * without a custom domain, because the site is hosted at
- * imccausl.github.io/zombordle
+ * imccausl.github.io/zombordle. Using custom domain, so
+ * will remove. Commenting out to remind me if/when the domain expires?
  */
 
-if (process.env.CI === '1') {
-    nextConfig.assetPrefix = '/zombordle'
-}
+// if (process.env.CI === '1') {
+//     nextConfig.assetPrefix = '/zombordle'
+// }
 
 module.exports = nextConfig
