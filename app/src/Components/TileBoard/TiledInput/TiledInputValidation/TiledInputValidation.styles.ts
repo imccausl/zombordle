@@ -22,10 +22,10 @@ export const ValidationBorder = styled.div<ValidationBorderProps>`
 `
 
 export const IconContainer = styled.div`
-    text-align: center;
+    text-align: left;
     width: 20px;
     height: 20px;
-    margin-right: 5px;
+    margin-right: 10px;
 `
 
 export const MessageContainer = styled.div`

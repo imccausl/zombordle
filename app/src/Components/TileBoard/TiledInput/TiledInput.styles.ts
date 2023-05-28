@@ -55,7 +55,7 @@ export const StyledForm = styled(Form)`
 
 export const StyledButton = styled.button.attrs({ tabIndex: -1 })`
     position: absolute;
-    display: block;
+    display: none;
     margin: 0 0 0 5px;
     right: -115px;
     top: 0;
