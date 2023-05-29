@@ -2,6 +2,7 @@ import { useCallback, useReducer } from 'react'
 
 import TileBoard from '../TileBoard'
 
+import { Header } from './Header'
 import guessReducer, { registerGuess } from './slice'
 
 const correctWord = 'found'
@@ -18,11 +19,14 @@ const App: React.FC = () => {
     )
 
     return (
-        <TileBoard
-            onSubmit={handleOnSubmit}
-            guesses={state.guesses}
-            correctWord={state.correctWord}
-        />
+        <>
+            <Header />
+            <TileBoard
+                onSubmit={handleOnSubmit}
+                guesses={state.guesses}
+                correctWord={state.correctWord}
+            />
+        </>
     )
 }
 
