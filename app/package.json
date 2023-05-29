@@ -12,7 +12,7 @@
     "test-related": "vitest related --run"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.3",
+    "@reduxjs/toolkit": "^1.9.5",
     "formula-one": "workspace:packages/formula-one",
     "next": "^13.2.3",
     "react": "^18.2.0",
