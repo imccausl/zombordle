@@ -45,7 +45,7 @@
     "eslint-plugin-testing-library": "^5.10.2",
     "hoist-non-react-statics": "^3.3.2",
     "husky": "^8.0.0",
-    "jsdom": "^21.1.0",
+    "jsdom": "^22.1.0",
     "lint-staged": "^13.2.1",
     "postcss": "^8.4.21",
     "postcss-styled": "^0.34.0",
