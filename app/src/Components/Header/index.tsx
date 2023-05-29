@@ -1,6 +1,11 @@
 import { useCallback, useState } from 'react'
 
-import { StyledHeader, StyledIconButton } from './Header.styles'
+import {
+    SoundControlContainer,
+    StyledH1,
+    StyledHeader,
+    StyledIconButton,
+} from './Header.styles'
 import { ReactComponent as MuteIcon } from './assets/mute_icon.svg'
 import { ReactComponent as SpeakerIcon } from './assets/speaker_icon.svg'
 
@@ -23,21 +28,30 @@ const SoundControl: React.FC = () => {
     }, [isMuted])
 
     return (
-        <>
+        <SoundControlContainer>
             <SoundControlButton isMuted={isMuted} onClick={handleMuteToggle} />
             {/* Muted audio would not autoplay in chrome with the audio tag, but
              * the video tag autoplays correctly 🤷‍♂️.
              */}
-            <video playsInline autoPlay={true} loop muted={isMuted}>
+            <video
+                height="0"
+                width="0"
+                playsInline
+                autoPlay={true}
+                loop
+                muted={isMuted}
+            >
                 <source src="/zombo_theme.mp3" />
             </video>
-        </>
+        </SoundControlContainer>
     )
 }
 
 const Header: React.FC = () => {
     return (
         <StyledHeader>
+            <div style={{ flex: '1 1 0' }}></div>
+            <StyledH1>Zombordle</StyledH1>
             <SoundControl />
         </StyledHeader>
     )
