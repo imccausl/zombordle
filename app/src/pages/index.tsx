@@ -29,7 +29,7 @@ export default function Home() {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    paddingTop: '20px',
+                    paddingTop: '10px',
                 }}
             >
                 <App />
