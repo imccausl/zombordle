@@ -17,3 +17,16 @@ export const StyledIconButton = styled.button`
     padding: 5px;
     margin: 0 5px;
 `
+export const SoundControlContainer = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    flex-grow: 1;
+`
+
+export const StyledH1 = styled.h1`
+    text-align: center;
+    flex-grow: 2;
+    padding: 5px;
+`
