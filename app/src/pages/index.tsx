@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google'
 import Head from 'next/head'
 
 import App from '../Components/App'
+import { Header } from '../Components/Header'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,6 +21,7 @@ export default function Home() {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+            <Header />
             <main
                 className={`${inter.className}`}
                 style={{
@@ -27,6 +29,7 @@ export default function Home() {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    paddingTop: '20px',
                 }}
             >
                 <App />
