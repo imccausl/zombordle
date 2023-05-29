@@ -50,7 +50,7 @@ const SoundControl: React.FC = () => {
 const Header: React.FC = () => {
     return (
         <StyledHeader>
-            <div style={{ flexGrow: 1 }}></div>
+            <div style={{ flex: '1 1 0' }}></div>
             <StyledH1>Zombordle</StyledH1>
             <SoundControl />
         </StyledHeader>
