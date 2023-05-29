@@ -8,7 +8,6 @@ export const StyledHeader = styled.header`
     height: 65px;
     width: 100%;
     border-bottom: lightgrey solid 1px;
-    margin-bottom: 20px;
 `
 export const StyledIconButton = styled.button`
     border: none;
