@@ -15,7 +15,7 @@ export type TileBoardProps = {
     onSubmit: (value: string) => void
 }
 
-const MAX_ATTEMPTS = 6
+export const MAX_ATTEMPTS = 6
 
 const TileBoard: React.FC<TileBoardProps> = ({
     guesses,
@@ -68,6 +68,7 @@ const TileBoard: React.FC<TileBoardProps> = ({
                 >
                     <InputRowContainer position={inputRowContainerPosition}>
                         <TiledInput
+                            guessNumber={MAX_ATTEMPTS - attemptsRemaining + 1}
                             length={correctWord.length}
                             onSubmit={onSubmit}
                         />

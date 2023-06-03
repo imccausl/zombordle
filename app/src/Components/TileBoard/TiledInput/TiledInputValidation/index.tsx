@@ -31,7 +31,7 @@ export const TiledInputValidation: React.FC<
         >
             <Tooltip.Content>
                 <MessageContainer id={id}>
-                    <IconContainer role="presentation">
+                    <IconContainer aria-hidden="true">
                         <ExclamationIcon />
                     </IconContainer>
                     <ErrorContainer>{error}</ErrorContainer>

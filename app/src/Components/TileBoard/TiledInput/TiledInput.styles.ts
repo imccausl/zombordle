@@ -26,21 +26,28 @@ type TileInputGroupProps = {
     $valid?: boolean
 }
 
-export const TileInputGroup = styled.ul<TileInputGroupProps>`
+export const TileInputGroup = styled.fieldset<TileInputGroupProps>`
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    text-indent: 0;
-    list-style-type: none;
+    border: none;
     padding: 0;
     margin: 0;
     ${({ $valid }) => !$valid && invalidAnimation}
 `
 
-export const InputTileContainer = styled.li`
-    list-style-type: none;
-    text-indent: 0;
+export const StyledLegend = styled.legend`
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+`
+
+export const InputTileContainer = styled.div`
     margin: 0 5px 0 0;
     padding: 0;
 
