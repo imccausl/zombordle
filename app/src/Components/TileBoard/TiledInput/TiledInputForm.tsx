@@ -1,8 +1,15 @@
 import { useFormContext } from 'formula-one'
 import { useCallback, useEffect, useMemo } from 'react'
 
+import { MAX_ATTEMPTS } from '..'
+
 import { InputElement } from './InputElement'
-import { StyledButton, StyledForm, TileInputGroup } from './TiledInput.styles'
+import {
+    StyledButton,
+    StyledForm,
+    StyledLegend,
+    TileInputGroup,
+} from './TiledInput.styles'
 import { useValidationTooltipTracker } from './TiledInputValidation/useValidationTooltipTracker'
 
 const KEYS = {
@@ -18,8 +25,12 @@ const isInputElement = (
 
 type TiledInputFormProps = {
     length: number
+    guessNumber: number
 }
-export const TiledInputForm: React.FC<TiledInputFormProps> = ({ length }) => {
+export const TiledInputForm: React.FC<TiledInputFormProps> = ({
+    length,
+    guessNumber,
+}) => {
     const { getFieldRefs, setFieldValue, isFormValid } = useFormContext()
     const { hoverState, focusState, ...eventHandlers } =
         useValidationTooltipTracker()
@@ -125,7 +136,10 @@ export const TiledInputForm: React.FC<TiledInputFormProps> = ({ length }) => {
 
     return (
         <StyledForm>
-            <TileInputGroup role="list" $valid={isFormValid}>
+            <TileInputGroup $valid={isFormValid}>
+                <StyledLegend>
+                    Guess {guessNumber} of {MAX_ATTEMPTS}
+                </StyledLegend>
                 {tiledInput}
             </TileInputGroup>
             <StyledButton type="submit">Submit</StyledButton>

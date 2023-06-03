@@ -4,11 +4,16 @@ import { useCallback, useMemo } from 'react'
 import { TiledInputForm } from './TiledInputForm'
 
 export type TiledInputProps = {
+    guessNumber: number
     length: number
     onSubmit: (value: string) => void
 }
 
-const TiledInput: React.FC<TiledInputProps> = ({ length, onSubmit }) => {
+const TiledInput: React.FC<TiledInputProps> = ({
+    length,
+    guessNumber,
+    onSubmit,
+}) => {
     const initialValues = useMemo(
         () =>
             new Array(length).fill('').reduce((acc, _, index: number) => {
@@ -34,7 +39,7 @@ const TiledInput: React.FC<TiledInputProps> = ({ length, onSubmit }) => {
             onSubmit={handleOnSubmit}
             initialValues={initialValues}
         >
-            <TiledInputForm length={length} />
+            <TiledInputForm length={length} guessNumber={guessNumber} />
         </FormProvider>
     )
 }
