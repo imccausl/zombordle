@@ -1,12 +1,15 @@
 import { useCallback, useReducer } from 'react'
 
 import TileBoard from '../TileBoard'
+import { useWord } from '../hooks/useWord'
+import { useWordList } from '../hooks/useWordList'
 
 import guessReducer, { registerGuess } from './slice'
 
-const correctWord = 'found'
-
 const App: React.FC = () => {
+    const correctWord = useWord()
+    const wordList = useWordList()
+
     const [state, dispatch] = useReducer(guessReducer, {
         guesses: [],
         correctWord,
@@ -22,6 +25,7 @@ const App: React.FC = () => {
             onSubmit={handleOnSubmit}
             guesses={state.guesses}
             correctWord={state.correctWord}
+            wordList={wordList}
         />
     )
 }

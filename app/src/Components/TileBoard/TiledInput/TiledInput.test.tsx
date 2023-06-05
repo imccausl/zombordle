@@ -6,6 +6,8 @@ import TiledInput, { type TiledInputProps } from '.'
 
 const defaultProps: TiledInputProps = {
     length: 10,
+    guessNumber: 1,
+    wordList: ['foundation'],
     onSubmit: () => {},
 }
 
@@ -159,7 +161,7 @@ describe('TiledInput', () => {
             )
         })
 
-        it('calls onSubmit when the a word is submitted', async () => {
+        it('calls onSubmit when an allowed word is submitted', async () => {
             const onSubmitSpy = vi.fn()
             const user = userEvent.setup()
             renderWithProps({ onSubmit: onSubmitSpy })
@@ -171,6 +173,22 @@ describe('TiledInput', () => {
             await userEvent.keyboard('{Enter}')
             expect(onSubmitSpy).toHaveBeenCalledWith('foundation')
             expect(onSubmitSpy).toHaveBeenCalledTimes(1)
+        })
+
+        it('does not call onSubmit when a word is submitted that is not on the word list', async () => {
+            const onSubmitSpy = vi.fn()
+            const user = userEvent.setup()
+            renderWithProps({
+                onSubmit: onSubmitSpy,
+                wordList: ['foundation', 'aquaphobic'],
+            })
+
+            await user.type(screen.getByLabelText(/1st/), 'amberjacks')
+            expect(screen.getByLabelText(/10th/)).toHaveFocus()
+            expect(onSubmitSpy).not.toHaveBeenCalled()
+
+            await userEvent.keyboard('{Enter}')
+            expect(onSubmitSpy).not.toHaveBeenCalled()
         })
 
         it('does not call onSubmit if there are too few letters in the word', async () => {

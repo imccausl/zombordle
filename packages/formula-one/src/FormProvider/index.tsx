@@ -185,7 +185,9 @@ export const FormProvider: React.FC<FormProviderProps> = ({
         [],
     )
 
-    const getFieldValues = useCallback(
+    const getFieldValues = useCallback(() => state.values, [state.values])
+
+    const getFieldValue = useCallback(
         (name: string) => {
             return {
                 value: state.values?.[name],
@@ -204,6 +206,10 @@ export const FormProvider: React.FC<FormProviderProps> = ({
         })
 
         return fieldRefs
+    }, [])
+
+    const setError = useCallback((name: string, message: string) => {
+        setErrors({ [name]: message })
     }, [])
 
     const getFieldRef = useCallback(
@@ -302,8 +308,10 @@ export const FormProvider: React.FC<FormProviderProps> = ({
                 validateField: doFieldValidation,
                 validateOnBlur,
                 validateOnChange,
+                setError,
                 setFieldValue,
                 getFieldState,
+                getFieldValue,
                 getFieldValues,
                 getFieldRefs,
                 getFieldRef,
@@ -320,8 +328,10 @@ export const FormProvider: React.FC<FormProviderProps> = ({
             doFieldValidation,
             validateOnBlur,
             validateOnChange,
+            setError,
             setFieldValue,
             getFieldState,
+            getFieldValue,
             getFieldValues,
             getFieldRefs,
             getFieldRef,

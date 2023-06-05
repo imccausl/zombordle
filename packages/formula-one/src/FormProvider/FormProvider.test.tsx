@@ -117,7 +117,7 @@ describe('FormProvider', () => {
                     ),
             )
 
-            expect(result.current.getFieldValues('test-field').value).toBe('')
+            expect(result.current.getFieldValue('test-field').value).toBe('')
 
             act(
                 () =>
@@ -126,7 +126,7 @@ describe('FormProvider', () => {
                         'new value',
                     ),
             )
-            expect(result.current.getFieldValues('test-field').value).toBe(
+            expect(result.current.getFieldValue('test-field').value).toBe(
                 'new value',
             )
         })

@@ -29,13 +29,15 @@ type FormFieldValues = {
 export type FormStateActions = {
     onChange: OnChangeFn
     onBlur: OnBlurFn
+    setError: (name: string, message: string) => void
     setFieldValue: (field: string, value: string) => void
     getFieldState: (name: string) => {
         error: FormState['errors'][string]
         value: FormState['values'][string]
         touched: FormState['touched'][string]
     }
-    getFieldValues: (name: string) => FormFieldValues
+    getFieldValue: (name: string) => FormFieldValues
+    getFieldValues: () => FormState['values']
     getFieldRefs: () => Array<FieldRef>
     getFieldRef: (name: string) => FieldRef | undefined
     resetFormState: () => void
