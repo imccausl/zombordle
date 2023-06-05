@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { useWord } from '../../hooks/useWord'
 import { useWordList } from '../../hooks/useWordList'
+import { Keyboard } from '../Keyboard'
 import TileBoard from '../TileBoard'
 
 const App: React.FC = () => {
@@ -49,13 +50,16 @@ const App: React.FC = () => {
     )
 
     return (
-        <TileBoard
-            onSubmit={handleOnSubmit}
-            guesses={guesses}
-            hasCorrectGuess={hasCorrectGuess}
-            correctWord={correctWord}
-            wordList={wordList}
-        />
+        <>
+            <TileBoard
+                onSubmit={handleOnSubmit}
+                guesses={guesses}
+                hasCorrectGuess={hasCorrectGuess}
+                correctWord={correctWord}
+                wordList={wordList}
+            />
+            <Keyboard />
+        </>
     )
 }
 
