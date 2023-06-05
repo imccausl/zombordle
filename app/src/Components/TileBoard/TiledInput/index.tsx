@@ -5,12 +5,14 @@ import { TiledInputForm } from './TiledInputForm'
 
 export type TiledInputProps = {
     guessNumber: number
+    wordList: string[]
     length: number
     onSubmit: (value: string) => void
 }
 
 const TiledInput: React.FC<TiledInputProps> = ({
     length,
+    wordList,
     guessNumber,
     onSubmit,
 }) => {
@@ -22,15 +24,25 @@ const TiledInput: React.FC<TiledInputProps> = ({
             }, {}),
         [length],
     )
+
     const handleOnSubmit = useCallback(
         (values: FormStateType['values']) => {
             const wordSubmission = Object.values(values).reduce(
                 (word, letter) => word.concat(letter),
                 '',
             )
+
+            if (!wordList.includes(wordSubmission)) {
+                // temporary
+                alert(`${wordSubmission} not in word list`)
+                // need to move focus to the first letter
+                // and show an error/hint
+                return
+            }
+
             onSubmit(wordSubmission)
         },
-        [onSubmit],
+        [onSubmit, wordList],
     )
 
     return (

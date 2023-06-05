@@ -12,6 +12,7 @@ import TiledInput from './TiledInput'
 export type TileBoardProps = {
     guesses: string[]
     correctWord: string
+    wordList: string[]
     onSubmit: (value: string) => void
 }
 
@@ -19,6 +20,7 @@ export const MAX_ATTEMPTS = 6
 
 const TileBoard: React.FC<TileBoardProps> = ({
     guesses,
+    wordList,
     correctWord,
     onSubmit,
 }) => {
@@ -69,6 +71,7 @@ const TileBoard: React.FC<TileBoardProps> = ({
                     <InputRowContainer position={inputRowContainerPosition}>
                         <TiledInput
                             guessNumber={MAX_ATTEMPTS - attemptsRemaining + 1}
+                            wordList={wordList}
                             length={correctWord.length}
                             onSubmit={onSubmit}
                         />

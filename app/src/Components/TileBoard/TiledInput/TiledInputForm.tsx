@@ -142,6 +142,9 @@ export const TiledInputForm: React.FC<TiledInputFormProps> = ({
                 </StyledLegend>
                 {tiledInput}
             </TileInputGroup>
+            {/* Submit button is needed for keyboard submit of form
+             * but is currently visually hidden
+             */}
             <StyledButton type="submit">Submit</StyledButton>
         </StyledForm>
     )
