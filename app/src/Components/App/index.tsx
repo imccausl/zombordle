@@ -1,30 +1,54 @@
-import { useCallback, useReducer } from 'react'
+'use client'
 
+import { useCallback, useEffect } from 'react'
+
+import { useLocalStorage } from '../../hooks/useLocalStorage'
+import { useWord } from '../../hooks/useWord'
+import { useWordList } from '../../hooks/useWordList'
 import TileBoard from '../TileBoard'
-import { useWord } from '../hooks/useWord'
-import { useWordList } from '../hooks/useWordList'
-
-import guessReducer, { registerGuess } from './slice'
 
 const App: React.FC = () => {
     const correctWord = useWord()
     const wordList = useWordList()
+    const [guesses, setGuesses] = useLocalStorage<string[]>(
+        'zombordle_guesses',
+        [],
+    )
+    const [gameStart, setGameStart] = useLocalStorage<string | null>(
+        'zombordle_started',
+        null,
+    )
+    useEffect(() => {
+        if (typeof window === 'undefined') {
+            return
+        }
 
-    const [state, dispatch] = useReducer(guessReducer, {
-        guesses: [],
-        correctWord,
-    })
+        const today = new Date().toDateString()
+        if (gameStart && today !== gameStart) {
+            try {
+                setGuesses([])
+                setGameStart(null)
+            } catch {
+                // do nothing
+            }
+        }
+    }, [gameStart, guesses, setGameStart, setGuesses])
 
     const handleOnSubmit = useCallback(
-        (value: string) => void dispatch(registerGuess(value)),
-        [],
+        (value: string) => {
+            if (!gameStart) {
+                setGameStart(new Date().toDateString())
+            }
+            setGuesses([...guesses, value])
+        },
+        [gameStart, guesses, setGameStart, setGuesses],
     )
 
     return (
         <TileBoard
             onSubmit={handleOnSubmit}
-            guesses={state.guesses}
-            correctWord={state.correctWord}
+            guesses={guesses}
+            correctWord={correctWord}
             wordList={wordList}
         />
     )
