@@ -1,13 +1,14 @@
 import { useFormContext } from 'formula-one'
 import { useCallback } from 'react'
 
-import { LetterKeyContainer } from './LetterKey.styles'
+import { LetterKeyContainer, type VariantColor } from './LetterKey.styles'
 
 type LetterKeyProps = {
     letter: string
+    variant: VariantColor
 }
 
-export const LetterKey: React.FC<LetterKeyProps> = ({ letter }) => {
+export const LetterKey: React.FC<LetterKeyProps> = ({ letter, variant }) => {
     const { getFieldValues, setFieldValue } = useFormContext()
     const handleOnClick = useCallback(
         (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -26,7 +27,11 @@ export const LetterKey: React.FC<LetterKeyProps> = ({ letter }) => {
     )
 
     return (
-        <LetterKeyContainer data-key={letter} onClick={handleOnClick}>
+        <LetterKeyContainer
+            $variant={variant}
+            data-key={letter}
+            onClick={handleOnClick}
+        >
             {letter}
         </LetterKeyContainer>
     )

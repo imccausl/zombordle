@@ -85,7 +85,7 @@ const App: React.FC = () => {
                 hasCorrectGuess={hasCorrectGuess}
                 correctWord={correctWord}
             />
-            <Keyboard />
+            <Keyboard correctWord={correctWord} guesses={guesses} />
         </FormProvider>
     )
 }
