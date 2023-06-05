@@ -7,7 +7,7 @@ export const ListContainer = styled.ul`
     justify-content: center;
     width: 100%;
     text-indent: 0;
-    margin: 0;
+    margin: 5px 0 0;
     padding: 0;
 `
 
@@ -25,17 +25,8 @@ export const TileRowContainer = styled.li`
         margin-bottom: 0;
     }
 `
-type InputRowContainerProps = {
-    position: 'top' | 'bottom' | 'middle'
-}
 
-const positionMargin = {
-    top: '0 0 5px 0',
-    bottom: '5px 0 0 0',
-    middle: '5px 0 5px 0',
-}
-
-export const InputRowContainer = styled.div<InputRowContainerProps>`
+export const InputRowContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -43,7 +34,7 @@ export const InputRowContainer = styled.div<InputRowContainerProps>`
     width: 100%;
     list-style-type: none;
     text-indent: 0;
-    margin: ${({ position }) => positionMargin[position ?? 'middle']};
+    margin: 0;
 `
 
 export const TileGroup = styled.ul`

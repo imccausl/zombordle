@@ -12,6 +12,7 @@ import TiledInput from './TiledInput'
 export type TileBoardProps = {
     guesses: string[]
     correctWord: string
+    hasCorrectGuess: boolean
     wordList: string[]
     onSubmit: (value: string) => void
 }
@@ -22,11 +23,12 @@ const TileBoard: React.FC<TileBoardProps> = ({
     guesses,
     wordList,
     correctWord,
+    hasCorrectGuess,
     onSubmit,
 }) => {
     const attemptsRemaining = useMemo(
         () => MAX_ATTEMPTS - guesses.length,
-        [guesses],
+        [guesses.length],
     )
 
     const tiledGuesses = useMemo(
@@ -41,34 +43,31 @@ const TileBoard: React.FC<TileBoardProps> = ({
 
     const tiledAttemptsRemaining = useMemo(
         () =>
-            Array.from({ length: attemptsRemaining - 1 }).map((_, index) => (
+            Array.from({
+                length: hasCorrectGuess
+                    ? attemptsRemaining
+                    : attemptsRemaining - 1,
+            }).map((_, index) => (
                 <TileRowContainer role="listitem" key={index}>
                     <TiledBlank correctWordLength={correctWord.length} />
                 </TileRowContainer>
             )),
-        [correctWord, attemptsRemaining],
+        [hasCorrectGuess, attemptsRemaining, correctWord.length],
     )
-
-    let inputRowContainerPosition: 'middle' | 'top' | 'bottom' = 'middle'
-    if (guesses.length === 0) {
-        inputRowContainerPosition = 'top'
-    } else if (guesses.length === MAX_ATTEMPTS - 1) {
-        inputRowContainerPosition = 'bottom'
-    }
 
     return (
         <>
             {Boolean(guesses.length) && (
                 <ListContainer role="list">{tiledGuesses}</ListContainer>
             )}
-            {Boolean(attemptsRemaining) && (
+            {Boolean(attemptsRemaining && !hasCorrectGuess) && (
                 <ListContainer
                     as="div"
                     key={`input-form-attempt-${
                         guesses.length - attemptsRemaining
                     }`}
                 >
-                    <InputRowContainer position={inputRowContainerPosition}>
+                    <InputRowContainer>
                         <TiledInput
                             guessNumber={MAX_ATTEMPTS - attemptsRemaining + 1}
                             wordList={wordList}
