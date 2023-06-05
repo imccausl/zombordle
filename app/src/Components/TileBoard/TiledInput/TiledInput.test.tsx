@@ -1,5 +1,6 @@
 import { act, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { FormProvider } from 'formula-one'
 import React from 'react'
 
 import TiledInput, { type TiledInputProps } from '.'
@@ -7,17 +8,25 @@ import TiledInput, { type TiledInputProps } from '.'
 const defaultProps: TiledInputProps = {
     length: 10,
     guessNumber: 1,
-    wordList: ['foundation'],
-    onSubmit: () => {},
 }
 
+const initialValues = new Array(defaultProps.length)
+    .fill('')
+    .reduce((acc, _, index: number) => {
+        acc[`input-${index + 1}`] = ''
+        return acc
+    }, {})
+
 const renderWithProps = (props: Partial<TiledInputProps> = {}) =>
-    render(<TiledInput {...defaultProps} {...props} />)
+    render(
+        <FormProvider onSubmit={() => {}} initialValues={initialValues}>
+            <TiledInput {...defaultProps} {...props} />
+        </FormProvider>,
+    )
 
 describe('TiledInput', () => {
     it('renders blank textbox squares corresponding to the length of the correct word', () => {
         renderWithProps()
-
         const allBlankTiles = screen.getAllByRole('textbox')
 
         expect(allBlankTiles).toHaveLength(10)
@@ -159,51 +168,6 @@ describe('TiledInput', () => {
             expect(deriveStringFromInputs(screen.getAllByRole('textbox'))).toBe(
                 ' oun ati n',
             )
-        })
-
-        it('calls onSubmit when an allowed word is submitted', async () => {
-            const onSubmitSpy = vi.fn()
-            const user = userEvent.setup()
-            renderWithProps({ onSubmit: onSubmitSpy })
-
-            await user.type(screen.getByLabelText(/1st/), 'foundation')
-            expect(screen.getByLabelText(/10th/)).toHaveFocus()
-            expect(onSubmitSpy).not.toHaveBeenCalled()
-
-            await userEvent.keyboard('{Enter}')
-            expect(onSubmitSpy).toHaveBeenCalledWith('foundation')
-            expect(onSubmitSpy).toHaveBeenCalledTimes(1)
-        })
-
-        it('does not call onSubmit when a word is submitted that is not on the word list', async () => {
-            const onSubmitSpy = vi.fn()
-            const user = userEvent.setup()
-            renderWithProps({
-                onSubmit: onSubmitSpy,
-                wordList: ['foundation', 'aquaphobic'],
-            })
-
-            await user.type(screen.getByLabelText(/1st/), 'amberjacks')
-            expect(screen.getByLabelText(/10th/)).toHaveFocus()
-            expect(onSubmitSpy).not.toHaveBeenCalled()
-
-            await userEvent.keyboard('{Enter}')
-            expect(onSubmitSpy).not.toHaveBeenCalled()
-        })
-
-        it('does not call onSubmit if there are too few letters in the word', async () => {
-            const onSubmitSpy = vi.fn()
-            const user = userEvent.setup()
-            renderWithProps()
-
-            await user.type(screen.getByLabelText(/1st/), 'something')
-            expect(screen.getByLabelText(/9th/).getAttribute('value')).toBe('g')
-
-            expect(screen.getByLabelText(/10th/)).toHaveFocus()
-            expect(onSubmitSpy).not.toHaveBeenCalled()
-
-            await userEvent.keyboard('{Enter}')
-            expect(onSubmitSpy).not.toHaveBeenCalled()
         })
 
         describe('Arrow Key Navigation', () => {

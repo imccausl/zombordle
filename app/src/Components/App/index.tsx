@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
+import { FormProvider, type FormState } from 'formula-one'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { useWord } from '../../hooks/useWord'
@@ -40,26 +41,52 @@ const App: React.FC = () => {
     }, [gameStart, guesses, setGameStart, setGuesses])
 
     const handleOnSubmit = useCallback(
-        (value: string) => {
+        (values: FormState['values']) => {
+            const wordSubmission = Object.values(values).reduce(
+                (word, letter) => word.concat(letter),
+                '',
+            )
+
+            if (!wordList.includes(wordSubmission)) {
+                // temporary
+                alert(`${wordSubmission} not in word list`)
+                // need to move focus to the first letter
+                // and show an error/hint
+                return
+            }
+
             if (!gameStart) {
                 setGameStart(new Date().toDateString())
             }
-            setGuesses([...guesses, value])
+            setGuesses([...guesses, wordSubmission])
         },
-        [gameStart, guesses, setGameStart, setGuesses],
+        [gameStart, guesses, setGameStart, setGuesses, wordList],
+    )
+
+    const initialValues = useMemo(
+        () =>
+            new Array(correctWord.length)
+                .fill('')
+                .reduce((acc, _, index: number) => {
+                    acc[`input-${index + 1}`] = ''
+                    return acc
+                }, {}),
+        [correctWord.length],
     )
 
     return (
-        <>
+        <FormProvider
+            validateOnBlur={true}
+            onSubmit={handleOnSubmit}
+            initialValues={initialValues}
+        >
             <TileBoard
-                onSubmit={handleOnSubmit}
                 guesses={guesses}
                 hasCorrectGuess={hasCorrectGuess}
                 correctWord={correctWord}
-                wordList={wordList}
             />
             <Keyboard />
-        </>
+        </FormProvider>
     )
 }
 
