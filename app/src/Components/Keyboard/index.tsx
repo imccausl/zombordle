@@ -5,6 +5,7 @@ import { getVariant } from '../TileBoard/util'
 import { KeyboardRows } from './Keyboard.constants'
 import { KeyboardContainer, RowContainer } from './Keyboard.styles'
 import { LetterKey } from './LetterKey'
+import { type VariantColor } from './LetterKey/LetterKey.styles'
 
 type KeyboardProps = {
     guesses: string[]
@@ -14,7 +15,7 @@ type KeyboardProps = {
 export const Keyboard: React.FC<KeyboardProps> = ({ guesses, correctWord }) => {
     const correctLetterMap = useMemo(
         () =>
-            guesses.reduce<Record<string, string>>((map, guess) => {
+            guesses.reduce<Record<string, VariantColor>>((map, guess) => {
                 guess.split('').forEach((letter, index) => {
                     map[letter] = getVariant({ correctWord, letter, index })
                 })
