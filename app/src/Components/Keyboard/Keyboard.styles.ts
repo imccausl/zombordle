@@ -1,5 +1,8 @@
 import styled from 'styled-components'
 
+import { ReactComponent as BackspaceIcon } from './assets/backspace_key.svg'
+import { ReactComponent as EnterIcon } from './assets/enter_key.svg'
+
 export const KeyboardContainer = styled.div`
     display: flex;
     flex-flow: column nowrap;
@@ -23,4 +26,14 @@ export const Spacer = styled.div`
     width: 0;
     height: 0;
     flex: 0.5 0 0;
+`
+
+export const BackspaceKeyIcon = styled(BackspaceIcon)`
+    width: 30px;
+    height: 30px;
+`
+
+export const EnterKeyIcon = styled(EnterIcon)`
+    height: 25px;
+    width: 25px;
 `

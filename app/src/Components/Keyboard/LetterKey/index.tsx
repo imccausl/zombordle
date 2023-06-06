@@ -15,28 +15,42 @@ export const LetterKey: React.FC<LetterKeyProps> = ({
     variant,
     keyCode = undefined,
 }) => {
-    const { getFieldValues, setFieldValue } = useFormContext()
+    const { getFieldValues, setFieldValue, onSubmit } = useFormContext()
     const handleOnClick = useCallback(
         (e: React.MouseEvent<HTMLButtonElement>) => {
             const fieldValues = getFieldValues()
-            const firstEmptyFieldName = Object.keys(fieldValues).find(
-                (key) => !fieldValues[key],
-            )
-            if (firstEmptyFieldName) {
-                setFieldValue(
-                    firstEmptyFieldName,
-                    e.currentTarget.dataset.key ?? '',
+            if (e.currentTarget.dataset.key === 'Backspace') {
+                const lastFullFieldName = Object.keys(fieldValues).findLast(
+                    (key) => fieldValues[key],
                 )
+                if (lastFullFieldName) {
+                    setFieldValue(lastFullFieldName, '')
+                }
+            } else if (e.currentTarget.dataset.key === 'Enter') {
+                onSubmit()
+            } else {
+                const firstEmptyFieldName = Object.keys(fieldValues).find(
+                    (key) => !fieldValues[key],
+                )
+                if (firstEmptyFieldName) {
+                    setFieldValue(
+                        firstEmptyFieldName,
+                        e.currentTarget.dataset.key ?? '',
+                    )
+                }
             }
         },
         [getFieldValues, setFieldValue],
     )
 
+    const keyCodeValue = keyCode ? keyCode : children
+
     return (
         <LetterKeyContainer
             aria-label={label ?? undefined}
             $variant={variant}
-            data-key={keyCode ?? typeof children === 'string' ? children : ''}
+            $flexGrow={label?.toLowerCase() === 'enter' ? '2' : '1'}
+            data-key={typeof keyCodeValue === 'string' ? keyCodeValue : ''}
             onClick={handleOnClick}
         >
             {children}
