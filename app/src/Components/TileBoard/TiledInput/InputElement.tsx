@@ -1,10 +1,11 @@
 import { useField } from 'formula-one'
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import InputTile from '../Tile/InputTile'
 
 import { InputTileContainer } from './TiledInput.styles'
 import { TiledInputValidation } from './TiledInputValidation'
+import { type VariantBorder } from './TiledInputValidation/TiledInputValidation.styles'
 import { toOrdinal } from './util'
 
 type InputElementProps = {
@@ -97,6 +98,15 @@ export const InputElement: React.FC<InputElementProps> = ({
     )
 
     const validationMessageId = `input-${index + 1}-validation-message`
+    const validationVariant: VariantBorder = useMemo(() => {
+        if (error) {
+            return 'invalid'
+        } else if (field.value) {
+            return 'full'
+        }
+
+        return 'default'
+    }, [error, field.value])
 
     return (
         <InputTileContainer key={`input-${index + 1}`}>
@@ -107,6 +117,7 @@ export const InputElement: React.FC<InputElementProps> = ({
                     hasFocus === field.name || isHovering === field.name
                 }
                 defaultPosition={getPosition()}
+                variant={validationVariant}
             >
                 <InputTile
                     {...field}

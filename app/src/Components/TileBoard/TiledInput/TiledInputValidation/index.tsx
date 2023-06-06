@@ -5,6 +5,7 @@ import {
     IconContainer,
     MessageContainer,
     ValidationBorder,
+    type VariantBorder,
 } from './TiledInputValidation.styles'
 import { ReactComponent as ExclamationIcon } from './assets/exclamation.svg'
 
@@ -13,6 +14,7 @@ type TiledInputValidation = {
     showValidationMessage?: boolean
     defaultPosition?: TooltipPosition
     id?: string
+    variant?: VariantBorder
 }
 
 export const TiledInputValidation: React.FC<
@@ -23,6 +25,7 @@ export const TiledInputValidation: React.FC<
     error,
     defaultPosition = 'bottom-left',
     showValidationMessage = false,
+    variant = 'default',
 }) => {
     return (
         <Tooltip
@@ -37,7 +40,7 @@ export const TiledInputValidation: React.FC<
                     <ErrorContainer>{error}</ErrorContainer>
                 </MessageContainer>
             </Tooltip.Content>
-            <ValidationBorder $valid={!error}>{children}</ValidationBorder>
+            <ValidationBorder $variant={variant}>{children}</ValidationBorder>
         </Tooltip>
     )
 }
