@@ -16,9 +16,12 @@ export const Keyboard: React.FC<KeyboardProps> = ({ guesses, correctWord }) => {
     const correctLetterMap = useMemo(
         () =>
             guesses.reduce<Record<string, VariantColor>>((map, guess) => {
-                guess.split('').forEach((letter, index) => {
-                    map[letter] = getVariant({ correctWord, letter, index })
-                })
+                guess
+                    .toLowerCase()
+                    .split('')
+                    .forEach((letter, index) => {
+                        map[letter] = getVariant({ correctWord, letter, index })
+                    })
 
                 return map
             }, {}),
