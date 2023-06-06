@@ -20,13 +20,6 @@ export const RowContainer = styled.div`
     margin-top: 5px;
     width: 100%;
 `
-export const Spacer = styled.div`
-    margin: 0;
-    padding: 0;
-    width: 0;
-    height: 0;
-    flex: 0.5 0 0;
-`
 
 export const BackspaceKeyIcon = styled(BackspaceIcon)`
     width: 30px;
