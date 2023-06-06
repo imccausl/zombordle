@@ -7,12 +7,14 @@ type LetterKeyProps = React.PropsWithChildren<{
     label?: string
     variant: VariantColor
     keyCode?: string
+    isDisabled?: boolean
 }>
 
 export const LetterKey: React.FC<LetterKeyProps> = ({
     children,
     label,
     variant,
+    isDisabled = false,
     keyCode = undefined,
 }) => {
     const { getFieldValues, setFieldValue, onSubmit } = useFormContext()
@@ -26,7 +28,7 @@ export const LetterKey: React.FC<LetterKeyProps> = ({
                 if (lastFullFieldName) {
                     setFieldValue(lastFullFieldName, '')
                 }
-            } else if (e.currentTarget.dataset.key === 'Enter') {
+            } else if (e.currentTarget.dataset.key === 'Enter' && !isDisabled) {
                 onSubmit()
             } else {
                 const firstEmptyFieldName = Object.keys(fieldValues).find(
@@ -40,7 +42,7 @@ export const LetterKey: React.FC<LetterKeyProps> = ({
                 }
             }
         },
-        [getFieldValues, setFieldValue],
+        [getFieldValues, isDisabled, onSubmit, setFieldValue],
     )
 
     const keyCodeValue = keyCode ? keyCode : children
