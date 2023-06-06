@@ -8,7 +8,6 @@ import {
     EnterKeyIcon,
     KeyboardContainer,
     RowContainer,
-    Spacer,
 } from './Keyboard.styles'
 import { LetterKey } from './LetterKey'
 import { type VariantColor } from './LetterKey/LetterKey.styles'
@@ -44,7 +43,6 @@ export const Keyboard: React.FC<KeyboardProps> = ({
             {KeyboardRows.reduce<JSX.Element[]>((allRows, row, index) => {
                 return allRows.concat(
                     <RowContainer key={row.join('')}>
-                        {index === 1 ? <Spacer aria-hidden="true" /> : null}
                         {row.map((letter) => (
                             <LetterKey
                                 key={letter}
