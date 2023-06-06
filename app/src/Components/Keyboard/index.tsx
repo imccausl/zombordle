@@ -34,12 +34,20 @@ export const Keyboard: React.FC<KeyboardProps> = ({ guesses, correctWord }) => {
                 return allRows.concat(
                     <RowContainer key={row.join('')}>
                         {index === 1 ? <Spacer aria-hidden="true" /> : null}
+                        {index === 2 ? (
+                            <LetterKey
+                                key={'enter_key'}
+                                variant="default"
+                                label="Enter"
+                            />
+                        ) : null}
                         {row.map((letter) => (
                             <LetterKey
                                 key={letter}
                                 variant={correctLetterMap[letter]}
-                                letter={letter}
-                            />
+                            >
+                                {letter}
+                            </LetterKey>
                         ))}
                         {index === 1 ? <Spacer aria-hidden="true" /> : null}
                     </RowContainer>,

@@ -3,12 +3,18 @@ import { useCallback } from 'react'
 
 import { LetterKeyContainer, type VariantColor } from './LetterKey.styles'
 
-type LetterKeyProps = {
-    letter: string
+type LetterKeyProps = React.PropsWithChildren<{
+    label?: string
     variant: VariantColor
-}
+    keyCode?: string
+}>
 
-export const LetterKey: React.FC<LetterKeyProps> = ({ letter, variant }) => {
+export const LetterKey: React.FC<LetterKeyProps> = ({
+    children,
+    label,
+    variant,
+    keyCode = undefined,
+}) => {
     const { getFieldValues, setFieldValue } = useFormContext()
     const handleOnClick = useCallback(
         (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -28,11 +34,12 @@ export const LetterKey: React.FC<LetterKeyProps> = ({ letter, variant }) => {
 
     return (
         <LetterKeyContainer
+            aria-label={label ?? undefined}
             $variant={variant}
-            data-key={letter}
+            data-key={keyCode ?? typeof children === 'string' ? children : ''}
             onClick={handleOnClick}
         >
-            {letter}
+            {children}
         </LetterKeyContainer>
     )
 }
