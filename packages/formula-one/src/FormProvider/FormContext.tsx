@@ -10,7 +10,7 @@ import type {
 export type ContextProps = FormState &
     FormStateActions &
     FormFunctions &
-    SharedFormProviderProps
+    Pick<SharedFormProviderProps, 'validateOnBlur' | 'validateOnChange'>
 
 const FormContext = createContext<ContextProps | null>(null)
 FormContext.displayName = 'FormContext'
