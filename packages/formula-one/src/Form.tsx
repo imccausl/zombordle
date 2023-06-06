@@ -8,14 +8,14 @@ type FormProps = {
 }
 
 export const useForm = () => {
-    const { values, errors, onSubmit, resetFormState } = useFormContext()
+    const { onSubmit, resetFormState } = useFormContext()
     const handleOnSubmit = useCallback(
         (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault()
-            onSubmit({ values, errors, formEvent: e })
+            onSubmit()
             //   resetFormState()
         },
-        [errors, onSubmit, values],
+        [onSubmit],
     )
     const handleOnReset = useCallback(() => {
         resetFormState()
