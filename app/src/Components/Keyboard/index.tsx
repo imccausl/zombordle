@@ -3,7 +3,13 @@ import { useMemo } from 'react'
 import { getVariant } from '../TileBoard/util'
 
 import { KeyboardRows } from './Keyboard.constants'
-import { KeyboardContainer, RowContainer, Spacer } from './Keyboard.styles'
+import {
+    BackspaceKeyIcon,
+    EnterKeyIcon,
+    KeyboardContainer,
+    RowContainer,
+    Spacer,
+} from './Keyboard.styles'
 import { LetterKey } from './LetterKey'
 import { type VariantColor } from './LetterKey/LetterKey.styles'
 
@@ -13,7 +19,7 @@ type KeyboardProps = {
 }
 
 export const Keyboard: React.FC<KeyboardProps> = ({ guesses, correctWord }) => {
-    const correctLetterMap = useMemo(
+    const letterVariantMap = useMemo(
         () =>
             guesses.reduce<Record<string, VariantColor>>((map, guess) => {
                 guess
@@ -37,11 +43,31 @@ export const Keyboard: React.FC<KeyboardProps> = ({ guesses, correctWord }) => {
                         {row.map((letter) => (
                             <LetterKey
                                 key={letter}
-                                variant={correctLetterMap[letter]}
-                                letter={letter}
-                            />
+                                variant={letterVariantMap[letter]}
+                            >
+                                {letter}
+                            </LetterKey>
                         ))}
-                        {index === 1 ? <Spacer aria-hidden="true" /> : null}
+                        {index === 1 ? (
+                            <LetterKey
+                                key="enter_key"
+                                variant="default"
+                                label="Enter"
+                                keyCode="Enter"
+                            >
+                                <EnterKeyIcon />
+                            </LetterKey>
+                        ) : null}
+                        {index === 2 ? (
+                            <LetterKey
+                                key="backspace_key"
+                                variant="default"
+                                label="Backspace"
+                                keyCode="Backspace"
+                            >
+                                <BackspaceKeyIcon />
+                            </LetterKey>
+                        ) : null}
                     </RowContainer>,
                 )
             }, [])}

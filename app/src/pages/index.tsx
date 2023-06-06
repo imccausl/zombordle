@@ -32,6 +32,8 @@ export default function Home() {
                     paddingTop: '10px',
                     height: '100%',
                     width: '100%',
+                    maxWidth: '500px',
+                    margin: '0 auto',
                 }}
             >
                 <App />

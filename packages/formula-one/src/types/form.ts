@@ -29,6 +29,7 @@ type FormFieldValues = {
 export type FormStateActions = {
     onChange: OnChangeFn
     onBlur: OnBlurFn
+    onSubmit: () => void
     setError: (name: string, message: string) => void
     setFieldValue: (field: string, value: string) => void
     getFieldState: (name: string) => {
