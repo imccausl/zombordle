@@ -33,7 +33,7 @@ __metadata:
     "@testing-library/react": ^14.0.0
     "@testing-library/user-event": ^14.4.3
     "@types/node": 18.15.11
-    "@types/react": 18.0.33
+    "@types/react": 18.2.8
     "@types/styled-components": ^5.1.26
     "@vitejs/plugin-react": ^3.1.0
     eslint: ^8.41.0
@@ -2819,14 +2819,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.0.33, @types/react@npm:^18.0.28":
-  version: 18.0.33
-  resolution: "@types/react@npm:18.0.33"
+"@types/react@npm:*, @types/react@npm:18.2.8, @types/react@npm:^18.2.8":
+  version: 18.2.8
+  resolution: "@types/react@npm:18.2.8"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 4fbd2b2b6a26378bdfde121081a6406ec2d39e4ba87ea5f6897ab7bb2198713165e6fd703ad4ed7ba1d4f23ef54a4c9f108f3105c7ed8e136411ee6bdebc5669
+  checksum: 351fe2450d30bff2ceb6aa84788e948317555e5ea22cb44f6778e08c977aab1878a0119bd94bc3d1bec5f5af4a75ffaa2ce111df5cd9d4ce26bfd719e4d971c2
   languageName: node
   linkType: hard
 
@@ -5379,7 +5379,7 @@ __metadata:
     "@testing-library/react": ^14.0.0
     "@testing-library/user-event": ^14.4.3
     "@types/node": 18.15.11
-    "@types/react": 18.0.33
+    "@types/react": 18.2.8
     "@types/styled-components": ^5.1.26
     "@vitejs/plugin-react": ^3.1.0
     eslint: ^8.41.0
@@ -10045,7 +10045,7 @@ __metadata:
     "@tophat/eslint-config": ^7.0.1
     "@tophat/eslint-import-resolver-require": ^0.1.4
     "@types/node": ^18.14.6
-    "@types/react": ^18.0.28
+    "@types/react": ^18.2.8
     "@types/react-dom": ^18.2.4
     "@types/styled-components": ^5.1.26
     "@types/testing-library__jest-dom": ^5.14.6
