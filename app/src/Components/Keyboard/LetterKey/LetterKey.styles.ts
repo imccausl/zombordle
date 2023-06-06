@@ -10,15 +10,18 @@ export const VariantColor = {
 export type VariantColor = keyof typeof VariantColor
 
 export const LetterKeyContainer = styled.button<{ $variant: VariantColor }>`
+    display: flex;
     border: 1px solid transparent;
     background: ${({ $variant }) => VariantColor[$variant ?? 'default']};
     color: ${({ $variant }) =>
         $variant === 'no-letter' ? '#ffffff' : '#000000'};
     height: 58px;
-    width: 43px;
+    flex: 1 0 0;
     margin: 0 6px 0 0;
     font-size: 1.25em;
     border-radius: 4px;
     font-weight: bold;
+    justify-content: center;
+    align-items: center;
     text-transform: capitalize;
 `

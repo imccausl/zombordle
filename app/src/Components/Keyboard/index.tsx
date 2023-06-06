@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { getVariant } from '../TileBoard/util'
 
 import { KeyboardRows } from './Keyboard.constants'
-import { KeyboardContainer, RowContainer } from './Keyboard.styles'
+import { KeyboardContainer, RowContainer, Spacer } from './Keyboard.styles'
 import { LetterKey } from './LetterKey'
 import { type VariantColor } from './LetterKey/LetterKey.styles'
 
@@ -30,16 +30,18 @@ export const Keyboard: React.FC<KeyboardProps> = ({ guesses, correctWord }) => {
 
     return (
         <KeyboardContainer>
-            {KeyboardRows.reduce<JSX.Element[]>((allRows, row) => {
+            {KeyboardRows.reduce<JSX.Element[]>((allRows, row, index) => {
                 return allRows.concat(
                     <RowContainer key={row.join('')}>
+                        {index === 1 ? <Spacer aria-hidden="true" /> : null}
                         {row.map((letter) => (
                             <LetterKey
-                                variant={correctLetterMap[letter]}
                                 key={letter}
+                                variant={correctLetterMap[letter]}
                                 letter={letter}
                             />
                         ))}
+                        {index === 1 ? <Spacer aria-hidden="true" /> : null}
                     </RowContainer>,
                 )
             }, [])}
