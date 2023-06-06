@@ -28,8 +28,10 @@ export default function Home() {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    justifyContent: 'center',
+                    justifyContent: 'flex-start',
                     paddingTop: '10px',
+                    height: '100%',
+                    width: '100%',
                 }}
             >
                 <App />

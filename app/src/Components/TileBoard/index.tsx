@@ -13,18 +13,14 @@ export type TileBoardProps = {
     guesses: string[]
     correctWord: string
     hasCorrectGuess: boolean
-    wordList: string[]
-    onSubmit: (value: string) => void
 }
 
 export const MAX_ATTEMPTS = 6
 
 const TileBoard: React.FC<TileBoardProps> = ({
     guesses,
-    wordList,
     correctWord,
     hasCorrectGuess,
-    onSubmit,
 }) => {
     const attemptsRemaining = useMemo(
         () => MAX_ATTEMPTS - guesses.length,
@@ -70,9 +66,7 @@ const TileBoard: React.FC<TileBoardProps> = ({
                     <InputRowContainer>
                         <TiledInput
                             guessNumber={MAX_ATTEMPTS - attemptsRemaining + 1}
-                            wordList={wordList}
                             length={correctWord.length}
-                            onSubmit={onSubmit}
                         />
                     </InputRowContainer>
                 </ListContainer>
