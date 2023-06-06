@@ -1,17 +1,20 @@
 import { render as renderComponent, screen } from '@testing-library/react'
+import { FormProvider } from 'formula-one'
 
 import TileBoard, { type TileBoardProps } from '.'
 
 const defaultProps: TileBoardProps = {
-    guess: '',
     guesses: [],
     correctWord: 'foundation',
-    onChange: () => {},
-    onSubmit: () => {},
+    hasCorrectGuess: false,
 }
 
 const render = (props: Partial<TileBoardProps> = {}) =>
-    renderComponent(<TileBoard {...defaultProps} {...props} />)
+    renderComponent(
+        <FormProvider onSubmit={() => {}} initialValues={{ field1: '' }}>
+            <TileBoard {...defaultProps} {...props} />
+        </FormProvider>,
+    )
 
 describe('TileBoard', () => {
     it('renders tiled input squares corresponding to the length of the correct word', () => {

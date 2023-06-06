@@ -1,0 +1,26 @@
+import styled from 'styled-components'
+
+export const KeyboardContainer = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    margin-top: 10px;
+    padding: 0 8px;
+    width: 100%;
+`
+
+export const RowContainer = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    width: 100%;
+`
+export const Spacer = styled.div`
+    margin: 0;
+    padding: 0;
+    width: 0;
+    height: 0;
+    flex: 0.5 0 0;
+`
