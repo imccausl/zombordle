@@ -47,7 +47,12 @@ const App: React.FC = () => {
                 '',
             )
 
-            if (!wordList.includes(wordSubmission)) {
+            if (
+                !wordList.find(
+                    (word) =>
+                        word.toLowerCase() === wordSubmission.toLowerCase(),
+                )
+            ) {
                 // temporary
                 alert(`${wordSubmission} not in word list`)
                 // need to move focus to the first letter
