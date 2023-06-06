@@ -42,16 +42,12 @@ const App: React.FC = () => {
 
     const handleOnSubmit = useCallback(
         (values: FormState['values']) => {
-            const wordSubmission = Object.values(values).reduce(
-                (word, letter) => word.concat(letter),
-                '',
-            )
+            const wordSubmission = Object.values(values)
+                .reduce((word, letter) => word.concat(letter), '')
+                .toLowerCase()
 
             if (
-                !wordList.find(
-                    (word) =>
-                        word.toLowerCase() === wordSubmission.toLowerCase(),
-                )
+                !wordList.find((word) => word.toLowerCase() === wordSubmission)
             ) {
                 // temporary
                 alert(`${wordSubmission} not in word list`)
