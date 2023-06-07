@@ -16,8 +16,8 @@ export const TileStyledTextInput = styled.input`
     border-color: transparent;
     font-size: 2rem;
     font-weight: 600;
-    height: 51px;
-    width: 51px;
+    height: 58px;
+    width: 58px;
     text-transform: uppercase;
     caret-color: transparent;
 
