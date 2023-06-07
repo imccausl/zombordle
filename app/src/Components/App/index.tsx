@@ -11,11 +11,13 @@ type Stats = {
     guesses: number
     status: 'win' | 'loss' | null
     distribution: Record<string, number>
+    hasPlayed: boolean
 }
 
 const statInitialState: Stats = {
     guesses: 0,
     status: null,
+    hasPlayed: false,
     distribution: {
         '1': 0,
         '2': 0,
@@ -49,15 +51,18 @@ const App: React.FC = () => {
     useEffect(() => {
         if (gameState?.includes(correctWord)) {
             setHasCorrectGuess(true)
-            setStats({
-                status: 'win',
-                guesses: gameState.length,
-                distribution: {
-                    ...stats.distribution,
-                    [gameState.length.toString()]:
-                        stats.distribution[gameState.length.toString()] + 1,
-                },
-            })
+            if (!stats.hasPlayed) {
+                setStats({
+                    status: 'win',
+                    guesses: gameState.length,
+                    distribution: {
+                        ...stats.distribution,
+                        [gameState.length.toString()]:
+                            stats.distribution[gameState.length.toString()] + 1,
+                    },
+                    hasPlayed: true,
+                })
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [correctWord, gameState])
