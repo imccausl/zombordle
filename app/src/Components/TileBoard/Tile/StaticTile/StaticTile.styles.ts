@@ -65,8 +65,8 @@ export const TileContainer = styled.li<TileProps>`
     border: 2px solid
         ${({ children }) =>
             children !== ' ' ? VariantBorder.full : VariantBorder.default};
-    width: 55px;
-    height: 55px;
+    height: 62px;
+    width: 62px;
     text-transform: uppercase;
     ${({ children, variant }) =>
         children !== ' ' && postSubmitAnimation(variant)};
