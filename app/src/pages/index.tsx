@@ -29,11 +29,11 @@ export default function Home() {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'flex-start',
-                    paddingTop: '10px',
-                    height: '100%',
+                    height: 'calc(100% - 65px)',
                     width: '100%',
                     maxWidth: '500px',
                     margin: '0 auto',
+                    overflow: 'hidden',
                 }}
             >
                 <App />
