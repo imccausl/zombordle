@@ -1,7 +1,7 @@
 import { useFormContext } from 'formula-one'
 import { useCallback, useEffect, useMemo } from 'react'
 
-import { MAX_ATTEMPTS } from '..'
+import { MAX_ATTEMPTS } from '../../App.constants'
 
 import { InputElement } from './InputElement'
 import {

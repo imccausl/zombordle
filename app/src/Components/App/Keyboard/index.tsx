@@ -15,13 +15,13 @@ import { type VariantColor } from './LetterKey/LetterKey.styles'
 type KeyboardProps = {
     guesses: string[]
     correctWord: string
-    hasCorrectGuess: boolean
+    hasPlayed: boolean
 }
 
 export const Keyboard: React.FC<KeyboardProps> = ({
     guesses,
     correctWord,
-    hasCorrectGuess,
+    hasPlayed,
 }) => {
     const letterVariantMap = useMemo(
         () =>
@@ -57,7 +57,7 @@ export const Keyboard: React.FC<KeyboardProps> = ({
                                 variant="default"
                                 label="Enter"
                                 keyCode="Enter"
-                                isDisabled={hasCorrectGuess}
+                                isDisabled={hasPlayed}
                             >
                                 <EnterKeyIcon />
                             </LetterKey>
