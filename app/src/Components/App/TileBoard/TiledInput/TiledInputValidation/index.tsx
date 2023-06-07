@@ -1,4 +1,4 @@
-import { Tooltip, type TooltipPosition } from '../../../Tooltip'
+import { Tooltip, type TooltipPosition } from '../../../../Tooltip'
 
 import {
     ErrorContainer,

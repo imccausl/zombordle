@@ -4,10 +4,10 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { useWord } from '../../hooks/useWord'
 import { useWordList } from '../../hooks/useWordList'
-import { Keyboard } from '../Keyboard'
-import TileBoard from '../TileBoard'
 
 import { MAX_ATTEMPTS } from './App.constants'
+import { Keyboard } from './Keyboard'
+import TileBoard from './TileBoard'
 
 type Stats = {
     attempts: number

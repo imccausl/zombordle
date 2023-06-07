@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { MAX_ATTEMPTS } from '../App/App.constants'
+import { MAX_ATTEMPTS } from '../App.constants'
 
 import {
     InputRowContainer,
