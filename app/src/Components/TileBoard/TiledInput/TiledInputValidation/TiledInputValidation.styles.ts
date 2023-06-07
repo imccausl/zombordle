@@ -6,19 +6,20 @@ export const VariantColor = {
 
 export const VariantBorder = {
     invalid: '#FF0800',
-    default: '#8E8787',
+    default: '#d3d6da',
+    full: '#8E8787',
 }
 
+export type VariantBorder = keyof typeof VariantBorder
+
 type ValidationBorderProps = {
-    $valid?: boolean
+    $variant?: VariantBorder
 }
 
 export const ValidationBorder = styled.div<ValidationBorderProps>`
     padding: 0;
     background-color: ${VariantColor.default};
-    border: 2px solid
-        ${({ $valid }) =>
-            $valid ? VariantBorder.default : VariantBorder.invalid};
+    border: 2px solid ${({ $variant }) => VariantBorder[$variant ?? 'default']};
 `
 
 export const IconContainer = styled.div`

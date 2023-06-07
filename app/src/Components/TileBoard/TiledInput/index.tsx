@@ -26,10 +26,17 @@ const isInputElement = (
 export type TiledInputProps = {
     length: number
     guessNumber: number
+    isInvalidWord: boolean
+    resetInvalidWord: () => void
 }
 
-const TiledInput: React.FC<TiledInputProps> = ({ length, guessNumber }) => {
-    const { getFieldRefs, setFieldValue, isFormValid } = useFormContext()
+const TiledInput: React.FC<TiledInputProps> = ({
+    length,
+    guessNumber,
+    isInvalidWord,
+    resetInvalidWord,
+}) => {
+    const { getFieldRefs, setFieldValue } = useFormContext()
     const { hoverState, focusState, ...eventHandlers } =
         useValidationTooltipTracker()
     useEffect(() => {
@@ -58,9 +65,13 @@ const TiledInput: React.FC<TiledInputProps> = ({ length, guessNumber }) => {
 
     const handleOnChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+            if (isInvalidWord) {
+                resetInvalidWord()
+            }
+
             getNextElement(index)?.focus()
         },
-        [getNextElement],
+        [getNextElement, isInvalidWord, resetInvalidWord],
     )
 
     const handleKeyDown = useCallback(
@@ -134,7 +145,7 @@ const TiledInput: React.FC<TiledInputProps> = ({ length, guessNumber }) => {
 
     return (
         <StyledForm>
-            <TileInputGroup $valid={isFormValid}>
+            <TileInputGroup $isInvalid={isInvalidWord}>
                 <StyledLegend>
                     Guess {guessNumber} of {MAX_ATTEMPTS}
                 </StyledLegend>

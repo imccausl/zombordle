@@ -23,7 +23,7 @@ const invalidAnimation = css`
 `
 
 type TileInputGroupProps = {
-    $valid?: boolean
+    $isInvalid?: boolean
 }
 
 export const TileInputGroup = styled.fieldset<TileInputGroupProps>`
@@ -34,7 +34,8 @@ export const TileInputGroup = styled.fieldset<TileInputGroupProps>`
     border: none;
     padding: 0;
     margin: 0;
-    ${({ $valid }) => !$valid && invalidAnimation}
+
+    ${({ $isInvalid }) => $isInvalid && invalidAnimation}
 `
 
 export const StyledLegend = styled.legend`
