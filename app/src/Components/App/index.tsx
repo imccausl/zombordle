@@ -42,6 +42,10 @@ const App: React.FC = () => {
         'zombordle_stats',
         statInitialState,
     )
+    const [hasPlayed, setHasPlayed] = useLocalStorage(
+        'zombordle_hasPlayed',
+        false,
+    )
 
     const [hasCorrectGuess, setHasCorrectGuess] = useState<boolean>(false)
     const [isInvalidWord, setIsInvalidWord] = useState<boolean>(false)
@@ -49,15 +53,18 @@ const App: React.FC = () => {
     useEffect(() => {
         if (gameState?.includes(correctWord)) {
             setHasCorrectGuess(true)
-            setStats({
-                status: 'win',
-                guesses: gameState.length,
-                distribution: {
-                    ...stats.distribution,
-                    [gameState.length.toString()]:
-                        stats.distribution[gameState.length.toString()] + 1,
-                },
-            })
+            if (!hasPlayed) {
+                setHasPlayed(true)
+                setStats({
+                    status: 'win',
+                    guesses: gameState.length,
+                    distribution: {
+                        ...stats.distribution,
+                        [gameState.length.toString()]:
+                            stats.distribution[gameState.length.toString()] + 1,
+                    },
+                })
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [correctWord, gameState])
@@ -68,11 +75,12 @@ const App: React.FC = () => {
             try {
                 setGameState([])
                 setGameStart(null)
+                setHasPlayed(false)
             } catch {
                 // do nothing
             }
         }
-    }, [gameStart, gameState, setGameStart, setGameState])
+    }, [gameStart, gameState, setGameStart, setGameState, setHasPlayed])
 
     const handleOnSubmit = useCallback(
         (values: FormState['values']) => {
