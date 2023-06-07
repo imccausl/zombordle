@@ -6,6 +6,7 @@ import { useWord } from '../../hooks/useWord'
 import { useWordList } from '../../hooks/useWordList'
 
 import { MAX_ATTEMPTS } from './App.constants'
+import { AppContainer } from './App.styles'
 import { Keyboard } from './Keyboard'
 import TileBoard from './TileBoard'
 
@@ -147,18 +148,20 @@ const App: React.FC = () => {
             onSubmit={handleOnSubmit}
             initialValues={initialValues}
         >
-            <TileBoard
-                guesses={gameState}
-                hasPlayed={hasPlayed}
-                correctWord={correctWord}
-                isInvalidWord={isInvalidWord}
-                resetInvalidWord={resetInvalidWord}
-            />
-            <Keyboard
-                correctWord={correctWord}
-                guesses={gameState}
-                hasPlayed={hasPlayed}
-            />
+            <AppContainer>
+                <TileBoard
+                    guesses={gameState}
+                    hasPlayed={hasPlayed}
+                    correctWord={correctWord}
+                    isInvalidWord={isInvalidWord}
+                    resetInvalidWord={resetInvalidWord}
+                />
+                <Keyboard
+                    correctWord={correctWord}
+                    guesses={gameState}
+                    hasPlayed={hasPlayed}
+                />
+            </AppContainer>
         </FormProvider>
     )
 }

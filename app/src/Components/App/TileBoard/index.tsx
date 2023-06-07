@@ -54,7 +54,7 @@ const TileBoard: React.FC<TileBoardProps> = ({
     )
 
     return (
-        <>
+        <div>
             {Boolean(guesses.length) && (
                 <ListContainer role="list">{tiledGuesses}</ListContainer>
             )}
@@ -80,7 +80,7 @@ const TileBoard: React.FC<TileBoardProps> = ({
                     {tiledAttemptsRemaining}
                 </ListContainer>
             )}
-        </>
+        </div>
     )
 }
 
