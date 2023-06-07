@@ -1,24 +1,23 @@
 import { TileContainer, type VariantColor } from './StaticTile.styles'
 
-type ReactProps = {
-    children?: string
-}
-
 export type TileProps = {
     variant?: keyof typeof VariantColor
+    animationDelayMultiplier?: number
+    children: string | null
 }
 
-type Props = ReactProps & TileProps
-
-const StaticTile: React.FC<Props> = ({
+const StaticTile: React.FC<TileProps> = ({
     children = null,
     variant = 'default',
-}) => {
-    return (
-        <TileContainer role="listitem" variant={variant}>
-            {children}
-        </TileContainer>
-    )
-}
+    animationDelayMultiplier,
+}) => (
+    <TileContainer
+        animationDelayMultiplier={animationDelayMultiplier}
+        role="listitem"
+        variant={variant}
+    >
+        {children}
+    </TileContainer>
+)
 
 export default StaticTile

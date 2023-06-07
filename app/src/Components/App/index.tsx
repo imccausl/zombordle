@@ -7,38 +7,72 @@ import { useWordList } from '../../hooks/useWordList'
 import { Keyboard } from '../Keyboard'
 import TileBoard from '../TileBoard'
 
+type Stats = {
+    guesses: number
+    status: 'win' | 'loss' | null
+    distribution: Record<string, number>
+}
+
+const statInitialState: Stats = {
+    guesses: 0,
+    status: null,
+    distribution: {
+        '1': 0,
+        '2': 0,
+        '3': 0,
+        '4': 0,
+        '5': 0,
+        '6': 0,
+        loss: 0,
+    },
+}
 const App: React.FC = () => {
     const correctWord = useWord()
     const wordList = useWordList()
 
-    const [guesses, setGuesses] = useLocalStorage<string[]>(
-        'zombordle_guesses',
+    const [gameState, setGameState] = useLocalStorage<string[]>(
+        'zombordle_gameState',
         [],
     )
     const [gameStart, setGameStart] = useLocalStorage<string | null>(
         'zombordle_started',
         null,
     )
+    const [stats, setStats] = useLocalStorage<Stats>(
+        'zombordle_stats',
+        statInitialState,
+    )
 
     const [hasCorrectGuess, setHasCorrectGuess] = useState<boolean>(false)
+    const [isInvalidWord, setIsInvalidWord] = useState<boolean>(false)
 
     useEffect(() => {
-        if (guesses?.includes(correctWord)) {
+        if (gameState?.includes(correctWord)) {
             setHasCorrectGuess(true)
+            setStats({
+                status: 'win',
+                guesses: gameState.length,
+                distribution: {
+                    ...stats.distribution,
+                    [gameState.length.toString()]:
+                        stats.distribution[gameState.length.toString()] + 1,
+                },
+            })
         }
-    }, [correctWord, guesses])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [correctWord, gameState])
 
     useEffect(() => {
         const today = new Date().toDateString()
         if (gameStart && today !== gameStart) {
             try {
-                setGuesses([])
+                setGameState([])
                 setGameStart(null)
             } catch {
                 // do nothing
             }
         }
-    }, [gameStart, guesses, setGameStart, setGuesses])
+    }, [gameStart, gameState, setGameStart, setGameState])
 
     const handleOnSubmit = useCallback(
         (values: FormState['values']) => {
@@ -49,6 +83,7 @@ const App: React.FC = () => {
             if (
                 !wordList.find((word) => word.toLowerCase() === wordSubmission)
             ) {
+                setIsInvalidWord(true)
                 // temporary
                 alert(`${wordSubmission.toUpperCase()} not in word list`)
                 // need to move focus to the first letter
@@ -59,10 +94,13 @@ const App: React.FC = () => {
             if (!gameStart) {
                 setGameStart(new Date().toDateString())
             }
-            setGuesses([...guesses, wordSubmission])
+            setGameState([...gameState, wordSubmission])
         },
-        [gameStart, guesses, setGameStart, setGuesses, wordList],
+        [gameStart, gameState, setGameStart, setGameState, wordList],
     )
+    const resetInvalidWord = useCallback(() => {
+        setIsInvalidWord(false)
+    }, [])
 
     const initialValues = useMemo(
         () =>
@@ -82,13 +120,15 @@ const App: React.FC = () => {
             initialValues={initialValues}
         >
             <TileBoard
-                guesses={guesses}
+                guesses={gameState}
                 hasCorrectGuess={hasCorrectGuess}
                 correctWord={correctWord}
+                isInvalidWord={isInvalidWord}
+                resetInvalidWord={resetInvalidWord}
             />
             <Keyboard
                 correctWord={correctWord}
-                guesses={guesses}
+                guesses={gameState}
                 hasCorrectGuess={hasCorrectGuess}
             />
         </FormProvider>
