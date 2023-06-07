@@ -11,13 +11,11 @@ type Stats = {
     guesses: number
     status: 'win' | 'loss' | null
     distribution: Record<string, number>
-    hasPlayed: boolean
 }
 
 const statInitialState: Stats = {
     guesses: 0,
     status: null,
-    hasPlayed: false,
     distribution: {
         '1': 0,
         '2': 0,
@@ -44,6 +42,10 @@ const App: React.FC = () => {
         'zombordle_stats',
         statInitialState,
     )
+    const [hasPlayed, setHasPlayed] = useLocalStorage(
+        'zombordle_hasPlayed',
+        false,
+    )
 
     const [hasCorrectGuess, setHasCorrectGuess] = useState<boolean>(false)
     const [isInvalidWord, setIsInvalidWord] = useState<boolean>(false)
@@ -51,7 +53,8 @@ const App: React.FC = () => {
     useEffect(() => {
         if (gameState?.includes(correctWord)) {
             setHasCorrectGuess(true)
-            if (!stats.hasPlayed) {
+            if (!hasPlayed) {
+                setHasPlayed(true)
                 setStats({
                     status: 'win',
                     guesses: gameState.length,
@@ -60,7 +63,6 @@ const App: React.FC = () => {
                         [gameState.length.toString()]:
                             stats.distribution[gameState.length.toString()] + 1,
                     },
-                    hasPlayed: true,
                 })
             }
         }
@@ -73,11 +75,12 @@ const App: React.FC = () => {
             try {
                 setGameState([])
                 setGameStart(null)
+                setHasPlayed(false)
             } catch {
                 // do nothing
             }
         }
-    }, [gameStart, gameState, setGameStart, setGameState])
+    }, [gameStart, gameState, setGameStart, setGameState, setHasPlayed])
 
     const handleOnSubmit = useCallback(
         (values: FormState['values']) => {
