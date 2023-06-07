@@ -6,7 +6,9 @@ import TileBoard, { type TileBoardProps } from '.'
 const defaultProps: TileBoardProps = {
     guesses: [],
     correctWord: 'foundation',
-    hasCorrectGuess: false,
+    hasPlayed: false,
+    isInvalidWord: false,
+    resetInvalidWord: () => {},
 }
 
 const render = (props: Partial<TileBoardProps> = {}) =>

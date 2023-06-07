@@ -1,5 +1,7 @@
 import { useMemo } from 'react'
 
+import { MAX_ATTEMPTS } from '../App/App.constants'
+
 import {
     InputRowContainer,
     ListContainer,
@@ -12,17 +14,15 @@ import TiledInput from './TiledInput'
 export type TileBoardProps = {
     guesses: string[]
     correctWord: string
-    hasCorrectGuess: boolean
+    hasPlayed: boolean
     isInvalidWord: boolean
     resetInvalidWord: () => void
 }
 
-export const MAX_ATTEMPTS = 6
-
 const TileBoard: React.FC<TileBoardProps> = ({
     guesses,
     correctWord,
-    hasCorrectGuess,
+    hasPlayed,
     isInvalidWord,
     resetInvalidWord,
 }) => {
@@ -44,15 +44,13 @@ const TileBoard: React.FC<TileBoardProps> = ({
     const tiledAttemptsRemaining = useMemo(
         () =>
             Array.from({
-                length: hasCorrectGuess
-                    ? attemptsRemaining
-                    : attemptsRemaining - 1,
+                length: hasPlayed ? attemptsRemaining : attemptsRemaining - 1,
             }).map((_, index) => (
                 <TileRowContainer role="listitem" key={index}>
                     <TiledBlank correctWordLength={correctWord.length} />
                 </TileRowContainer>
             )),
-        [hasCorrectGuess, attemptsRemaining, correctWord.length],
+        [hasPlayed, attemptsRemaining, correctWord.length],
     )
 
     return (
@@ -60,7 +58,7 @@ const TileBoard: React.FC<TileBoardProps> = ({
             {Boolean(guesses.length) && (
                 <ListContainer role="list">{tiledGuesses}</ListContainer>
             )}
-            {Boolean(attemptsRemaining && !hasCorrectGuess) && (
+            {Boolean(attemptsRemaining && !hasPlayed) && (
                 <ListContainer
                     as="div"
                     key={`input-form-attempt-${

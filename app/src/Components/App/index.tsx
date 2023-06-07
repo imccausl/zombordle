@@ -7,14 +7,16 @@ import { useWordList } from '../../hooks/useWordList'
 import { Keyboard } from '../Keyboard'
 import TileBoard from '../TileBoard'
 
+import { MAX_ATTEMPTS } from './App.constants'
+
 type Stats = {
-    guesses: number
+    attempts: number
     status: 'win' | 'loss' | null
     distribution: Record<string, number>
 }
 
 const statInitialState: Stats = {
-    guesses: 0,
+    attempts: 0,
     status: null,
     distribution: {
         '1': 0,
@@ -47,27 +49,45 @@ const App: React.FC = () => {
         false,
     )
 
-    const [hasCorrectGuess, setHasCorrectGuess] = useState<boolean>(false)
     const [isInvalidWord, setIsInvalidWord] = useState<boolean>(false)
 
     useEffect(() => {
-        if (gameState?.includes(correctWord)) {
-            setHasCorrectGuess(true)
+        const attempts = gameState.length
+
+        if (gameState?.includes(correctWord) && attempts <= MAX_ATTEMPTS) {
             if (!hasPlayed) {
                 setHasPlayed(true)
                 setStats({
                     status: 'win',
-                    guesses: gameState.length,
+                    attempts,
                     distribution: {
                         ...stats.distribution,
-                        [gameState.length.toString()]:
-                            stats.distribution[gameState.length.toString()] + 1,
+                        [attempts.toString()]:
+                            stats.distribution[attempts.toString()] + 1,
+                    },
+                })
+            }
+        } else if (attempts >= MAX_ATTEMPTS) {
+            if (!hasPlayed) {
+                setHasPlayed(true)
+                setStats({
+                    status: 'loss',
+                    attempts,
+                    distribution: {
+                        ...stats.distribution,
+                        loss: stats.distribution.loss + 1,
                     },
                 })
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [correctWord, gameState])
+    }, [
+        correctWord,
+        gameState,
+        hasPlayed,
+        setHasPlayed,
+        setStats,
+        stats.distribution,
+    ])
 
     useEffect(() => {
         const today = new Date().toDateString()
@@ -129,7 +149,7 @@ const App: React.FC = () => {
         >
             <TileBoard
                 guesses={gameState}
-                hasCorrectGuess={hasCorrectGuess}
+                hasPlayed={hasPlayed}
                 correctWord={correctWord}
                 isInvalidWord={isInvalidWord}
                 resetInvalidWord={resetInvalidWord}
@@ -137,7 +157,7 @@ const App: React.FC = () => {
             <Keyboard
                 correctWord={correctWord}
                 guesses={gameState}
-                hasCorrectGuess={hasCorrectGuess}
+                hasPlayed={hasPlayed}
             />
         </FormProvider>
     )
