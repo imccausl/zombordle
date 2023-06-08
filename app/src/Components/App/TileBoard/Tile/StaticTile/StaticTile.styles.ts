@@ -50,6 +50,12 @@ const postSubmitAnimation = (variant?: TileProps['variant']) => css`
     }
 `
 
+const TileSize = {
+    '5': '62px',
+    '6': '55px',
+    '7': '49px',
+}
+
 export const TileContainer = styled.li<TileProps>`
     list-style-type: none;
     text-indent: 0;
@@ -75,6 +81,13 @@ export const TileContainer = styled.li<TileProps>`
 
     &:last-of-type {
         margin-right: 0;
+    }
+
+    @media only screen and (max-width: 600px) {
+        width: ${({ wordLength }) =>
+            TileSize[(wordLength?.toString() as keyof typeof TileSize) ?? '5']};
+        height: ${({ wordLength }) =>
+            TileSize[(wordLength?.toString() as keyof typeof TileSize) ?? '5']};
     }
 `
 export const VisuallyHidden = styled.div`

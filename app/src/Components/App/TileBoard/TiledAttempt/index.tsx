@@ -18,6 +18,7 @@ const TiledAttempt: React.FC<TilesProps> = ({ word, correctWord }) => {
                 const tileVariant = getVariant({ correctWord, letter, index })
                 return (
                     <Tile
+                        wordLength={correctWord.length}
                         animationDelayMultiplier={index}
                         key={`${letter}-${index}`}
                         variant={tileVariant}
