@@ -26,13 +26,6 @@ export const StyledIconButton = styled.button`
         height: 35px;
     }
 `
-export const SoundControlContainer = styled.div`
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: flex-end;
-    flex: 1 1 0;
-`
 
 export const StyledH1 = styled.h1`
     font-family: 'Roboto Slab', Georgia, serif;
@@ -44,4 +37,12 @@ export const StyledH1 = styled.h1`
     @media only screen and (max-width: 600px) {
         font-size: 30px;
     }
+`
+
+export const ActionContainer = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 0;
 `
