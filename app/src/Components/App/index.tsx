@@ -2,8 +2,8 @@ import { FormProvider, type FormState } from 'formula-one'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { useLocalStorage } from '../../hooks/useLocalStorage'
-import { useWord } from '../../hooks/useWord'
-import { useWordList } from '../../hooks/useWordList'
+import { useWord } from '../../hooks/words/useWord'
+import { type WordListLength } from '../../hooks/words/useWordList'
 
 import { MAX_ATTEMPTS } from './App.constants'
 import { AppContainer } from './App.styles'
@@ -12,6 +12,7 @@ import TileBoard from './TileBoard'
 
 type Stats = {
     attempts: number
+    wordLength: WordListLength
     status: 'win' | 'loss' | null
     distribution: Record<string, number>
 }
@@ -19,6 +20,7 @@ type Stats = {
 const statInitialState: Stats = {
     attempts: 0,
     status: null,
+    wordLength: 5,
     distribution: {
         '1': 0,
         '2': 0,
@@ -30,9 +32,6 @@ const statInitialState: Stats = {
     },
 }
 const App: React.FC = () => {
-    const correctWord = useWord()
-    const wordList = useWordList()
-
     const [gameState, setGameState] = useLocalStorage<string[]>(
         'zombordle_gameState',
         [],
@@ -49,8 +48,17 @@ const App: React.FC = () => {
         'zombordle_hasPlayed',
         false,
     )
+    const [wordLength] = useLocalStorage<WordListLength>(
+        'zombordle_wordLength',
+        5,
+    )
 
     const [isInvalidWord, setIsInvalidWord] = useState<boolean>(false)
+    const { correctWord, wordList } = useWord(
+        gameState[0]?.length
+            ? (gameState[0]?.length as WordListLength)
+            : wordLength,
+    )
 
     useEffect(() => {
         const attempts = gameState.length
@@ -61,6 +69,7 @@ const App: React.FC = () => {
                 setStats({
                     status: 'win',
                     attempts,
+                    wordLength,
                     distribution: {
                         ...stats.distribution,
                         [attempts.toString()]:
@@ -73,6 +82,7 @@ const App: React.FC = () => {
                 setHasPlayed(true)
                 setStats({
                     status: 'loss',
+                    wordLength,
                     attempts,
                     distribution: {
                         ...stats.distribution,
