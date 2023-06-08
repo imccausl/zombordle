@@ -14,7 +14,11 @@ const TiledBlank: React.FC<TiledBlankProps> = ({ correctWordLength }) => {
             .split('')
             .map((blank: string, index: number) => {
                 return (
-                    <Tile key={index} variant="default">
+                    <Tile
+                        wordLength={correctWordLength}
+                        key={index}
+                        variant="default"
+                    >
                         {blank}
                     </Tile>
                 )

@@ -98,6 +98,7 @@ const App: React.FC = () => {
         setHasPlayed,
         setStats,
         stats.distribution,
+        wordLength,
     ])
 
     useEffect(() => {
