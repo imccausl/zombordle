@@ -89,6 +89,8 @@ const App: React.FC = () => {
                         loss: stats.distribution.loss + 1,
                     },
                 })
+                // temporary
+                alert(`The correct word was: ${correctWord}`)
             }
         }
     }, [
