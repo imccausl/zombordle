@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styled from 'styled-components'
 
 export const StyledHeader = styled.header`
@@ -14,6 +15,19 @@ export const StyledHeader = styled.header`
     }
 `
 export const StyledIconButton = styled.button`
+    border: none;
+    background: transparent;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    margin: 0 5px;
+
+    @media only screen and (max-width: 600px) {
+        width: 35px;
+        height: 35px;
+    }
+`
+export const StyledLink = styled(Link)`
     border: none;
     background: transparent;
     width: 40px;
