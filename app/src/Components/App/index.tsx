@@ -17,7 +17,7 @@ type Stats = {
     distribution: Record<string, number>
 }
 
-const statInitialState: Stats = {
+export const statInitialState: Stats = {
     attempts: 0,
     status: null,
     wordLength: 5,
@@ -52,6 +52,10 @@ const App: React.FC = () => {
         'zombordle_wordLength',
         5,
     )
+    const [timeStamps, setTimeStamps] = useLocalStorage<{
+        lastPlayed?: Date
+        lastCompleted?: Date
+    }>('timestamps', {})
 
     const [isInvalidWord, setIsInvalidWord] = useState<boolean>(false)
     const { correctWord, wordList } = useWord(
@@ -66,6 +70,7 @@ const App: React.FC = () => {
         if (gameState?.includes(correctWord) && attempts <= MAX_ATTEMPTS) {
             if (!hasPlayed) {
                 setHasPlayed(true)
+                setTimeStamps({ ...timeStamps, lastCompleted: new Date() })
                 setStats({
                     status: 'win',
                     attempts,
@@ -99,7 +104,9 @@ const App: React.FC = () => {
         hasPlayed,
         setHasPlayed,
         setStats,
+        setTimeStamps,
         stats.distribution,
+        timeStamps,
         wordLength,
     ])
 
