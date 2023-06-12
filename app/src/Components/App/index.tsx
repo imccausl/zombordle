@@ -129,7 +129,9 @@ const App: React.FC = () => {
         setHasPlayed,
         setStats,
         setTimeStamps,
+        stats,
         stats.distribution,
+        timeStamps,
         wordLength,
     ])
 

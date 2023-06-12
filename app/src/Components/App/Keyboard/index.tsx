@@ -39,7 +39,7 @@ export const Keyboard: React.FC<KeyboardProps> = ({
     )
 
     return (
-        <KeyboardContainer>
+        <KeyboardContainer aria-label="Keyboard">
             {KeyboardRows.reduce<JSX.Element[]>((allRows, row, index) => {
                 return allRows.concat(
                     <RowContainer key={row.join('')}>

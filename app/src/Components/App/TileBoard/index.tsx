@@ -5,6 +5,7 @@ import { MAX_ATTEMPTS } from '../App.constants'
 import {
     InputRowContainer,
     ListContainer,
+    TileBoardContainer,
     TileRowContainer,
 } from './TileBoard.styles'
 import TiledAttempt from './TiledAttempt'
@@ -54,7 +55,7 @@ const TileBoard: React.FC<TileBoardProps> = ({
     )
 
     return (
-        <div>
+        <TileBoardContainer aria-label="Game Board">
             {Boolean(guesses.length) && (
                 <ListContainer role="list">{tiledGuesses}</ListContainer>
             )}
@@ -80,7 +81,7 @@ const TileBoard: React.FC<TileBoardProps> = ({
                     {tiledAttemptsRemaining}
                 </ListContainer>
             )}
-        </div>
+        </TileBoardContainer>
     )
 }
 

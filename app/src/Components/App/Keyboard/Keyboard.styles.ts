@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { ReactComponent as BackspaceIcon } from './assets/backspace_key.svg'
 import { ReactComponent as EnterIcon } from './assets/enter_key.svg'
 
-export const KeyboardContainer = styled.div`
+export const KeyboardContainer = styled.section`
     display: flex;
     flex-flow: column nowrap;
     align-items: center;

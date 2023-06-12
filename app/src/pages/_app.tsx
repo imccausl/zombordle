@@ -5,7 +5,9 @@ import '../styles/globals.css'
 
 import type { AppProps } from 'next/app'
 
-LogRocket.init('mlov0a/zombordle-production')
+if (process?.env?.NODE_ENV === 'production') {
+    LogRocket.init('mlov0a/zombordle-production')
+}
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
