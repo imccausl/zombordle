@@ -12,7 +12,7 @@ export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
                     justifyContent: 'flex-start',
                     height: 'calc(100% - 65px)',
                     width: '100%',
-                    maxWidth: '500px',
+                    maxWidth: '650px',
                     margin: '0 auto',
                     overflow: 'hidden',
                 }}
