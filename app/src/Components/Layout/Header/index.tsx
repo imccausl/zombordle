@@ -1,4 +1,11 @@
-import { ActionContainer, StyledH1, StyledHeader } from './Header.styles'
+import Link from 'next/link'
+
+import {
+    ActionContainer,
+    Placeholder,
+    StyledH1,
+    StyledHeader,
+} from './Header.styles'
 import { Settings } from './Settings'
 import { SoundControl } from './SoundControl'
 import { Stats } from './Stats'
@@ -6,8 +13,10 @@ import { Stats } from './Stats'
 const Header: React.FC = () => {
     return (
         <StyledHeader>
-            <div style={{ flex: '1 1 0' }}></div>
-            <StyledH1>Zombordle</StyledH1>
+            <Placeholder />
+            <StyledH1>
+                <Link href="/">Zombordle</Link>
+            </StyledH1>
             <ActionContainer>
                 <SoundControl />
                 <Stats />

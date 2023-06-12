@@ -1,11 +1,11 @@
-import { StyledIconButton } from '../Header.styles'
+import { StyledLink } from '../Header.styles'
 
 import { ReactComponent as SettingsIcon } from './assets/settings_icon.svg'
 
 export const Settings: React.FC = () => {
     return (
-        <StyledIconButton>
+        <StyledLink href="/settings">
             <SettingsIcon />
-        </StyledIconButton>
+        </StyledLink>
     )
 }
