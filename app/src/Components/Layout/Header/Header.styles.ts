@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styled from 'styled-components'
 
 export const StyledHeader = styled.header`
@@ -10,10 +11,23 @@ export const StyledHeader = styled.header`
     border-bottom: lightgrey solid 1px;
 
     @media only screen and (max-width: 600px) {
-        height: 45px;
+        height: 40px;
     }
 `
 export const StyledIconButton = styled.button`
+    border: none;
+    background: transparent;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    margin: 0 5px;
+
+    @media only screen and (max-width: 600px) {
+        width: 35px;
+        height: 35px;
+    }
+`
+export const StyledLink = styled(Link)`
     border: none;
     background: transparent;
     width: 40px;
@@ -35,6 +49,7 @@ export const StyledH1 = styled.h1`
     padding: 5px;
 
     @media only screen and (max-width: 600px) {
+        text-align: left;
         font-size: 30px;
     }
 `
@@ -45,4 +60,12 @@ export const ActionContainer = styled.div`
     justify-content: center;
     align-items: center;
     flex: 1 1 0;
+`
+
+export const Placeholder = styled.div`
+    flex: 1 1 0;
+
+    @media only screen and (max-width: 600px) {
+        flex: 0 1 0;
+    }
 `
