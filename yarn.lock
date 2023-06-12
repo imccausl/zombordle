@@ -39,6 +39,7 @@ __metadata:
     eslint: ^8.42.0
     formula-one: "workspace:packages/formula-one"
     jsdom: ^22.1.0
+    logrocket: ^4.0.3
     next: ^13.4.4
     react: ^18.2.0
     react-dom: ^18.2.0
@@ -6783,6 +6784,13 @@ __metadata:
     slice-ansi: ^4.0.0
     wrap-ansi: ^6.2.0
   checksum: ae2f85bbabc1906034154fb7d4c4477c79b3e703d22d78adee8b3862fa913942772e7fa11713e3d96fb46de4e3cabefbf5d0a544344f03b58d3c4bff52aa9eb2
+  languageName: node
+  linkType: hard
+
+"logrocket@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "logrocket@npm:4.0.3"
+  checksum: f67bed20b033ed29aa5d8eebec9a6082b86430ad02671e671c7c0faac7cde2aba69ee7973aee8af75da202cdde88bdf6a90510a21a856fc9c7b01743c8347d9e
   languageName: node
   linkType: hard
 
