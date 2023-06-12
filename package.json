@@ -25,7 +25,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@tophat/eslint-config": "^7.0.1",
     "@tophat/eslint-import-resolver-require": "^0.1.4",
-    "@types/node": "^18.14.6",
+    "@types/node": "^20.3.0",
     "@types/react": "^18.2.8",
     "@types/react-dom": "^18.2.4",
     "@types/styled-components": "^5.1.26",
