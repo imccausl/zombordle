@@ -57,7 +57,7 @@
     "react-is": "^18.2.0",
     "styled-components": "^5.3.8",
     "stylelint": "^15.6.3",
-    "stylelint-config-standard": "^30.0.1",
+    "stylelint-config-standard": "^33.0.0",
     "supports-color": "^9.3.1",
     "turbo": "^1.9.3",
     "typescript": "^5.0.3",
