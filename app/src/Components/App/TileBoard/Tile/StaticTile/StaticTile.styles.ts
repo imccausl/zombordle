@@ -83,7 +83,7 @@ export const TileContainer = styled.li<TileProps>`
         margin-right: 0;
     }
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
         width: ${({ wordLength }) =>
             TileSize[(wordLength?.toString() as keyof typeof TileSize) ?? '5']};
         height: ${({ wordLength }) =>
