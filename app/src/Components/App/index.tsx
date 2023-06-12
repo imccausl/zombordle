@@ -15,6 +15,8 @@ type Stats = {
     wordLength: WordListLength
     status: 'win' | 'loss' | null
     distribution: Record<string, number>
+    currentStreak: number
+    maxStreak: number
 }
 
 export const statInitialState: Stats = {
@@ -30,6 +32,8 @@ export const statInitialState: Stats = {
         '6': 0,
         loss: 0,
     },
+    currentStreak: 0,
+    maxStreak: 0,
 }
 const App: React.FC = () => {
     const [gameState, setGameState] = useLocalStorage<string[]>(
@@ -53,8 +57,8 @@ const App: React.FC = () => {
         5,
     )
     const [timeStamps, setTimeStamps] = useLocalStorage<{
-        lastPlayed?: Date
-        lastCompleted?: Date
+        lastPlayed?: number
+        lastCompleted?: number
     }>('timestamps', {})
 
     const [isInvalidWord, setIsInvalidWord] = useState<boolean>(false)
@@ -66,12 +70,26 @@ const App: React.FC = () => {
 
     useEffect(() => {
         const attempts = gameState.length
+        const today = Date.now()
 
         if (gameState?.includes(correctWord) && attempts <= MAX_ATTEMPTS) {
             if (!hasPlayed) {
+                const yesterday = new Date(today).setDate(
+                    new Date(today).getDate() - 1,
+                )
+                const currentStreak =
+                    timeStamps.lastCompleted === yesterday
+                        ? stats.currentStreak + 1
+                        : 1
+                const maxStreak =
+                    currentStreak > stats.maxStreak
+                        ? currentStreak
+                        : stats.maxStreak
+                setTimeStamps({ lastCompleted: today, lastPlayed: today })
+
                 setHasPlayed(true)
-                setTimeStamps({ ...timeStamps, lastCompleted: new Date() })
                 setStats({
+                    ...stats,
                     status: 'win',
                     attempts,
                     wordLength,
@@ -80,12 +98,15 @@ const App: React.FC = () => {
                         [attempts.toString()]:
                             stats.distribution[attempts.toString()] + 1,
                     },
+                    currentStreak: currentStreak,
+                    maxStreak: maxStreak,
                 })
             }
         } else if (attempts >= MAX_ATTEMPTS) {
             if (!hasPlayed) {
                 setHasPlayed(true)
                 setStats({
+                    ...stats,
                     status: 'loss',
                     wordLength,
                     attempts,
@@ -93,7 +114,10 @@ const App: React.FC = () => {
                         ...stats.distribution,
                         loss: stats.distribution.loss + 1,
                     },
+                    currentStreak: 0,
                 })
+                setTimeStamps({ lastCompleted: today, ...timeStamps })
+
                 // temporary
                 alert(`The correct word was: ${correctWord}`)
             }
@@ -106,7 +130,6 @@ const App: React.FC = () => {
         setStats,
         setTimeStamps,
         stats.distribution,
-        timeStamps,
         wordLength,
     ])
 

@@ -40,7 +40,8 @@ export default function Stats() {
         [stats?.distribution],
     )
     const winPercent = useMemo(() => {
-        return Math.floor((gamesWon / gamesPlayed) * 100)
+        const percentage = Math.floor((gamesWon / gamesPlayed) * 100)
+        return Number.isNaN(percentage) ? 0 : percentage
     }, [gamesPlayed, gamesWon])
 
     return (
@@ -56,8 +57,14 @@ export default function Stats() {
                     value={winPercent}
                     asPercent={true}
                 />
-                <Statistic label="Current Streak" value={0} />
-                <Statistic label="Longest Streak" value={2} />
+                <Statistic
+                    label="Current Streak"
+                    value={stats?.currentStreak ?? 0}
+                />
+                <Statistic
+                    label="Longest Streak"
+                    value={stats?.maxStreak ?? 0}
+                />
             </StatContainer>
         </>
     )
