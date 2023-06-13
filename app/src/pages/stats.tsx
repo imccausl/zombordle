@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import styled from 'styled-components'
 
 import { statInitialState } from '../Components/App'
+import { DistributionChart } from '../Components/DistributionChart'
 import { Statistic } from '../Components/Statistic'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
@@ -67,6 +68,10 @@ export default function Stats() {
                     value={stats?.maxStreak ?? 0}
                 />
             </StatContainer>
+            <DistributionChart
+                distribution={stats.distribution}
+                gamesWon={gamesWon}
+            />
         </>
     )
 }
