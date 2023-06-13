@@ -82,11 +82,11 @@ const App: React.FC = () => {
                         ? stats.currentStreak + 1
                         : 1
                 const maxStreak =
-                    currentStreak > stats.maxStreak
+                    currentStreak >= stats.maxStreak
                         ? currentStreak
                         : stats.maxStreak
-                setTimeStamps({ lastCompleted: today, lastPlayed: today })
 
+                setTimeStamps({ lastCompleted: today, lastPlayed: today })
                 setHasPlayed(true)
                 setStats({
                     ...stats,
