@@ -9,9 +9,10 @@ import { useLocalStorage } from '../hooks/useLocalStorage'
 const StatContainer = styled.section`
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
+    height: 100%;
 `
 
 export default function Stats() {
