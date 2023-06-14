@@ -57,7 +57,9 @@ const TileBoard: React.FC<TileBoardProps> = ({
     return (
         <TileBoardContainer aria-label="Game Board">
             {Boolean(guesses.length) && (
-                <ListContainer role="list">{tiledGuesses}</ListContainer>
+                <ListContainer role="list" aria-label="Previous guesses">
+                    {tiledGuesses}
+                </ListContainer>
             )}
             {Boolean(attemptsRemaining && !hasPlayed) && (
                 <ListContainer
@@ -77,7 +79,7 @@ const TileBoard: React.FC<TileBoardProps> = ({
                 </ListContainer>
             )}
             {Boolean(attemptsRemaining) && (
-                <ListContainer role="list">
+                <ListContainer role="list" aria-label="Guesses remaining">
                     {tiledAttemptsRemaining}
                 </ListContainer>
             )}
