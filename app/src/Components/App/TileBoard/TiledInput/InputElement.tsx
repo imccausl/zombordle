@@ -15,6 +15,7 @@ type InputElementProps = {
     onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>, index: number) => void
     onFocus: (e: React.FocusEvent<HTMLInputElement>) => void
     onBlur: (e: React.FocusEvent<HTMLInputElement>) => void
+    onPaste: (event: React.ClipboardEvent<HTMLInputElement>) => void
     onMouseEnter: (e: React.MouseEvent<HTMLInputElement>) => void
     onMouseLeave: (e: React.MouseEvent<HTMLInputElement>) => void
     hasFocus: string | undefined
@@ -27,6 +28,7 @@ export const InputElement: React.FC<InputElementProps> = ({
     onKeyDown,
     onFocus,
     onBlur,
+    onPaste,
     onMouseEnter,
     onMouseLeave,
     hasFocus,
@@ -127,6 +129,7 @@ export const InputElement: React.FC<InputElementProps> = ({
                     onChange={handleOnChange}
                     onKeyDown={handleOnKeyDown}
                     onFocus={handleOnFocus}
+                    onPaste={onPaste}
                     onBlur={handleOnBlur}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
