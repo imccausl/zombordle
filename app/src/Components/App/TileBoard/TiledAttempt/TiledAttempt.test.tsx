@@ -6,21 +6,11 @@ describe('TiledAttempt', () => {
     it('renders a word as separate tiles', () => {
         render(<TiledAttempt word="test" correctWord="best" />)
 
-        screen.getByText(
-            (content, element) =>
-                element?.tagName.toLowerCase() === 'p' &&
-                content.startsWith('e'),
-        )
-        screen.getByText(
-            (content, element) =>
-                element?.tagName.toLowerCase() === 'p' &&
-                content.startsWith('s'),
-        )
+        screen.getByText((content) => content.startsWith('e'))
+        screen.getByText((content) => content.startsWith('s'))
 
-        const repeatedConsonants = screen.getAllByText(
-            (content, element) =>
-                element?.tagName.toLowerCase() === 'p' &&
-                content.startsWith('t'),
+        const repeatedConsonants = screen.getAllByText((content) =>
+            content.startsWith('t'),
         )
         expect(repeatedConsonants).toHaveLength(2)
     })
