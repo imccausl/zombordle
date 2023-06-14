@@ -10,11 +10,13 @@ import { AppContainer } from './App.styles'
 import { Keyboard } from './Keyboard'
 import TileBoard from './TileBoard'
 
+export type Distribution = Record<string, number>
+
 type Stats = {
     attempts: number
     wordLength: WordListLength
     status: 'win' | 'loss' | null
-    distribution: Record<string, number>
+    distribution: Distribution
     currentStreak: number
     maxStreak: number
 }

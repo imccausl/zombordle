@@ -110,6 +110,37 @@ const TiledInput: React.FC<TiledInputProps> = ({
         [eventHandlers],
     )
 
+    const handlePaste = useCallback(
+        (event: React.ClipboardEvent<HTMLInputElement>) => {
+            event.preventDefault()
+            const fieldRefs = getFieldRefs()
+            const activeInput = fieldRefs.findIndex(
+                (ref) => ref.current === document.activeElement,
+            )
+            let nextActiveInput = activeInput !== -1 ? activeInput : 0
+
+            const pastedData = event.clipboardData
+                .getData('text/plain')
+                .slice(0, length - activeInput)
+                .split('')
+
+            for (let pos = 0; pos < length; ++pos) {
+                if (pos >= activeInput && pastedData.length > 0) {
+                    const fieldName = fieldRefs[pos]?.current?.name
+
+                    if (fieldName) {
+                        setFieldValue(fieldName, pastedData.shift() ?? '')
+                    }
+                    nextActiveInput++
+                }
+            }
+            fieldRefs[
+                nextActiveInput >= length ? length - 1 : nextActiveInput
+            ]?.current?.focus()
+        },
+        [getFieldRefs, length, setFieldValue],
+    )
+
     const tiledInput = useMemo(
         () =>
             new Array(length).fill('').map((_, index: number) => {
@@ -122,6 +153,7 @@ const TiledInput: React.FC<TiledInputProps> = ({
                         onFocus={handleOnFocus}
                         onBlur={eventHandlers.onBlur}
                         onKeyDown={handleKeyDown}
+                        onPaste={handlePaste}
                         onMouseEnter={eventHandlers.onMouseEnter}
                         onMouseLeave={eventHandlers.onMouseLeave}
                         hasFocus={focusState.visible}
