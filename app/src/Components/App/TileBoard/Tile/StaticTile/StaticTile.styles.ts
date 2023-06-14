@@ -99,4 +99,5 @@ export const VisuallyHidden = styled.div`
     overflow: hidden;
     padding: 0;
     position: absolute;
+    text-transform: lowercase;
 `

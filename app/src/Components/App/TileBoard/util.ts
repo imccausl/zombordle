@@ -21,3 +21,10 @@ export const getVariant = ({
         ? 'contains-letter'
         : 'no-letter'
 }
+
+export const VariantToLabel = {
+    'correct-place': 'correct',
+    'contains-letter': 'present',
+    'no-letter': 'incorrect',
+    default: '',
+}
