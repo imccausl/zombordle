@@ -3,15 +3,17 @@ import { useMemo } from 'react'
 import styled from 'styled-components'
 
 import { statInitialState } from '../Components/App'
+import { DistributionChart } from '../Components/DistributionChart'
 import { Statistic } from '../Components/Statistic'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
 const StatContainer = styled.section`
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
+    height: 100%;
 `
 
 export default function Stats() {
@@ -40,7 +42,8 @@ export default function Stats() {
         [stats?.distribution],
     )
     const winPercent = useMemo(() => {
-        return Math.floor((gamesWon / gamesPlayed) * 100)
+        const percentage = Math.floor((gamesWon / gamesPlayed) * 100)
+        return Number.isNaN(percentage) ? 0 : percentage
     }, [gamesPlayed, gamesWon])
 
     return (
@@ -56,9 +59,19 @@ export default function Stats() {
                     value={winPercent}
                     asPercent={true}
                 />
-                <Statistic label="Current Streak" value={0} />
-                <Statistic label="Longest Streak" value={2} />
+                <Statistic
+                    label="Current Streak"
+                    value={stats?.currentStreak ?? 0}
+                />
+                <Statistic
+                    label="Longest Streak"
+                    value={stats?.maxStreak ?? 0}
+                />
             </StatContainer>
+            <DistributionChart
+                distribution={stats.distribution}
+                gamesWon={gamesWon}
+            />
         </>
     )
 }

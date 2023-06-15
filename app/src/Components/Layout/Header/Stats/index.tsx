@@ -4,8 +4,8 @@ import { ReactComponent as BarChartIcon } from './assets/bar-chart-icon.svg'
 
 export const Stats: React.FC = () => {
     return (
-        <StyledLink href="/stats">
-            <BarChartIcon />
+        <StyledLink href="/stats" aria-label="Player Statistics">
+            <BarChartIcon aria-hidden="true" />
         </StyledLink>
     )
 }

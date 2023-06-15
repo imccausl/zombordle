@@ -36,9 +36,10 @@ __metadata:
     "@types/react": 18.2.8
     "@types/styled-components": ^5.1.26
     "@vitejs/plugin-react": ^3.1.0
-    eslint: ^8.41.0
+    eslint: ^8.42.0
     formula-one: "workspace:packages/formula-one"
     jsdom: ^22.1.0
+    logrocket: ^4.0.3
     next: ^13.4.4
     react: ^18.2.0
     react-dom: ^18.2.0
@@ -1790,10 +1791,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:8.41.0":
-  version: 8.41.0
-  resolution: "@eslint/js@npm:8.41.0"
-  checksum: af013d70fe8d0429cdf5cd8b5dcc6fc384ed026c1eccb0cfe30f5849b968ab91645111373fd1b83282b38955b1bdfbe667c1a7dbda3b06cae753521223cad775
+"@eslint/js@npm:8.42.0":
+  version: 8.42.0
+  resolution: "@eslint/js@npm:8.42.0"
+  checksum: 750558843ac458f7da666122083ee05306fc087ecc1e5b21e7e14e23885775af6c55bcc92283dff1862b7b0d8863ec676c0f18c7faf1219c722fe91a8ece56b6
   languageName: node
   linkType: hard
 
@@ -1804,14 +1805,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@humanwhocodes/config-array@npm:^0.11.8":
-  version: 0.11.8
-  resolution: "@humanwhocodes/config-array@npm:0.11.8"
+"@humanwhocodes/config-array@npm:^0.11.10":
+  version: 0.11.10
+  resolution: "@humanwhocodes/config-array@npm:0.11.10"
   dependencies:
     "@humanwhocodes/object-schema": ^1.2.1
     debug: ^4.1.1
     minimatch: ^3.0.5
-  checksum: 0fd6b3c54f1674ce0a224df09b9c2f9846d20b9e54fabae1281ecfc04f2e6ad69bf19e1d6af6a28f88e8aa3990168b6cb9e1ef755868c3256a630605ec2cb1d3
+  checksum: 1b1302e2403d0e35bc43e66d67a2b36b0ad1119efc704b5faff68c41f791a052355b010fb2d27ef022670f550de24cd6d08d5ecf0821c16326b7dcd0ee5d5d8a
   languageName: node
   linkType: hard
 
@@ -5091,15 +5092,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.41.0":
-  version: 8.41.0
-  resolution: "eslint@npm:8.41.0"
+"eslint@npm:^8.42.0":
+  version: 8.42.0
+  resolution: "eslint@npm:8.42.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.4.0
     "@eslint/eslintrc": ^2.0.3
-    "@eslint/js": 8.41.0
-    "@humanwhocodes/config-array": ^0.11.8
+    "@eslint/js": 8.42.0
+    "@humanwhocodes/config-array": ^0.11.10
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
     ajv: ^6.10.0
@@ -5136,7 +5137,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 09979a6f8451dcc508a7005b6670845c8a518376280b3fd96657a406b8b6ef29d0e480d1ba11b4eb48da93d607e0c55c9b877676fe089d09973ec152354e23b2
+  checksum: 07105397b5f2ff4064b983b8971e8c379ec04b1dfcc9d918976b3e00377189000161dac991d82ba14f8759e466091b8c71146f602930ca810c290ee3fcb3faf0
   languageName: node
   linkType: hard
 
@@ -5382,7 +5383,7 @@ __metadata:
     "@types/react": 18.2.8
     "@types/styled-components": ^5.1.26
     "@vitejs/plugin-react": ^3.1.0
-    eslint: ^8.41.0
+    eslint: ^8.42.0
     jsdom: ^22.1.0
     react: ^18.2.0
     react-dom: ^18.2.0
@@ -6783,6 +6784,13 @@ __metadata:
     slice-ansi: ^4.0.0
     wrap-ansi: ^6.2.0
   checksum: ae2f85bbabc1906034154fb7d4c4477c79b3e703d22d78adee8b3862fa913942772e7fa11713e3d96fb46de4e3cabefbf5d0a544344f03b58d3c4bff52aa9eb2
+  languageName: node
+  linkType: hard
+
+"logrocket@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "logrocket@npm:4.0.3"
+  checksum: f67bed20b033ed29aa5d8eebec9a6082b86430ad02671e671c7c0faac7cde2aba69ee7973aee8af75da202cdde88bdf6a90510a21a856fc9c7b01743c8347d9e
   languageName: node
   linkType: hard
 
@@ -8897,23 +8905,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint-config-recommended@npm:^10.0.1":
-  version: 10.0.1
-  resolution: "stylelint-config-recommended@npm:10.0.1"
+"stylelint-config-recommended@npm:^12.0.0":
+  version: 12.0.0
+  resolution: "stylelint-config-recommended@npm:12.0.0"
   peerDependencies:
-    stylelint: ^15.0.0
-  checksum: 585766be57c2f22d49f76f27b9198a0e1ec812ea56263f082cfa0aea05c50ede68250da5a50ae4d2eb19129c973ca033a6cad9a7535d2f81c78b4caf1e2eea0f
+    stylelint: ^15.5.0
+  checksum: d1de0fa2673c8aa4e50259eb7320cc17e7d09d13a176afea943b3227befcaaaf4e78b546ec076ace1e031ff526c81ea5dc6efa98dd7dc77c582b7352a128d37c
   languageName: node
   linkType: hard
 
-"stylelint-config-standard@npm:^30.0.1":
-  version: 30.0.1
-  resolution: "stylelint-config-standard@npm:30.0.1"
+"stylelint-config-standard@npm:^33.0.0":
+  version: 33.0.0
+  resolution: "stylelint-config-standard@npm:33.0.0"
   dependencies:
-    stylelint-config-recommended: ^10.0.1
+    stylelint-config-recommended: ^12.0.0
   peerDependencies:
-    stylelint: ^15.0.0
-  checksum: db0cce181b654df4960d0c03129f3904c775628cb29a7aadfcb995034c234797b10db50640c85085bf0f2e5fbffc654b20a8c2be38c26ef670691fe7e8c86e86
+    stylelint: ^15.5.0
+  checksum: c901e52901f6eb72285a869b04ed55eddfb94b794d2599eee4cc9d56365c874c2276563d26848d29c3665ca7de361bf8abb9f6f7d80073f16013afff60938bad
   languageName: node
   linkType: hard
 
@@ -10053,7 +10061,7 @@ __metadata:
     "@vitejs/plugin-react": ^3.1.0
     "@yarnpkg/sdks": ^3.0.0-rc.45
     babel-plugin-styled-components: ^2.1.3
-    eslint: ^8.41.0
+    eslint: ^8.42.0
     eslint-config-next: ^13.4.4
     eslint-config-prettier: ^8.8.0
     eslint-import-resolver-typescript: ^3.5.5
@@ -10075,7 +10083,7 @@ __metadata:
     react-is: ^18.2.0
     styled-components: ^5.3.8
     stylelint: ^15.6.3
-    stylelint-config-standard: ^30.0.1
+    stylelint-config-standard: ^33.0.0
     supports-color: ^9.3.1
     turbo: ^1.9.3
     typescript: ^5.1.3

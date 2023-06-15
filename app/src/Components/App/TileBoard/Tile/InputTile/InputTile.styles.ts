@@ -37,7 +37,7 @@ export const TileStyledTextInput = styled.input<{ $wordLength?: number }>`
         margin: 1px;
     }
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
         width: ${({ $wordLength }) =>
             TileSize[$wordLength?.toString() as keyof typeof TileSize]};
         height: ${({ $wordLength }) =>

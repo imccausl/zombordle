@@ -10,11 +10,15 @@ import { AppContainer } from './App.styles'
 import { Keyboard } from './Keyboard'
 import TileBoard from './TileBoard'
 
+export type Distribution = Record<string, number>
+
 type Stats = {
     attempts: number
     wordLength: WordListLength
     status: 'win' | 'loss' | null
-    distribution: Record<string, number>
+    distribution: Distribution
+    currentStreak: number
+    maxStreak: number
 }
 
 export const statInitialState: Stats = {
@@ -30,6 +34,8 @@ export const statInitialState: Stats = {
         '6': 0,
         loss: 0,
     },
+    currentStreak: 0,
+    maxStreak: 0,
 }
 const App: React.FC = () => {
     const [gameState, setGameState] = useLocalStorage<string[]>(
@@ -53,8 +59,8 @@ const App: React.FC = () => {
         5,
     )
     const [timeStamps, setTimeStamps] = useLocalStorage<{
-        lastPlayed?: Date
-        lastCompleted?: Date
+        lastPlayed?: number
+        lastCompleted?: number
     }>('timestamps', {})
 
     const [isInvalidWord, setIsInvalidWord] = useState<boolean>(false)
@@ -66,12 +72,26 @@ const App: React.FC = () => {
 
     useEffect(() => {
         const attempts = gameState.length
+        const today = Date.now()
 
         if (gameState?.includes(correctWord) && attempts <= MAX_ATTEMPTS) {
             if (!hasPlayed) {
+                const yesterday = new Date(today).setDate(
+                    new Date(today).getDate() - 1,
+                )
+                const currentStreak =
+                    timeStamps.lastCompleted === yesterday
+                        ? stats.currentStreak + 1
+                        : 1
+                const maxStreak =
+                    currentStreak >= stats.maxStreak
+                        ? currentStreak
+                        : stats.maxStreak
+
+                setTimeStamps({ lastCompleted: today, lastPlayed: today })
                 setHasPlayed(true)
-                setTimeStamps({ ...timeStamps, lastCompleted: new Date() })
                 setStats({
+                    ...stats,
                     status: 'win',
                     attempts,
                     wordLength,
@@ -80,12 +100,15 @@ const App: React.FC = () => {
                         [attempts.toString()]:
                             stats.distribution[attempts.toString()] + 1,
                     },
+                    currentStreak: currentStreak,
+                    maxStreak: maxStreak,
                 })
             }
         } else if (attempts >= MAX_ATTEMPTS) {
             if (!hasPlayed) {
                 setHasPlayed(true)
                 setStats({
+                    ...stats,
                     status: 'loss',
                     wordLength,
                     attempts,
@@ -93,7 +116,10 @@ const App: React.FC = () => {
                         ...stats.distribution,
                         loss: stats.distribution.loss + 1,
                     },
+                    currentStreak: 0,
                 })
+                setTimeStamps({ lastCompleted: today, ...timeStamps })
+
                 // temporary
                 alert(`The correct word was: ${correctWord}`)
             }
@@ -105,6 +131,7 @@ const App: React.FC = () => {
         setHasPlayed,
         setStats,
         setTimeStamps,
+        stats,
         stats.distribution,
         timeStamps,
         wordLength,
@@ -164,7 +191,10 @@ const App: React.FC = () => {
 
     return (
         <FormProvider
-            validateOnBlur={true}
+            /* setting both these values to false validates on submit */
+            // TODO: Should have a revalidation strategy to validate on change
+            validateOnBlur={false}
+            validateOnChange={false}
             onSubmit={handleOnSubmit}
             initialValues={initialValues}
         >

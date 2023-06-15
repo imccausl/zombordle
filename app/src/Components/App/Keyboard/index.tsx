@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { getVariant } from '../TileBoard/util'
+import { VariantToLabel, getVariant } from '../TileBoard/util'
 
 import { KeyboardRows } from './Keyboard.constants'
 import {
@@ -23,34 +23,57 @@ export const Keyboard: React.FC<KeyboardProps> = ({
     correctWord,
     hasPlayed,
 }) => {
-    const letterVariantMap = useMemo(
-        () =>
-            guesses.reduce<Record<string, VariantColor>>((map, guess) => {
-                guess
-                    .toLowerCase()
-                    .split('')
-                    .forEach((letter, index) => {
-                        map[letter] = getVariant({ correctWord, letter, index })
+    const letterVariantMap = useMemo(() => {
+        const correctLetters = new Set<string>()
+
+        return guesses.reduce<Record<string, VariantColor>>((map, guess) => {
+            guess
+                .toLowerCase()
+                .split('')
+                .forEach((letter, index) => {
+                    if (correctLetters.has(letter)) {
+                        return
+                    }
+
+                    const variant = getVariant({
+                        correctWord,
+                        letter,
+                        index,
                     })
 
-                return map
-            }, {}),
-        [correctWord, guesses],
-    )
+                    if (variant === 'correct-place') {
+                        correctLetters.add(letter)
+                    }
+
+                    map[letter] = variant
+                })
+
+            return map
+        }, {})
+    }, [correctWord, guesses])
 
     return (
-        <KeyboardContainer>
+        <KeyboardContainer aria-label="Keyboard">
             {KeyboardRows.reduce<JSX.Element[]>((allRows, row, index) => {
                 return allRows.concat(
                     <RowContainer key={row.join('')}>
-                        {row.map((letter) => (
-                            <LetterKey
-                                key={letter}
-                                variant={letterVariantMap[letter]}
-                            >
-                                {letter}
-                            </LetterKey>
-                        ))}
+                        {row.map((letter) => {
+                            const variant = letterVariantMap[letter]
+                            const label = `${letter}${
+                                VariantToLabel[variant]
+                                    ? ` (${VariantToLabel[variant]})`
+                                    : ''
+                            }`
+                            return (
+                                <LetterKey
+                                    key={letter}
+                                    variant={variant}
+                                    label={label}
+                                >
+                                    {letter}
+                                </LetterKey>
+                            )
+                        })}
                         {index === 1 ? (
                             <LetterKey
                                 key="enter_key"

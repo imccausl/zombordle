@@ -4715,6 +4715,7 @@ export const fiveLetterWords = [
     'dicot',
     'astro',
     'kited',
+    'ovolo',
     'ouzel',
     'didos',
     'grata',

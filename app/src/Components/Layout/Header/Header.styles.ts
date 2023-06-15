@@ -10,7 +10,7 @@ export const StyledHeader = styled.header`
     width: 100%;
     border-bottom: lightgrey solid 1px;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
         height: 40px;
     }
 `
@@ -22,7 +22,7 @@ export const StyledIconButton = styled.button`
     padding: 5px;
     margin: 0 5px;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
         width: 35px;
         height: 35px;
     }
@@ -35,7 +35,7 @@ export const StyledLink = styled(Link)`
     padding: 5px;
     margin: 0 5px;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
         width: 35px;
         height: 35px;
     }
@@ -48,7 +48,7 @@ export const StyledH1 = styled.h1`
     flex: 2 0 0;
     padding: 5px;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
         text-align: left;
         font-size: 30px;
     }
@@ -65,7 +65,28 @@ export const ActionContainer = styled.div`
 export const Placeholder = styled.div`
     flex: 1 1 0;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
         flex: 0 1 0;
     }
+`
+
+export const StyledNav = styled.nav`
+    height: 100%;
+    width: 100%;
+`
+
+export const NavListContainer = styled.ul`
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+`
+
+export const NavListItem = styled.li`
+    margin: 0;
+    padding: 0;
+    width: 100%;
 `

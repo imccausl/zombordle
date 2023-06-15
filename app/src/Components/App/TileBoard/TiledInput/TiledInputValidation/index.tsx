@@ -33,11 +33,11 @@ export const TiledInputValidation: React.FC<
             shouldShow={!!error && showValidationMessage}
         >
             <Tooltip.Content>
-                <MessageContainer id={id}>
+                <MessageContainer>
                     <IconContainer aria-hidden="true">
                         <ExclamationIcon />
                     </IconContainer>
-                    <ErrorContainer>{error}</ErrorContainer>
+                    <ErrorContainer id={id}>{error}</ErrorContainer>
                 </MessageContainer>
             </Tooltip.Content>
             <ValidationBorder $variant={variant}>{children}</ValidationBorder>

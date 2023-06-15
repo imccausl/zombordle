@@ -1,25 +1,35 @@
-import { TileContainer, type VariantColor } from './StaticTile.styles'
+import {
+    TileContainer,
+    type VariantColor,
+    VisuallyHidden,
+} from './StaticTile.styles'
 
+export type VariantType = keyof typeof VariantColor
 export type TileProps = {
-    variant?: keyof typeof VariantColor
+    variant?: VariantType
     animationDelayMultiplier?: number
-    children: string | null
     wordLength?: number
+    'aria-label'?: string
 }
 
-const StaticTile: React.FC<TileProps> = ({
+const StaticTile: React.FC<React.PropsWithChildren<TileProps>> = ({
     children = null,
     variant = 'default',
     animationDelayMultiplier,
     wordLength,
+    'aria-label': ariaLabel,
 }) => (
     <TileContainer
         wordLength={wordLength}
         animationDelayMultiplier={animationDelayMultiplier}
         role="listitem"
         variant={variant}
+        hasLetter={Boolean(
+            typeof children === 'string' && children && children !== ' ',
+        )}
     >
-        {children}
+        <span aria-hidden="true">{children}</span>
+        <VisuallyHidden as="span">{ariaLabel}</VisuallyHidden>
     </TileContainer>
 )
 

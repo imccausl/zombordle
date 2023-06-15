@@ -37,7 +37,7 @@ export type FormProviderProps = SharedFormProviderProps & {
 export const FormProvider: React.FC<FormProviderProps> = ({
     children,
     validateOnBlur = true,
-    validateOnChange,
+    validateOnChange = false,
     onSubmit,
     initialValues = {},
 }) => {
@@ -99,11 +99,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
 
     const handleOnChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-            const shouldValidate =
-                validateOnChange === true ||
-                (validateOnChange === undefined && validateOnBlur === false)
-
-            if (shouldValidate) {
+            if (validateOnChange) {
                 const { errorMessage } = doFieldValidation({
                     fieldName: e.target.name,
                     value: e.target.value,
@@ -128,7 +124,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
                 }),
             )
         },
-        [doFieldValidation, validateOnBlur, validateOnChange],
+        [doFieldValidation, validateOnChange],
     )
     const handleOnBlur = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {

@@ -47,3 +47,11 @@ export const TileGroup = styled.ul`
     margin: 0;
     padding: 0;
 `
+
+export const TileBoardContainer = styled.section`
+    margin: 0;
+
+    @media only screen and (width <= 600px) {
+        margin: 5px 0 0;
+    }
+`
