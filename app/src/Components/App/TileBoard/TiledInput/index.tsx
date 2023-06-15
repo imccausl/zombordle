@@ -170,6 +170,7 @@ const TiledInput: React.FC<TiledInputProps> = ({
             eventHandlers.onMouseEnter,
             eventHandlers.onMouseLeave,
             handleKeyDown,
+            handlePaste,
             focusState.visible,
             hoverState.visible,
         ],

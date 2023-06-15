@@ -56,7 +56,7 @@ const TileSize = {
     '7': '49px',
 }
 
-export const TileContainer = styled.li<TileProps>`
+export const TileContainer = styled.li<TileProps & { hasLetter: boolean }>`
     list-style-type: none;
     text-indent: 0;
     margin: 0 5px 0 0;
@@ -69,13 +69,12 @@ export const TileContainer = styled.li<TileProps>`
     justify-content: center;
     align-items: center;
     border: 2px solid
-        ${({ children }) =>
-            children !== ' ' ? VariantBorder.full : VariantBorder.default};
+        ${({ hasLetter }) =>
+            hasLetter ? VariantBorder.full : VariantBorder.default};
     height: 62px;
     width: 62px;
     text-transform: uppercase;
-    ${({ children, variant }) =>
-        children !== ' ' && postSubmitAnimation(variant)};
+    ${({ hasLetter, variant }) => hasLetter && postSubmitAnimation(variant)};
     animation-delay: ${({ animationDelayMultiplier }) =>
         `${(animationDelayMultiplier ?? 0) * 100}ms`};
 

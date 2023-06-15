@@ -14,7 +14,11 @@ const SoundControlButton: React.FC<{
 
     return (
         <StyledIconButton aria-label={ariaLabel} onClick={onClick}>
-            {isMuted ? <MuteIcon /> : <SpeakerIcon />}
+            {isMuted ? (
+                <MuteIcon aria-hidden="true" />
+            ) : (
+                <SpeakerIcon aria-hidden="true" />
+            )}
         </StyledIconButton>
     )
 }
