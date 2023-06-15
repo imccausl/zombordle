@@ -4,6 +4,7 @@ import FormContext, { type ContextProps } from './FormContext'
 import formReducer, {
     resetState,
     setErrors,
+    setFieldError as setFieldErrorAction,
     setFieldValue as setFieldValueAction,
     setIsFormValid,
     setValues,
@@ -54,6 +55,16 @@ export const FormProvider: React.FC<FormProviderProps> = ({
             }),
         )
     }, [])
+
+    const resetFieldError = useCallback((field: string) => {
+        dispatch(
+            setFieldErrorAction({
+                fieldName: field,
+                value: undefined,
+            }),
+        )
+    }, [])
+
     const getFieldState = useCallback(
         (name: string) => {
             return {
@@ -306,6 +317,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
                 validateOnChange,
                 setError,
                 setFieldValue,
+                resetFieldError,
                 getFieldState,
                 getFieldValue,
                 getFieldValues,
@@ -326,6 +338,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
             validateOnChange,
             setError,
             setFieldValue,
+            resetFieldError,
             getFieldState,
             getFieldValue,
             getFieldValues,
