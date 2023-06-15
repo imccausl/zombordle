@@ -36,7 +36,8 @@ const TiledInput: React.FC<TiledInputProps> = ({
     isInvalidWord,
     resetInvalidWord,
 }) => {
-    const { getFieldRefs, setFieldValue } = useFormContext()
+    const { getFieldRefs, setFieldValue, getFieldValues, onSubmit } =
+        useFormContext()
     const { hoverState, focusState, ...eventHandlers } =
         useValidationTooltipTracker()
     useEffect(() => {
@@ -46,7 +47,7 @@ const TiledInput: React.FC<TiledInputProps> = ({
     const getPrevElement = useCallback(
         (index: number) => {
             const fieldRefs = getFieldRefs()
-            return index > 0 && index < fieldRefs.length
+            return index > 0 && index <= fieldRefs.length
                 ? fieldRefs[index - 1].current
                 : null
         },
@@ -109,6 +110,86 @@ const TiledInput: React.FC<TiledInputProps> = ({
         },
         [eventHandlers],
     )
+
+    const handleGlobalKeyDown = useCallback(
+        (e: KeyboardEvent) => {
+            if (e.metaKey || e.ctrlKey || e.altKey) {
+                return
+            }
+
+            const fieldRefs = getFieldRefs()
+            const inputMap = fieldRefs.map((ref) => ref.current)
+
+            if (
+                isInputElement(document.activeElement) &&
+                inputMap.includes(document.activeElement)
+            )
+                return
+
+            if (/^[ -~]$/.test(e.key)) {
+                const firstEmptyField = Object.entries(getFieldValues()).find(
+                    ([, value]) => !value || value === ' ',
+                )
+
+                if (firstEmptyField) {
+                    e.preventDefault()
+                    const [fieldName] = firstEmptyField
+                    setFieldValue(fieldName, e.key)
+                    const fieldIndex = fieldRefs.findIndex(
+                        (ref) => ref?.current?.name === fieldName,
+                    )
+                    if (fieldIndex !== -1) {
+                        getNextElement(fieldIndex + 1)
+                    }
+                }
+            } else if (e.key === KEYS.Enter) {
+                const firstEmptyField = Object.entries(getFieldValues()).find(
+                    ([, value]) => !value || value === ' ',
+                )
+
+                if (!firstEmptyField) {
+                    e.preventDefault()
+                    onSubmit()
+                }
+            } else if (e.key === KEYS.Backspace) {
+                const lastInputWithValue = Object.entries(
+                    getFieldValues(),
+                ).findLast(([, value]) => value && value !== ' ')
+
+                if (lastInputWithValue) {
+                    const [fieldName] = lastInputWithValue
+                    e.preventDefault()
+
+                    setFieldValue(fieldName, '')
+                    const fieldIndex = fieldRefs.findIndex(
+                        (ref) => ref?.current?.name === fieldName,
+                    )
+                    getPrevElement(fieldIndex)?.focus()
+                }
+            } else if (e.key === KEYS.ArrowLeft) {
+                getPrevElement(length)?.focus()
+            } else if (e.key === KEYS.ArrowRight) {
+                getNextElement(-1)?.focus()
+            }
+        },
+        [
+            getFieldRefs,
+            getFieldValues,
+            getNextElement,
+            getPrevElement,
+            length,
+            onSubmit,
+            setFieldValue,
+        ],
+    )
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleGlobalKeyDown)
+
+        return () => {
+            document.removeEventListener('keydown', handleGlobalKeyDown)
+        }
+    }, [handleGlobalKeyDown])
 
     const handlePaste = useCallback(
         (event: React.ClipboardEvent<HTMLInputElement>) => {

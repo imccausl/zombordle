@@ -42,6 +42,7 @@ export const useField = ({
         unRegisterField,
         getFieldState,
         setFieldValue: setFormContextFieldValue,
+        resetFieldError: resetFormContextFieldError,
         onChange,
         onBlur,
     } = useFormContext()
@@ -77,14 +78,18 @@ export const useField = ({
         [name, setFormContextFieldValue],
     )
 
+    const resetFieldError = useCallback(() => {
+        resetFormContextFieldError(name)
+    }, [name, resetFormContextFieldError])
+
     const { value, meta } = useMemo(() => {
         const { value, ...rest } = getFieldState(name)
 
         return {
             value,
-            meta: { ...rest, setFieldValue },
+            meta: { ...rest, setFieldValue, resetFieldError },
         }
-    }, [getFieldState, name, setFieldValue])
+    }, [getFieldState, name, resetFieldError, setFieldValue])
 
     const fieldElementProps = useMemo(
         () => ({
