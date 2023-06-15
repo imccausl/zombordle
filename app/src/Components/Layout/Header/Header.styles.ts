@@ -69,3 +69,24 @@ export const Placeholder = styled.div`
         flex: 0 1 0;
     }
 `
+
+export const StyledNav = styled.nav`
+    height: 100%;
+    width: 100%;
+`
+
+export const NavListContainer = styled.ul`
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+`
+
+export const NavListItem = styled.li`
+    margin: 0;
+    padding: 0;
+    width: 100%;
+`

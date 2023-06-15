@@ -30,7 +30,11 @@ export const Keyboard: React.FC<KeyboardProps> = ({
                     .toLowerCase()
                     .split('')
                     .forEach((letter, index) => {
-                        map[letter] = getVariant({ correctWord, letter, index })
+                        map[letter] = getVariant({
+                            correctWord,
+                            letter,
+                            index,
+                        })
                     })
 
                 return map

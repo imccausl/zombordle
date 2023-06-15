@@ -191,7 +191,10 @@ const App: React.FC = () => {
 
     return (
         <FormProvider
-            validateOnBlur={true}
+            /* setting both these values to false validates on submit */
+            // TODO: Should have a revalidation strategy to validate on change
+            validateOnBlur={false}
+            validateOnChange={false}
             onSubmit={handleOnSubmit}
             initialValues={initialValues}
         >

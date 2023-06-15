@@ -36,6 +36,6 @@ export const MessageContainer = styled.div`
     align-items: center;
 `
 
-export const ErrorContainer = styled.p`
+export const ErrorContainer = styled.span`
     text-align: left;
 `

@@ -5,7 +5,7 @@ import { ReactComponent as SettingsIcon } from './assets/settings_icon.svg'
 export const Settings: React.FC = () => {
     return (
         <StyledLink href="/settings" aria-label="Settings">
-            <SettingsIcon />
+            <SettingsIcon aria-hidden="true" />
         </StyledLink>
     )
 }
