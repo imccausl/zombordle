@@ -82,6 +82,13 @@ export const TileContainer = styled.li<TileProps & { hasLetter: boolean }>`
         margin-right: 0;
     }
 
+    @media screen and (prefers-reduced-motion: reduce) {
+        background-color: ${({ variant }) =>
+            VariantColor[variant ?? 'default']};
+        border: 2px solid
+            ${({ variant }) => VariantBorder[variant ?? 'default']};
+    }
+
     @media only screen and (width <= 600px) {
         width: ${({ wordLength }) =>
             TileSize[(wordLength?.toString() as keyof typeof TileSize) ?? '5']};
