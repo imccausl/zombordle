@@ -36,7 +36,8 @@ const TiledInput: React.FC<TiledInputProps> = ({
     isInvalidWord,
     resetInvalidWord,
 }) => {
-    const { getFieldRefs, setFieldValue } = useFormContext()
+    const { getFieldRefs, setFieldValue, getFieldValues, onSubmit } =
+        useFormContext()
     const { hoverState, focusState, ...eventHandlers } =
         useValidationTooltipTracker()
     useEffect(() => {
@@ -62,6 +63,53 @@ const TiledInput: React.FC<TiledInputProps> = ({
         },
         [getFieldRefs],
     )
+
+    const handleGlobalKeyDown = useCallback(
+        (e: KeyboardEvent) => {
+            const fieldRefs = getFieldRefs()
+            const inputMap = fieldRefs.map((ref) => ref.current)
+
+            if (
+                /^[ -~]$/.test(e.key) &&
+                isInputElement(document.activeElement) &&
+                !inputMap.includes(document.activeElement)
+            ) {
+                e.preventDefault()
+                const firstEmptyField = Object.entries(getFieldValues()).find(
+                    ([, value]) => !value || value === ' ',
+                )
+
+                if (firstEmptyField) {
+                    const [fieldName] = firstEmptyField
+                    setFieldValue(fieldName, e.key)
+                    const fieldIndex = fieldRefs.findIndex(
+                        (ref) => ref?.current?.name === fieldName,
+                    )
+                    if (fieldIndex !== -1) {
+                        getNextElement(fieldIndex + 1)
+                    }
+                }
+            } else if (e.key === 'Enter') {
+                const firstEmptyField = Object.entries(getFieldValues()).find(
+                    ([, value]) => !value || value === ' ',
+                )
+
+                if (!firstEmptyField) {
+                    e.preventDefault()
+                    onSubmit()
+                }
+            }
+        },
+        [getFieldRefs, getFieldValues, getNextElement, onSubmit, setFieldValue],
+    )
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleGlobalKeyDown)
+
+        return () => {
+            document.removeEventListener('keydown', handleGlobalKeyDown)
+        }
+    }, [handleGlobalKeyDown])
 
     const handleOnChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>, index: number) => {

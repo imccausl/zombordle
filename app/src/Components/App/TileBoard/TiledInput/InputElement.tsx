@@ -64,7 +64,7 @@ export const InputElement: React.FC<InputElementProps> = ({
     }, [index, wordLength])
 
     const {
-        meta: { error },
+        meta: { error, resetFieldError },
         field: { onChange: fieldOnChange, onBlur: fieldOnBlur, ...field },
     } = useField({
         name: `input-${index + 1}`,
@@ -74,10 +74,11 @@ export const InputElement: React.FC<InputElementProps> = ({
 
     const handleOnChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-            void onChange(e, index)
-            void fieldOnChange(e)
+            onChange(e, index)
+            fieldOnChange(e)
+            resetFieldError()
         },
-        [fieldOnChange, index, onChange],
+        [fieldOnChange, index, onChange, resetFieldError],
     )
 
     const handleOnKeyDown = useCallback(

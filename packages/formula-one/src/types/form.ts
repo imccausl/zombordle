@@ -32,6 +32,7 @@ export type FormStateActions = {
     onSubmit: () => void
     setError: (name: string, message: string) => void
     setFieldValue: (field: string, value: string) => void
+    resetFieldError: (field: string) => void
     getFieldState: (name: string) => {
         error: FormState['errors'][string]
         value: FormState['values'][string]
