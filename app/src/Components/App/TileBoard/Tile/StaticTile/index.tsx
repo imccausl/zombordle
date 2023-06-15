@@ -24,7 +24,9 @@ const StaticTile: React.FC<React.PropsWithChildren<TileProps>> = ({
         animationDelayMultiplier={animationDelayMultiplier}
         role="listitem"
         variant={variant}
-        hasLetter={children !== ' '}
+        hasLetter={Boolean(
+            typeof children === 'string' && children && children !== ' ',
+        )}
     >
         <span aria-hidden="true">{children}</span>
         <VisuallyHidden as="span">{ariaLabel}</VisuallyHidden>
