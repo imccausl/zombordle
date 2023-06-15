@@ -23,24 +23,34 @@ export const Keyboard: React.FC<KeyboardProps> = ({
     correctWord,
     hasPlayed,
 }) => {
-    const letterVariantMap = useMemo(
-        () =>
-            guesses.reduce<Record<string, VariantColor>>((map, guess) => {
-                guess
-                    .toLowerCase()
-                    .split('')
-                    .forEach((letter, index) => {
-                        map[letter] = getVariant({
-                            correctWord,
-                            letter,
-                            index,
-                        })
+    const letterVariantMap = useMemo(() => {
+        const correctLetters = new Set<string>()
+
+        return guesses.reduce<Record<string, VariantColor>>((map, guess) => {
+            guess
+                .toLowerCase()
+                .split('')
+                .forEach((letter, index) => {
+                    if (correctLetters.has(letter)) {
+                        return
+                    }
+
+                    const variant = getVariant({
+                        correctWord,
+                        letter,
+                        index,
                     })
 
-                return map
-            }, {}),
-        [correctWord, guesses],
-    )
+                    if (variant === 'correct-place') {
+                        correctLetters.add(letter)
+                    }
+
+                    map[letter] = variant
+                })
+
+            return map
+        }, {})
+    }, [correctWord, guesses])
 
     return (
         <KeyboardContainer aria-label="Keyboard">

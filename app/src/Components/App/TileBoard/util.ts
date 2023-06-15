@@ -25,6 +25,7 @@ export const getVariant = ({
 
     return 'no-letter'
 }
+
 export const getVariants = ({
     correctWord,
     word,
