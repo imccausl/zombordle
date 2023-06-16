@@ -34,7 +34,6 @@ export const TileStyledTextInput = styled.input<{ $wordLength?: number }>`
     &:focus {
         outline: none;
         box-shadow: 0 0 0 4px ${VariantBorder.focused};
-        margin: 1px;
     }
 
     @media only screen and (width <= 600px) {
