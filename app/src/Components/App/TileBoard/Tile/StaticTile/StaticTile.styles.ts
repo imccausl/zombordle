@@ -40,10 +40,32 @@ const flip = (variant?: TileProps['variant']) => keyframes`
   }
 `
 
+const fade = (variant?: TileProps['variant']) => keyframes`
+  0% {
+    background-color: ${VariantColor.default};
+    border: 2px solid ${VariantBorder.full};
+    opacity: 0;
+  }
+
+  100% {
+    background-color: ${VariantColor[variant ?? 'default']};
+    border: 2px solid ${VariantBorder[variant ?? 'default']};
+    opacity: 1;
+  }
+`
+
 const postSubmitAnimation = (variant?: TileProps['variant']) => css`
     @media screen and (prefers-reduced-motion: no-preference) {
         animation-duration: 450ms;
         animation-name: ${flip(variant)};
+        animation-timing-function: ease;
+        animation-direction: normal;
+        animation-fill-mode: forwards;
+    }
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        animation-duration: 350ms;
+        animation-name: ${fade(variant)};
         animation-timing-function: ease;
         animation-direction: normal;
         animation-fill-mode: forwards;
@@ -83,10 +105,8 @@ export const TileContainer = styled.li<TileProps & { hasLetter: boolean }>`
     }
 
     @media screen and (prefers-reduced-motion: reduce) {
-        background-color: ${({ variant }) =>
-            VariantColor[variant ?? 'default']};
-        border: 2px solid
-            ${({ variant }) => VariantBorder[variant ?? 'default']};
+        animation-delay: ${({ animationDelayMultiplier }) =>
+            `${(animationDelayMultiplier ?? 0) * 400}ms`};
     }
 
     @media only screen and (width <= 600px) {
