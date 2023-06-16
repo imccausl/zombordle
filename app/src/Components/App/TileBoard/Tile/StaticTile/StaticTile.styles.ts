@@ -42,7 +42,7 @@ const flip = (variant?: TileProps['variant']) => keyframes`
 
 const postSubmitAnimation = (variant?: TileProps['variant']) => css`
     @media screen and (prefers-reduced-motion: no-preference) {
-        animation-duration: 500ms;
+        animation-duration: 450ms;
         animation-name: ${flip(variant)};
         animation-timing-function: ease;
         animation-direction: normal;
@@ -76,7 +76,7 @@ export const TileContainer = styled.li<TileProps & { hasLetter: boolean }>`
     text-transform: uppercase;
     ${({ hasLetter, variant }) => hasLetter && postSubmitAnimation(variant)};
     animation-delay: ${({ animationDelayMultiplier }) =>
-        `${(animationDelayMultiplier ?? 0) * 100}ms`};
+        `${(animationDelayMultiplier ?? 0) * 500}ms`};
 
     &:last-of-type {
         margin-right: 0;
