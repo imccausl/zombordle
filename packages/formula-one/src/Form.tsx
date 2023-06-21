@@ -5,7 +5,7 @@ import { useFormContext } from './FormProvider/FormContext'
 type FormProps = {
     onSubmit?: (arg: any) => void
     className?: string
-}
+} & React.FormHTMLAttributes<HTMLFormElement>
 
 export const useForm = () => {
     const { onSubmit, resetFormState } = useFormContext()
