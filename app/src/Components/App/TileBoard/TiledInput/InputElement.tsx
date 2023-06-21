@@ -124,6 +124,7 @@ export const InputElement: React.FC<InputElementProps> = ({
             >
                 <InputTile
                     {...field}
+                    autoComplete="off"
                     wordLength={wordLength}
                     aria-describedby={validationMessageId}
                     label={`${toOrdinal(index + 1)} letter`}

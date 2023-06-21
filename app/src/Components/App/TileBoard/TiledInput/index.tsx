@@ -258,7 +258,7 @@ const TiledInput: React.FC<TiledInputProps> = ({
     )
 
     return (
-        <StyledForm>
+        <StyledForm autoComplete="off">
             <TileInputGroup $isInvalid={isInvalidWord}>
                 <StyledLegend>
                     Guess {guessNumber} of {MAX_ATTEMPTS}
