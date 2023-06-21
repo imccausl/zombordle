@@ -72,9 +72,10 @@ const App: React.FC = () => {
 
     useEffect(() => {
         const attempts = gameState.length
-        const today = Date.now()
+        const today = new Date().setHours(0, 0, 0, 0)
 
         if (gameState?.includes(correctWord) && attempts <= MAX_ATTEMPTS) {
+            // win
             if (!hasPlayed) {
                 const yesterday = new Date(today).setDate(
                     new Date(today).getDate() - 1,
@@ -83,6 +84,7 @@ const App: React.FC = () => {
                     timeStamps.lastCompleted === yesterday
                         ? stats.currentStreak + 1
                         : 1
+
                 const maxStreak =
                     currentStreak >= stats.maxStreak
                         ? currentStreak
@@ -105,6 +107,7 @@ const App: React.FC = () => {
                 })
             }
         } else if (attempts >= MAX_ATTEMPTS) {
+            // loss
             if (!hasPlayed) {
                 setHasPlayed(true)
                 setStats({
@@ -118,7 +121,7 @@ const App: React.FC = () => {
                     },
                     currentStreak: 0,
                 })
-                setTimeStamps({ lastCompleted: today, ...timeStamps })
+                setTimeStamps({ lastPlayed: today, ...timeStamps })
 
                 // temporary
                 alert(`The correct word was: ${correctWord}`)
@@ -192,7 +195,6 @@ const App: React.FC = () => {
     return (
         <FormProvider
             /* setting both these values to false validates on submit */
-            // TODO: Should have a revalidation strategy to validate on change
             validateOnBlur={false}
             validateOnChange={false}
             onSubmit={handleOnSubmit}
