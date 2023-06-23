@@ -1,0 +1,20 @@
+{
+  "name": "@zombordle/design-tokens",
+  "version": "0.0.0",
+  "main": "src/index.ts",
+  "publishConfig": {
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "ts-node ./build.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "style-dictionary": "^3.8.0",
+    "ts-node": "^10.9.1"
+  }
+}
