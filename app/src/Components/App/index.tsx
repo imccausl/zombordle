@@ -17,8 +17,8 @@ type Stats = {
     wordLength: WordListLength
     status: 'win' | 'loss' | null
     distribution: Distribution
-    currentStreak: number
-    maxStreak: number
+    currentStreak?: number
+    maxStreak?: number
 }
 
 export const statInitialState: Stats = {
@@ -82,11 +82,11 @@ const App: React.FC = () => {
                 )
                 const currentStreak =
                     timeStamps.lastCompleted === yesterday
-                        ? stats.currentStreak + 1
+                        ? (stats.currentStreak ?? 0) + 1
                         : 1
 
                 const maxStreak =
-                    currentStreak >= stats.maxStreak
+                    currentStreak >= (stats.maxStreak ?? 0)
                         ? currentStreak
                         : stats.maxStreak
 
