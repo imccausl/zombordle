@@ -17,6 +17,7 @@ export default defineConfig({
         coverage: {
             enabled: process.env.CI ? true : false,
             provider: 'v8',
+            all: true,
         },
     },
 })
