@@ -14,5 +14,9 @@ export default defineConfig({
         environment: 'jsdom',
         globals: true,
         setupFiles: '../tests/setup.ts',
+        coverage: {
+            enabled: process.env.CI ? true : false,
+            provider: 'v8',
+        },
     },
 })
