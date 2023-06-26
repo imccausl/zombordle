@@ -1,15 +1,45 @@
 import StyleDictionary, { type Config } from 'style-dictionary'
 
-const config: Config = {
-    source: ['tokens/**/*.ts'],
+const darkThemeConfig: Config = {
+    source: ['tokens/core/**/*', 'tokens/**/dark.*.ts'],
     platforms: {
         web: {
             transforms: ['attribute/cti', 'name/cti/camel'],
-            buildPath: 'lib',
+            buildPath: 'lib/',
+            files: [
+                {
+                    destination: 'variables.dark.css',
+                    format: 'css/variables',
+                    options: {
+                        selector: '[data-theme="dark"]',
+                    },
+                },
+            ],
         },
     },
 }
 
-const configuredStyleDictionary = StyleDictionary.extend(config)
+const lightThemeConfig: Config = {
+    source: ['tokens/core/**/*', 'tokens/**/light.*.ts'],
+    platforms: {
+        web: {
+            transforms: ['attribute/cti', 'name/cti/camel'],
+            buildPath: 'lib/',
+            files: [
+                {
+                    destination: 'variables.light.css',
+                    format: 'css/variables',
+                    options: {
+                        selector: '[data-theme="light"]',
+                    },
+                },
+            ],
+        },
+    },
+}
 
-configuredStyleDictionary.buildAllPlatforms()
+const darkThemeStyleDictionary = StyleDictionary.extend(darkThemeConfig)
+const lightThemeStyleDictionary = StyleDictionary.extend(lightThemeConfig)
+
+darkThemeStyleDictionary.buildAllPlatforms()
+lightThemeStyleDictionary.buildAllPlatforms()
