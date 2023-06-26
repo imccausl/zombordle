@@ -47,7 +47,12 @@ jobs:
         uses: ./.github/actions/prepare-env
       - name: vitest
         run: yarn test
-
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./app/coverage/clover.xml
+          verbose: true
   build:
     name: Build
     runs-on: ubuntu-latest
