@@ -16,7 +16,7 @@ export default defineConfig({
         setupFiles: '../tests/setup.ts',
         coverage: {
             enabled: process.env.CI ? true : false,
-            reporters: ['default', 'junit'],
+            provider: 'v8',
         },
     },
 })
