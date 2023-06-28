@@ -1,5 +1,11 @@
 {
   "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": [],
+  },
+  "include": [
+    "tokens/**/*"
+  ],
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS",

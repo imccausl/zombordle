@@ -10,7 +10,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "ts-node ./build.ts"
+    "build": "ts-node config/build.ts"
   },
   "devDependencies": {
     "@types/node": "^20.3.1",
