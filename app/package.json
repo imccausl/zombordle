@@ -14,6 +14,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "formula-one": "workspace:packages/formula-one",
+    "design-tokens": "workspace:packages/design-tokens",
     "logrocket": "^4.0.3",
     "next": "^13.4.4",
     "react": "^18.2.0",
