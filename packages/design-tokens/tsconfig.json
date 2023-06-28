@@ -1,17 +1,12 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": [],
+    "module": "CommonJS",
+    "types": [
+      "node"
+    ],
   },
   "include": [
     "tokens/**/*"
   ],
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS",
-      "types": [
-        "node"
-      ],
-    }
-  }
 }
