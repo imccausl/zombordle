@@ -1,6 +1,7 @@
 {
   "name": "@zombordle/design-tokens",
   "version": "0.0.0",
+  "main": "lib/index.js",
   "publishConfig": {
     "main": "lib/index.js",
     "types": "lib/index.d.ts"
@@ -8,6 +9,11 @@
   "files": [
     "lib"
   ],
+  "exports": {
+    "./variables.dark.css": "./lib/variables.dark.css",
+    "./variables.light.css": "./lib/variables.light.css",
+    ".": "./lib/index.js"
+  },
   "scripts": {
     "build": "ts-node config/build.ts && echo Building types... && tsc lib/index.ts --declaration && echo Done!"
   },

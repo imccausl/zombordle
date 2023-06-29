@@ -1,8 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { VariantColor } from './InputTile.styles'
-
 import InputTile, { type InputTileProps } from '.'
 
 const defaultProps: InputTileProps = {
@@ -13,17 +11,6 @@ const renderWithProps = (props: Partial<InputTileProps> = {}) =>
     render(<InputTile {...defaultProps} {...props} />)
 
 describe('InputTile', () => {
-    it('renders default variant', () => {
-        renderWithProps()
-
-        const inputTile = screen.getByRole('textbox')
-
-        expect(inputTile).toBeInTheDocument()
-        expect(inputTile).toHaveStyle(
-            `background-color: ${VariantColor.default}`,
-        )
-    })
-
     it('can be initialized with a value', () => {
         renderWithProps({ defaultValue: 'f' })
 

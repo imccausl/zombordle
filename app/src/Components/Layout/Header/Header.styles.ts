@@ -1,3 +1,4 @@
+import { ThemeTokens } from '@zombordle/design-tokens'
 import Link from 'next/link'
 import styled from 'styled-components'
 
@@ -16,6 +17,7 @@ export const StyledHeader = styled.header`
 `
 export const StyledIconButton = styled.button`
     border: none;
+    color: ${ThemeTokens.fontBase};
     background: transparent;
     width: 40px;
     height: 40px;

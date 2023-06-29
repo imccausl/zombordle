@@ -1,7 +1,7 @@
 import { type Formatter } from 'style-dictionary'
 
 const createCssVariable = (path: string[]) => {
-    return `--${path.join('-')}`
+    return `var(--${path.join('-')})`
 }
 
 const formatterFunc: Formatter = ({ dictionary }) => {
@@ -10,7 +10,7 @@ const formatterFunc: Formatter = ({ dictionary }) => {
         output.push(`\t${token.name}: '${createCssVariable(token.path)}',\n`)
     })
     output.push('}\n\n')
-    output.push('export default ThemeTokens\n')
+    output.push('export { ThemeTokens }\n')
     return output.join('')
 }
 

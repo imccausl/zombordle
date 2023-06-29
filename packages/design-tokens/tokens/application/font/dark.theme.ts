@@ -1,5 +1,5 @@
 module.exports = {
     font: {
-        base: '{color.white.100.value}',
+        base: { value: '{color.white.100.value}' },
     },
 }

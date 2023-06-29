@@ -28,7 +28,7 @@ const lightThemeConfig: Config = {
     source: ['tokens/core/**/*', 'tokens/**/light.*.ts'],
     platforms: {
         web: {
-            transforms: ['attribute/cti', 'name/cti/camel'],
+            transforms: ['attribute/cti', 'name/cti/kebab'],
             buildPath: 'lib/',
             files: [
                 {

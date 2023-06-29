@@ -1,3 +1,5 @@
+import '@zombordle/design-tokens/variables.dark.css'
+import '@zombordle/design-tokens/variables.light.css'
 import LogRocket from 'logrocket'
 
 import { Layout } from '../Components/Layout'
@@ -11,7 +13,7 @@ if (process?.env?.NODE_ENV === 'production') {
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
-        <Layout>
+        <Layout data-theme="dark">
             <Component {...pageProps} />
         </Layout>
     )
