@@ -23,6 +23,12 @@ module.exports = {
             '400': {
                 value: '#787c7e',
             },
+            '500': {
+                value: '#3a3a3c',
+            },
+            '600': {
+                value: '#212121',
+            },
         },
         red: {
             '100': {
@@ -31,12 +37,12 @@ module.exports = {
         },
         green: {
             '100': {
-                value: '#00b100',
+                value: '#008A16',
             },
         },
         orange: {
             '100': {
-                value: '#ff9a00',
+                value: '#FC4700',
             },
         },
     },

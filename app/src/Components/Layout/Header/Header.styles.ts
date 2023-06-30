@@ -9,7 +9,7 @@ export const StyledHeader = styled.header`
     justify-content: space-between;
     height: 65px;
     width: 100%;
-    border-bottom: lightgrey solid 1px;
+    border-bottom: ${ThemeTokens.borderDefault} solid 1px;
 
     @media only screen and (width <= 600px) {
         height: 40px;

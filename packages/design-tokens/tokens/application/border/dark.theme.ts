@@ -6,7 +6,7 @@ module.exports = {
         absent: { value: '{color.grey.400.value}' },
         neutral: { value: '{color.grey.100.value}' },
         invalid: { value: '{color.red.100.value}' },
-        default: { value: '{color.grey.200.value}' },
+        default: { value: '{color.grey.500.value}' },
         full: { value: '{color.grey.300.value}' },
     },
 }
