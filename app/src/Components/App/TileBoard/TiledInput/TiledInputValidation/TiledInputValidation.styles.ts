@@ -1,3 +1,4 @@
+import { ThemeTokens } from '@zombordle/design-tokens'
 import styled from 'styled-components'
 
 export const VariantColor = {
@@ -5,9 +6,9 @@ export const VariantColor = {
 }
 
 export const VariantBorder = {
-    invalid: '#FF0800',
-    default: '#d3d6da',
-    full: '#8E8787',
+    invalid: ThemeTokens.borderInvalid,
+    default: ThemeTokens.borderDefault,
+    full: ThemeTokens.borderFull,
 }
 
 export type VariantBorder = keyof typeof VariantBorder

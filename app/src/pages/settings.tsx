@@ -5,7 +5,7 @@ import { useThemeContext } from '../Components/Layout/ThemeProvider'
 import { type Theme } from '../Components/Layout/ThemeProvider/useTheme'
 
 export default function Settings() {
-    const { theme, setNewTheme } = useThemeContext()
+    const { theme, setNewTheme, colorSchemePreference } = useThemeContext()
     const handleThemeChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             setNewTheme(event.target.value as Theme)
@@ -51,7 +51,7 @@ export default function Settings() {
                         checked={theme === 'system'}
                         onChange={handleThemeChange}
                     />
-                    System
+                    System (Preference: {colorSchemePreference})
                 </label>
             </fieldset>
         </>
