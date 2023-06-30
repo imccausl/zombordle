@@ -1,21 +1,22 @@
+import { ThemeTokens } from '@zombordle/design-tokens'
 import styled, { css, keyframes } from 'styled-components'
 
 import type { TileProps } from '.'
 
 export const VariantColor = {
-    'correct-place': '#00b100',
-    'contains-letter': '#ff9a00',
-    'no-letter': '#d2d4dc',
-    full: '#ffffff',
-    default: '#ffffff',
+    'correct-place': ThemeTokens.backgroundCorrect,
+    'contains-letter': ThemeTokens.backgroundPresent,
+    'no-letter': ThemeTokens.backgroundAbsent,
+    full: ThemeTokens.backgroundBase,
+    default: ThemeTokens.backgroundBase,
 }
 
 export const VariantBorder = {
     'correct-place': VariantColor['correct-place'],
     'contains-letter': VariantColor['contains-letter'],
     'no-letter': VariantColor['no-letter'],
-    default: '#d3d6da',
-    full: '#8E8787',
+    default: ThemeTokens.borderDefault,
+    full: ThemeTokens.borderFull,
 }
 
 export type VariantColor = keyof typeof VariantColor

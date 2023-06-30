@@ -1,3 +1,4 @@
+import { ThemeTokens } from '@zombordle/design-tokens'
 import Link from 'next/link'
 import styled from 'styled-components'
 
@@ -8,7 +9,7 @@ export const StyledHeader = styled.header`
     justify-content: space-between;
     height: 65px;
     width: 100%;
-    border-bottom: lightgrey solid 1px;
+    border-bottom: ${ThemeTokens.borderDefault} solid 1px;
 
     @media only screen and (width <= 600px) {
         height: 40px;
@@ -16,6 +17,7 @@ export const StyledHeader = styled.header`
 `
 export const StyledIconButton = styled.button`
     border: none;
+    color: ${ThemeTokens.fontBase};
     background: transparent;
     width: 40px;
     height: 40px;

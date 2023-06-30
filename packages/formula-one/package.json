@@ -43,6 +43,5 @@
     "vite": "^4.3.9",
     "vite-plugin-dts": "^2.3.0",
     "vitest": "^0.32.2"
-  },
-  "packageManager": "yarn@3.4.1"
+  }
 }

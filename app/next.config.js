@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    transpilePackages: ['formula-one'],
+    transpilePackages: ['formula-one', '@zombordle/design-tokens'],
     reactStrictMode: true,
     compiler: {
         styledComponents: true,
