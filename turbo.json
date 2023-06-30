@@ -5,9 +5,17 @@
   ],
   "pipeline": {
     "build": {
+      "dependsOn": [
+        "build-tokens"
+      ],
       "outputs": [
         ".next/**",
         "!.next/cache/**",
+        "lib"
+      ]
+    },
+    "build-tokens": {
+      "outputs": [
         "lib"
       ]
     },
@@ -19,9 +27,16 @@
         "out/**"
       ]
     },
-    "lint": {},
+    "lint": {
+      "dependsOn": [
+        "build-tokens"
+      ]
+    },
     "//#lint-css": {},
     "test": {
+      "dependsOn": [
+        "build-tokens"
+      ],
       "inputs": [
         "src/**/*.tsx",
         "src/**/*.ts",

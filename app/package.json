@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
+    "@zombordle/design-tokens": "workspace:packages/design-tokens",
     "formula-one": "workspace:packages/formula-one",
     "logrocket": "^4.0.3",
     "next": "^13.4.4",

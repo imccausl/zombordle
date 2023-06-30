@@ -62,7 +62,6 @@ const App: React.FC = () => {
         lastPlayed?: number
         lastCompleted?: number
     }>('timestamps', {})
-
     const [isInvalidWord, setIsInvalidWord] = useState<boolean>(false)
     const { correctWord, wordList } = useWord(
         gameState[0]?.length

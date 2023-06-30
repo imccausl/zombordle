@@ -1,7 +1,8 @@
+import { ThemeTokens } from '@zombordle/design-tokens'
 import styled from 'styled-components'
 
 export const VariantColor = {
-    default: '#ffffff',
+    default: ThemeTokens.backgroundBase,
 }
 
 export const VariantBorder = {
@@ -18,6 +19,7 @@ export const TileStyledTextInput = styled.input<{ $wordLength?: number }>`
     margin: 0 5px 0 0;
     padding: 0;
     text-align: center;
+    color: ${ThemeTokens.fontBase};
     background-color: ${VariantColor.default};
     border-color: transparent;
     font-size: 2rem;
