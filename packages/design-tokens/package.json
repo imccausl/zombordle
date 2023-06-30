@@ -15,7 +15,7 @@
     ".": "./lib/index.js"
   },
   "scripts": {
-    "build": "ts-node config/build.ts && echo Building types... && tsc lib/index.ts --declaration && echo Done!"
+    "build-tokens": "ts-node config/build.ts && echo Building types... && tsc lib/index.ts --declaration && echo Done!"
   },
   "devDependencies": {
     "@types/node": "^20.3.2",
