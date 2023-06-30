@@ -1,8 +1,8 @@
 import { useCallback, useMemo } from 'react'
 
-import { useLocalStorage } from '../useLocalStorage'
+import { useLocalStorage } from '../../../../hooks/useLocalStorage'
 
-type Theme = 'dark' | 'light'
+export type Theme = 'dark' | 'light' | 'system'
 
 export const useTheme = () => {
     const [theme, setTheme] = useLocalStorage<Theme>('theme', 'light')
@@ -10,7 +10,6 @@ export const useTheme = () => {
     const setNewTheme = useCallback(
         (newTheme: Theme) => {
             setTheme(newTheme)
-            document.body.setAttribute('data-theme', newTheme)
         },
         [setTheme],
     )

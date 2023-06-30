@@ -1,14 +1,7 @@
 import { FormProvider, type FormState } from 'formula-one'
-import {
-    useCallback,
-    useEffect,
-    useLayoutEffect,
-    useMemo,
-    useState,
-} from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { useLocalStorage } from '../../hooks/useLocalStorage'
-import { useTheme } from '../../hooks/useTheme'
 import { useWord } from '../../hooks/words/useWord'
 import { type WordListLength } from '../../hooks/words/useWordList'
 
@@ -75,25 +68,6 @@ const App: React.FC = () => {
             ? (gameState[0]?.length as WordListLength)
             : wordLength,
     )
-
-    const [theme, setNewTheme] = useTheme()
-    useLayoutEffect(() => {
-        document.body.setAttribute('data-theme', theme)
-    }, [theme])
-
-    useLayoutEffect(() => {
-        const mq = window.matchMedia('(prefers-color-scheme: dark)')
-
-        if (mq.matches) {
-            setNewTheme('dark')
-        }
-
-        // This callback will fire if the perferred color scheme changes without a reload
-        mq.addEventListener(
-            'change',
-            (evt) => void setNewTheme(evt.matches ? 'dark' : 'light'),
-        )
-    }, [setNewTheme])
 
     useEffect(() => {
         const attempts = gameState.length
