@@ -10,6 +10,11 @@ type ContextValues = {
     colorSchemePreference: Omit<Theme, 'system'>
 }
 
+const MetaThemeColors = {
+    dark: '#212121',
+    light: '#ffffff',
+}
+
 const ThemeContext = createContext<ContextValues | null>(null)
 
 export const useThemeContext = () => {
@@ -35,11 +40,20 @@ export const ThemeProvider: React.FC<React.PropsWithChildren> = ({
 
     useLayoutEffect(() => {
         if (theme === 'system' && prefersDarkMQ) {
-            const handleThemePreferenceChange = (evt: MediaQueryListEvent) =>
+            const handleThemePreferenceChange = (evt: MediaQueryListEvent) => {
                 void document.body.setAttribute(
                     'data-theme',
                     evt.matches ? 'dark' : 'light',
                 )
+                document
+                    .querySelector('media[name="theme-color"]')
+                    ?.setAttribute(
+                        'content',
+                        evt.matches
+                            ? MetaThemeColors.dark
+                            : MetaThemeColors.light,
+                    )
+            }
 
             prefersDarkMQ.addEventListener(
                 'change',
@@ -49,6 +63,14 @@ export const ThemeProvider: React.FC<React.PropsWithChildren> = ({
                 'data-theme',
                 prefersDarkMQ.matches ? 'dark' : 'light',
             )
+            document
+                .querySelector('media[name="theme-color"]')
+                ?.setAttribute(
+                    'content',
+                    prefersDarkMQ.matches
+                        ? MetaThemeColors.dark
+                        : MetaThemeColors.light,
+                )
 
             return () => {
                 prefersDarkMQ.removeEventListener(
@@ -59,6 +81,12 @@ export const ThemeProvider: React.FC<React.PropsWithChildren> = ({
         }
 
         document.body.setAttribute('data-theme', theme)
+        document.querySelector('media[name="theme-color"]')?.setAttribute(
+            'content',
+            theme === 'dark' || theme === 'light'
+                ? MetaThemeColors[theme]
+                : '#ffffff', // this should never be an option at this point but TS is being silly
+        )
     }, [prefersDarkMQ, setTheme, theme])
 
     return (
