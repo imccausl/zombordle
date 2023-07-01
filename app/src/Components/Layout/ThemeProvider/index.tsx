@@ -1,10 +1,12 @@
 import { createContext, useContext, useLayoutEffect, useMemo } from 'react'
 
-import { type Theme, useTheme } from './useTheme'
+import { useLocalStorage } from '../../../hooks/useLocalStorage'
+
+export type Theme = 'dark' | 'light' | 'system'
 
 type ContextValues = {
     theme: Theme
-    setNewTheme: (newTheme: Theme) => void
+    setTheme: (newTheme: Theme) => void
     colorSchemePreference: Omit<Theme, 'system'>
 }
 
@@ -23,7 +25,7 @@ export const useThemeContext = () => {
 export const ThemeProvider: React.FC<React.PropsWithChildren> = ({
     children,
 }) => {
-    const [theme, setNewTheme] = useTheme()
+    const [theme, setTheme] = useLocalStorage<Theme>('theme', 'system')
 
     const prefersDarkMQ = useMemo(() => {
         if (typeof window === 'undefined') return
@@ -57,13 +59,13 @@ export const ThemeProvider: React.FC<React.PropsWithChildren> = ({
         }
 
         document.body.setAttribute('data-theme', theme)
-    }, [prefersDarkMQ, setNewTheme, theme])
+    }, [prefersDarkMQ, setTheme, theme])
 
     return (
         <ThemeContext.Provider
             value={{
                 theme,
-                setNewTheme,
+                setTheme,
                 colorSchemePreference: prefersDarkMQ?.matches
                     ? 'dark'
                     : 'light',
