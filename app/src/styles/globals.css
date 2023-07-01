@@ -10,12 +10,12 @@ body {
   height: 100%;
   overflow-x: hidden;
   font-family: 'Roboto', 'Arial', 'Helvetica', sans-serif;
-  background: var(--background-base);
-  color: var(--font-base);
 }
 
 body {
     margin: 0;
+    background: var(--background-base);
+    color: var(--font-base);
 }
 
 a {

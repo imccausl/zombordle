@@ -1,16 +1,15 @@
 import Head from 'next/head'
 import { useCallback } from 'react'
 
-import { useThemeContext } from '../Components/Layout/ThemeProvider'
-import { type Theme } from '../Components/Layout/ThemeProvider/useTheme'
+import { type Theme, useThemeContext } from '../Components/Layout/ThemeProvider'
 
 export default function Settings() {
-    const { theme, setNewTheme, colorSchemePreference } = useThemeContext()
+    const { theme, setTheme, colorSchemePreference } = useThemeContext()
     const handleThemeChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
-            setNewTheme(event.target.value as Theme)
+            setTheme(event.target.value as Theme)
         },
-        [setNewTheme],
+        [setTheme],
     )
     return (
         <>
