@@ -17,6 +17,9 @@ module.exports = {
             '200': {
                 value: '#d3d6da',
             },
+            '250': {
+                value: '#818384',
+            },
             '300': {
                 value: '#8e8787',
             },
@@ -39,9 +42,15 @@ module.exports = {
             '100': {
                 value: '#008A16',
             },
+            '200': {
+                value: '#538d4e',
+            },
         },
         orange: {
             '100': {
+                value: '#D27E00',
+            },
+            '300': {
                 value: '#FC4700',
             },
         },

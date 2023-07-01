@@ -1,10 +1,13 @@
-import { createContext, useContext, useLayoutEffect } from 'react'
+import { createContext, useContext, useLayoutEffect, useMemo } from 'react'
 
-import { type Theme, useTheme } from './useTheme'
+import { useLocalStorage } from '../../../hooks/useLocalStorage'
+
+export type Theme = 'dark' | 'light' | 'system'
 
 type ContextValues = {
     theme: Theme
-    setNewTheme: (newTheme: Theme) => void
+    setTheme: (newTheme: Theme) => void
+    colorSchemePreference: Omit<Theme, 'system'>
 }
 
 const ThemeContext = createContext<ContextValues | null>(null)
@@ -22,33 +25,52 @@ export const useThemeContext = () => {
 export const ThemeProvider: React.FC<React.PropsWithChildren> = ({
     children,
 }) => {
-    const [theme, setNewTheme] = useTheme()
+    const [theme, setTheme] = useLocalStorage<Theme>('theme', 'system')
+
+    const prefersDarkMQ = useMemo(() => {
+        if (typeof window === 'undefined') return
+
+        return window.matchMedia('(prefers-color-scheme: dark)')
+    }, [])
 
     useLayoutEffect(() => {
-        if (theme === 'system') {
-            const mq = window.matchMedia('(prefers-color-scheme: dark)')
+        if (theme === 'system' && prefersDarkMQ) {
             const handleThemePreferenceChange = (evt: MediaQueryListEvent) =>
                 void document.body.setAttribute(
                     'data-theme',
                     evt.matches ? 'dark' : 'light',
                 )
 
-            mq.addEventListener('change', handleThemePreferenceChange)
+            prefersDarkMQ.addEventListener(
+                'change',
+                handleThemePreferenceChange,
+            )
             document.body.setAttribute(
                 'data-theme',
-                mq.matches ? 'dark' : 'light',
+                prefersDarkMQ.matches ? 'dark' : 'light',
             )
 
             return () => {
-                mq.removeEventListener('change', handleThemePreferenceChange)
+                prefersDarkMQ.removeEventListener(
+                    'change',
+                    handleThemePreferenceChange,
+                )
             }
         }
 
         document.body.setAttribute('data-theme', theme)
-    }, [setNewTheme, theme])
+    }, [prefersDarkMQ, setTheme, theme])
 
     return (
-        <ThemeContext.Provider value={{ theme, setNewTheme }}>
+        <ThemeContext.Provider
+            value={{
+                theme,
+                setTheme,
+                colorSchemePreference: prefersDarkMQ?.matches
+                    ? 'dark'
+                    : 'light',
+            }}
+        >
             {children}
         </ThemeContext.Provider>
     )

@@ -17,7 +17,7 @@ export const LetterKeyContainer = styled.button<{
     display: flex;
     border: 1px solid transparent;
     background: ${({ $variant }) => VariantColor[$variant ?? 'default']};
-    color: #fff;
+    color: ${ThemeTokens.fontBase};
     height: 58px;
     flex: ${({ $flexGrow }) => $flexGrow ?? '1'} 0 0;
     margin: 0 6px 0 0;
