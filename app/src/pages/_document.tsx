@@ -14,11 +14,6 @@ export default function Document() {
                     href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&family=Roboto:wght@300;400;500&display=swap"
                     rel="stylesheet"
                 />
-                <meta
-                    name="theme-color"
-                    content="#212121"
-                    media="(prefers-color-scheme: dark)"
-                />
                 <meta name="theme-color" content="#FFFFFF" />
                 <meta
                     name="description"
