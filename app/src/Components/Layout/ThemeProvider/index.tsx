@@ -46,7 +46,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren> = ({
                     evt.matches ? 'dark' : 'light',
                 )
                 document
-                    .querySelector('media[name="theme-color"]')
+                    .querySelector('meta[name="theme-color"]')
                     ?.setAttribute(
                         'content',
                         evt.matches
@@ -64,7 +64,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren> = ({
                 prefersDarkMQ.matches ? 'dark' : 'light',
             )
             document
-                .querySelector('media[name="theme-color"]')
+                .querySelector('meta[name="theme-color"]')
                 ?.setAttribute(
                     'content',
                     prefersDarkMQ.matches
@@ -81,7 +81,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren> = ({
         }
 
         document.body.setAttribute('data-theme', theme)
-        document.querySelector('media[name="theme-color"]')?.setAttribute(
+        document.querySelector('meta[name="theme-color"]')?.setAttribute(
             'content',
             theme === 'dark' || theme === 'light'
                 ? MetaThemeColors[theme]
