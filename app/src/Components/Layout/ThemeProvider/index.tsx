@@ -1,4 +1,4 @@
-import { createContext, useContext, useLayoutEffect, useMemo } from 'react'
+import { createContext, useContext, useEffect, useMemo } from 'react'
 
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
 
@@ -38,7 +38,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren> = ({
         return window.matchMedia('(prefers-color-scheme: dark)')
     }, [])
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (theme === 'system' && prefersDarkMQ) {
             const handleThemePreferenceChange = (evt: MediaQueryListEvent) => {
                 void document.body.setAttribute(
