@@ -22,11 +22,11 @@ type GameStateContextValues = {
 }
 
 const GAME_STATE_SINGLETON_KEY = Symbol.for('zombordle.game.state.context')
-type GlobaleEnhancedGameStateSingleton = typeof globalThis & {
+type GlobalEnhancedGameStateSingleton = typeof globalThis & {
     [GAME_STATE_SINGLETON_KEY]: React.Context<GameStateContextValues | null>
 }
 
-const GameStateContext = ((globalThis as GlobaleEnhancedGameStateSingleton)[
+const GameStateContext = ((globalThis as GlobalEnhancedGameStateSingleton)[
     GAME_STATE_SINGLETON_KEY
 ] ??= createContext<GameStateContextValues | null>(null))
 
@@ -55,8 +55,9 @@ export const GameStateProvider: React.FC<React.PropsWithChildren> = ({
         hasPlayed,
         setHasPlayed,
         setHasCompleted,
-    } = useCurrentGameState(wordLength)
-    const { correctWord, wordList, isValidWord } = useWord(wordLength)
+    } = useCurrentGameState(5)
+    const { correctWord, wordList, isValidWord } = useWord(5)
+
     const hasWon = useMemo(() => {
         return guesses?.includes(correctWord) && attempts <= MAX_ATTEMPTS
     }, [attempts, correctWord, guesses])

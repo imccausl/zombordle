@@ -1,16 +1,11 @@
 import { FormProvider, type FormState } from 'formula-one'
 import { useCallback, useState } from 'react'
 
-import { type WordListLength } from '../../hooks/words/useWordList'
 import { GameStateProvider, useGameState } from '../Layout/GameStateProvider'
 
 import { AppContainer } from './App.styles'
 import { Keyboard } from './Keyboard'
 import TileBoard from './TileBoard'
-
-type AppProps = {
-    wordLength: WordListLength
-}
 
 const GameBoard: React.FC = () => {
     const [isGuessInvalid, setIsGuessInvalid] = useState<boolean>(false)
@@ -72,9 +67,9 @@ const GameBoard: React.FC = () => {
     )
 }
 
-const App: React.FC<AppProps> = ({ wordLength }) => {
+const App: React.FC = () => {
     return (
-        <GameStateProvider wordLength={wordLength}>
+        <GameStateProvider>
             <GameBoard />
         </GameStateProvider>
     )

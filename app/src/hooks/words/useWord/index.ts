@@ -21,7 +21,9 @@ export const useWord = (wordListLength?: WordListLength) => {
 
     const isValidWord = useCallback(
         (testString: string) => {
-            return !wordList.find((word) => word.toLowerCase() === testString)
+            return Boolean(
+                wordList.find((word) => word.toLowerCase() === testString),
+            )
         },
         [wordList],
     )
