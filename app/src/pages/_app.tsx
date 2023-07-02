@@ -16,7 +16,6 @@ export default function App({ Component, pageProps }: AppProps) {
     return (
         <>
             <Head>
-                <meta name="theme-color" content="#FFFFFF" />
                 <meta
                     name="description"
                     content="An accessible wordle-like thinger"
