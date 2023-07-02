@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useMemo } from 'react'
 
 import { useWord } from '../../../hooks/words/useWord'
-import { type WordListLength } from '../../../hooks/words/useWordList'
 import { MAX_ATTEMPTS } from '../../App/App.constants'
+import { useSettings } from '../SettingsProvider'
 
 import { useCurrentGameState } from './useCurrentGameState'
 
@@ -15,9 +15,20 @@ type GameStateContextValues = {
     isValidWord: (submission: string) => boolean
     initialGuessValues: Record<string, string>
     hasWon: boolean
+    lastCompleted: number | null
+    hasPlayed: boolean
+    setHasPlayed: () => void
+    setHasCompleted: () => void
 }
 
-const GameStateContext = createContext<GameStateContextValues | null>(null)
+const GAME_STATE_SINGLETON_KEY = Symbol.for('zombordle.game.state.context')
+type GlobaleEnhancedGameStateSingleton = typeof globalThis & {
+    [GAME_STATE_SINGLETON_KEY]: React.Context<GameStateContextValues | null>
+}
+
+const GameStateContext = ((globalThis as GlobaleEnhancedGameStateSingleton)[
+    GAME_STATE_SINGLETON_KEY
+] ??= createContext<GameStateContextValues | null>(null))
 
 export const useGameState = () => {
     const context = useContext(GameStateContext)
@@ -29,9 +40,10 @@ export const useGameState = () => {
     return context
 }
 
-export const GameStateProvider: React.FC<
-    React.PropsWithChildren<{ wordLength: WordListLength }>
-> = ({ children, wordLength }) => {
+export const GameStateProvider: React.FC<React.PropsWithChildren> = ({
+    children,
+}) => {
+    const { wordLength } = useSettings()
     const {
         gameStarted,
         resetGameState,
@@ -39,6 +51,10 @@ export const GameStateProvider: React.FC<
         setGuess,
         attempts,
         guesses,
+        lastCompleted,
+        hasPlayed,
+        setHasPlayed,
+        setHasCompleted,
     } = useCurrentGameState(wordLength)
     const { correctWord, wordList, isValidWord } = useWord(wordLength)
     const hasWon = useMemo(() => {
@@ -82,6 +98,10 @@ export const GameStateProvider: React.FC<
                 isValidWord,
                 initialGuessValues,
                 hasWon,
+                lastCompleted,
+                hasPlayed,
+                setHasPlayed,
+                setHasCompleted,
             }}
         >
             {children}

@@ -1,41 +1,17 @@
-import { createContext, useContext, useEffect } from 'react'
+import React, { createContext, useContext, useEffect } from 'react'
 
-import { useLocalStorage } from '../../../hooks/useLocalStorage'
-import { useWord } from '../../../hooks/words/useWord'
-import { type WordListLength } from '../../../hooks/words/useWordList'
 import { MAX_ATTEMPTS } from '../../App/App.constants'
+import { GameStateProvider, useGameState } from '../GameStateProvider'
+import { useSettings } from '../SettingsProvider'
 
-type StatsContextValues = {
-    wordLength: WordListLength
-    setWordLength: (length: WordListLength) => void
-}
+import { useCurrentStats } from './useCurrentStats'
 
 export type Distribution = Record<string, number>
 
-type Stats = {
-    attempts: number
-    wordLength: WordListLength
-    status: 'win' | 'loss' | null
+type StatsContextValues = {
+    maxStreak: number | undefined
+    currentStreak: number | undefined
     distribution: Distribution
-    currentStreak?: number
-    maxStreak?: number
-}
-
-export const statInitialState: Stats = {
-    attempts: 0,
-    status: null,
-    wordLength: 5,
-    distribution: {
-        '1': 0,
-        '2': 0,
-        '3': 0,
-        '4': 0,
-        '5': 0,
-        '6': 0,
-        loss: 0,
-    },
-    currentStreak: 0,
-    maxStreak: 0,
 }
 
 const StatsContext = createContext<StatsContextValues | null>(null)
@@ -50,94 +26,97 @@ export const useStats = () => {
     return context
 }
 
-export const StatsProvider: React.FC<React.PropsWithChildren> = ({
+const UnwrappedStatsProvider: React.FC<React.PropsWithChildren> = ({
     children,
 }) => {
-    const [stats, setStats] = useLocalStorage<Stats>(
-        'zombordle_stats',
-        statInitialState,
-    )
-
-    const [timeStamps, setTimeStamps] = useLocalStorage<{
-        lastPlayed?: number
-        lastCompleted?: number
-    }>('timestamps', {})
-
-    const { correctWord } = useWord(wordLength)
-
+    const { wordLength } = useSettings()
+    const {
+        hasWon,
+        attempts,
+        lastCompleted,
+        hasPlayed,
+        setHasPlayed,
+        setHasCompleted,
+        correctWord,
+    } = useGameState()
+    const { setCurrentStats, maxStreak, currentStreak, distribution } =
+        useCurrentStats(wordLength)
     useEffect(() => {
-        const attempts = gameState.length
         const today = new Date().setHours(0, 0, 0, 0)
 
-        if (gameState?.includes(correctWord) && attempts <= MAX_ATTEMPTS) {
-            // win
+        if (hasWon) {
             if (!hasPlayed) {
                 const yesterday = new Date(today).setDate(
                     new Date(today).getDate() - 1,
                 )
-                const currentStreak =
-                    timeStamps.lastCompleted === yesterday
-                        ? (stats.currentStreak ?? 0) + 1
-                        : 1
+                const newCurrentStreak =
+                    lastCompleted === yesterday ? (currentStreak ?? 0) + 1 : 1
 
-                const maxStreak =
-                    currentStreak >= (stats.maxStreak ?? 0)
-                        ? currentStreak
-                        : stats.maxStreak
+                const newMaxStreak =
+                    newCurrentStreak >= (maxStreak ?? 0)
+                        ? newCurrentStreak
+                        : maxStreak
 
-                setTimeStamps({ lastCompleted: today, lastPlayed: today })
-                setHasPlayed(true)
-                setStats({
-                    ...stats,
+                setHasCompleted()
+                setCurrentStats({
                     status: 'win',
                     attempts,
-                    wordLength,
                     distribution: {
-                        ...stats.distribution,
+                        ...distribution,
                         [attempts.toString()]:
-                            stats.distribution[attempts.toString()] + 1,
+                            distribution[attempts.toString()] + 1,
                     },
-                    currentStreak: currentStreak,
-                    maxStreak: maxStreak,
+                    currentStreak: newCurrentStreak,
+                    maxStreak: newMaxStreak,
                 })
             }
         } else if (attempts >= MAX_ATTEMPTS) {
             // loss
             if (!hasPlayed) {
-                setHasPlayed(true)
-                setStats({
-                    ...stats,
+                setHasPlayed()
+                setCurrentStats({
                     status: 'loss',
-                    wordLength,
                     attempts,
                     distribution: {
-                        ...stats.distribution,
-                        loss: stats.distribution.loss + 1,
+                        ...distribution,
+                        loss: distribution.loss + 1,
                     },
                     currentStreak: 0,
                 })
-                setTimeStamps({ lastPlayed: today, ...timeStamps })
 
                 // temporary
                 alert(`The correct word was: ${correctWord}`)
             }
         }
     }, [
+        attempts,
         correctWord,
-        gameState,
+        currentStreak,
+        distribution,
         hasPlayed,
+        hasWon,
+        lastCompleted,
+        maxStreak,
+        setCurrentStats,
+        setHasCompleted,
         setHasPlayed,
-        setStats,
-        setTimeStamps,
-        stats,
-        stats.distribution,
-        timeStamps,
-        wordLength,
     ])
 
     return (
-        <StatsContext.Provider value={{ wordLength, setWordLength }}>
+        <StatsContext.Provider
+            value={{ maxStreak, currentStreak, distribution }}
+        >
             {children}
         </StatsContext.Provider>
+    )
+}
+
+export const StatsProvider: React.FC<React.PropsWithChildren> = ({
+    children,
+}) => {
+    return (
+        <GameStateProvider>
+            <UnwrappedStatsProvider>{children}</UnwrappedStatsProvider>
+        </GameStateProvider>
     )
 }

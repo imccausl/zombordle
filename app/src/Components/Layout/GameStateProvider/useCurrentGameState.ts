@@ -31,13 +31,9 @@ export const useCurrentGameState = (wordLength: WordListLength) => {
         'zombordle_gameState',
         fullInitialGameState,
     )
-    const [timeStamps, setTimeStamps] = useLocalStorage<{
-        lastPlayed?: number
-        lastCompleted?: number
-    }>('timestamps', {})
 
     const currentGameState = useMemo(() => {
-        return gameState[wordLength]
+        return gameState[wordLength] ?? initialGameState
     }, [gameState, wordLength])
 
     const setCurrentGameState = useCallback(

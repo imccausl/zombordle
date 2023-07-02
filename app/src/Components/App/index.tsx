@@ -1,7 +1,8 @@
 import { FormProvider, type FormState } from 'formula-one'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { type WordListLength } from '../../hooks/words/useWordList'
+import { GameStateProvider, useGameState } from '../Layout/GameStateProvider'
 
 import { AppContainer } from './App.styles'
 import { Keyboard } from './Keyboard'
@@ -11,8 +12,16 @@ type AppProps = {
     wordLength: WordListLength
 }
 
-const App: React.FC<AppProps> = ({ wordLength }) => {
-    const [isInvalidWord, setIsInvalidWord] = useState<boolean>(false)
+const GameBoard: React.FC = () => {
+    const [isGuessInvalid, setIsGuessInvalid] = useState<boolean>(false)
+    const {
+        isValidWord,
+        setGuess,
+        guesses,
+        initialGuessValues,
+        correctWord,
+        hasPlayed,
+    } = useGameState()
 
     const handleOnSubmit = useCallback(
         (values: FormState['values']) => {
@@ -20,8 +29,8 @@ const App: React.FC<AppProps> = ({ wordLength }) => {
                 .reduce((word, letter) => word.concat(letter), '')
                 .toLowerCase()
 
-            if (!isInvalidWord(wordSubmission)) {
-                setIsInvalidWord(true)
+            if (!isValidWord(wordSubmission)) {
+                setIsGuessInvalid(true)
                 // temporary
                 alert(`${wordSubmission.toUpperCase()} not in word list`)
                 // need to move focus to the first letter
@@ -31,10 +40,10 @@ const App: React.FC<AppProps> = ({ wordLength }) => {
 
             setGuess(wordSubmission)
         },
-        [gameStart, gameState, setGameStart, setGameState, wordList],
+        [isValidWord, setGuess],
     )
     const resetInvalidWord = useCallback(() => {
-        setIsInvalidWord(false)
+        setIsGuessInvalid(false)
     }, [])
 
     return (
@@ -43,23 +52,31 @@ const App: React.FC<AppProps> = ({ wordLength }) => {
             validateOnBlur={false}
             validateOnChange={false}
             onSubmit={handleOnSubmit}
-            initialValues={initialValues}
+            initialValues={initialGuessValues}
         >
             <AppContainer>
                 <TileBoard
-                    guesses={gameState}
+                    guesses={guesses}
                     hasPlayed={hasPlayed}
                     correctWord={correctWord}
-                    isInvalidWord={isInvalidWord}
+                    isInvalidWord={isGuessInvalid}
                     resetInvalidWord={resetInvalidWord}
                 />
                 <Keyboard
                     correctWord={correctWord}
-                    guesses={gameState}
+                    guesses={guesses}
                     hasPlayed={hasPlayed}
                 />
             </AppContainer>
         </FormProvider>
+    )
+}
+
+const App: React.FC<AppProps> = ({ wordLength }) => {
+    return (
+        <GameStateProvider wordLength={wordLength}>
+            <GameBoard />
+        </GameStateProvider>
     )
 }
 
