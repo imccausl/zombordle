@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 import { Header } from './Header'
+import { SettingsProvider } from './SettingsProvider'
 import { ThemeProvider } from './ThemeProvider'
 
 const Main = styled.main`
@@ -22,8 +23,10 @@ const Main = styled.main`
 export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
     return (
         <ThemeProvider>
-            <Header />
-            <Main>{children}</Main>
+            <SettingsProvider>
+                <Header />
+                <Main>{children}</Main>
+            </SettingsProvider>
         </ThemeProvider>
     )
 }

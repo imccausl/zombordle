@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import { type WordListLength, useWordList } from '../useWordList'
 
@@ -19,8 +19,15 @@ export const useWord = (wordListLength?: WordListLength) => {
     const seed = getDateDifference()
     const index = seed % wordList.length
 
+    const isValidWord = useCallback(
+        (testString: string) => {
+            return !wordList.find((word) => word.toLowerCase() === testString)
+        },
+        [wordList],
+    )
+
     return useMemo(
-        () => ({ correctWord: wordList[index], wordList }),
-        [index, wordList],
+        () => ({ correctWord: wordList[index], wordList, isValidWord }),
+        [index, isValidWord, wordList],
     )
 }
