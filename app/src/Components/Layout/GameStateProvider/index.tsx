@@ -86,43 +86,25 @@ export const GameStateProvider: React.FC<React.PropsWithChildren> = ({
         [correctWord.length],
     )
 
-    const values = useMemo(
-        () => ({
-            setGuess,
-            attempts,
-            guesses,
-            correctWord,
-            wordList,
-            isValidWord,
-            initialGuessValues,
-            hasWon,
-            lastCompleted,
-            hasPlayed,
-            setHasPlayed,
-            setHasCompleted,
-            gameStarted,
-            setGameStarted,
-        }),
-        [
-            attempts,
-            correctWord,
-            gameStarted,
-            guesses,
-            hasPlayed,
-            hasWon,
-            initialGuessValues,
-            isValidWord,
-            lastCompleted,
-            setGameStarted,
-            setGuess,
-            setHasCompleted,
-            setHasPlayed,
-            wordList,
-        ],
-    )
-
     return (
-        <GameStateContext.Provider value={values}>
+        <GameStateContext.Provider
+            value={{
+                setGuess,
+                attempts,
+                guesses,
+                correctWord,
+                wordList,
+                isValidWord,
+                initialGuessValues,
+                hasWon,
+                lastCompleted,
+                hasPlayed,
+                setHasPlayed,
+                setHasCompleted,
+                gameStarted,
+                setGameStarted,
+            }}
+        >
             {children}
         </GameStateContext.Provider>
     )
