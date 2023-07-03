@@ -61,7 +61,7 @@ export const useCurrentStats = (wordLength: WordListLength) => {
         return { ...((stats as Stats) ?? {}) }
     }, [stats])
     const migrateLegacyStats = useCallback(() => {
-        if ((stats as Stats).distribution) {
+        if (!Object.keys(stats).includes('5')) {
             setStats({
                 ...stats,
                 5: {

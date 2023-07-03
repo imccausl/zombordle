@@ -1,8 +1,11 @@
+import { ThemeTokens } from '@zombordle/design-tokens'
 import Head from 'next/head'
-import { useMemo } from 'react'
+import Link from 'next/link'
+import { useEffect, useMemo } from 'react'
 import styled from 'styled-components'
 
 import { DistributionChart } from '../Components/DistributionChart'
+import { useSettings } from '../Components/Layout/SettingsProvider'
 import { useStats } from '../Components/Layout/StatsProvider'
 import { Statistic } from '../Components/Statistic'
 
@@ -15,8 +18,16 @@ const StatContainer = styled.section`
     height: 100%;
 `
 
+const StyledLink = styled(Link)`
+    color: ${ThemeTokens.fontLink};
+    text-decoration: underline;
+`
+
 export default function Stats() {
-    const { distribution, currentStreak, maxStreak } = useStats()
+    const { distribution, currentStreak, maxStreak, migrateLegacyStats } =
+        useStats()
+    const { wordLength } = useSettings()
+
     const gamesPlayed = useMemo(
         () =>
             Object.values(distribution).reduce(
@@ -42,12 +53,20 @@ export default function Stats() {
         return Number.isNaN(percentage) ? 0 : percentage
     }, [gamesPlayed, gamesWon])
 
+    useEffect(() => {
+        migrateLegacyStats()
+    }, [migrateLegacyStats])
+
     return (
         <>
             <Head>
                 <title>Zombordle | Stats</title>
             </Head>
-            <h2>Statistics</h2>
+            <h2>Statistics for {wordLength} Letter Games</h2>
+            <p>
+                You can change the word length on the{' '}
+                <StyledLink href="/settings">Settings</StyledLink> page
+            </p>
             <StatContainer>
                 <Statistic label="Games Played" value={gamesPlayed} />
                 <Statistic

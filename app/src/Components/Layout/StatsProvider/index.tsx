@@ -12,6 +12,7 @@ type StatsContextValues = {
     maxStreak: number | undefined
     currentStreak: number | undefined
     distribution: Distribution
+    migrateLegacyStats: () => void
 }
 
 const StatsContext = createContext<StatsContextValues | null>(null)
@@ -155,7 +156,12 @@ export const StatsProvider: React.FC<React.PropsWithChildren> = ({
 
     return (
         <StatsContext.Provider
-            value={{ maxStreak, currentStreak, distribution }}
+            value={{
+                maxStreak,
+                currentStreak,
+                distribution,
+                migrateLegacyStats,
+            }}
         >
             {children}
         </StatsContext.Provider>
