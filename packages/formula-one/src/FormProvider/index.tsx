@@ -259,6 +259,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
             // form is valid.
             dispatch(setIsFormValid(true))
             onSubmit(state.values)
+            return
         }
 
         // We have a validation error, so we have to handle moving
