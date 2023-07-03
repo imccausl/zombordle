@@ -1,7 +1,7 @@
 import { FormProvider, type FormState } from 'formula-one'
 import { useCallback, useState } from 'react'
 
-import { GameStateProvider, useGameState } from '../Layout/GameStateProvider'
+import { useGameState } from '../Layout/GameStateProvider'
 
 import { AppContainer } from './App.styles'
 import { Keyboard } from './Keyboard'
@@ -74,11 +74,7 @@ const GameBoard: React.FC = () => {
 }
 
 const App: React.FC = () => {
-    return (
-        <GameStateProvider>
-            <GameBoard />
-        </GameStateProvider>
-    )
+    return <GameBoard />
 }
 
 export default App

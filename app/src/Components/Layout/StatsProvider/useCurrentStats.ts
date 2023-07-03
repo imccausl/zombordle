@@ -13,7 +13,7 @@ type Stats = Readonly<{
     maxStreak?: number
 }>
 
-type TotalStats = Readonly<{ [key: string]: Stats }>
+type TotalStats = Readonly<Partial<Record<WordListLength, Stats>>>
 
 const statInitialState: Stats = {
     attempts: 0,
@@ -57,6 +57,19 @@ export const useCurrentStats = (wordLength: WordListLength) => {
         },
         [currentStats, setStats, stats, wordLength],
     )
+    const legacyStats = useMemo(() => {
+        return { ...((stats as Stats) ?? {}) }
+    }, [stats])
+    const migrateLegacyStats = useCallback(() => {
+        if ((stats as Stats).distribution) {
+            setStats({
+                ...stats,
+                5: {
+                    ...legacyStats,
+                },
+            })
+        }
+    }, [legacyStats, setStats, stats])
 
     return useMemo(
         () => ({
@@ -64,12 +77,16 @@ export const useCurrentStats = (wordLength: WordListLength) => {
             maxStreak: currentStats.maxStreak,
             currentStreak: currentStats.currentStreak,
             distribution: currentStats.distribution,
+            migrateLegacyStats,
+            legacyStats,
         }),
         [
             currentStats.currentStreak,
             currentStats.distribution,
             currentStats.maxStreak,
             setCurrentStats,
+            migrateLegacyStats,
+            legacyStats,
         ],
     )
 }

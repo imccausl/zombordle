@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect } from 'react'
 
 import { MAX_ATTEMPTS } from '../../App/App.constants'
-import { GameStateProvider, useGameState } from '../GameStateProvider'
+import { useGameState } from '../GameStateProvider'
 import { useSettings } from '../SettingsProvider'
 
 import { useCurrentStats } from './useCurrentStats'
@@ -26,7 +26,7 @@ export const useStats = () => {
     return context
 }
 
-const UnwrappedStatsProvider: React.FC<React.PropsWithChildren> = ({
+export const StatsProvider: React.FC<React.PropsWithChildren> = ({
     children,
 }) => {
     const { wordLength } = useSettings()
@@ -39,8 +39,14 @@ const UnwrappedStatsProvider: React.FC<React.PropsWithChildren> = ({
         setHasCompleted,
         correctWord,
     } = useGameState()
-    const { setCurrentStats, maxStreak, currentStreak, distribution } =
-        useCurrentStats(wordLength)
+    const {
+        setCurrentStats,
+        maxStreak,
+        currentStreak,
+        distribution,
+        legacyStats,
+        migrateLegacyStats,
+    } = useCurrentStats(wordLength)
     useEffect(() => {
         const today = new Date().setHours(0, 0, 0, 0)
 
@@ -49,22 +55,51 @@ const UnwrappedStatsProvider: React.FC<React.PropsWithChildren> = ({
                 const yesterday = new Date(today).setDate(
                     new Date(today).getDate() - 1,
                 )
-                const newCurrentStreak =
+                let newCurrentStreak =
                     lastCompleted === yesterday ? (currentStreak ?? 0) + 1 : 1
 
-                const newMaxStreak =
+                let newMaxStreak =
                     newCurrentStreak >= (maxStreak ?? 0)
                         ? newCurrentStreak
-                        : maxStreak
+                        : maxStreak ?? 0
+
+                let newDistribution = {
+                    ...distribution,
+                    [attempts.toString()]:
+                        distribution[attempts.toString()] + 1,
+                }
+
+                if (wordLength !== 5) {
+                    migrateLegacyStats()
+                } else {
+                    const legacyMaxStreak = legacyStats?.maxStreak
+                    const legacyCurrentStreak = legacyStats?.currentStreak
+                    const legacyDistribution = legacyStats?.distribution
+
+                    newMaxStreak =
+                        typeof legacyMaxStreak === 'number'
+                            ? newMaxStreak + legacyMaxStreak
+                            : newMaxStreak
+
+                    newCurrentStreak =
+                        typeof legacyCurrentStreak === 'number'
+                            ? newCurrentStreak + legacyCurrentStreak
+                            : newCurrentStreak
+
+                    newDistribution = {
+                        ...(legacyDistribution ?? {}),
+                        [attempts.toString()]:
+                            (legacyDistribution?.[attempts.toString()] ?? 0) +
+                            1,
+                    }
+                }
 
                 setHasCompleted()
                 setCurrentStats({
                     status: 'win',
                     attempts,
                     distribution: {
-                        ...distribution,
-                        [attempts.toString()]:
-                            distribution[attempts.toString()] + 1,
+                        ...newDistribution,
                     },
                     currentStreak: newCurrentStreak,
                     maxStreak: newMaxStreak,
@@ -73,13 +108,24 @@ const UnwrappedStatsProvider: React.FC<React.PropsWithChildren> = ({
         } else if (attempts >= MAX_ATTEMPTS) {
             // loss
             if (!hasPlayed) {
+                let lossCount = distribution.loss + 1
+                if (wordLength !== 5) {
+                    migrateLegacyStats()
+                } else {
+                    const legacyLossCount = legacyStats?.distribution?.loss
+                    lossCount =
+                        typeof legacyLossCount === 'number'
+                            ? lossCount + legacyLossCount
+                            : lossCount
+                }
+
                 setHasPlayed()
                 setCurrentStats({
                     status: 'loss',
                     attempts,
                     distribution: {
                         ...distribution,
-                        loss: distribution.loss + 1,
+                        loss: lossCount,
                     },
                     currentStreak: 0,
                 })
@@ -96,10 +142,15 @@ const UnwrappedStatsProvider: React.FC<React.PropsWithChildren> = ({
         hasPlayed,
         hasWon,
         lastCompleted,
+        legacyStats?.currentStreak,
+        legacyStats?.distribution,
+        legacyStats?.maxStreak,
         maxStreak,
+        migrateLegacyStats,
         setCurrentStats,
         setHasCompleted,
         setHasPlayed,
+        wordLength,
     ])
 
     return (
@@ -108,15 +159,5 @@ const UnwrappedStatsProvider: React.FC<React.PropsWithChildren> = ({
         >
             {children}
         </StatsContext.Provider>
-    )
-}
-
-export const StatsProvider: React.FC<React.PropsWithChildren> = ({
-    children,
-}) => {
-    return (
-        <GameStateProvider>
-            <UnwrappedStatsProvider>{children}</UnwrappedStatsProvider>
-        </GameStateProvider>
     )
 }

@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 
+import { GameStateProvider } from './GameStateProvider'
 import { Header } from './Header'
 import { SettingsProvider } from './SettingsProvider'
 import { StatsProvider } from './StatsProvider'
@@ -25,10 +26,12 @@ export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
     return (
         <ThemeProvider>
             <SettingsProvider>
-                <StatsProvider>
-                    <Header />
-                    <Main>{children}</Main>
-                </StatsProvider>
+                <GameStateProvider>
+                    <StatsProvider>
+                        <Header />
+                        <Main>{children}</Main>
+                    </StatsProvider>
+                </GameStateProvider>
             </SettingsProvider>
         </ThemeProvider>
     )
