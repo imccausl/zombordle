@@ -259,13 +259,21 @@ export const FormProvider: React.FC<FormProviderProps> = ({
             // form is valid.
             dispatch(setIsFormValid(true))
             onSubmit(state.values)
+            resetFormState()
+            return
         }
 
         // We have a validation error, so we have to handle moving
         // focus to the first invalid field.
         dispatch(setIsFormValid(false))
         handleInvalidFieldFocus(fieldName)
-    }, [doFieldValidation, handleInvalidFieldFocus, onSubmit, state.values])
+    }, [
+        doFieldValidation,
+        handleInvalidFieldFocus,
+        onSubmit,
+        resetFormState,
+        state.values,
+    ])
 
     const register = useCallback(
         (config: FieldConfig & Omit<TrackedFieldConfig, 'ref'>) => {

@@ -7,7 +7,7 @@ import { AppContainer } from './App.styles'
 import { Keyboard } from './Keyboard'
 import TileBoard from './TileBoard'
 
-const GameBoard: React.FC = () => {
+const App: React.FC = () => {
     const [isGuessInvalid, setIsGuessInvalid] = useState<boolean>(false)
     const {
         isValidWord,
@@ -71,10 +71,6 @@ const GameBoard: React.FC = () => {
             </AppContainer>
         </FormProvider>
     )
-}
-
-const App: React.FC = () => {
-    return <GameBoard />
 }
 
 export default App
