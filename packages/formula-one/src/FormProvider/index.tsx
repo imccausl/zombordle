@@ -259,7 +259,6 @@ export const FormProvider: React.FC<FormProviderProps> = ({
             // form is valid.
             dispatch(setIsFormValid(true))
             onSubmit(state.values)
-            resetFormState()
             return
         }
 
@@ -267,13 +266,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
         // focus to the first invalid field.
         dispatch(setIsFormValid(false))
         handleInvalidFieldFocus(fieldName)
-    }, [
-        doFieldValidation,
-        handleInvalidFieldFocus,
-        onSubmit,
-        resetFormState,
-        state.values,
-    ])
+    }, [doFieldValidation, handleInvalidFieldFocus, onSubmit, state.values])
 
     const register = useCallback(
         (config: FieldConfig & Omit<TrackedFieldConfig, 'ref'>) => {
