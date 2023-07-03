@@ -37,7 +37,7 @@
     "@yarnpkg/sdks": "^3.0.0-rc.45",
     "babel-plugin-styled-components": "^2.1.3",
     "eslint": "^8.43.0",
-    "eslint-config-next": "^13.4.4",
+    "eslint-config-next": "^13.4.7",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-import": "^2.27.5",
