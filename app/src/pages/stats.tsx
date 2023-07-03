@@ -2,10 +2,9 @@ import Head from 'next/head'
 import { useMemo } from 'react'
 import styled from 'styled-components'
 
-import { statInitialState } from '../Components/App'
 import { DistributionChart } from '../Components/DistributionChart'
+import { useStats } from '../Components/Layout/StatsProvider'
 import { Statistic } from '../Components/Statistic'
-import { useLocalStorage } from '../hooks/useLocalStorage'
 
 const StatContainer = styled.section`
     display: flex;
@@ -17,29 +16,26 @@ const StatContainer = styled.section`
 `
 
 export default function Stats() {
-    const [stats] = useLocalStorage('zombordle_stats', statInitialState)
+    const { distribution, currentStreak, maxStreak } = useStats()
     const gamesPlayed = useMemo(
         () =>
-            Object.values(stats?.distribution).reduce(
+            Object.values(distribution).reduce(
                 (count, value) => (count += value),
                 0,
             ) ?? 0,
-        [stats?.distribution],
+        [distribution],
     )
 
     const gamesWon = useMemo(
         () =>
-            Object.entries(stats?.distribution).reduce(
-                (count, [key, value]) => {
-                    if (key !== 'loss') {
-                        count += value
-                    }
+            Object.entries(distribution).reduce((count, [key, value]) => {
+                if (key !== 'loss') {
+                    count += value
+                }
 
-                    return count
-                },
-                0,
-            ) ?? 0,
-        [stats?.distribution],
+                return count
+            }, 0) ?? 0,
+        [distribution],
     )
     const winPercent = useMemo(() => {
         const percentage = Math.floor((gamesWon / gamesPlayed) * 100)
@@ -59,17 +55,11 @@ export default function Stats() {
                     value={winPercent}
                     asPercent={true}
                 />
-                <Statistic
-                    label="Current Streak"
-                    value={stats?.currentStreak ?? 0}
-                />
-                <Statistic
-                    label="Longest Streak"
-                    value={stats?.maxStreak ?? 0}
-                />
+                <Statistic label="Current Streak" value={currentStreak ?? 0} />
+                <Statistic label="Longest Streak" value={maxStreak ?? 0} />
             </StatContainer>
             <DistributionChart
-                distribution={stats.distribution}
+                distribution={distribution}
                 gamesWon={gamesWon}
             />
         </>

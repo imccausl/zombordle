@@ -16,10 +16,16 @@ const GameBoard: React.FC = () => {
         initialGuessValues,
         correctWord,
         hasPlayed,
+        gameStarted,
+        setGameStarted,
     } = useGameState()
 
     const handleOnSubmit = useCallback(
         (values: FormState['values']) => {
+            if (!gameStarted) {
+                setGameStarted()
+            }
+
             const wordSubmission = Object.values(values)
                 .reduce((word, letter) => word.concat(letter), '')
                 .toLowerCase()
@@ -35,7 +41,7 @@ const GameBoard: React.FC = () => {
 
             setGuess(wordSubmission)
         },
-        [isValidWord, setGuess],
+        [gameStarted, isValidWord, setGameStarted, setGuess],
     )
     const resetInvalidWord = useCallback(() => {
         setIsGuessInvalid(false)

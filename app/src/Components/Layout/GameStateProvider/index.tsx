@@ -19,6 +19,8 @@ type GameStateContextValues = {
     hasPlayed: boolean
     setHasPlayed: () => void
     setHasCompleted: () => void
+    gameStarted: string | null
+    setGameStarted: () => void
 }
 
 const GAME_STATE_SINGLETON_KEY = Symbol.for('zombordle.game.state.context')
@@ -55,18 +57,14 @@ export const GameStateProvider: React.FC<React.PropsWithChildren> = ({
         hasPlayed,
         setHasPlayed,
         setHasCompleted,
-    } = useCurrentGameState(5)
-    const { correctWord, wordList, isValidWord } = useWord(5)
+    } = useCurrentGameState(wordLength)
+    const { correctWord, wordList, isValidWord } = useWord(wordLength)
 
     const hasWon = useMemo(() => {
         return guesses?.includes(correctWord) && attempts <= MAX_ATTEMPTS
     }, [attempts, correctWord, guesses])
 
     useEffect(() => {
-        if (!gameStarted) {
-            setGameStarted()
-        }
-
         const today = new Date().toDateString()
         if (gameStarted && today !== gameStarted) {
             try {
@@ -103,6 +101,8 @@ export const GameStateProvider: React.FC<React.PropsWithChildren> = ({
                 hasPlayed,
                 setHasPlayed,
                 setHasCompleted,
+                gameStarted,
+                setGameStarted,
             }}
         >
             {children}

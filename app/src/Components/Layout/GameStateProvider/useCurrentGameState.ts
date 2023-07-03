@@ -32,9 +32,10 @@ export const useCurrentGameState = (wordLength: WordListLength) => {
         fullInitialGameState,
     )
 
-    const currentGameState = useMemo(() => {
-        return gameState[wordLength] ?? initialGameState
-    }, [gameState, wordLength])
+    const currentGameState = useMemo(
+        () => gameState[wordLength] ?? initialGameState,
+        [gameState, wordLength],
+    )
 
     const setCurrentGameState = useCallback(
         (state: Partial<FullGameState[string]>) => {

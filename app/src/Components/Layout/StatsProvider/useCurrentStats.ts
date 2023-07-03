@@ -5,17 +5,15 @@ import { type WordListLength } from '../../../hooks/words/useWordList'
 
 export type Distribution = Record<string, number>
 
-type Stats = {
+type Stats = Readonly<{
     attempts: number
     status: 'win' | 'loss' | null
     distribution: Distribution
     currentStreak?: number
     maxStreak?: number
-}
+}>
 
-type TotalStats = {
-    [key: string]: Stats
-}
+type TotalStats = Readonly<{ [key: string]: Stats }>
 
 const statInitialState: Stats = {
     attempts: 0,
