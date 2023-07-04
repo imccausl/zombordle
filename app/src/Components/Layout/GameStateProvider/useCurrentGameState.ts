@@ -5,7 +5,6 @@ import { type WordListLength } from '../../../hooks/words/useWordList'
 
 type GameState = {
     guesses: Array<string>
-    started: string | null
     hasPlayed: boolean
     lastPlayed: number | null
     lastCompleted: number | null
@@ -17,7 +16,6 @@ type FullGameState = {
 const initialGameState: GameState = {
     guesses: [],
     hasPlayed: false,
-    started: null,
     lastPlayed: null,
     lastCompleted: null,
 }
@@ -50,15 +48,11 @@ export const useCurrentGameState = (wordLength: WordListLength) => {
     const setGuess = useCallback(
         (guess: string) => {
             setCurrentGameState({
-                ...currentGameState,
                 guesses: currentGameState.guesses.concat(guess),
             })
         },
         [currentGameState, setCurrentGameState],
     )
-    const setGameStarted = useCallback(() => {
-        setCurrentGameState({ started: new Date().toDateString() })
-    }, [setCurrentGameState])
     const resetGameState = useCallback(() => {
         setCurrentGameState({ ...initialGameState })
     }, [setCurrentGameState])
@@ -78,7 +72,6 @@ export const useCurrentGameState = (wordLength: WordListLength) => {
     return useMemo(
         () => ({
             setGuess,
-            setGameStarted,
             setHasPlayed,
             resetGameState,
             setHasCompleted,
@@ -86,13 +79,11 @@ export const useCurrentGameState = (wordLength: WordListLength) => {
             attempts: currentGameState.guesses.length,
             hasPlayed: currentGameState.hasPlayed,
             guesses: currentGameState.guesses,
-            gameStarted: currentGameState.started,
             lastCompleted: currentGameState.lastCompleted,
         }),
         [
             currentGameState,
             resetGameState,
-            setGameStarted,
             setGuess,
             setHasPlayed,
             setHasCompleted,

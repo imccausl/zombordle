@@ -1,5 +1,12 @@
-import { createContext, useContext, useEffect, useMemo } from 'react'
+import {
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+} from 'react'
 
+import { useLocalStorage } from '../../../hooks/useLocalStorage'
 import { useWord } from '../../../hooks/words/useWord'
 import { MAX_ATTEMPTS } from '../../App/App.constants'
 import { useSettings } from '../SettingsProvider'
@@ -47,9 +54,7 @@ export const GameStateProvider: React.FC<React.PropsWithChildren> = ({
 }) => {
     const { wordLength } = useSettings()
     const {
-        gameStarted,
         resetGameState,
-        setGameStarted,
         setGuess,
         attempts,
         guesses,
@@ -59,13 +64,20 @@ export const GameStateProvider: React.FC<React.PropsWithChildren> = ({
         setHasCompleted,
     } = useCurrentGameState(wordLength)
     const { correctWord, wordList, isValidWord } = useWord(wordLength)
+    const [gameStarted, setGameStarted] = useLocalStorage<string | null>(
+        'zombordle_started',
+        null,
+    )
 
     const hasWon = useMemo(() => {
         return guesses?.includes(correctWord) && attempts <= MAX_ATTEMPTS
     }, [attempts, correctWord, guesses])
-
+    const setNewGameStarted = useCallback(() => {
+        setGameStarted(new Date().toDateString())
+    }, [setGameStarted])
     useEffect(() => {
         const today = new Date().toDateString()
+
         if (gameStarted && today !== gameStarted) {
             try {
                 resetGameState()
@@ -102,7 +114,7 @@ export const GameStateProvider: React.FC<React.PropsWithChildren> = ({
                 setHasPlayed,
                 setHasCompleted,
                 gameStarted,
-                setGameStarted,
+                setGameStarted: setNewGameStarted,
             }}
         >
             {children}
