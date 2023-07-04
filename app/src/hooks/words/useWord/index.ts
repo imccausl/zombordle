@@ -8,8 +8,9 @@ export const getDateDifference = () => {
     const today = new Date()
     today.setDate(today.getDate() + 1)
 
-    const difference =
-        BASE_DATE.setHours(0, 0, 0, 0) - new Date(today).setHours(0, 0, 0, 0)
+    const difference = Math.abs(
+        BASE_DATE.setHours(0, 0, 0, 0) - new Date(today).setHours(0, 0, 0, 0),
+    )
 
     return Math.floor(difference / 864e5)
 }
