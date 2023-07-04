@@ -33,6 +33,11 @@ module.exports = {
                 value: '#212121',
             },
         },
+        blue: {
+            '100': {
+                value: '#1F75FE',
+            },
+        },
         red: {
             '100': {
                 value: '#ff0800',

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-import { type Distribution } from '../App'
+import { type Distribution } from '../Layout/StatsProvider'
 
 import {
     BarLabel,
