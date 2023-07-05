@@ -22,6 +22,13 @@ const initialGameState: GameState = {
 
 const fullInitialGameState: FullGameState = {
     '5': initialGameState,
+    '6': initialGameState,
+    '7': initialGameState,
+}
+
+const resetInitialGameState: Partial<GameState> = {
+    guesses: [],
+    hasPlayed: false,
 }
 
 export const useCurrentGameState = (wordLength: WordListLength) => {
@@ -54,8 +61,22 @@ export const useCurrentGameState = (wordLength: WordListLength) => {
         [currentGameState, setCurrentGameState],
     )
     const resetGameState = useCallback(() => {
-        setCurrentGameState({ ...initialGameState })
-    }, [setCurrentGameState])
+        setGameState({
+            5: {
+                ...(gameState[5] ?? initialGameState),
+                ...resetInitialGameState,
+            },
+            6: {
+                ...(gameState[6] ?? initialGameState),
+                ...resetInitialGameState,
+            },
+            7: {
+                ...(gameState[7] ?? initialGameState),
+                ...resetInitialGameState,
+            },
+        })
+    }, [gameState, setGameState])
+
     const setHasPlayed = useCallback(() => {
         setCurrentGameState({
             hasPlayed: true,
@@ -66,6 +87,7 @@ export const useCurrentGameState = (wordLength: WordListLength) => {
         setCurrentGameState({
             hasPlayed: true,
             lastCompleted: new Date().setHours(0, 0, 0, 0),
+            lastPlayed: new Date().setHours(0, 0, 0, 0),
         })
     }, [setCurrentGameState])
 
