@@ -87,6 +87,7 @@ export const useCurrentGameState = (wordLength: WordListLength) => {
         setCurrentGameState({
             hasPlayed: true,
             lastCompleted: new Date().setHours(0, 0, 0, 0),
+            lastPlayed: new Date().setHours(0, 0, 0, 0),
         })
     }, [setCurrentGameState])
 
