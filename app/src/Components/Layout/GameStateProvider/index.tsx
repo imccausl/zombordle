@@ -75,12 +75,14 @@ export const GameStateProvider: React.FC<React.PropsWithChildren> = ({
     const setNewGameStarted = useCallback(() => {
         setGameStarted(new Date().toDateString())
     }, [setGameStarted])
+
     useEffect(() => {
         const today = new Date().toDateString()
 
         if (gameStarted && today !== gameStarted) {
             try {
                 resetGameState()
+                setGameStarted(today)
             } catch {
                 // do nothing
             }
