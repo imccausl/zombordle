@@ -293,14 +293,13 @@ export const FormProvider: React.FC<FormProviderProps> = ({
 
             return {
                 ...fieldProps,
-                onChange: handleOnChange,
-                onBlur: handleOnBlur,
+                ...getFieldValue(fieldProps.name),
                 required: !!required,
                 type: type ?? 'text',
                 ref: refCallback,
             }
         },
-        [handleOnBlur, handleOnChange, registerField, unRegisterField],
+        [getFieldValue, registerField, unRegisterField],
     )
 
     const ctx = useMemo(

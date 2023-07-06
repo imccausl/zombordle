@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 
 import { LetterKeyContainer, type VariantColor } from './LetterKey.styles'
 
-type LetterKeyProps = React.PropsWithChildren<{
+export type LetterKeyProps = React.PropsWithChildren<{
     label?: string
     variant: VariantColor
     keyCode?: string
@@ -54,6 +54,7 @@ export const LetterKey: React.FC<LetterKeyProps> = ({
             $flexGrow={label?.toLowerCase() === 'enter' ? '2' : '1'}
             data-key={typeof keyCodeValue === 'string' ? keyCodeValue : ''}
             onClick={handleOnClick}
+            aria-disabled={isDisabled}
         >
             {children}
         </LetterKeyContainer>
