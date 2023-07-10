@@ -20,7 +20,7 @@ export type WordListLength = keyof typeof WordList
 
 export const useWordList = (wordListLength: WordListLength = 5) => {
     return useMemo(() => {
-        const inWordList = wordListLength > 4 || wordListLength < 8
+        const inWordList = wordListLength > 4 && wordListLength < 8
         return wordListMap[WordList[!inWordList ? 5 : wordListLength]]
     }, [wordListLength])
 }
