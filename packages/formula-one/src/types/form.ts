@@ -53,6 +53,7 @@ export type FormStateActions = {
     register: (
         config: FieldConfig & Omit<TrackedFieldConfig, 'ref'>,
     ) => FieldConfig &
+        FormFieldValues &
         Omit<FieldProps, 'ref'> & {
             ref: (ref: HTMLInputElement | null) => void
         }
