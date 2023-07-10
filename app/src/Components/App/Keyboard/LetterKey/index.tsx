@@ -34,6 +34,7 @@ export const LetterKey: React.FC<LetterKeyProps> = ({
                 const firstEmptyFieldName = Object.keys(fieldValues).find(
                     (key) => !fieldValues[key],
                 )
+
                 if (firstEmptyFieldName) {
                     setFieldValue(
                         firstEmptyFieldName,

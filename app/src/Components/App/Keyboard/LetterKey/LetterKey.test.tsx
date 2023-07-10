@@ -1,13 +1,14 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { Form, FormProvider, useFormContext } from 'formula-one'
 import { type FormProviderProps } from 'formula-one/src/FormProvider'
-import { Fragment } from 'react'
+import { Fragment, useMemo } from 'react'
 
 import { LetterKey, type LetterKeyProps } from '.'
 
 const defaultProps: LetterKeyProps = {
     variant: 'default',
     isDisabled: false,
+    children: 'a',
 }
 
 const defaultFormProviderProps: FormProviderProps = {
@@ -21,24 +22,24 @@ const defaultFormProviderProps: FormProviderProps = {
 
 const MockForm: React.FC = () => {
     const { register } = useFormContext()
-
-    return (
-        <Form>
-            {[1, 2, 3].map((item) => (
+    const fields = useMemo(
+        () =>
+            [1, 2, 3].map((item) => (
                 <Fragment key={item}>
                     <label htmlFor={`input-item-${item}`}>input {item}</label>
                     <input
                         id={`input-item-${item}`}
                         {...register({
                             type: 'text',
-                            name: `input-${item}`,
-                            required: true,
+                            name: `input-item-${item}`,
+                            required: false,
                         })}
                     />
                 </Fragment>
-            ))}
-        </Form>
+            )),
+        [register],
     )
+    return <Form>{fields}</Form>
 }
 
 const renderComponent = ({
@@ -51,35 +52,89 @@ const renderComponent = ({
     render(
         <FormProvider {...defaultFormProviderProps} {...providerProps}>
             <MockForm />
+            <LetterKey variant="default">z</LetterKey>
             <LetterKey {...defaultProps} {...componentProps} />
         </FormProvider>,
     )
 
 describe('LetterKey', () => {
     describe('Typing Behaviour', async () => {
-        it('inputs printable data-key value into first available empty field', async () => {
+        it('inputs printable data-key value into first available empty field on each click', () => {
             const letter = 'a'
             renderComponent({ componentProps: { children: letter } })
 
-            const letterKey = screen.getByRole('button', { name: letter })
-            const firstInput = screen.getByRole('textbox', { name: /input 1/ })
-            const secondInput = screen.getByRole('textbox', { name: /input 1/ })
-            const thirdInput = screen.getByRole('textbox', { name: /input 1/ })
+            const letterKey: HTMLButtonElement = screen.getByRole('button', {
+                name: letter,
+            })
+            const firstInput: HTMLInputElement = screen.getByRole('textbox', {
+                name: /input 1/,
+            })
+            const secondInput: HTMLInputElement = screen.getByRole('textbox', {
+                name: /input 2/,
+            })
+            const thirdInput: HTMLInputElement = screen.getByRole('textbox', {
+                name: /input 3/,
+            })
 
-            waitFor(
-                () => void expect(firstInput.getAttribute('value')).toBe(''),
-            )
+            expect(firstInput.value).toBe('')
 
             fireEvent.click(letterKey)
+            expect(firstInput.value).toBe(letter)
+            expect(secondInput.value).toBe('')
 
-            waitFor(
-                () =>
-                    void expect(firstInput.getAttribute('value')).toBe(letter),
-            )
+            fireEvent.click(letterKey)
+            expect(secondInput.value).toBe(letter)
+            expect(thirdInput.value).toBe('')
+
+            fireEvent.click(letterKey)
+            expect(thirdInput.value).toBe(letter)
         })
-        it.todo('submits form when data-key is "Enter"')
-        it.todo(
-            'backspaces the character in the rightmost field when data-key is "Backspace"',
-        )
+
+        it('submits form when data-key is "Enter"', () => {
+            const mockSubmit = vi.fn()
+            const keyCode = 'Enter'
+            renderComponent({
+                componentProps: { keyCode, label: keyCode },
+                providerProps: { onSubmit: mockSubmit },
+            })
+
+            const enterKey = screen.getByRole('button', { name: keyCode })
+            fireEvent.click(enterKey)
+
+            expect(mockSubmit).toHaveBeenCalledTimes(1)
+        })
+
+        it('backspaces the character in the rightmost field when data-key is "Backspace"', () => {
+            const keyCode = 'Backspace'
+            renderComponent({
+                componentProps: { keyCode, label: keyCode },
+            })
+
+            const backspaceKey = screen.getByRole('button', { name: keyCode })
+            const letterKey = screen.getByRole('button', { name: 'z' })
+            const firstInput: HTMLInputElement = screen.getByRole('textbox', {
+                name: /input 1/,
+            })
+            const secondInput: HTMLInputElement = screen.getByRole('textbox', {
+                name: /input 2/,
+            })
+
+            fireEvent.click(backspaceKey)
+            expect(firstInput.value).toBe('')
+
+            fireEvent.click(letterKey)
+            expect(firstInput.value).toBe('z')
+
+            fireEvent.click(letterKey)
+            expect(secondInput.value).toBe('z')
+
+            fireEvent.click(backspaceKey)
+            expect(firstInput.value).toBe('z')
+            expect(secondInput.value).toBe('')
+
+            fireEvent.click(backspaceKey)
+            expect(firstInput.value).toBe('')
+            expect(secondInput.value).toBe('')
+        })
     })
 })
