@@ -7,11 +7,11 @@ import {
 } from 'react'
 
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
-import { useWord } from '../../../hooks/words/useWord'
 import { MAX_ATTEMPTS } from '../../App/App.constants'
 import { useSettings } from '../SettingsProvider'
 
 import { useCurrentGameState } from './useCurrentGameState'
+import { useWord } from './words/useWord'
 
 type GameStateContextValues = {
     setGuess: (guess: string) => void

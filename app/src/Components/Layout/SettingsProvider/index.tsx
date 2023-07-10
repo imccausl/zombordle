@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react'
 
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
-import { type WordListLength } from '../../../hooks/words/useWordList'
+import { type WordListLength } from '../GameStateProvider/words/useWordList'
 
 type SettingsContextValues = {
     wordLength: WordListLength

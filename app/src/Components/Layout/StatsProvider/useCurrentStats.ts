@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
-import { type WordListLength } from '../../../hooks/words/useWordList'
+import { type WordListLength } from '../GameStateProvider/words/useWordList'
 
 export type Distribution = Record<string, number>
 
