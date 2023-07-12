@@ -280,27 +280,29 @@ export const FormProvider: React.FC<FormProviderProps> = ({
             } = config
 
             const refCallback = (ref: HTMLInputElement | null) => {
-                if (ref) {
+                if (ref && !trackedFields.current.has(fieldProps.name)) {
                     registerField(fieldProps.name, { current: ref }, validate, {
                         onInvalid,
                         onValid,
                         required,
                     })
                 } else {
-                    unRegisterField(fieldProps.name)
+                    // there's a bug here. Need to figure out how to
+                    // handle unregistering fields. Otherwise it does this
+                    // on every update which clears the field state.
+                    //  unRegisterField(fieldProps.name)
                 }
             }
 
             return {
                 ...fieldProps,
-                onChange: handleOnChange,
-                onBlur: handleOnBlur,
+                ...getFieldValue(fieldProps.name),
                 required: !!required,
                 type: type ?? 'text',
                 ref: refCallback,
             }
         },
-        [handleOnBlur, handleOnChange, registerField, unRegisterField],
+        [getFieldValue, registerField],
     )
 
     const ctx = useMemo(
