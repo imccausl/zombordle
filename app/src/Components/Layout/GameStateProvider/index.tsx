@@ -72,13 +72,13 @@ export const GameStateProvider: React.FC<React.PropsWithChildren> = ({
     const hasWon = useMemo(() => {
         return guesses?.includes(correctWord) && attempts <= MAX_ATTEMPTS
     }, [attempts, correctWord, guesses])
+
     const setNewGameStarted = useCallback(() => {
         setGameStarted(new Date().toDateString())
     }, [setGameStarted])
 
     useEffect(() => {
         const today = new Date().toDateString()
-
         if (gameStarted && today !== gameStarted) {
             try {
                 resetGameState()

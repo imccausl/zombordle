@@ -17,19 +17,19 @@ describe('useWord', () => {
 
     it('should return a new word from word list every day', () => {
         vi.setSystemTime(new Date(2023, 7, 1))
-        const { result: firstResult } = renderHook(() => useWord(5))
+        const { result, rerender } = renderHook(() => useWord(5))
 
-        expect(firstResult.current.correctWord).toBe('word3')
+        expect(result.current.correctWord).toBe('word3')
 
         vi.setSystemTime(new Date(2023, 7, 2))
-        const { result: secondResult } = renderHook(() => useWord(5))
+        rerender()
 
-        expect(secondResult.current.correctWord).toBe('word1')
+        expect(result.current.correctWord).toBe('word1')
 
         vi.setSystemTime(new Date(2023, 7, 3))
-        const { result: thirdResult } = renderHook(() => useWord(5))
+        rerender()
 
-        expect(thirdResult.current.correctWord).toBe('word2')
+        expect(result.current.correctWord).toBe('word2')
     })
 
     describe('isValidWord', () => {
