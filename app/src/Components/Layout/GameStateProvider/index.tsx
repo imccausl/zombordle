@@ -79,15 +79,15 @@ export const GameStateProvider: React.FC<React.PropsWithChildren> = ({
 
     useEffect(() => {
         const today = new Date().toDateString()
-        if (gameStarted && today !== gameStarted) {
+        if (today !== gameStarted) {
             try {
                 resetGameState()
-                setGameStarted(today)
+                setNewGameStarted()
             } catch {
                 // do nothing
             }
         }
-    }, [gameStarted, resetGameState, setGameStarted])
+    }, [gameStarted, resetGameState, setNewGameStarted])
 
     const initialGuessValues = useMemo(
         () =>
