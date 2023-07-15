@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect } from 'react'
 
 import { MAX_ATTEMPTS } from '../../App/App.constants'
 import { useGameState } from '../GameStateProvider'
-import { useSettings } from '../SettingsProvider'
+import { type WordListLength } from '../GameStateProvider/words/useWordList'
 
 import { useCurrentStats } from './useCurrentStats'
 
@@ -27,10 +27,13 @@ export const useStats = () => {
     return context
 }
 
-export const StatsProvider: React.FC<React.PropsWithChildren> = ({
-    children,
-}) => {
-    const { wordLength } = useSettings()
+type StatsProviderProps = {
+    wordLength?: WordListLength
+}
+
+export const StatsProvider: React.FC<
+    React.PropsWithChildren<StatsProviderProps>
+> = ({ children, wordLength = 5 }) => {
     const {
         hasWon,
         attempts,

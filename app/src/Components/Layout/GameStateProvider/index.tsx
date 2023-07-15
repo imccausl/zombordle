@@ -8,10 +8,10 @@ import {
 
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
 import { MAX_ATTEMPTS } from '../../App/App.constants'
-import { useSettings } from '../SettingsProvider'
 
 import { useCurrentGameState } from './useCurrentGameState'
 import { useWord } from './words/useWord'
+import { type WordListLength } from './words/useWordList'
 
 type GameStateContextValues = {
     setGuess: (guess: string) => void
@@ -49,10 +49,13 @@ export const useGameState = () => {
     return context
 }
 
-export const GameStateProvider: React.FC<React.PropsWithChildren> = ({
-    children,
-}) => {
-    const { wordLength } = useSettings()
+type GameStateProviderProps = {
+    wordLength?: WordListLength
+}
+
+export const GameStateProvider: React.FC<
+    React.PropsWithChildren<GameStateProviderProps>
+> = ({ children, wordLength = 5 }) => {
     const {
         resetGameState,
         setGuess,
@@ -79,7 +82,7 @@ export const GameStateProvider: React.FC<React.PropsWithChildren> = ({
 
     useEffect(() => {
         const today = new Date().toDateString()
-        if (today !== gameStarted) {
+        if (gameStarted && today !== gameStarted) {
             try {
                 resetGameState()
                 setNewGameStarted()

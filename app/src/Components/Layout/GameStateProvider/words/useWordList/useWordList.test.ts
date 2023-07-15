@@ -11,8 +11,13 @@ describe('useWordList', () => {
         },
     )
 
-    it.only('should return a word list of length 5 if the word list length is not 5, 6, or 7', () => {
+    it('should return a word list of length 5 if the word list length is greater than 7', () => {
         const { result } = renderHook(() => useWordList(8 as any))
+        expect(result.current[0].length).toBe(5)
+    })
+
+    it('should return a word list of length 5 if the word list length is less than 5', () => {
+        const { result } = renderHook(() => useWordList(4 as any))
         expect(result.current[0].length).toBe(5)
     })
 })

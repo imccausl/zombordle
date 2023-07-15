@@ -14,14 +14,14 @@ type FullGameState = {
     [key: string]: GameState
 }
 
-const initialGameState: GameState = {
+export const initialGameState: GameState = {
     guesses: [],
     hasPlayed: false,
     lastPlayed: null,
     lastCompleted: null,
 }
 
-const fullInitialGameState: FullGameState = {
+export const fullInitialGameState: FullGameState = {
     '5': initialGameState,
     '6': initialGameState,
     '7': initialGameState,

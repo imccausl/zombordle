@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import { GameStateProvider } from './GameStateProvider'
 import { Header } from './Header'
-import { SettingsProvider } from './SettingsProvider'
+import { SettingsProvider, useSettings } from './SettingsProvider'
 import { StatsProvider } from './StatsProvider'
 import { ThemeProvider } from './ThemeProvider'
 
@@ -21,17 +21,23 @@ const Main = styled.main`
         height: calc(100% - 40px);
     }
 `
+const GameProviders: React.FC<React.PropsWithChildren> = ({ children }) => {
+    const { wordLength } = useSettings()
 
+    return (
+        <GameStateProvider wordLength={wordLength}>
+            <StatsProvider wordLength={wordLength}>{children}</StatsProvider>
+        </GameStateProvider>
+    )
+}
 export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
     return (
         <ThemeProvider>
             <SettingsProvider>
-                <GameStateProvider>
-                    <StatsProvider>
-                        <Header />
-                        <Main>{children}</Main>
-                    </StatsProvider>
-                </GameStateProvider>
+                <GameProviders>
+                    <Header />
+                    <Main>{children}</Main>
+                </GameProviders>
             </SettingsProvider>
         </ThemeProvider>
     )
