@@ -16,7 +16,7 @@
     "@zombordle/design-tokens": "workspace:packages/design-tokens",
     "formula-one": "workspace:packages/formula-one",
     "logrocket": "^4.0.3",
-    "next": "^13.4.4",
+    "next": "^13.4.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
@@ -39,6 +39,6 @@
     "typescript": "^5.1.3",
     "vite": "^4.3.9",
     "vite-plugin-svgr": "^3.2.0",
-    "vitest": "^0.32.2"
+    "vitest": "^0.33.0"
   }
 }
