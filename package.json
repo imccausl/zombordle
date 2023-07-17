@@ -13,7 +13,7 @@
     "build": "yarn turbo run build --cache-dir='./.cache'",
     "build-tokens": "rm -rf packages/design-tokens/lib && yarn workspace @zombordle/design-tokens build-tokens",
     "lint": "yarn turbo run lint --color --cache-dir='./.cache'",
-    "test": "yarn turbo run test --color --cache-dir='./.cache'",
+    "test": "TZ=\"America/Toronto\" yarn turbo run test --color --cache-dir='./.cache'",
     "lint-css": "stylelint ./**/*.{ts,tsx}",
     "test-related": "yarn workspaces foreach run test-related",
     "postinstall": "husky install"

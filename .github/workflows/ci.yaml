@@ -1,4 +1,5 @@
 name: CI Tasks
+
 on:
   push:
     branches: [main]
