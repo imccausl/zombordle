@@ -27,7 +27,7 @@ export const fullInitialGameState: FullGameState = {
     '7': initialGameState,
 }
 
-const resetInitialGameState: Partial<GameState> = {
+export const resetInitialGameState: Partial<GameState> = {
     guesses: [],
     hasPlayed: false,
 }
