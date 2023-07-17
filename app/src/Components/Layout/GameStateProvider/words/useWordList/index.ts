@@ -1,14 +1,8 @@
 import { useMemo } from 'react'
 
-import { fiveLetterWords } from '../wordlists/fiveLetterWords'
-import { sevenLetterWords } from '../wordlists/sevenLetterWords'
-import { sixLetterWords } from '../wordlists/sixLetterWords'
+import { dictionary } from '../dictionary'
 
-const wordListMap = {
-    five: fiveLetterWords,
-    six: sixLetterWords,
-    seven: sevenLetterWords,
-} as const
+const DEFAULT_LENGTH = 5
 
 export const WordList = {
     5: 'five',
@@ -20,7 +14,7 @@ export type WordListLength = keyof typeof WordList
 
 export const useWordList = (wordListLength: WordListLength = 5) => {
     return useMemo(() => {
-        const inWordList = wordListLength > 4 && wordListLength < 8
-        return wordListMap[WordList[!inWordList ? 5 : wordListLength]]
+        const allowedLength = wordListLength > 4 && wordListLength < 8
+        return dictionary.filter((word) => word.length === wordListLength && allowedLength ||DEFAULT_LENGTH )
     }, [wordListLength])
 }
