@@ -7,27 +7,29 @@ import {
 } from './useCurrentGameState'
 
 describe('useCurrentGameState', () => {
+    const mockState = JSON.stringify({
+        '5': {
+            guesses: ['trial', 'error', '5test'],
+            hasPlayed: true,
+            lastPlayed: 1688184000000,
+            lastCompleted: 1688184000000,
+        },
+        '6': {
+            guesses: ['season', 'peptic', '6ltest'],
+            hasPlayed: false,
+            lastPlayed: 1688184000000,
+            lastCompleted: 1688184000000,
+        },
+        '7': {
+            guesses: ['ductile', 'aground', '7letest'],
+            hasPlayed: true,
+            lastPlayed: 1688184000000,
+            lastCompleted: 1688184000000,
+        },
+    })
+
     beforeEach(() => {
-        const mockState = JSON.stringify({
-            '5': {
-                guesses: ['trial', 'error', '5test'],
-                hasPlayed: true,
-                lastPlayed: 1688184000000,
-                lastCompleted: 1688184000000,
-            },
-            '6': {
-                guesses: ['season', 'peptic', '6ltest'],
-                hasPlayed: false,
-                lastPlayed: 1688184000000,
-                lastCompleted: 1688184000000,
-            },
-            '7': {
-                guesses: ['ductile', 'aground', '7letest'],
-                hasPlayed: true,
-                lastPlayed: 1688184000000,
-                lastCompleted: 1688184000000,
-            },
-        })
+        vi.setSystemTime(new Date(2023, 6, 1))
         window.localStorage.setItem('zombordle_gameState', mockState)
     })
 
@@ -66,7 +68,6 @@ describe('useCurrentGameState', () => {
     })
 
     it('should set hasPlayed and lastPlayed values for the current game', () => {
-        vi.setSystemTime(new Date(2023, 6, 1))
         const { result } = renderHook(() => useCurrentGameState(5))
         expect(result.current.currentGameState.hasPlayed).toEqual(true)
         expect(result.current.currentGameState.lastPlayed).toBe(1688184000000)
@@ -93,9 +94,8 @@ describe('useCurrentGameState', () => {
     })
 
     it('should set hasPlayed, lastCompleted, and lastPlayed values for the current game', () => {
-        vi.setSystemTime(new Date(2023, 6, 1))
         const { result } = renderHook(() => useCurrentGameState(5))
-        expect(result.current.currentGameState.hasPlayed).toEqual(true)
+        expect(result.current.hasPlayed).toEqual(true)
         expect(result.current.currentGameState.lastPlayed).toEqual(
             1688184000000,
         )

@@ -101,7 +101,6 @@ describe('GameStateProvider', () => {
                     </GameStateProvider>,
                 )
 
-                screen.debug()
                 screen.getByText(containsCorrectWord)
             },
         )
