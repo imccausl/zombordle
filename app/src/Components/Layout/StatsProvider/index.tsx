@@ -44,6 +44,7 @@ export const StatsProvider: React.FC<
     } = useGameState()
     const { setCurrentStats, maxStreak, currentStreak, distribution } =
         useCurrentStats(wordLength)
+
     useEffect(() => {
         const today = new Date().setHours(0, 0, 0, 0)
 
