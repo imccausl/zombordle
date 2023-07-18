@@ -8,7 +8,10 @@ const mockWordList = ['word1', 'word2', 'word3']
 
 describe('useWord', () => {
     beforeEach(() => {
-        vi.spyOn(wordListModule, 'useWordList').mockReturnValue(mockWordList)
+        vi.spyOn(wordListModule, 'useWordList').mockReturnValue({
+            wordList: mockWordList,
+            isValidWord: vi.fn(),
+        })
     })
 
     afterEach(() => {
@@ -30,19 +33,5 @@ describe('useWord', () => {
         rerender()
 
         expect(result.current.correctWord).toBe('word2')
-    })
-
-    describe('isValidWord', () => {
-        it('should return true if the word is in the word list', () => {
-            const { result } = renderHook(() => useWord(5))
-
-            expect(result.current.isValidWord('word1')).toBe(true)
-        })
-
-        it('should not return true if the word is in the word list', () => {
-            const { result } = renderHook(() => useWord(5))
-
-            expect(result.current.isValidWord('word4')).toBe(false)
-        })
     })
 })

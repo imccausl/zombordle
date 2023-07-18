@@ -12,7 +12,6 @@ type StatsContextValues = {
     maxStreak: number | undefined
     currentStreak: number | undefined
     distribution: Distribution
-    migrateLegacyStats: () => void
 }
 
 const StatsContext = createContext<StatsContextValues | null>(null)
@@ -43,14 +42,8 @@ export const StatsProvider: React.FC<
         setHasCompleted,
         correctWord,
     } = useGameState()
-    const {
-        setCurrentStats,
-        maxStreak,
-        currentStreak,
-        distribution,
-        legacyStats,
-        migrateLegacyStats,
-    } = useCurrentStats(wordLength)
+    const { setCurrentStats, maxStreak, currentStreak, distribution } =
+        useCurrentStats(wordLength)
     useEffect(() => {
         const today = new Date().setHours(0, 0, 0, 0)
 
@@ -59,43 +52,18 @@ export const StatsProvider: React.FC<
                 const yesterday = new Date(today).setDate(
                     new Date(today).getDate() - 1,
                 )
-                let newCurrentStreak =
+                const newCurrentStreak =
                     lastCompleted === yesterday ? (currentStreak ?? 0) + 1 : 1
 
-                let newMaxStreak =
+                const newMaxStreak =
                     newCurrentStreak >= (maxStreak ?? 0)
                         ? newCurrentStreak
                         : maxStreak ?? 0
 
-                let newDistribution = {
+                const newDistribution = {
                     ...distribution,
                     [attempts.toString()]:
                         distribution[attempts.toString()] + 1,
-                }
-
-                if (wordLength !== 5) {
-                    migrateLegacyStats()
-                } else {
-                    const legacyMaxStreak = legacyStats?.maxStreak
-                    const legacyCurrentStreak = legacyStats?.currentStreak
-                    const legacyDistribution = legacyStats?.distribution
-
-                    newMaxStreak =
-                        typeof legacyMaxStreak === 'number'
-                            ? newMaxStreak + legacyMaxStreak
-                            : newMaxStreak
-
-                    newCurrentStreak =
-                        typeof legacyCurrentStreak === 'number'
-                            ? newCurrentStreak + legacyCurrentStreak
-                            : newCurrentStreak
-
-                    newDistribution = {
-                        ...(legacyDistribution ?? {}),
-                        [attempts.toString()]:
-                            (legacyDistribution?.[attempts.toString()] ?? 0) +
-                            1,
-                    }
                 }
 
                 setHasCompleted()
@@ -112,16 +80,7 @@ export const StatsProvider: React.FC<
         } else if (attempts >= MAX_ATTEMPTS) {
             // loss
             if (!hasPlayed) {
-                let lossCount = distribution.loss + 1
-                if (wordLength !== 5) {
-                    migrateLegacyStats()
-                } else {
-                    const legacyLossCount = legacyStats?.distribution?.loss
-                    lossCount =
-                        typeof legacyLossCount === 'number'
-                            ? lossCount + legacyLossCount
-                            : lossCount
-                }
+                const lossCount = distribution.loss + 1
 
                 setHasPlayed()
                 setCurrentStats({
@@ -146,11 +105,7 @@ export const StatsProvider: React.FC<
         hasPlayed,
         hasWon,
         lastCompleted,
-        legacyStats?.currentStreak,
-        legacyStats?.distribution,
-        legacyStats?.maxStreak,
         maxStreak,
-        migrateLegacyStats,
         setCurrentStats,
         setHasCompleted,
         setHasPlayed,
@@ -163,7 +118,6 @@ export const StatsProvider: React.FC<
                 maxStreak,
                 currentStreak,
                 distribution,
-                migrateLegacyStats,
             }}
         >
             {children}

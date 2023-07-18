@@ -1,11 +1,10 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import seedrandom from 'seedrandom'
 
 import dictionary from '../dictionary.json'
 
 const DEFAULT_LENGTH = 5
-const RANDOM_SEED =
-    'kdjjhsfu387248932iucajchas.j,dnf.eadnzzombocomyoucandoanything7384738'
+const RANDOM_SEED = 'ohhai. this is a random seed.'
 
 export const WordList = {
     5: 'five',
@@ -31,12 +30,24 @@ const shuffledDictionary = shuffle(dictionary as Array<string>)
 export type WordListLength = keyof typeof WordList
 
 export const useWordList = (wordListLength: WordListLength = 5) => {
-    return useMemo(() => {
-        const allowedLength = wordListLength > 4 && wordListLength < 8
-        return shuffledDictionary.filter(
-            (word) =>
-                word.length ===
-                (allowedLength ? wordListLength : DEFAULT_LENGTH),
+    const allowedLength = wordListLength > 4 && wordListLength < 8
+
+    const wordList = useMemo(
+        () =>
+            shuffledDictionary.filter(
+                (word) =>
+                    word.length ===
+                        (allowedLength ? wordListLength : DEFAULT_LENGTH) &&
+                    !word.endsWith('s'),
+            ),
+        [allowedLength, wordListLength],
+    )
+
+    const isValidWord = useCallback((testString: string) => {
+        return Boolean(
+            (dictionary as Array<string>).includes(testString.toLowerCase()),
         )
-    }, [wordListLength])
+    }, [])
+
+    return useMemo(() => ({ wordList, isValidWord }), [wordList, isValidWord])
 }

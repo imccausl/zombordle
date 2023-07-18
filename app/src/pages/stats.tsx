@@ -1,7 +1,7 @@
 import { ThemeTokens } from '@zombordle/design-tokens'
 import Head from 'next/head'
 import Link from 'next/link'
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import styled from 'styled-components'
 
 import { DistributionChart } from '../Components/DistributionChart'
@@ -24,8 +24,7 @@ const StyledLink = styled(Link)`
 `
 
 export default function Stats() {
-    const { distribution, currentStreak, maxStreak, migrateLegacyStats } =
-        useStats()
+    const { distribution, currentStreak, maxStreak } = useStats()
     const { wordLength } = useSettings()
 
     const gamesPlayed = useMemo(
@@ -52,10 +51,6 @@ export default function Stats() {
         const percentage = Math.floor((gamesWon / gamesPlayed) * 100)
         return Number.isNaN(percentage) ? 0 : percentage
     }, [gamesPlayed, gamesWon])
-
-    useEffect(() => {
-        migrateLegacyStats()
-    }, [migrateLegacyStats])
 
     return (
         <>

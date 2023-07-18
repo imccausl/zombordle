@@ -57,19 +57,6 @@ export const useCurrentStats = (wordLength: WordListLength) => {
         },
         [currentStats, setStats, stats, wordLength],
     )
-    const legacyStats = useMemo(() => {
-        return { ...((stats as Stats) ?? {}) }
-    }, [stats])
-    const migrateLegacyStats = useCallback(() => {
-        if (!Object.keys(stats).includes('5')) {
-            setStats({
-                ...stats,
-                5: {
-                    ...legacyStats,
-                },
-            })
-        }
-    }, [legacyStats, setStats, stats])
 
     return useMemo(
         () => ({
@@ -77,16 +64,12 @@ export const useCurrentStats = (wordLength: WordListLength) => {
             maxStreak: currentStats.maxStreak,
             currentStreak: currentStats.currentStreak,
             distribution: currentStats.distribution,
-            migrateLegacyStats,
-            legacyStats,
         }),
         [
             currentStats.currentStreak,
             currentStats.distribution,
             currentStats.maxStreak,
             setCurrentStats,
-            migrateLegacyStats,
-            legacyStats,
         ],
     )
 }

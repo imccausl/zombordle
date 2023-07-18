@@ -84,9 +84,10 @@ describe('GameStateProvider', () => {
                     JSON.stringify('Sat Jul 01 2023'),
                 )
 
-                vi.spyOn(wordListModule, 'useWordList').mockReturnValue([
-                    correctWord,
-                ])
+                vi.spyOn(wordListModule, 'useWordList').mockReturnValue({
+                    wordList: [correctWord],
+                    isValidWord: (word: string) => word === correctWord,
+                })
 
                 const gameState = Object.assign({}, fullInitialGameState)
                 gameState['5'].guesses = guesses
