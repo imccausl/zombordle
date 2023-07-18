@@ -29,6 +29,8 @@ export const useWord = (wordListLength?: WordListLength) => {
         [wordList],
     )
 
+    console.log({ correctWord: wordList[index], wordList })
+
     return useMemo(
         () => ({ correctWord: wordList[index], wordList, isValidWord }),
         [index, isValidWord, wordList],
