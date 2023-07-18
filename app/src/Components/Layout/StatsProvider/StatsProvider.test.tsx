@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 
 import * as useWord from '../GameStateProvider/words/useWord'
 
-import { StatsProvider } from './StatsProvider'
+import { StatsProvider, useStats } from '.'
 
 const mockState = JSON.stringify({
     '5': {
@@ -35,7 +35,19 @@ describe('StatsProvider', () => {
         window.localStorage.clear()
     })
 
-    it.todo('should throw and error if context is missing')
+    it('should throw and error if context is missing', () => {
+        const ContextlessHookCall: React.FC = () => {
+            const { maxStreak } = useStats()
+
+            return <div>{maxStreak}</div>
+        }
+
+        expect(() =>
+            render(<ContextlessHookCall />),
+        ).toThrowErrorMatchingInlineSnapshot(
+            '"useStats must be used within a StatsProvider"',
+        )
+    })
 
     describe('when user has guessed correctly (won)', () => {
         it.todo('should update the hasCompleted values in the game state')
