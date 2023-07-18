@@ -7,11 +7,11 @@ import {
 } from 'react'
 
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
-import { useWord } from '../../../hooks/words/useWord'
 import { MAX_ATTEMPTS } from '../../App/App.constants'
-import { useSettings } from '../SettingsProvider'
 
 import { useCurrentGameState } from './useCurrentGameState'
+import { useWord } from './words/useWord'
+import { type WordListLength } from './words/useWordList'
 
 type GameStateContextValues = {
     setGuess: (guess: string) => void
@@ -49,10 +49,13 @@ export const useGameState = () => {
     return context
 }
 
-export const GameStateProvider: React.FC<React.PropsWithChildren> = ({
-    children,
-}) => {
-    const { wordLength } = useSettings()
+type GameStateProviderProps = {
+    wordLength?: WordListLength
+}
+
+export const GameStateProvider: React.FC<
+    React.PropsWithChildren<GameStateProviderProps>
+> = ({ children, wordLength = 5 }) => {
     const {
         resetGameState,
         setGuess,
@@ -72,22 +75,22 @@ export const GameStateProvider: React.FC<React.PropsWithChildren> = ({
     const hasWon = useMemo(() => {
         return guesses?.includes(correctWord) && attempts <= MAX_ATTEMPTS
     }, [attempts, correctWord, guesses])
+
     const setNewGameStarted = useCallback(() => {
         setGameStarted(new Date().toDateString())
     }, [setGameStarted])
 
     useEffect(() => {
         const today = new Date().toDateString()
-
         if (gameStarted && today !== gameStarted) {
             try {
                 resetGameState()
-                setGameStarted(today)
+                setNewGameStarted()
             } catch {
                 // do nothing
             }
         }
-    }, [gameStarted, resetGameState, setGameStarted])
+    }, [gameStarted, resetGameState, setNewGameStarted])
 
     const initialGuessValues = useMemo(
         () =>

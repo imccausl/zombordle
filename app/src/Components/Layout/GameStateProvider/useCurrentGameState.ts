@@ -1,7 +1,8 @@
 import { useCallback, useMemo } from 'react'
 
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
-import { type WordListLength } from '../../../hooks/words/useWordList'
+
+import { type WordListLength } from './words/useWordList'
 
 type GameState = {
     guesses: Array<string>
@@ -13,20 +14,20 @@ type FullGameState = {
     [key: string]: GameState
 }
 
-const initialGameState: GameState = {
+export const initialGameState: GameState = {
     guesses: [],
     hasPlayed: false,
     lastPlayed: null,
     lastCompleted: null,
 }
 
-const fullInitialGameState: FullGameState = {
+export const fullInitialGameState: FullGameState = {
     '5': initialGameState,
     '6': initialGameState,
     '7': initialGameState,
 }
 
-const resetInitialGameState: Partial<GameState> = {
+export const resetInitialGameState: Partial<GameState> = {
     guesses: [],
     hasPlayed: false,
 }

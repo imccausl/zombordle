@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import { useCallback } from 'react'
 
+import { type WordListLength } from '../Components/Layout/GameStateProvider/words/useWordList'
 import { useSettings } from '../Components/Layout/SettingsProvider'
 import { type Theme, useThemeContext } from '../Components/Layout/ThemeProvider'
-import { type WordListLength } from '../hooks/words/useWordList'
 
 export default function Settings() {
     const { theme, setTheme, colorSchemePreference } = useThemeContext()
