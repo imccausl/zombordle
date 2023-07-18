@@ -28,7 +28,7 @@ __metadata:
   dependencies:
     "@reduxjs/toolkit": ^1.9.5
     "@svgr/webpack": ^8.0.1
-    "@testing-library/dom": ^9.0.1
+    "@testing-library/dom": ^9.3.1
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^14.0.0
     "@testing-library/user-event": ^14.4.3
@@ -5690,7 +5690,7 @@ __metadata:
   resolution: "formula-one@workspace:packages/formula-one"
   dependencies:
     "@reduxjs/toolkit": ^1.9.5
-    "@testing-library/dom": ^9.0.1
+    "@testing-library/dom": ^9.3.1
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^14.0.0
     "@testing-library/user-event": ^14.4.3
@@ -10620,7 +10620,7 @@ __metadata:
   resolution: "zombordle@workspace:."
   dependencies:
     "@svgr/webpack": ^8.0.1
-    "@testing-library/dom": ^9.0.1
+    "@testing-library/dom": ^9.3.1
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^14.0.0
     "@testing-library/user-event": ^14.4.3
