@@ -22,7 +22,11 @@ export const useWord = (wordListLength?: WordListLength) => {
 
     if (process.env.NODE_ENV === 'development') {
         // eslint-disable-next-line no-console
-        console.log(`[DEBUG] Correct word is ${wordList[index]}`)
+        console.log(`[DEBUG] Correct word is: ${wordList[index]}`)
+        // eslint-disable-next-line no-console
+        console.log(
+            `[DEBUG] number of ${wordListLength} letter words: ${wordList.length}`,
+        )
     }
 
     return useMemo(
