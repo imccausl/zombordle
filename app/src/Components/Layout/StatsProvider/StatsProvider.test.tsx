@@ -1,15 +1,16 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 
-import * as useWord from '../GameStateProvider/words/useWord'
+import { GameStateProvider } from '../GameStateProvider'
+import * as useWordModule from '../GameStateProvider/words/useWord'
 
 import { StatsProvider, useStats } from '.'
 
 const mockState = JSON.stringify({
     '5': {
         guesses: ['trial', 'error', '5test'],
-        hasPlayed: true,
-        lastPlayed: 1688184000000,
-        lastCompleted: 1688184000000,
+        hasPlayed: false,
+        lastPlayed: null,
+        lastCompleted: null,
     },
     '6': {
         guesses: ['season', 'peptic', '6ltest'],
@@ -50,7 +51,27 @@ describe('StatsProvider', () => {
     })
 
     describe('when user has guessed correctly (won)', () => {
-        it.todo('should update the hasCompleted values in the game state')
+        beforeEach(() => {
+            vi.spyOn(useWordModule, 'useWord').mockReturnValue({
+                correctWord: 'trial',
+                wordList: ['trial', 'error', '5test'],
+                isValidWord: () => true,
+            })
+        })
+
+        it.only('should update the hasCompleted values in the game state', () => {
+            render(
+                <GameStateProvider>
+                    <StatsProvider />
+                </GameStateProvider>,
+            )
+
+            const stats = JSON.parse(
+                window.localStorage.getItem('zombordle_stats') as string,
+            )
+            expect(stats).toBe()
+        })
+
         it.todo('should increment the current streak value')
         it.todo(
             'should increment the max streak value if current streak is greater than (previous) max streak',

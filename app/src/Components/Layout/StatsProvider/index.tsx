@@ -47,7 +47,7 @@ export const StatsProvider: React.FC<
 
     useEffect(() => {
         const today = new Date().setHours(0, 0, 0, 0)
-
+        console.log({ hasWon, hasPlayed })
         if (hasWon) {
             if (!hasPlayed) {
                 const yesterday = new Date(today).setDate(
