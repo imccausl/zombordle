@@ -66,10 +66,12 @@ describe('StatsProvider', () => {
                 </GameStateProvider>,
             )
 
-            const stats = JSON.parse(
-                window.localStorage.getItem('zombordle_stats') as string,
+            const state = JSON.parse(
+                window.localStorage.getItem('zombordle_gameState') as string,
             )
-            expect(stats).toBe()
+            expect(state.hasPlayed).toBe(true)
+            expect(state.lastCompleted).toBe()
+            expect(state.lastPlayed).toBe(true)
         })
 
         it.todo('should increment the current streak value')
