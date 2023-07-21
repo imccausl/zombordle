@@ -2715,6 +2715,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tophat/eslint-import-resolver-require@npm:^0.1.5":
+  version: 0.1.5
+  resolution: "@tophat/eslint-import-resolver-require@npm:0.1.5"
+  peerDependencies:
+    eslint-plugin-import: ">= 2.0.0"
+  checksum: a2d54b30dc8f10bf8d5dac5bc4783ca7841be0bf154bd543567b68191d8ad5c36bb00a5cd99e33df6f1178b7fee89bbfc7a44afaacebdc84b207c0014ad9dd76
+  languageName: node
+  linkType: hard
+
 "@trysound/sax@npm:0.2.0":
   version: 0.2.0
   resolution: "@trysound/sax@npm:0.2.0"
@@ -10625,7 +10634,7 @@ __metadata:
     "@testing-library/react": ^14.0.0
     "@testing-library/user-event": ^14.4.3
     "@tophat/eslint-config": ^7.0.1
-    "@tophat/eslint-import-resolver-require": ^0.1.4
+    "@tophat/eslint-import-resolver-require": ^0.1.5
     "@types/node": ^18.14.6
     "@types/react": ^18.2.13
     "@types/react-dom": ^18.2.4
