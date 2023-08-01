@@ -8,7 +8,7 @@ module.exports = {
     ],
     settings: {
         next: {
-            rootDir: 'app/src',
+            rootDir: 'app',
         },
     },
     parserOptions: {
