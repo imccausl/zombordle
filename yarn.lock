@@ -2981,7 +2981,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/testing-library__jest-dom@npm:^5.14.6, @types/testing-library__jest-dom@npm:^5.9.1":
+"@types/testing-library__jest-dom@npm:^5.14.9":
+  version: 5.14.9
+  resolution: "@types/testing-library__jest-dom@npm:5.14.9"
+  dependencies:
+    "@types/jest": "*"
+  checksum: d364494fc2545316292e88861146146af1e3818792ca63b62a63758b2f737669b687f4aaddfcfbcb7d0e1ed7890a9bd05de23ff97f277d5e68de574497a9ee72
+  languageName: node
+  linkType: hard
+
+"@types/testing-library__jest-dom@npm:^5.9.1":
   version: 5.14.6
   resolution: "@types/testing-library__jest-dom@npm:5.14.6"
   dependencies:
@@ -10723,7 +10732,7 @@ __metadata:
     "@types/node": ^18.14.6
     "@types/react": 18.2.13
     "@types/react-dom": ^18.2.7
-    "@types/testing-library__jest-dom": ^5.14.6
+    "@types/testing-library__jest-dom": ^5.14.9
     "@typescript-eslint/eslint-plugin": ^6.1.0
     "@typescript-eslint/parser": ^6.2.1
     "@vitejs/plugin-react": ^4.0.4
