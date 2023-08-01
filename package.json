@@ -21,7 +21,7 @@
   "devDependencies": {
     "@svgr/webpack": "^8.0.1",
     "@testing-library/dom": "^9.0.1",
-    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@tophat/eslint-config": "^7.0.4",
@@ -67,5 +67,5 @@
   "resolutions": {
     "@testing-library/dom": "^9.0.1"
   },
-  "packageManager": "yarn@3.6.0"
+  "packageManager": "yarn@3.6.1"
 }
