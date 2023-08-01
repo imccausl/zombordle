@@ -27,7 +27,7 @@ export const RevealerContentContainer = styled.div<RevealerContentContainerProps
     * the revealer content width. Feels a tiny bit hacky and may want to go about
     * this a bit more dynamically.
     */
-    @media screen and (max-device-width: 530px) {
+    @media screen and (device-width <= 530px) {
         width: 270px;
     }
 `
