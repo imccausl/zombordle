@@ -8,11 +8,14 @@ module.exports = {
     ],
     settings: {
         next: {
-            rootDir: 'app/',
+            rootDir: 'app/src',
         },
     },
     parserOptions: {
         tsconfigRootDir: __dirname,
         project: ['./tsconfig.json'],
+    },
+    rules: {
+        '@next/next/no-html-link-for-pages': ['error', 'app/src/pages/'],
     },
 }
