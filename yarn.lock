@@ -32,7 +32,7 @@ __metadata:
     "@testing-library/jest-dom": ^5.17.0
     "@testing-library/react": ^14.0.0
     "@testing-library/user-event": ^14.4.3
-    "@types/node": 18.15.11
+    "@types/node": 20.4.7
     "@types/react": ^18.2.18
     "@types/seedrandom": ^3.0.5
     "@vitejs/plugin-react": ^4.0.4
@@ -2878,17 +2878,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^20.3.2":
+"@types/node@npm:*":
   version: 20.3.2
   resolution: "@types/node@npm:20.3.2"
   checksum: 5929ce2b9b12b1e2a2304a0921a953c72a81f5753ad39ac43b99ce6312fbb2b4fb5bc6b60d64a2550704e3223cd5de1299467d36085ac69888899db978f2653a
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.15.11, @types/node@npm:^18.14.6":
-  version: 18.15.11
-  resolution: "@types/node@npm:18.15.11"
-  checksum: 977b4ad04708897ff0eb049ecf82246d210939c82461922d20f7d2dcfd81bbc661582ba3af28869210f7e8b1934529dcd46bff7d448551400f9d48b9d3bddec3
+"@types/node@npm:20.4.7, @types/node@npm:^20.4.7":
+  version: 20.4.7
+  resolution: "@types/node@npm:20.4.7"
+  checksum: a40d7003f66b56220a2028179e49f950b46fa6dbf860a4a6ecbd6ba7976f05b2f0b31ced39689ec88a7d9e32d07e088c6a06d270b99d5bc13a28291ac2f30ca7
   languageName: node
   linkType: hard
 
@@ -3596,7 +3596,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@zombordle/design-tokens@workspace:packages/design-tokens"
   dependencies:
-    "@types/node": ^20.3.2
+    "@types/node": ^20.4.7
     style-dictionary: ^3.8.0
     ts-node: ^10.9.1
     typescript: ^5.1.6
@@ -5752,7 +5752,7 @@ __metadata:
     "@testing-library/jest-dom": ^5.17.0
     "@testing-library/react": ^14.0.0
     "@testing-library/user-event": ^14.4.3
-    "@types/node": 18.15.11
+    "@types/node": 20.4.7
     "@types/react": ^18.2.18
     "@vitejs/plugin-react": ^4.0.4
     eslint: ^8.43.0
@@ -10628,7 +10628,7 @@ __metadata:
     "@testing-library/user-event": ^14.4.3
     "@tophat/eslint-config": ^7.0.4
     "@tophat/eslint-import-resolver-require": ^0.1.4
-    "@types/node": ^18.14.6
+    "@types/node": ^20.4.7
     "@types/react": 18.2.13
     "@types/react-dom": ^18.2.7
     "@types/testing-library__jest-dom": ^5.14.9
