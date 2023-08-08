@@ -15,7 +15,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@zombordle/design-tokens": "workspace:packages/design-tokens",
     "formula-one": "workspace:packages/formula-one",
-    "logrocket": "^4.0.4",
+    "logrocket": "^5.0.1",
     "next": "^13.4.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
