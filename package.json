@@ -42,7 +42,7 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jest-dom": "^5.0.2",
     "eslint-plugin-prettier": "^5.0.0",
-    "eslint-plugin-testing-library": "^5.11.0",
+    "eslint-plugin-testing-library": "^6.0.0",
     "hoist-non-react-statics": "^3.3.2",
     "husky": "^8.0.0",
     "jsdom": "^22.1.0",
