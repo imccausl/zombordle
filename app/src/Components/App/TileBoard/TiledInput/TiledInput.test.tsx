@@ -79,35 +79,31 @@ describe('TiledInput', () => {
             expect(fifthLetter.getAttribute('value')).toBe('')
 
             await userEvent.keyboard('{Backspace}')
-            const fourthLetter: HTMLInputElement = await screen.findByLabelText(
-                '4th letter',
-            )
+            const fourthLetter: HTMLInputElement =
+                await screen.findByLabelText('4th letter')
             expect(fourthLetter.getAttribute('value')).toBe('e')
             expect(fourthLetter).toHaveFocus()
 
             await userEvent.keyboard('{Backspace}')
             expect(fourthLetter.getAttribute('value')).toBe('')
 
-            const thirdLetter: HTMLInputElement = await screen.findByLabelText(
-                /3rd/,
-            )
+            const thirdLetter: HTMLInputElement =
+                await screen.findByLabelText(/3rd/)
             expect(thirdLetter).toHaveFocus()
             expect(thirdLetter.getAttribute('value')).toBe('m')
             await userEvent.keyboard('{Backspace}')
             expect(thirdLetter.getAttribute('value')).toBe('')
 
-            const secondLetter: HTMLInputElement = await screen.findByLabelText(
-                /2nd/,
-            )
+            const secondLetter: HTMLInputElement =
+                await screen.findByLabelText(/2nd/)
             expect(secondLetter).toHaveFocus()
             expect(secondLetter.getAttribute('value')).toBe('o')
 
             await userEvent.keyboard('{Backspace}')
             expect(secondLetter.getAttribute('value')).toBe('')
 
-            const firstLetter: HTMLInputElement = await screen.findByLabelText(
-                /1st/,
-            )
+            const firstLetter: HTMLInputElement =
+                await screen.findByLabelText(/1st/)
             expect(firstLetter).toHaveFocus()
             expect(firstLetter.getAttribute('value')).toBe('s')
 
