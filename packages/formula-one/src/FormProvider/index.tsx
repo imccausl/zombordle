@@ -327,7 +327,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
                 getFieldRefs,
                 getFieldRef,
                 resetFormState,
-            } satisfies ContextProps),
+            }) satisfies ContextProps,
         [
             state,
             handleOnChange,
