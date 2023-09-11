@@ -24,7 +24,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
-    "@tophat/eslint-config": "^7.0.4",
+    "@tophat/eslint-config": "^8.0.1",
     "@tophat/eslint-import-resolver-require": "^0.1.4",
     "@types/node": "^18.14.6",
     "@types/react": "18.2.21",
