@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 
 import { GameStateProvider } from '../GameStateProvider'
 import * as useWordModule from '../GameStateProvider/words/useWord'
@@ -20,7 +20,7 @@ const mockState = JSON.stringify({
     },
     '7': {
         guesses: ['ductile', 'aground', '7letest'],
-        hasPlayed: true,
+        hasPlayed: false,
         lastPlayed: 1688184000000,
         lastCompleted: 1688184000000,
     },
@@ -51,30 +51,68 @@ describe('StatsProvider', () => {
     })
 
     describe('when user has guessed correctly (won)', () => {
-        beforeEach(() => {
-            vi.spyOn(useWordModule, 'useWord').mockReturnValue({
-                correctWord: 'trial',
-                wordList: ['trial', 'error', '5test'],
-                isValidWord: () => true,
-            })
+        vi.spyOn(useWordModule, 'useWord').mockReturnValue({
+            correctWord: 'trial',
+            wordList: ['error', '5test', 'trial'],
+            isValidWord: () => true,
         })
 
-        it.only('should update the hasCompleted values in the game state', () => {
+        afterEach(() => {
+            vi.restoreAllMocks()
+        })
+
+        it('should update the hasCompleted values in the game state', async () => {
             render(
                 <GameStateProvider>
                     <StatsProvider />
                 </GameStateProvider>,
             )
 
-            const state = JSON.parse(
+            const gameState = JSON.parse(
                 window.localStorage.getItem('zombordle_gameState') as string,
-            )
-            expect(state.hasPlayed).toBe(true)
-            expect(state.lastCompleted).toBe()
-            expect(state.lastPlayed).toBe(true)
+            )['5']
+
+            expect(gameState.hasPlayed).toBe(true)
+            expect(gameState.lastCompleted).toBe(1688184000000)
+            expect(gameState.lastPlayed).toBe(1688184000000)
         })
 
-        it.todo('should increment the current streak value')
+        it.only('should increment the current streak value', () => {
+            const { rerender } = render(
+                <GameStateProvider>
+                    <StatsProvider />
+                </GameStateProvider>,
+            )
+
+            const statState = JSON.parse(
+                window.localStorage.getItem('zombordle_stats') as string,
+            )['5']
+            const gameState = JSON.parse(
+                window.localStorage.getItem('zombordle_gameState') as string,
+            )
+
+            expect(statState.currentStreak).toBe(1)
+
+            vi.setSystemTime(new Date(2023, 6, 2, 0, 0, 0, 0))
+            window.localStorage.setItem(
+                'zombordle_gameState',
+                JSON.stringify({
+                    ...gameState,
+                    '5': { ...gameState['5'], hasPlayed: false },
+                }),
+            )
+
+            // rerender(
+            //     <GameStateProvider>
+            //         <StatsProvider />
+            //     </GameStateProvider>,
+            // )
+
+            const nextStatState = JSON.parse(
+                window.localStorage.getItem('zombordle_stats') as string,
+            )['5']
+            expect(nextStatState.currentStreak).toBe(2)
+        })
         it.todo(
             'should increment the max streak value if current streak is greater than (previous) max streak',
         )

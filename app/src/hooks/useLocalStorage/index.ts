@@ -27,6 +27,7 @@ export const useLocalStorage = <T>(key: string, initialValue: T) => {
         if (!isServer) {
             setStoredValue(readValue() as T)
         }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
