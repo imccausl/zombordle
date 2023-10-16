@@ -5427,14 +5427,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-testing-library@npm:^6.0.1":
-  version: 6.0.1
-  resolution: "eslint-plugin-testing-library@npm:6.0.1"
+"eslint-plugin-testing-library@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "eslint-plugin-testing-library@npm:6.1.0"
   dependencies:
     "@typescript-eslint/utils": ^5.58.0
   peerDependencies:
     eslint: ^7.5.0 || ^8.0.0
-  checksum: eff1a134cb62f1c39d2136d8b89d4f231a32003fe45da2a905e5dfaa820c4a235f601ea66be6f44dd51e91debc69a36a70b586af65ac8831102b9bd411bc2705
+  checksum: 67d2f521a6af623c157d05bbefa743d9aa360d5462a9b38a82a79b0ba008cb4d6ba3f604f54ac9d12405c53b6744695fc7fde7875f2b83aa3f85a8ced7687be3
   languageName: node
   linkType: hard
 
@@ -10721,7 +10721,7 @@ __metadata:
     eslint-plugin-import: ^2.28.1
     eslint-plugin-jest-dom: ^5.1.0
     eslint-plugin-prettier: ^5.0.0
-    eslint-plugin-testing-library: ^6.0.1
+    eslint-plugin-testing-library: ^6.1.0
     hoist-non-react-statics: ^3.3.2
     husky: ^8.0.0
     jsdom: ^22.1.0
