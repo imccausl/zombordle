@@ -16,12 +16,12 @@
     "@zombordle/design-tokens": "workspace:packages/design-tokens",
     "formula-one": "workspace:packages/formula-one",
     "logrocket": "^5.0.1",
-    "next": "^13.4.19",
+    "next": "^14.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
     "seedrandom": "^3.0.5",
-    "styled-components": "^6.0.7"
+    "styled-components": "^6.1.0"
   },
   "packageManager": "yarn@3.4.1",
   "devDependencies": {
@@ -31,13 +31,13 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/node": "18.15.11",
-    "@types/react": "^18.2.21",
+    "@types/react": "^18.2.24",
     "@types/seedrandom": "^3.0.5",
     "@vitejs/plugin-react": "^4.0.4",
     "@vitest/coverage-v8": "^0.34.3",
-    "eslint": "^8.46.0",
+    "eslint": "^8.50.0",
     "jsdom": "^22.1.0",
-    "typescript": "^5.1.6",
+    "typescript": "^5.2.2",
     "vite": "^4.4.9",
     "vite-plugin-svgr": "^3.2.0",
     "vitest": "^0.34.4"

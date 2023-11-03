@@ -19,7 +19,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "react-is": "^18.0.2",
-    "styled-components": "^6.0.7"
+    "styled-components": "^6.1.0"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^17.0.0 || ^16.8.0",
@@ -32,13 +32,13 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/node": "18.15.11",
-    "@types/react": "^18.2.21",
+    "@types/react": "^18.2.24",
     "@vitejs/plugin-react": "^4.0.4",
-    "eslint": "^8.46.0",
+    "eslint": "^8.50.0",
     "jsdom": "^22.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "typescript": "^5.1.6",
+    "typescript": "^5.2.2",
     "vite": "^4.4.9",
     "vite-plugin-dts": "^3.5.3",
     "vitest": "^0.34.4"
