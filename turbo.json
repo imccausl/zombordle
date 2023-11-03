@@ -11,20 +11,13 @@
       "outputs": [
         ".next/**",
         "!.next/cache/**",
-        "lib"
+        "lib",
+        "out/**"
       ]
     },
     "build-tokens": {
       "outputs": [
         "lib"
-      ]
-    },
-    "export": {
-      "dependsOn": [
-        "build"
-      ],
-      "outputs": [
-        "out/**"
       ]
     },
     "lint": {

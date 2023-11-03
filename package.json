@@ -8,7 +8,6 @@
   ],
   "scripts": {
     "dev": "yarn build-tokens && yarn workspace @app/zombordle dev",
-    "export": "yarn turbo run export --cache-dir='./.cache'",
     "start": "yarn workspace @app/zombordle start",
     "build": "yarn turbo run build --cache-dir='./.cache'",
     "build-tokens": "rm -rf packages/design-tokens/lib && yarn workspace @zombordle/design-tokens build-tokens",
