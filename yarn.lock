@@ -8534,7 +8534,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.31":
+"postcss@npm:8.4.31, postcss@npm:^8.4.31":
   version: 8.4.31
   resolution: "postcss@npm:8.4.31"
   dependencies:
@@ -8545,7 +8545,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.23, postcss@npm:^8.4.25, postcss@npm:^8.4.27, postcss@npm:^8.4.29":
+"postcss@npm:^8.4.23, postcss@npm:^8.4.25, postcss@npm:^8.4.27":
   version: 8.4.29
   resolution: "postcss@npm:8.4.29"
   dependencies:
@@ -10980,7 +10980,7 @@ __metadata:
     husky: ^8.0.0
     jsdom: ^22.1.0
     lint-staged: ^14.0.1
-    postcss: ^8.4.29
+    postcss: ^8.4.31
     postcss-styled: ^0.34.0
     postcss-styled-syntax: ^0.5.0
     postcss-syntax: ^0.36.2
