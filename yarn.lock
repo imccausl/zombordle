@@ -39,7 +39,7 @@ __metadata:
     "@testing-library/jest-dom": ^5.17.0
     "@testing-library/react": ^14.0.0
     "@testing-library/user-event": ^14.4.3
-    "@types/node": 18.15.11
+    "@types/node": 20.8.10
     "@types/react": ^18.2.24
     "@types/seedrandom": ^3.0.5
     "@vitejs/plugin-react": ^4.1.1
@@ -2932,17 +2932,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^20.3.2":
+"@types/node@npm:*":
   version: 20.3.2
   resolution: "@types/node@npm:20.3.2"
   checksum: 5929ce2b9b12b1e2a2304a0921a953c72a81f5753ad39ac43b99ce6312fbb2b4fb5bc6b60d64a2550704e3223cd5de1299467d36085ac69888899db978f2653a
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.15.11, @types/node@npm:^18.14.6":
-  version: 18.15.11
-  resolution: "@types/node@npm:18.15.11"
-  checksum: 977b4ad04708897ff0eb049ecf82246d210939c82461922d20f7d2dcfd81bbc661582ba3af28869210f7e8b1934529dcd46bff7d448551400f9d48b9d3bddec3
+"@types/node@npm:20.8.10, @types/node@npm:^20.8.10":
+  version: 20.8.10
+  resolution: "@types/node@npm:20.8.10"
+  dependencies:
+    undici-types: ~5.26.4
+  checksum: 7c61190e43e8074a1b571e52ff14c880bc67a0447f2fe5ed0e1a023eb8a23d5f815658edb98890f7578afe0f090433c4a635c7c87311762544e20dd78723e515
   languageName: node
   linkType: hard
 
@@ -3532,7 +3534,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@zombordle/design-tokens@workspace:packages/design-tokens"
   dependencies:
-    "@types/node": ^20.3.2
+    "@types/node": ^20.8.10
     style-dictionary: ^3.8.0
     ts-node: ^10.9.1
     typescript: ^5.2.2
@@ -5750,7 +5752,7 @@ __metadata:
     "@testing-library/jest-dom": ^5.17.0
     "@testing-library/react": ^14.0.0
     "@testing-library/user-event": ^14.4.3
-    "@types/node": 18.15.11
+    "@types/node": 20.8.10
     "@types/react": ^18.2.24
     "@vitejs/plugin-react": ^4.1.1
     eslint: ^8.50.0
@@ -10069,6 +10071,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"undici-types@npm:~5.26.4":
+  version: 5.26.5
+  resolution: "undici-types@npm:5.26.5"
+  checksum: 3192ef6f3fd5df652f2dc1cd782b49d6ff14dc98e5dced492aa8a8c65425227da5da6aafe22523c67f035a272c599bb89cfe803c1db6311e44bed3042fc25487
+  languageName: node
+  linkType: hard
+
 "unicode-canonical-property-names-ecmascript@npm:^2.0.0":
   version: 2.0.0
   resolution: "unicode-canonical-property-names-ecmascript@npm:2.0.0"
@@ -10700,7 +10709,7 @@ __metadata:
     "@testing-library/user-event": ^14.4.3
     "@tophat/eslint-config": ^8.0.1
     "@tophat/eslint-import-resolver-require": ^0.1.4
-    "@types/node": ^18.14.6
+    "@types/node": ^20.8.10
     "@types/react": 18.2.24
     "@types/react-dom": ^18.2.7
     "@types/testing-library__jest-dom": ^5.14.9
