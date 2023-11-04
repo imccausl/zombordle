@@ -35,9 +35,9 @@
     "@yarnpkg/sdks": "^3.0.0-rc.51",
     "babel-plugin-styled-components": "^2.1.4",
     "eslint": "^8.50.0",
-    "eslint-config-next": "^13.5.3",
+    "eslint-config-next": "^14.0.1",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-import-resolver-typescript": "^3.6.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.28.1",
     "eslint-plugin-jest-dom": "^5.1.0",
     "eslint-plugin-prettier": "^5.0.0",
@@ -60,8 +60,11 @@
     "supports-color": "^9.4.0",
     "turbo": "^1.10.16",
     "typescript": "^5.2.2",
-    "vite": "^4.4.9",
-    "vitest": "^0.34.4"
+    "vite": "^4.5.0",
+    "vitest": "^0.34.6"
+  },
+  "resolutions": {
+    "vite": "^4.5.0"
   },
   "packageManager": "yarn@3.6.3"
 }
