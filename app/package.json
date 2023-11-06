@@ -32,7 +32,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/node": "20.8.10",
     "@types/react": "^18.2.24",
-    "@types/seedrandom": "^3.0.5",
+    "@types/seedrandom": "^3.0.7",
     "@vitejs/plugin-react": "^4.1.1",
     "@vitest/coverage-v8": "^0.34.3",
     "eslint": "^8.50.0",
