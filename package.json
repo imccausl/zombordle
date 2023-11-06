@@ -45,7 +45,7 @@
     "hoist-non-react-statics": "^3.3.2",
     "husky": "^8.0.0",
     "jsdom": "^22.1.0",
-    "lint-staged": "^14.0.1",
+    "lint-staged": "^15.0.2",
     "postcss": "^8.4.31",
     "postcss-styled": "^0.34.0",
     "postcss-styled-syntax": "^0.5.0",
