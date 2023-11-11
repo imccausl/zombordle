@@ -3,8 +3,8 @@ import { useCallback, useState } from 'react'
 import { StyledIconButton } from '../Header.styles'
 
 import { SoundControlContainer } from './SoundControl.styles'
-import { ReactComponent as MuteIcon } from './assets/mute_icon.svg'
-import { ReactComponent as SpeakerIcon } from './assets/speaker_icon.svg'
+import MuteIcon from './assets/mute_icon.svg?react'
+import SpeakerIcon from './assets/speaker_icon.svg?react'
 
 const SoundControlButton: React.FC<{
     isMuted: boolean
@@ -15,9 +15,9 @@ const SoundControlButton: React.FC<{
     return (
         <StyledIconButton aria-label={ariaLabel} onClick={onClick}>
             {isMuted ? (
-                <MuteIcon aria-hidden="true" />
+                <MuteIcon width="2em" height="2em" />
             ) : (
-                <SpeakerIcon aria-hidden="true" />
+                <SpeakerIcon width="2em" height="2em" />
             )}
         </StyledIconButton>
     )

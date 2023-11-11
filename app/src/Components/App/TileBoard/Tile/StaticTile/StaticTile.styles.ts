@@ -79,7 +79,12 @@ const TileSize = {
     '7': '49px',
 }
 
-export const TileContainer = styled.li<TileProps & { hasLetter: boolean }>`
+export const TileContainer = styled.li<{
+    $variant: TileProps['variant']
+    $hasLetter: boolean
+    $wordLength: TileProps['wordLength']
+    $animationDelayMultiplier: TileProps['animationDelayMultiplier']
+}>`
     list-style-type: none;
     text-indent: 0;
     margin: 0 5px 0 0;
@@ -92,29 +97,34 @@ export const TileContainer = styled.li<TileProps & { hasLetter: boolean }>`
     justify-content: center;
     align-items: center;
     border: 2px solid
-        ${({ hasLetter }) =>
-            hasLetter ? VariantBorder.full : VariantBorder.default};
+        ${({ $hasLetter }) =>
+            $hasLetter ? VariantBorder.full : VariantBorder.default};
     height: 62px;
     width: 62px;
     text-transform: uppercase;
-    ${({ hasLetter, variant }) => hasLetter && postSubmitAnimation(variant)};
-    animation-delay: ${({ animationDelayMultiplier }) =>
-        `${(animationDelayMultiplier ?? 0) * 500}ms`};
+    ${({ $hasLetter, $variant }) =>
+        $hasLetter && postSubmitAnimation($variant)};
+    animation-delay: ${({ $animationDelayMultiplier }) =>
+        `${($animationDelayMultiplier ?? 0) * 500}ms`};
 
     &:last-of-type {
         margin-right: 0;
     }
 
     @media screen and (prefers-reduced-motion: reduce) {
-        animation-delay: ${({ animationDelayMultiplier }) =>
-            `${(animationDelayMultiplier ?? 0) * 400}ms`};
+        animation-delay: ${({ $animationDelayMultiplier }) =>
+            `${($animationDelayMultiplier ?? 0) * 400}ms`};
     }
 
     @media only screen and (width <= 600px) {
-        width: ${({ wordLength }) =>
-            TileSize[(wordLength?.toString() as keyof typeof TileSize) ?? '5']};
-        height: ${({ wordLength }) =>
-            TileSize[(wordLength?.toString() as keyof typeof TileSize) ?? '5']};
+        width: ${({ $wordLength }) =>
+            TileSize[
+                ($wordLength?.toString() as keyof typeof TileSize) ?? '5'
+            ]};
+        height: ${({ $wordLength }) =>
+            TileSize[
+                ($wordLength?.toString() as keyof typeof TileSize) ?? '5'
+            ]};
     }
 `
 export const VisuallyHidden = styled.div`

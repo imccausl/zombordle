@@ -30,12 +30,17 @@ export const StyledIconButton = styled.button`
     }
 `
 export const StyledLink = styled(Link)`
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
     border: none;
     background: transparent;
     width: 40px;
     height: 40px;
     padding: 5px;
     margin: 0 5px;
+    align-items: center;
+    text-align: center;
 
     @media only screen and (width <= 600px) {
         width: 35px;

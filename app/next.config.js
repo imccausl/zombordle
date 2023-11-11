@@ -7,18 +7,34 @@ const nextConfig = {
         styledComponents: true,
     },
     webpack(config) {
-        config.module.rules.push({
-            test: /\.svg$/i,
-            issuer: /\.[jt]sx?$/,
-            use: [
-                {
-                    loader: '@svgr/webpack',
-                    options: {
-                        exportType: 'named',
-                    },
+        const fileLoaderRule = config.module.rules.find((rule) =>
+            rule.test?.test?.('.svg'),
+        )
+
+        config.module.rules.push(
+            {
+                ...fileLoaderRule,
+                test: /\.svg$/i,
+                resourceQuery: {
+                    not: [...fileLoaderRule.resourceQuery.not, /react/],
                 },
-            ],
-        })
+            },
+            {
+                test: /\.svg$/i,
+                issuer: /\.[jt]sx?$/,
+                resourceQuery: /react/,
+                use: [
+                    {
+                        loader: '@svgr/webpack',
+                        options: {
+                            icon: true,
+                            memo: true,
+                            svgProps: { role: 'img', 'aria-hidden': 'true' },
+                        },
+                    },
+                ],
+            },
+        )
 
         return config
     },
