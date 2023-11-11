@@ -41,7 +41,7 @@ __metadata:
     "@testing-library/user-event": "npm:^14.4.3"
     "@types/node": "npm:20.8.10"
     "@types/react": "npm:^18.2.24"
-    "@types/seedrandom": "npm:^3.0.5"
+    "@types/seedrandom": "npm:^3.0.7"
     "@vitejs/plugin-react": "npm:^4.1.1"
     "@vitest/coverage-v8": "npm:^0.34.3"
     "@zombordle/design-tokens": "workspace:packages/design-tokens"
@@ -2969,10 +2969,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/seedrandom@npm:^3.0.5":
-  version: 3.0.5
-  resolution: "@types/seedrandom@npm:3.0.5"
-  checksum: d63d56ebc609203cf8cbe2ab7e7934237446bc2463ade664be130dcd4a3d74915d529909de2e1b18141cfabc9e42784998b7e5ff30c016919ac5b83911a700f0
+"@types/seedrandom@npm:^3.0.7":
+  version: 3.0.7
+  resolution: "@types/seedrandom@npm:3.0.7"
+  checksum: 367e7eae95abb698f29bdcef9270a267d1ce13bf5b131951e4df08c4f2d7ff51d02c110245c8f39d2ec268b1582a488abeb12b23ba55fac1738df9c735860912
   languageName: node
   linkType: hard
 
