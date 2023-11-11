@@ -1,11 +1,11 @@
 import { StyledLink } from '../Header.styles'
 
-import { ReactComponent as BarChartIcon } from './assets/bar-chart-icon.svg'
+import BarChartIcon from './assets/bar-chart-icon.svg?react'
 
 export const Stats: React.FC = () => {
     return (
         <StyledLink href="/stats" aria-label="Player Statistics">
-            <BarChartIcon aria-hidden="true" />
+            <BarChartIcon width="1.5em" height="1.5em" />
         </StyledLink>
     )
 }

@@ -14,7 +14,7 @@
     "lint": "yarn turbo run lint --color --cache-dir='./.cache'",
     "test": "TZ=\"America/Toronto\" yarn turbo run test --color --cache-dir='./.cache'",
     "lint-css": "stylelint ./**/*.{ts,tsx}",
-    "test-related": "yarn workspaces foreach run test-related",
+    "test-related": "yarn workspaces foreach -A run test-related",
     "postinstall": "husky install"
   },
   "devDependencies": {

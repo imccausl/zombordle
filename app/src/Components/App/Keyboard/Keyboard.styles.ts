@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-import { ReactComponent as BackspaceIcon } from './assets/backspace_key.svg'
-import { ReactComponent as EnterIcon } from './assets/enter_key.svg'
+import BackspaceIcon from './assets/backspace_key.svg?react'
+import EnterIcon from './assets/enter_key.svg?react'
 
 export const KeyboardContainer = styled.section`
     display: flex;
