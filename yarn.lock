@@ -3370,7 +3370,7 @@ __metadata:
   resolution: "@zombordle/design-tokens@workspace:packages/design-tokens"
   dependencies:
     "@types/node": "npm:^20.8.10"
-    style-dictionary: "npm:^3.8.0"
+    style-dictionary: "npm:^3.9.0"
     ts-node: "npm:^10.9.1"
     typescript: "npm:^5.2.2"
   languageName: unknown
@@ -9132,9 +9132,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"style-dictionary@npm:^3.8.0":
-  version: 3.8.0
-  resolution: "style-dictionary@npm:3.8.0"
+"style-dictionary@npm:^3.9.0":
+  version: 3.9.0
+  resolution: "style-dictionary@npm:3.9.0"
   dependencies:
     chalk: "npm:^4.0.0"
     change-case: "npm:^4.1.2"
@@ -9147,7 +9147,7 @@ __metadata:
     tinycolor2: "npm:^1.4.1"
   bin:
     style-dictionary: bin/style-dictionary
-  checksum: 6b4e6237a4c084a1e19928a0cb2031d599beceaf6bf52f1a75fb60f03a1a474e6438330d43744780745c608222842111f1719b47047797aa2f3b87d0c4bfcc12
+  checksum: 9ee8d543275fcf9beac1cbb070d1e9614e3d7753b40261fd805ab69f1c931c7e50911bc6b986b888300c879feb6e7a965b64ac08d71c62a7dada5b82ce01bc73
   languageName: node
   linkType: hard
 
