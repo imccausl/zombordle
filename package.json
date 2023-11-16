@@ -34,7 +34,7 @@
     "@vitejs/plugin-react": "^4.1.1",
     "@yarnpkg/sdks": "^3.0.0-rc.51",
     "babel-plugin-styled-components": "^2.1.4",
-    "eslint": "^8.50.0",
+    "eslint": "^8.53.0",
     "eslint-config-next": "^14.0.1",
     "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-typescript": "^3.6.1",
@@ -66,5 +66,5 @@
   "resolutions": {
     "vite": "^4.5.0"
   },
-  "packageManager": "yarn@4.0.1"
+  "packageManager": "yarn@4.0.2"
 }
