@@ -21,7 +21,7 @@
     "@svgr/webpack": "^8.1.0",
     "@testing-library/dom": "^9.3.3",
     "@testing-library/jest-dom": "^6.1.4",
-    "@testing-library/react": "^14.1.0",
+    "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.4.3",
     "@tophat/eslint-config": "^9.0.0",
     "@tophat/eslint-import-resolver-require": "^1.0.0",
