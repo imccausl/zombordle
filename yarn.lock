@@ -48,7 +48,7 @@ __metadata:
     eslint: "npm:^8.53.0"
     formula-one: "workspace:packages/formula-one"
     jsdom: "npm:^22.1.0"
-    logrocket: "npm:^6.0.2"
+    logrocket: "npm:^7.0.0"
     next: "npm:^14.0.1"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
@@ -7099,10 +7099,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"logrocket@npm:^6.0.2":
-  version: 6.0.2
-  resolution: "logrocket@npm:6.0.2"
-  checksum: 64e99bd32bb9abe6c575337078a344a354f954e8975b0edd77fcd8995e9999ff292698a83ea3e5d458aa9fe5c15d01cf8d605de756a79a757229cbee8af28933
+"logrocket@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "logrocket@npm:7.0.0"
+  checksum: 3a8b329f6cfca0c7975ac5af44544e051ebb3f0dae922fed77d1427fa8b009a81465913fda81acdee6b08e26f0c9e7f789931d9ba4eac7045b9a8b29f258cc1a
   languageName: node
   linkType: hard
 
