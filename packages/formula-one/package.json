@@ -32,7 +32,7 @@
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.4.3",
     "@types/node": "20.9.0",
-    "@types/react": "^18.2.24",
+    "@types/react": "^18.2.37",
     "@vitejs/plugin-react": "^4.2.0",
     "eslint": "^8.53.0",
     "jsdom": "^22.1.0",
