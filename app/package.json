@@ -34,7 +34,7 @@
     "@types/react": "^18.2.37",
     "@types/seedrandom": "^3.0.7",
     "@vitejs/plugin-react": "^4.2.0",
-    "@vitest/coverage-v8": "^0.34.3",
+    "@vitest/coverage-v8": "^0.34.6",
     "eslint": "^8.54.0",
     "jsdom": "^22.1.0",
     "typescript": "^5.2.2",
