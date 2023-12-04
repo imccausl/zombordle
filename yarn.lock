@@ -47,7 +47,7 @@ __metadata:
     "@zombordle/design-tokens": "workspace:packages/design-tokens"
     eslint: "npm:^8.54.0"
     formula-one: "workspace:packages/formula-one"
-    jsdom: "npm:^23.0.0"
+    jsdom: "npm:^23.0.1"
     logrocket: "npm:^7.0.0"
     next: "npm:^14.0.3"
     react: "npm:^18.2.0"
@@ -5635,7 +5635,7 @@ __metadata:
     "@types/react": "npm:^18.2.38"
     "@vitejs/plugin-react": "npm:^4.2.0"
     eslint: "npm:^8.54.0"
-    jsdom: "npm:^23.0.0"
+    jsdom: "npm:^23.0.1"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     react-is: "npm:^18.0.2"
@@ -6770,9 +6770,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsdom@npm:^23.0.0":
-  version: 23.0.0
-  resolution: "jsdom@npm:23.0.0"
+"jsdom@npm:^23.0.1":
+  version: 23.0.1
+  resolution: "jsdom@npm:23.0.1"
   dependencies:
     cssstyle: "npm:^3.0.0"
     data-urls: "npm:^5.0.0"
@@ -6796,11 +6796,11 @@ __metadata:
     ws: "npm:^8.14.2"
     xml-name-validator: "npm:^5.0.0"
   peerDependencies:
-    canvas: ^3.0.0
+    canvas: ^2.11.2
   peerDependenciesMeta:
     canvas:
       optional: true
-  checksum: e835fca6c48e9147e8de17828053681c8bac10f269f2e425982d731b6ba9232e385c42ef7736d7b6c162d6e14028ab84ef95cba74f43e7d94e15ce1c7c633286
+  checksum: b48fd785cfe5ea0c87e5fadb5fa7f4897bc64731a3930d9013cc0a0b16fbea323e7cced4dddf486b4edb305e7f511ccf78ef6b165b99e3a209069a394add6aa1
   languageName: node
   linkType: hard
 
@@ -10616,7 +10616,7 @@ __metadata:
     eslint-plugin-testing-library: "npm:^6.1.2"
     hoist-non-react-statics: "npm:^3.3.2"
     husky: "npm:^8.0.0"
-    jsdom: "npm:^23.0.0"
+    jsdom: "npm:^23.0.1"
     lint-staged: "npm:^15.2.0"
     postcss: "npm:^8.4.32"
     postcss-styled: "npm:^0.34.0"
