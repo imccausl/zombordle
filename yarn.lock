@@ -2877,7 +2877,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^5.4.2 || ^6.0.0, @typescript-eslint/parser@npm:^6.13.1":
+"@typescript-eslint/parser@npm:^5.4.2 || ^6.0.0":
   version: 6.13.1
   resolution: "@typescript-eslint/parser@npm:6.13.1"
   dependencies:
@@ -2892,6 +2892,24 @@ __metadata:
     typescript:
       optional: true
   checksum: cdc328d157a8b8a6babad88360451c177ea41666e2150f3822a474ed287a12336517dccf9f475f75a007d4aa622cb74f1442f17d17b87e19cc2c839784742351
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/parser@npm:^6.14.0":
+  version: 6.14.0
+  resolution: "@typescript-eslint/parser@npm:6.14.0"
+  dependencies:
+    "@typescript-eslint/scope-manager": "npm:6.14.0"
+    "@typescript-eslint/types": "npm:6.14.0"
+    "@typescript-eslint/typescript-estree": "npm:6.14.0"
+    "@typescript-eslint/visitor-keys": "npm:6.14.0"
+    debug: "npm:^4.3.4"
+  peerDependencies:
+    eslint: ^7.0.0 || ^8.0.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 34f46aa8aaadb0d0ecb7d791a8436fcf44ec04af33ee9d198bcf6f7ca3927d8caa79d4756e0c4ef0d50979d895df0b8f1a2473fc83104423c96856e9d56047f3
   languageName: node
   linkType: hard
 
@@ -10301,7 +10319,7 @@ __metadata:
     "@types/react-dom": "npm:^18.2.17"
     "@types/testing-library__jest-dom": "npm:^6.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^6.14.0"
-    "@typescript-eslint/parser": "npm:^6.13.1"
+    "@typescript-eslint/parser": "npm:^6.14.0"
     "@vitejs/plugin-react": "npm:^4.2.0"
     "@yarnpkg/sdks": "npm:^3.1.0"
     babel-plugin-styled-components: "npm:^2.1.4"
