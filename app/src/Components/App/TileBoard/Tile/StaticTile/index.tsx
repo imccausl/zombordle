@@ -20,11 +20,11 @@ const StaticTile: React.FC<React.PropsWithChildren<TileProps>> = ({
     'aria-label': ariaLabel,
 }) => (
     <TileContainer
-        wordLength={wordLength}
-        animationDelayMultiplier={animationDelayMultiplier}
+        $wordLength={wordLength}
+        $animationDelayMultiplier={animationDelayMultiplier}
         role="listitem"
-        variant={variant}
-        hasLetter={Boolean(
+        $variant={variant}
+        $hasLetter={Boolean(
             typeof children === 'string' && children && children !== ' ',
         )}
     >
