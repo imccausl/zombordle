@@ -61,7 +61,7 @@
     "turbo": "^1.11.2",
     "typescript": "^5.3.3",
     "vite": "^5.0.10",
-    "vitest": "^0.34.6"
+    "vitest": "^1.1.0"
   },
   "resolutions": {
     "vite": "^4.5.0"
