@@ -17,7 +17,7 @@
     "test-related": "vitest related --run"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.0.0",
+    "@reduxjs/toolkit": "^2.0.1",
     "react-is": "^18.0.2",
     "styled-components": "^6.1.1"
   },
