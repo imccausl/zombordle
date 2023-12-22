@@ -51,4 +51,4 @@ const nextConfig = {
 //     nextConfig.assetPrefix = '/zombordle'
 // }
 
-module.exports = nextConfig
+export default nextConfig
