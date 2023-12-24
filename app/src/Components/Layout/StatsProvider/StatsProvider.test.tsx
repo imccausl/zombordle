@@ -5,7 +5,7 @@ import * as useWordModule from '../GameStateProvider/words/useWord'
 
 import { StatsProvider, useStats } from '.'
 
-const mockState = JSON.stringify({
+const mockStateObject = {
     '5': {
         guesses: ['trial', 'error', 'smile', '5test'],
         hasPlayed: false,
@@ -24,7 +24,9 @@ const mockState = JSON.stringify({
         lastPlayed: 1688184000000,
         lastCompleted: 1688184000000,
     },
-})
+}
+
+const mockState = JSON.stringify(mockStateObject)
 
 describe('StatsProvider', () => {
     beforeEach(() => {
@@ -303,7 +305,7 @@ describe('StatsProvider', () => {
             ).toBe(2)
         })
 
-        it.only('should increment the number of attempts in the guess distribution', () => {
+        it('should increment the number of attempts in the guess distribution', () => {
             render(
                 <GameStateProvider>
                     <StatsProvider />
@@ -317,7 +319,7 @@ describe('StatsProvider', () => {
                 window.localStorage.getItem('zombordle_gameState') as string,
             )
 
-            expect(statState.distribution['4']).toBe(0)
+            expect(statState.distribution['4']).toBe(1)
 
             vi.setSystemTime(new Date(2023, 6, 2, 0, 0, 0, 0))
 
@@ -339,19 +341,141 @@ describe('StatsProvider', () => {
                 JSON.parse(
                     window.localStorage.getItem('zombordle_stats') as string,
                 )['5'].distribution['4'],
-            ).toBe(1)
+            ).toBe(2)
         })
 
-        it.todo('should set status to "win"')
+        it('should set status to "win"', () => {
+            render(
+                <GameStateProvider>
+                    <StatsProvider />
+                </GameStateProvider>,
+            )
 
-        it.todo('should record the number of attempts it took to win')
+            const statState = JSON.parse(
+                window.localStorage.getItem('zombordle_stats') as string,
+            )['5']
+
+            expect(statState.status).toBe('win')
+        })
+
+        it('should record the number of attempts it took to win', () => {
+            render(
+                <GameStateProvider>
+                    <StatsProvider />
+                </GameStateProvider>,
+            )
+
+            const statState = JSON.parse(
+                window.localStorage.getItem('zombordle_stats') as string,
+            )['5']
+
+            expect(statState.attempts).toBe(4)
+        })
     })
 
     describe('when user has used up all attempts (lost)', () => {
-        it.todo('should update the hasPlayed values in the game state')
-        it.todo('should reset the current streak to 0')
-        it.todo('should set status to "loss"')
-        it.todo('should increment the loss count in the distribution')
-        it.todo('should record the number of attempts')
+        beforeEach(() => {
+            vi.spyOn(useWordModule, 'useWord').mockReturnValue({
+                correctWord: 'stock',
+                wordList: ['error', '5test', 'trial'],
+                isValidWord: () => true,
+            })
+
+            window.localStorage.setItem(
+                'zombordle_gameState',
+                JSON.stringify({
+                    ...mockStateObject,
+                    '5': {
+                        ...mockStateObject['5'],
+                        guesses: [
+                            'trial',
+                            'error',
+                            'smile',
+                            '5test',
+                            'adeiu',
+                            'bored',
+                        ],
+                    },
+                }),
+            )
+
+            vi.spyOn(window, 'alert').mockImplementation(() => {})
+        })
+
+        afterEach(() => {
+            vi.resetAllMocks()
+        })
+
+        it('should update the hasPlayed values in the game state', () => {
+            render(
+                <GameStateProvider>
+                    <StatsProvider />
+                </GameStateProvider>,
+            )
+
+            const gameState = JSON.parse(
+                window.localStorage.getItem('zombordle_gameState') as string,
+            )['5']
+
+            expect(gameState.hasPlayed).toBe(true)
+            expect(gameState.lastPlayed).toBe(1688184000000)
+            expect(gameState.lastCompleted).toBe(null)
+        })
+
+        it('should reset the current streak to 0', () => {
+            render(
+                <GameStateProvider>
+                    <StatsProvider />
+                </GameStateProvider>,
+            )
+
+            const statState = JSON.parse(
+                window.localStorage.getItem('zombordle_stats') as string,
+            )['5']
+
+            expect(statState.currentStreak).toBe(0)
+        })
+
+        it('should set status to "loss"', () => {
+            render(
+                <GameStateProvider>
+                    <StatsProvider />
+                </GameStateProvider>,
+            )
+
+            const statState = JSON.parse(
+                window.localStorage.getItem('zombordle_stats') as string,
+            )['5']
+
+            expect(statState.status).toBe('loss')
+        })
+
+        it('should increment the loss count in the distribution', () => {
+            render(
+                <GameStateProvider>
+                    <StatsProvider />
+                </GameStateProvider>,
+            )
+
+            const statState = JSON.parse(
+                window.localStorage.getItem('zombordle_stats') as string,
+            )['5']
+
+            expect(statState.distribution.loss).toBe(1)
+        })
+
+        it('should record the number of attempts', () => {
+            render(
+                <GameStateProvider>
+                    <StatsProvider />
+                </GameStateProvider>,
+            )
+
+            const statState = JSON.parse(
+                window.localStorage.getItem('zombordle_stats') as string,
+            )['5']
+
+            expect(statState.attempts).toBe(6)
+        })
     })
 })
