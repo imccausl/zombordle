@@ -8,6 +8,8 @@ import TiledInput, { type TiledInputProps } from '.'
 const defaultProps: TiledInputProps = {
     length: 10,
     guessNumber: 1,
+    isInvalidWord: false,
+    resetInvalidWord: () => {},
 }
 
 const initialValues = new Array(defaultProps.length)
@@ -52,21 +54,24 @@ describe('TiledInput', () => {
 
             await user.type(screen.getByLabelText(/1st/), 's')
 
-            const secondLetter = screen.getByLabelText(/2nd/)
+            const secondLetter = screen.getByRole('textbox', { name: /2nd/ })
             expect(secondLetter).toHaveFocus()
             await user.type(secondLetter, 'o')
 
-            const thirdLetter = screen.getByLabelText(/3rd/)
+            const thirdLetter = screen.getByRole('textbox', { name: /3rd/ })
             expect(thirdLetter).toHaveFocus()
             await user.type(thirdLetter, 'm')
 
-            const fourthLetter = screen.getByLabelText(/4th/)
+            const fourthLetter = screen.getByRole('textbox', { name: /4th/ })
             expect(fourthLetter).toHaveFocus()
             await user.type(fourthLetter, 'e')
 
-            expect(screen.getByLabelText(/5th/)).toHaveFocus()
-            await user.type(screen.getByLabelText(/5th/), 'things')
-            expect(screen.getByLabelText(/10th/)).toHaveFocus()
+            expect(screen.getByRole('textbox', { name: /5th/ })).toHaveFocus()
+            await user.type(
+                screen.getByRole('textbox', { name: /5th/ }),
+                'things',
+            )
+            expect(screen.getByRole('textbox', { name: /10th/ })).toHaveFocus()
         })
 
         it('moves focus backward and removes letters when deleting', async () => {
