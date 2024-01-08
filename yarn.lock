@@ -3102,7 +3102,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/typescript-estree@npm:5.62.0, @typescript-eslint/typescript-estree@npm:^5.62.0":
+"@typescript-eslint/typescript-estree@npm:5.62.0":
   version: 5.62.0
   resolution: "@typescript-eslint/typescript-estree@npm:5.62.0"
   dependencies:
@@ -8186,16 +8186,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-styled-syntax@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "postcss-styled-syntax@npm:0.5.0"
+"postcss-styled-syntax@npm:^0.6.4":
+  version: 0.6.4
+  resolution: "postcss-styled-syntax@npm:0.6.4"
   dependencies:
-    "@typescript-eslint/typescript-estree": "npm:^5.62.0"
-    estree-walker: "npm:^2.0.2"
-    typescript: "npm:~5.1.6"
+    typescript: "npm:^5.3.3"
   peerDependencies:
     postcss: ^8.4.21
-  checksum: 5a8c0decad70dc9b599a9f5a92fb45fe6a3ee7fe1bd734c06df54ab3e9996c622be86220f0f57609b6283f89617a60b186a36488a0d078df454ae3ccb0a0508c
+  checksum: 435bc414cc68d2d2297bb6354230226f554b88efb38610c0c35575eefc241edbabf12a4d4662957204e92091443fa25c85cb943916b61023c222e30a1127b1ff
   languageName: node
   linkType: hard
 
@@ -9868,16 +9866,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:~5.1.6":
-  version: 5.1.6
-  resolution: "typescript@npm:5.1.6"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: f347cde665cf43dc4c1c7d9821c7d9bbec3c3914f4bdd82ee490e9fb9f6d99036ed8666463b6a192dd005eeef333c5087d5931bdd51ec853436ff9a670a7417e
-  languageName: node
-  linkType: hard
-
 "typescript@patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.3.3#optional!builtin<compat/typescript>":
   version: 5.3.3
   resolution: "typescript@patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"
@@ -9885,16 +9873,6 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: c93786fcc9a70718ba1e3819bab56064ead5817004d1b8186f8ca66165f3a2d0100fee91fa64c840dcd45f994ca5d615d8e1f566d39a7470fc1e014dbb4cf15d
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A~5.1.6#optional!builtin<compat/typescript>":
-  version: 5.1.6
-  resolution: "typescript@patch:typescript@npm%3A5.1.6#optional!builtin<compat/typescript>::version=5.1.6&hash=5da071"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: f5481fa3ba0eee8970f46708d13c05650a865ad093b586fc9573f425c64c57ca97e3308e110bb528deb3ccebe83f6fd7b5a8ac90018038da96326a9ccdf8e77c
   languageName: node
   linkType: hard
 
@@ -10572,7 +10550,7 @@ __metadata:
     jsdom: "npm:^23.0.1"
     lint-staged: "npm:^15.2.0"
     postcss: "npm:^8.4.32"
-    postcss-styled-syntax: "npm:^0.5.0"
+    postcss-styled-syntax: "npm:^0.6.4"
     prettier: "npm:^3.1.1"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
