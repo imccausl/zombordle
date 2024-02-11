@@ -48,7 +48,7 @@
     "lint-staged": "^15.2.0",
     "postcss": "^8.4.32",
     "postcss-styled-syntax": "^0.6.4",
-    "prettier": "^3.1.1",
+    "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
