@@ -8368,6 +8368,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss@npm:^8.4.35":
+  version: 8.4.35
+  resolution: "postcss@npm:8.4.35"
+  dependencies:
+    nanoid: "npm:^3.3.7"
+    picocolors: "npm:^1.0.0"
+    source-map-js: "npm:^1.0.2"
+  checksum: 93a7ce50cd6188f5f486a9ca98950ad27c19dfed996c45c414fa242944497e4d084a8760d3537f078630226f2bd3c6ab84b813b488740f4432e7c7039cd73a20
+  languageName: node
+  linkType: hard
+
 "prelude-ls@npm:^1.2.1":
   version: 1.2.1
   resolution: "prelude-ls@npm:1.2.1"
@@ -10680,7 +10691,7 @@ __metadata:
     husky: "npm:^8.0.0"
     jsdom: "npm:^23.2.0"
     lint-staged: "npm:^15.2.0"
-    postcss: "npm:^8.4.32"
+    postcss: "npm:^8.4.35"
     postcss-styled-syntax: "npm:^0.6.4"
     prettier: "npm:^3.2.5"
     react: "npm:^18.2.0"
