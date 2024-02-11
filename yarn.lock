@@ -40,7 +40,7 @@ __metadata:
     "@testing-library/react": "npm:^14.1.2"
     "@testing-library/user-event": "npm:^14.5.2"
     "@types/node": "npm:20.11.16"
-    "@types/react": "npm:^18.2.47"
+    "@types/react": "npm:^18.2.55"
     "@types/seedrandom": "npm:^3.0.8"
     "@vitejs/plugin-react": "npm:^4.2.1"
     "@vitest/coverage-v8": "npm:^1.2.0"
@@ -2984,14 +2984,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.47, @types/react@npm:^18.2.47":
-  version: 18.2.47
-  resolution: "@types/react@npm:18.2.47"
+"@types/react@npm:18.2.55, @types/react@npm:^18.2.55":
+  version: 18.2.55
+  resolution: "@types/react@npm:18.2.55"
   dependencies:
     "@types/prop-types": "npm:*"
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 0a98c2ef8303909f78c973ac9731cb671f3a0b96bc5213b538d1a50cbaae6e51b6befd64845a9cb95af8528767315d5bd99a85608eb716c020393c7d33a9b477
+  checksum: bf8fe19e73575489e63c0726355f164157cd69e75f2a862436ad2c0586e732cb953a7255a6bc73145e8f9506ee7a723f9a569ca9a39c53984e5b12b84e1c718a
   languageName: node
   linkType: hard
 
@@ -5877,7 +5877,7 @@ __metadata:
     "@testing-library/react": "npm:^14.1.2"
     "@testing-library/user-event": "npm:^14.5.2"
     "@types/node": "npm:20.11.16"
-    "@types/react": "npm:^18.2.47"
+    "@types/react": "npm:^18.2.55"
     "@vitejs/plugin-react": "npm:^4.2.1"
     eslint: "npm:^8.56.0"
     jsdom: "npm:^23.2.0"
@@ -10687,7 +10687,7 @@ __metadata:
     "@tophat/eslint-config": "npm:^9.0.0"
     "@tophat/eslint-import-resolver-require": "npm:^1.0.0"
     "@types/node": "npm:^20.11.16"
-    "@types/react": "npm:18.2.47"
+    "@types/react": "npm:18.2.55"
     "@types/react-dom": "npm:^18.2.18"
     "@types/testing-library__jest-dom": "npm:^6.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^6.20.0"
