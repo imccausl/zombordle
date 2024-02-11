@@ -20,7 +20,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",
     "react-is": "^18.0.2",
-    "styled-components": "^6.1.6"
+    "styled-components": "^6.1.8"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^17.0.0 || ^16.8.0",
