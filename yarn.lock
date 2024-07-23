@@ -19,6 +19,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@adobe/css-tools@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "@adobe/css-tools@npm:4.4.0"
+  checksum: 9c6315fe9efa5075d6ddb6ded7a1424bc9c41a01f2314b6bdcc368723985fe161008d03ddcc2b27b2da50cb9c14190fbce965d15cefe5f9a31bdd43f35b52115
+  languageName: node
+  linkType: hard
+
 "@ampproject/remapping@npm:^2.2.0, @ampproject/remapping@npm:^2.2.1":
   version: 2.2.1
   resolution: "@ampproject/remapping@npm:2.2.1"
@@ -36,7 +43,7 @@ __metadata:
     "@reduxjs/toolkit": "npm:^2.0.1"
     "@svgr/webpack": "npm:^8.1.0"
     "@testing-library/dom": "npm:^9.3.4"
-    "@testing-library/jest-dom": "npm:^6.2.0"
+    "@testing-library/jest-dom": "npm:^6.4.6"
     "@testing-library/react": "npm:^14.2.1"
     "@testing-library/user-event": "npm:^14.5.2"
     "@types/node": "npm:20.11.17"
@@ -2619,7 +2626,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/jest-dom@npm:*, @testing-library/jest-dom@npm:^6.2.0":
+"@testing-library/jest-dom@npm:*":
   version: 6.2.0
   resolution: "@testing-library/jest-dom@npm:6.2.0"
   dependencies:
@@ -2646,6 +2653,39 @@ __metadata:
     vitest:
       optional: true
   checksum: 4af88d4b6208eda58fad47a520057893a381b972e7b043d7787c0111c887bdc82ed959bed07c21700f2816d4a1e315a519a0aabce120708ad7ba79577374f0fd
+  languageName: node
+  linkType: hard
+
+"@testing-library/jest-dom@npm:^6.4.6":
+  version: 6.4.6
+  resolution: "@testing-library/jest-dom@npm:6.4.6"
+  dependencies:
+    "@adobe/css-tools": "npm:^4.4.0"
+    "@babel/runtime": "npm:^7.9.2"
+    aria-query: "npm:^5.0.0"
+    chalk: "npm:^3.0.0"
+    css.escape: "npm:^1.5.1"
+    dom-accessibility-api: "npm:^0.6.3"
+    lodash: "npm:^4.17.21"
+    redent: "npm:^3.0.0"
+  peerDependencies:
+    "@jest/globals": ">= 28"
+    "@types/bun": "*"
+    "@types/jest": ">= 28"
+    jest: ">= 28"
+    vitest: ">= 0.32"
+  peerDependenciesMeta:
+    "@jest/globals":
+      optional: true
+    "@types/bun":
+      optional: true
+    "@types/jest":
+      optional: true
+    jest:
+      optional: true
+    vitest:
+      optional: true
+  checksum: 94fad29d740ff2c34967c644e2481a472aa8eeb1f11cdec5d4f81f14b2576660387551264c0fa718c15bfc61dd342f7621d888fe3e4ba1b7f830fe65bdd37bc8
   languageName: node
   linkType: hard
 
@@ -3923,11 +3963,11 @@ __metadata:
   linkType: hard
 
 "braces@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "braces@npm:3.0.2"
+  version: 3.0.3
+  resolution: "braces@npm:3.0.3"
   dependencies:
-    fill-range: "npm:^7.0.1"
-  checksum: 966b1fb48d193b9d155f810e5efd1790962f2c4e0829f8440b8ad236ba009222c501f70185ef732fef17a4c490bb33a03b90dab0631feafbdf447da91e8165b1
+    fill-range: "npm:^7.1.1"
+  checksum: fad11a0d4697a27162840b02b1fad249c1683cbc510cd5bf1a471f2f8085c046d41094308c577a50a03a579dd99d5a6b3724c4b5e8b14df2c4443844cfcda2c6
   languageName: node
   linkType: hard
 
@@ -5597,12 +5637,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fill-range@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "fill-range@npm:7.0.1"
+"fill-range@npm:^7.1.1":
+  version: 7.1.1
+  resolution: "fill-range@npm:7.1.1"
   dependencies:
     to-regex-range: "npm:^5.0.1"
-  checksum: e260f7592fd196b4421504d3597cc76f4a1ca7a9488260d533b611fc3cefd61e9a9be1417cb82d3b01ad9f9c0ff2dbf258e1026d2445e26b0cf5148ff4250429
+  checksum: a7095cb39e5bc32fada2aa7c7249d3f6b01bd1ce461a61b0adabacccabd9198500c6fb1f68a7c851a657e273fce2233ba869638897f3d7ed2e87a2d89b4436ea
   languageName: node
   linkType: hard
 
@@ -5681,7 +5721,7 @@ __metadata:
   dependencies:
     "@reduxjs/toolkit": "npm:^2.0.1"
     "@testing-library/dom": "npm:^9.3.4"
-    "@testing-library/jest-dom": "npm:^6.2.0"
+    "@testing-library/jest-dom": "npm:^6.4.6"
     "@testing-library/react": "npm:^14.2.1"
     "@testing-library/user-event": "npm:^14.5.2"
     "@types/node": "npm:20.11.17"
@@ -6381,9 +6421,9 @@ __metadata:
   linkType: hard
 
 "ip@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "ip@npm:2.0.0"
-  checksum: 1270b11e534a466fb4cf4426cbcc3a907c429389f7f4e4e3b288b42823562e88d6a509ceda8141a507de147ca506141f745005c0aa144569d94cf24a54eb52bc
+  version: 2.0.1
+  resolution: "ip@npm:2.0.1"
+  checksum: d6dd154e1bc5e8725adfdd6fb92218635b9cbe6d873d051bd63b178f009777f751a5eea4c67021723a7056325fc3052f8b6599af0a2d56f042c93e684b4a0349
   languageName: node
   linkType: hard
 
@@ -7457,10 +7497,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minipass@npm:^4.0.0":
-  version: 4.2.4
-  resolution: "minipass@npm:4.2.4"
-  checksum: f5856a2eac7c2bb359416051b4c60e947c3ac1f4c05deceba649c205d0823ed28dfd151ac740f91c872c7c0aa30fe6c5dc903330a373e803734e8c07fc18c0b8
+"minipass@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "minipass@npm:5.0.0"
+  checksum: 61682162d29f45d3152b78b08bab7fb32ca10899bc5991ffe98afc18c9e9543bd1e3be94f8b8373ba6262497db63607079dc242ea62e43e7b2270837b7347c93
   languageName: node
   linkType: hard
 
@@ -9438,16 +9478,16 @@ __metadata:
   linkType: hard
 
 "tar@npm:^6.0.5, tar@npm:^6.1.11, tar@npm:^6.1.2":
-  version: 6.1.13
-  resolution: "tar@npm:6.1.13"
+  version: 6.2.1
+  resolution: "tar@npm:6.2.1"
   dependencies:
     chownr: "npm:^2.0.0"
     fs-minipass: "npm:^2.0.0"
-    minipass: "npm:^4.0.0"
+    minipass: "npm:^5.0.0"
     minizlib: "npm:^2.1.1"
     mkdirp: "npm:^1.0.3"
     yallist: "npm:^4.0.0"
-  checksum: add2c3c6d0d71192186ec118d265b92d94be5cd57a0b8fdf0d29ee46dc846574925a5fc57170eefffd78201eda4c45d7604070b5a4b0648e4d6e1d65918b5a82
+  checksum: bfbfbb2861888077fc1130b84029cdc2721efb93d1d1fb80f22a7ac3a98ec6f8972f29e564103bbebf5e97be67ebc356d37fa48dbc4960600a1eb7230fbd1ea0
   languageName: node
   linkType: hard
 
@@ -10368,8 +10408,8 @@ __metadata:
   linkType: hard
 
 "ws@npm:^8.16.0":
-  version: 8.16.0
-  resolution: "ws@npm:8.16.0"
+  version: 8.18.0
+  resolution: "ws@npm:8.18.0"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ">=5.0.2"
@@ -10378,7 +10418,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 7c511c59e979bd37b63c3aea4a8e4d4163204f00bd5633c053b05ed67835481995f61a523b0ad2b603566f9a89b34cb4965cb9fab9649fbfebd8f740cea57f17
+  checksum: 70dfe53f23ff4368d46e4c0b1d4ca734db2c4149c6f68bc62cb16fc21f753c47b35fcc6e582f3bdfba0eaeb1c488cddab3c2255755a5c3eecb251431e42b3ff6
   languageName: node
   linkType: hard
 
@@ -10468,7 +10508,7 @@ __metadata:
   dependencies:
     "@svgr/webpack": "npm:^8.1.0"
     "@testing-library/dom": "npm:^9.3.4"
-    "@testing-library/jest-dom": "npm:^6.2.0"
+    "@testing-library/jest-dom": "npm:^6.4.6"
     "@testing-library/react": "npm:^14.2.1"
     "@testing-library/user-event": "npm:^14.5.2"
     "@tophat/eslint-config": "npm:^9.0.0"
