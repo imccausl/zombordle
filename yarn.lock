@@ -40,7 +40,7 @@ __metadata:
     "@testing-library/react": "npm:^14.2.1"
     "@testing-library/user-event": "npm:^14.5.2"
     "@types/node": "npm:20.11.17"
-    "@types/react": "npm:^18.2.55"
+    "@types/react": "npm:^18.3.3"
     "@types/seedrandom": "npm:^3.0.8"
     "@vitejs/plugin-react": "npm:^4.2.1"
     "@vitest/coverage-v8": "npm:^1.2.2"
@@ -50,7 +50,7 @@ __metadata:
     jsdom: "npm:^24.1.1"
     logrocket: "npm:^7.0.0"
     next: "npm:^14.2.3"
-    react: "npm:^18.2.0"
+    react: "npm:^18.3.1"
     react-dom: "npm:^18.2.0"
     react-is: "npm:^18.2.0"
     seedrandom: "npm:^3.0.5"
@@ -2909,7 +2909,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.2.55, @types/react@npm:^18.2.55":
+"@types/react@npm:*":
   version: 18.2.55
   resolution: "@types/react@npm:18.2.55"
   dependencies:
@@ -2917,6 +2917,16 @@ __metadata:
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 10/bf8fe19e73575489e63c0726355f164157cd69e75f2a862436ad2c0586e732cb953a7255a6bc73145e8f9506ee7a723f9a569ca9a39c53984e5b12b84e1c718a
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:18.3.3, @types/react@npm:^18.3.3":
+  version: 18.3.3
+  resolution: "@types/react@npm:18.3.3"
+  dependencies:
+    "@types/prop-types": "npm:*"
+    csstype: "npm:^3.0.2"
+  checksum: 10/68e203b7f1f91d6cf21f33fc7af9d6d228035a26c83f514981e54aa3da695d0ec6af10c277c6336de1dd76c4adbe9563f3a21f80c4462000f41e5f370b46e96c
   languageName: node
   linkType: hard
 
@@ -5720,11 +5730,11 @@ __metadata:
     "@testing-library/react": "npm:^14.2.1"
     "@testing-library/user-event": "npm:^14.5.2"
     "@types/node": "npm:20.11.17"
-    "@types/react": "npm:^18.2.55"
+    "@types/react": "npm:^18.3.3"
     "@vitejs/plugin-react": "npm:^4.2.1"
     eslint: "npm:^8.56.0"
     jsdom: "npm:^24.1.1"
-    react: "npm:^18.2.0"
+    react: "npm:^18.3.1"
     react-dom: "npm:^18.2.0"
     react-is: "npm:^18.0.2"
     styled-components: "npm:^6.1.8"
@@ -8430,12 +8440,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.2.0":
-  version: 18.2.0
-  resolution: "react@npm:18.2.0"
+"react@npm:^18.3.1":
+  version: 18.3.1
+  resolution: "react@npm:18.3.1"
   dependencies:
     loose-envify: "npm:^1.1.0"
-  checksum: 10/b9214a9bd79e99d08de55f8bef2b7fc8c39630be97c4e29d7be173d14a9a10670b5325e94485f74cd8bff4966ef3c78ee53c79a7b0b9b70cba20aa8973acc694
+  checksum: 10/261137d3f3993eaa2368a83110466fc0e558bc2c7f7ae7ca52d94f03aac945f45146bd85e5f481044db1758a1dbb57879e2fcdd33924e2dde1bdc550ce73f7bf
   languageName: node
   linkType: hard
 
@@ -10594,7 +10604,7 @@ __metadata:
     "@tophat/eslint-config": "npm:^9.0.0"
     "@tophat/eslint-import-resolver-require": "npm:^1.0.0"
     "@types/node": "npm:^20.11.17"
-    "@types/react": "npm:18.2.55"
+    "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:^18.2.19"
     "@types/testing-library__jest-dom": "npm:^6.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^6.21.0"
@@ -10617,7 +10627,7 @@ __metadata:
     postcss: "npm:^8.4.35"
     postcss-styled-syntax: "npm:^0.6.4"
     prettier: "npm:^3.2.5"
-    react: "npm:^18.2.0"
+    react: "npm:^18.3.1"
     react-dom: "npm:^18.2.0"
     react-is: "npm:^18.2.0"
     styled-components: "npm:^6.1.8"
