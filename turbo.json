@@ -3,7 +3,7 @@
   "globalEnv": [
     "CI"
   ],
-  "pipeline": {
+  "tasks": {
     "build": {
       "dependsOn": [
         "build-tokens"
