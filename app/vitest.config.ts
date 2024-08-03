@@ -7,7 +7,7 @@ import { defineConfig } from 'vitest/config'
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [react(), svgr()],
-    cacheDir: '../.vitest',
+    cacheDir: '.vitest',
     test: {
         environment: 'jsdom',
         globals: true,
