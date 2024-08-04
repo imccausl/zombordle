@@ -13,6 +13,7 @@
   "scripts": {
     "build": "rm -rf lib && tsc --build",
     "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test-watch": "vitest dev",
     "test-related": "vitest related --run"

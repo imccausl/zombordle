@@ -3,6 +3,9 @@
   "globalEnv": [
     "CI"
   ],
+  "globalDependencies": [
+    "tsconfig.json"
+  ],
   "tasks": {
     "build": {
       "dependsOn": [
@@ -26,6 +29,7 @@
       ]
     },
     "//#lint-css": {},
+    "typecheck": {},
     "test": {
       "dependsOn": [
         "build-tokens"
