@@ -78,5 +78,5 @@ jobs:
           static_site_generator: "next"
       - name: Deploy to Pages
         id: deployment
-        uses: actions/deploy-pages@af48cf94a42f2c634308b1c9dc0151830b6f190a
+        uses: actions/deploy-pages@b74272834adc04f971da4b0b055c49fa8d7f90c9 # v4.0.5
           
