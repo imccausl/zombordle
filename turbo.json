@@ -35,7 +35,7 @@
         "build-tokens"
       ],
       "outputs": [
-        "app/coverage/**"
+        "app/coverage/**/*"
       ],
       "inputs": [
         "$TURBO_DEFAULT$",
