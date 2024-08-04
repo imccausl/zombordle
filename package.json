@@ -15,7 +15,8 @@
     "test": "TZ=\"America/Toronto\" yarn turbo run test --color --cache-dir='./.cache'",
     "lint-css": "stylelint ./**/*.{ts,tsx}",
     "test-related": "yarn workspaces foreach -A run test-related",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
@@ -43,7 +44,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-testing-library": "^6.2.2",
     "hoist-non-react-statics": "^3.3.2",
-    "husky": "^8.0.0",
+    "husky": "^9.1.1",
     "jsdom": "^24.1.1",
     "lint-staged": "^15.2.7",
     "postcss": "^8.4.35",
