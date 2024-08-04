@@ -2,20 +2,20 @@ name: prepare-env
 description: Prepares Envionrment
 
 runs:
-  using: 'composite'
+  using: "composite"
 
   steps:
     - name: Setup Node
-      uses: actions/setup-node@v3.5.1
+      uses: actions/setup-node@26961cf329f22f6837d5f54c3efd76b480300ace # v4.0.3
       with:
-        node-version-file: '.nvmrc'
+        node-version-file: ".nvmrc"
 
     - name: Enable corepack
       run: corepack enable
       shell: bash
 
     - name: Restore Yarn Cache
-      uses: actions/cache@v3
+      uses: actions/cache@40c3b67b2955d93d83b27ed164edd0756bc24049 # v4.0.2
       with:
         path: |
           .yarn/cache

@@ -3,6 +3,9 @@
   "globalEnv": [
     "CI"
   ],
+  "globalDependencies": [
+    "tsconfig.json"
+  ],
   "tasks": {
     "build": {
       "dependsOn": [
@@ -26,11 +29,16 @@
       ]
     },
     "//#lint-css": {},
+    "typecheck": {},
     "test": {
       "dependsOn": [
         "build-tokens"
       ],
+      "outputs": [
+        "app/coverage/**"
+      ],
       "inputs": [
+        "$TURBO_DEFAULT$",
         "src/**/*.tsx",
         "src/**/*.ts",
         "test/**/*.ts",
