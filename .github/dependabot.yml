@@ -34,6 +34,9 @@ updates:
         applies-to: version-updates
         patterns:
           - "@types/*"
+        exclude-patterns:
+          - "@types/react*"
+          - "@types/node"
 
       testing:
         applies-to: version-updates
