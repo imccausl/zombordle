@@ -6,6 +6,8 @@
 version: 2
 updates:
   - package-ecosystem: npm
+    commit-message:
+      prefix: "deps"
     directory: "/" # Location of package manifests
     schedule:
       interval: weekly
@@ -13,7 +15,10 @@ updates:
     ignore:
       - dependency-name: "@types/node"
         versions:
-          - "> 20.0.0" # until 22 is lts
+          - "<= 21" # until 22 is lts
+      - dependency-name: "eslint"
+        versions:
+          - "<= 9" # some plugins aren't compatible with eslint 9 yet
 
     groups:
       nextjs:
@@ -53,6 +58,8 @@ updates:
           - "@vitetest/coverage-v8"
 
   - package-ecosystem: github-actions
+    commit-message:
+      prefix: "ci"
     directory: "/"
     schedule:
       interval: weekly
