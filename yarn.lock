@@ -39,7 +39,7 @@ __metadata:
     "@testing-library/jest-dom": "npm:^6.4.8"
     "@testing-library/react": "npm:^16.0.0"
     "@testing-library/user-event": "npm:^14.5.2"
-    "@types/node": "npm:20.11.17"
+    "@types/node": "npm:20.14.14"
     "@types/react": "npm:^18.3.3"
     "@types/seedrandom": "npm:^3.0.8"
     "@vitejs/plugin-react": "npm:^4.3.1"
@@ -2866,12 +2866,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.11.17, @types/node@npm:^20.11.17":
+"@types/node@npm:*":
   version: 20.11.17
   resolution: "@types/node@npm:20.11.17"
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: 10/3342df87258d1c56154bcd4b85180f48675427b235971e6e6e2e037353f5a2ae9aaa05ba5df0fe1e2d2f1022c8d856fd39056b9d7f50ea30c0ca3214137cae1d
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.14.14, @types/node@npm:^20.14.14":
+  version: 20.14.14
+  resolution: "@types/node@npm:20.14.14"
+  dependencies:
+    undici-types: "npm:~5.26.4"
+  checksum: 10/035bc347e3de04888d537801e23eb4b4f99522975ca002dbfef978edd853710031b7cd43bf022670d6aba4ed5d4ac75ea1b5ff77ff8f80998bffd943b7bcef48
   languageName: node
   linkType: hard
 
@@ -3484,7 +3493,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@zombordle/design-tokens@workspace:packages/design-tokens"
   dependencies:
-    "@types/node": "npm:^20.11.17"
+    "@types/node": "npm:^20.14.14"
     style-dictionary: "npm:^3.9.2"
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.5.4"
@@ -5756,7 +5765,7 @@ __metadata:
     "@testing-library/jest-dom": "npm:^6.4.8"
     "@testing-library/react": "npm:^16.0.0"
     "@testing-library/user-event": "npm:^14.5.2"
-    "@types/node": "npm:20.11.17"
+    "@types/node": "npm:20.14.14"
     "@types/react": "npm:^18.3.3"
     "@vitejs/plugin-react": "npm:^4.3.1"
     eslint: "npm:^8.56.0"
@@ -10577,7 +10586,7 @@ __metadata:
     "@testing-library/jest-dom": "npm:^6.4.8"
     "@testing-library/react": "npm:^16.0.0"
     "@testing-library/user-event": "npm:^14.5.2"
-    "@types/node": "npm:^20.11.17"
+    "@types/node": "npm:^20.14.14"
     "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:^18.3.0"
     "@types/testing-library__jest-dom": "npm:^6.0.0"
