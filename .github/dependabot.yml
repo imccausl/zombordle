@@ -13,7 +13,7 @@ updates:
     ignore:
       - dependency-name: "@types/node"
         versions:
-          - ">20.0.0" # until 22 is lts
+          - "> 20.0.0" # until 22 is lts
 
     groups:
       nextjs:
