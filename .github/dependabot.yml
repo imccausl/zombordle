@@ -5,11 +5,15 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm" # See documentation for possible values
+  - package-ecosystem: npm
     directory: "/" # Location of package manifests
     schedule:
       interval: weekly
     open-pull-requests-limit: 10
+    ignore:
+      - dependency-name: "@types/node"
+        versions:
+          - "> 20.0.0" # until 22 is lts
 
     groups:
       nextjs:
@@ -47,3 +51,9 @@ updates:
           - "jsdom"
           - "@vitejs/plugin-react"
           - "@vitetest/coverage-v8"
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
