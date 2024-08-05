@@ -4,7 +4,8 @@
     "CI"
   ],
   "globalDependencies": [
-    "tsconfig.json"
+    "tsconfig.json",
+    ".eslintrc.js"
   ],
   "tasks": {
     "dev": {

@@ -12,6 +12,14 @@ updates:
     open-pull-requests-limit: 10
 
     groups:
+      nextjs:
+        applies-to: version-updates
+        patterns:
+          - next
+          - "react*"
+          - eslint-config-next
+          - "@types/react*"
+
       linting:
         applies-to: version-updates
         patterns:
