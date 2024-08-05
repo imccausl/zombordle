@@ -7,15 +7,16 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "yarn build-tokens && yarn workspace @app/zombordle dev",
+    "dev": "yarn turbo run dev --color --cache-dir='./.cache'",
     "start": "yarn workspace @app/zombordle start",
-    "build": "yarn turbo run build --cache-dir='./.cache'",
+    "build": "yarn turbo run build --color --cache-dir='./.cache'",
     "build-tokens": "rm -rf packages/design-tokens/lib && yarn workspace @zombordle/design-tokens build-tokens",
     "lint": "yarn turbo run lint --color --cache-dir='./.cache'",
     "typecheck": "yarn turbo run typecheck --color --cache-dir='./.cache'",
     "test": "TZ=\"America/Toronto\" yarn turbo run test --color --cache-dir='./.cache'",
     "lint-css": "stylelint ./**/*.{ts,tsx}",
-    "test-related": "yarn workspaces foreach -A run test-related",
+    "test:related": "turbo run test:related --color --cache-dir='./.cache'",
+    "test:watch": "turbo run test:watch --color --cache-dir='./.cache'",
     "postinstall": "husky install",
     "prepare": "husky"
   },

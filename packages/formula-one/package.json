@@ -11,12 +11,11 @@
     "lib"
   ],
   "scripts": {
-    "build": "rm -rf lib && tsc --build",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test-watch": "vitest dev",
-    "test-related": "vitest related --run"
+    "test:watch": "vitest dev",
+    "test:related": "vitest related --run"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",

@@ -9,8 +9,8 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test-watch": "vitest dev",
-    "test-related": "vitest related --run"
+    "test:watch": "vitest dev",
+    "test:related": "vitest related --run"
   },
   "type": "module",
   "dependencies": {

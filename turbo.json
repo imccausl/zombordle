@@ -7,6 +7,25 @@
     "tsconfig.json"
   ],
   "tasks": {
+    "dev": {
+      "persistent": true,
+      "cache": false,
+      "dependsOn": [
+        "build-tokens"
+      ]
+    },
+    "test:watch": {
+      "persistent": true,
+      "cache": false,
+      "dependsOn": [
+        "build-tokens"
+      ]
+    },
+    "test:related": {
+      "dependsOn": [
+        "build-tokens"
+      ]
+    },
     "build": {
       "dependsOn": [
         "build-tokens"
