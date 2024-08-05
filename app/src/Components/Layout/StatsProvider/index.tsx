@@ -1,4 +1,9 @@
-import React, { createContext, useContext, useEffect } from 'react'
+import {
+    type default as React,
+    createContext,
+    useContext,
+    useEffect,
+} from 'react'
 
 import { MAX_ATTEMPTS } from '../../App/App.constants'
 import { useGameState } from '../GameStateProvider'

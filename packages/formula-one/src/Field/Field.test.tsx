@@ -1,10 +1,4 @@
-import {
-    act,
-    cleanup,
-    render,
-    renderHook,
-    screen,
-} from '@testing-library/react'
+import { act, render, renderHook, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { FormProvider, type FormProviderProps } from '../FormProvider'
@@ -102,7 +96,7 @@ describe('Field', () => {
                 // tab away from field to trigger validationOnBlur
                 await userEvent.tab()
                 expect(fieldValidateFn).toHaveBeenCalledTimes(1)
-                expect(screen.queryByText(errorMessage)).toBeInTheDocument()
+                expect(screen.getByText(errorMessage)).toBeInTheDocument()
             })
 
             it('provides the configured error message if field is required and input is missing', async () => {
@@ -113,7 +107,7 @@ describe('Field', () => {
                 expect(screen.queryByText(errorMessage)).not.toBeInTheDocument()
                 // trigger onBlur validation
                 await userEvent.tab()
-                expect(screen.queryByText(errorMessage)).toBeInTheDocument()
+                expect(screen.getByText(errorMessage)).toBeInTheDocument()
 
                 await user.type(screen.getByRole('textbox'), 'some input')
                 await userEvent.tab()
@@ -129,9 +123,7 @@ describe('Field', () => {
                 ).not.toBeInTheDocument()
                 // trigger onBlur validation
                 await userEvent.tab()
-                expect(
-                    screen.queryByText(/cannot be empty/),
-                ).toBeInTheDocument()
+                expect(screen.getByText(/cannot be empty/)).toBeInTheDocument()
 
                 await user.type(screen.getByRole('textbox'), 'some input')
                 await userEvent.tab()
@@ -169,7 +161,7 @@ describe('Field', () => {
                 // tab away from field to trigger validationOnBlur
                 await userEvent.tab()
                 expect(fieldValidateFn).toHaveBeenCalledTimes(1)
-                expect(screen.queryByText(errorMessage)).toBeInTheDocument()
+                expect(screen.getByText(errorMessage)).toBeInTheDocument()
 
                 await user.type(screen.getByRole('textbox'), 'something else')
                 // tab away from field to trigger validationOnBlur
@@ -196,7 +188,7 @@ describe('Field', () => {
                 await user.type(screen.getByRole('textbox'), 'invalid')
                 // tab away from field to trigger validationOnBlur
                 await userEvent.tab()
-                expect(screen.queryByText(errorMessage)).toBeInTheDocument()
+                expect(screen.getByText(errorMessage)).toBeInTheDocument()
                 expect(
                     screen.getByRole('textbox').getAttribute('aria-invalid'),
                 ).toBe('true')
@@ -209,15 +201,15 @@ describe('Field', () => {
                 ).toBe('false')
             })
 
-            it('sets aria-required to true when input is required', async () => {
+            it('sets aria-required to true when input is required with message', () => {
                 render(<InputWithProvider required="la de da de" />)
 
                 expect(
                     screen.getByRole('textbox').getAttribute('aria-required'),
                 ).toBe('true')
+            })
 
-                // test both variations
-                cleanup()
+            it('sets aria-required to true when input is required with no message', () => {
                 render(<InputWithProvider required />)
 
                 expect(
@@ -225,7 +217,7 @@ describe('Field', () => {
                 ).toBe('true')
             })
 
-            it('sets aria-required to false when input is not required', async () => {
+            it('sets aria-required to false when input is not required', () => {
                 render(<InputWithProvider />)
 
                 expect(
@@ -252,7 +244,7 @@ describe('Field', () => {
                 await user.type(screen.getByRole('textbox'), 'invalid')
                 // tab away from field to trigger validationOnBlur
                 await userEvent.tab()
-                expect(screen.queryByText(errorMessage)).toBeInTheDocument()
+                expect(screen.getByText(errorMessage)).toBeInTheDocument()
                 expect(onValidCallback).not.toHaveBeenCalled()
                 await user.type(screen.getByRole('textbox'), 'something else')
                 // tab away from field to trigger validationOnBlur
@@ -280,7 +272,7 @@ describe('Field', () => {
                 await user.type(screen.getByRole('textbox'), 'invalid')
                 // tab away from field to trigger validationOnBlur
                 await userEvent.tab()
-                expect(screen.queryByText(errorMessage)).toBeInTheDocument()
+                expect(screen.getByText(errorMessage)).toBeInTheDocument()
                 expect(onInvalidCallback).toHaveBeenCalledTimes(1)
                 onInvalidCallback.mockReset()
                 await user.type(screen.getByRole('textbox'), 'something else')

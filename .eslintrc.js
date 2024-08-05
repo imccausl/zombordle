@@ -1,11 +1,6 @@
 module.exports = {
     root: true,
-    plugins: ['jest-dom', 'testing-library', 'prettier'],
-    extends: [
-        'next',
-        '@tophat/eslint-config/base',
-        '@tophat/eslint-config/web',
-    ],
+    extends: ['next', '@imccausl/eslint-config', 'plugin:react/jsx-runtime'],
     settings: {
         next: {
             rootDir: 'app',
@@ -16,6 +11,6 @@ module.exports = {
         project: ['./tsconfig.json'],
     },
     rules: {
-        '@next/next/no-html-link-for-pages': ['error', 'app/src/pages/'],
+        'react/prop-types': 'off',
     },
 }

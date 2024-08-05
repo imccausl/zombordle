@@ -1,7 +1,6 @@
 import { act, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { FormProvider } from 'formula-one'
-import React from 'react'
 
 import TiledInput, { type TiledInputProps } from '.'
 

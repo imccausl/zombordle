@@ -10,9 +10,7 @@ type GameState = {
     lastPlayed: number | null
     lastCompleted: number | null
 }
-type FullGameState = {
-    [key: string]: GameState
-}
+type FullGameState = Record<string, GameState>
 
 export const initialGameState: GameState = {
     guesses: [],

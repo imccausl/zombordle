@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { type default as React, useMemo } from 'react'
 
 import { type Distribution } from '../Layout/StatsProvider'
 
