@@ -15,17 +15,10 @@ updates:
     ignore:
       - dependency-name: "@types/node"
         versions:
-<<<<<<< HEAD
           - ">= 21" # until 22 is lts
       - dependency-name: "eslint"
         versions:
           - ">= 9" # some plugins aren't compatible with eslint 9 yet
-=======
-          - "<= 21" # until 22 is lts
-      - dependency-name: "eslint"
-        versions:
-          - "<= 9" # some plugins aren't compatible with eslint 9 yet
->>>>>>> main
 
     groups:
       nextjs:
