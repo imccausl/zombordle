@@ -52,7 +52,7 @@ __metadata:
     next: "npm:^14.2.5"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
-    react-is: "npm:^18.2.0"
+    react-is: "npm:^18.3.1"
     seedrandom: "npm:^3.0.5"
     styled-components: "npm:^6.1.8"
     typescript: "npm:^5.5.4"
@@ -5683,7 +5683,7 @@ __metadata:
     jsdom: "npm:^24.1.1"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
-    react-is: "npm:^18.0.2"
+    react-is: "npm:^18.3.1"
     styled-components: "npm:^6.1.8"
     typescript: "npm:^5.5.4"
     vite: "npm:^5.3.5"
@@ -8305,10 +8305,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^18.0.2, react-is@npm:^18.2.0":
-  version: 18.2.0
-  resolution: "react-is@npm:18.2.0"
-  checksum: 10/200cd65bf2e0be7ba6055f647091b725a45dd2a6abef03bf2380ce701fd5edccee40b49b9d15edab7ac08a762bf83cb4081e31ec2673a5bfb549a36ba21570df
+"react-is@npm:^18.3.1":
+  version: 18.3.1
+  resolution: "react-is@npm:18.3.1"
+  checksum: 10/d5f60c87d285af24b1e1e7eaeb123ec256c3c8bdea7061ab3932e3e14685708221bf234ec50b21e10dd07f008f1b966a2730a0ce4ff67905b3872ff2042aec22
   languageName: node
   linkType: hard
 
@@ -10459,7 +10459,7 @@ __metadata:
     prettier: "npm:^3.2.5"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
-    react-is: "npm:^18.2.0"
+    react-is: "npm:^18.3.1"
     styled-components: "npm:^6.1.8"
     stylelint: "npm:^16.7.0"
     stylelint-config-standard: "npm:^36.0.0"
