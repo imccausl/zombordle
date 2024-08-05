@@ -8,5 +8,31 @@ updates:
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "weekly"
+      interval: weekly
     open-pull-requests-limit: 10
+
+    groups:
+      linting:
+        applies-to: version-updates
+        patterns:
+          - "eslint*"
+          - "prettier*"
+          - "stylelint*"
+          - "postcss*"
+          - "typescript-eslint/*"
+          - "lint-staged"
+
+      types:
+        applies-to: version-updates
+        patterns:
+          - "@types/*"
+
+      testing:
+        applies-to: version-updates
+        patterns:
+          - "@testing-library/*"
+          - "vitest"
+          - "vite*"
+          - "jsdom"
+          - "@vitejs/plugin-react"
+          - "@vitetest/coverage-v8"
