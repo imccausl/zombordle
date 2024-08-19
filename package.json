@@ -21,7 +21,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@imccausl/eslint-config": "^1.4.0",
+    "@imccausl/eslint-config": "^2.0.0",
     "@next/eslint-plugin-next": "^14.2.5",
     "@svgr/webpack": "^8.1.0",
     "@testing-library/dom": "^10.4.0",

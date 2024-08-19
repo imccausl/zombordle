@@ -1860,13 +1860,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@imccausl/eslint-config@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "@imccausl/eslint-config@npm:1.4.0"
+"@imccausl/eslint-config@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@imccausl/eslint-config@npm:2.0.0"
   peerDependencies:
     "@tanstack/eslint-plugin-query": ">=5.20.1"
-    "@typescript-eslint/eslint-plugin": ">=6.21.0"
-    "@typescript-eslint/parser": ">=6.21.0"
+    "@typescript-eslint/eslint-plugin": ">=8.0.0"
+    "@typescript-eslint/parser": ">=8.0.0"
     "@yarnpkg/sdks": ">=3.1.0"
     eslint: ^8 || ^9
     eslint-config-prettier: ">=9.1.0"
@@ -1896,7 +1896,7 @@ __metadata:
       optional: true
     eslint-plugin-vitest:
       optional: true
-  checksum: 10/1bd001ef9610adec0dc83c99799672fbe1d484261638e70b4b8077e5f6e6ac635638fd8294125c778a7c73dc0cd21144502ba2d89ae9163c0590a29c3c41aebb
+  checksum: 10/d193c638c9da23b0692bb4fc33826013f04e24587ec9e9b70722175f7aaeeadfa3e4371609f4ae380ae71cc60e3e004a313e69344a1a71293eee7ce7bfc1ba72
   languageName: node
   linkType: hard
 
@@ -10579,7 +10579,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "zombordle@workspace:."
   dependencies:
-    "@imccausl/eslint-config": "npm:^1.4.0"
+    "@imccausl/eslint-config": "npm:^2.0.0"
     "@next/eslint-plugin-next": "npm:^14.2.5"
     "@svgr/webpack": "npm:^8.1.0"
     "@testing-library/dom": "npm:^10.4.0"
