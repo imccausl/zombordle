@@ -18,7 +18,7 @@
     "build-tokens": "ts-node config/build.ts && echo Building types... && tsc lib/index.ts --declaration && echo Done!"
   },
   "devDependencies": {
-    "@types/node": "^20.14.15",
+    "@types/node": "^20.16.1",
     "style-dictionary": "^3.9.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
