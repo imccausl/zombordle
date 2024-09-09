@@ -73,7 +73,7 @@ jobs:
       - name: Prepare Environment
         uses: ./.github/actions/prepare-env
       - name: Configure Pages
-        uses: actions/configure-pages@dc1038695c94b221fd486193d8a760e736fa3816 # v.5.0.0
+        uses: actions/configure-pages@0d7570ca8762e8c951911e8c9655d8973cc93174 # v.5.0.0
         with:
           static_site_generator: "next"
       - name: Deploy to Pages
