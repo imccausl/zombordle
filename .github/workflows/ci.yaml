@@ -52,7 +52,7 @@ jobs:
         run: touch ./app/out/.nojekyll
       - name: Stash Build Artifacts
         if: github.ref_name == 'main'
-        uses: actions/upload-pages-artifact@1780dfc2cece65a782cc86fa133f96aef8ad0345 # v3.0.1
+        uses: actions/upload-pages-artifact@984864e7b70fb5cb764344dc9c4b5c087662ef50 # v3.0.1
         with:
           path: ./app/out
 
