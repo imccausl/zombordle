@@ -2040,12 +2040,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/eslint-plugin-next@npm:14.2.5, @next/eslint-plugin-next@npm:^14.2.5":
+"@next/eslint-plugin-next@npm:14.2.5":
   version: 14.2.5
   resolution: "@next/eslint-plugin-next@npm:14.2.5"
   dependencies:
     glob: "npm:10.3.10"
   checksum: 10/a058820619c9ce493196ce593c440ce9d3558b93acf7b372453dd425e2c311153d8382c5e6842c6645b02e833f1a5c59bd7ebfba3719922d400196b6e367e9d5
+  languageName: node
+  linkType: hard
+
+"@next/eslint-plugin-next@npm:^14.2.15":
+  version: 14.2.15
+  resolution: "@next/eslint-plugin-next@npm:14.2.15"
+  dependencies:
+    glob: "npm:10.3.10"
+  checksum: 10/eb48c5c08c9f4d0f14a0978b39fcb2fa3925a2fcfd368044039a988b389973328fb8493d192b90e0884789a9b42d0d005b91930cb47e2357b746773ae4e12ca6
   languageName: node
   linkType: hard
 
@@ -10580,7 +10589,7 @@ __metadata:
   resolution: "zombordle@workspace:."
   dependencies:
     "@imccausl/eslint-config": "npm:^1.4.0"
-    "@next/eslint-plugin-next": "npm:^14.2.5"
+    "@next/eslint-plugin-next": "npm:^14.2.15"
     "@svgr/webpack": "npm:^8.1.0"
     "@testing-library/dom": "npm:^10.4.0"
     "@testing-library/jest-dom": "npm:^6.4.8"
