@@ -17,7 +17,7 @@ jobs:
         uses: ./.github/actions/prepare-env
 
       - name: Restore Turbo Cache
-        uses: actions/cache@40c3b67b2955d93d83b27ed164edd0756bc24049 # v4.0.2
+        uses: actions/cache@8469c94c6a180dfb41a1bd7e1b46ac557ea124f1 # v4.0.2
         with: 
           path: |
             .cache
