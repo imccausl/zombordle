@@ -39,7 +39,7 @@ jobs:
         run: yarn test
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@955f1f08ad225eafd3396525634e1211cf89485f # v4.5.0
+        uses: codecov/codecov-action@1d6059880cab9176d33e31e0f1ab076b20495f5e # v4.5.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./app/coverage/clover.xml
