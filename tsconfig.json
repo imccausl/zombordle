@@ -23,7 +23,7 @@
     ]
   },
   "include": [
-    ".eslintrc.js",
+    "eslint.config.mjs",
     "app/next-env.d.ts",
     "app/next.config.js",
     "**/*.ts",
@@ -31,5 +31,8 @@
   ],
   "exclude": [
     "node_modules",
+    "packages/**/.vitest",
+    "lib",
+    "out",
   ]
 }

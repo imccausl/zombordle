@@ -38,17 +38,27 @@
         "out/**"
       ]
     },
-    "build-tokens": {
+    "//#build-tokens": {
       "outputs": [
         "lib"
       ]
     },
-    "lint": {
+    "//#lint-js": {
       "dependsOn": [
         "build-tokens"
       ]
     },
-    "//#lint-css": {},
+    "//#lint-css": {
+      "dependsOn": [
+        "build-tokens"
+      ]
+    },
+    "//#lint-all": {
+      "dependsOn": [
+        "lint-css",
+        "lint-js"
+      ]
+    },
     "typecheck": {},
     "test": {
       "dependsOn": [
