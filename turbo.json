@@ -12,24 +12,24 @@
       "persistent": true,
       "cache": false,
       "dependsOn": [
-        "build-tokens"
+        "//#build-tokens"
       ]
     },
     "test:watch": {
       "persistent": true,
       "cache": false,
       "dependsOn": [
-        "build-tokens"
+        "//#build-tokens"
       ]
     },
     "test:related": {
       "dependsOn": [
-        "build-tokens"
+        "//#build-tokens"
       ]
     },
     "build": {
       "dependsOn": [
-        "build-tokens"
+        "//#build-tokens"
       ],
       "outputs": [
         ".next/**",
@@ -45,12 +45,12 @@
     },
     "//#lint-js": {
       "dependsOn": [
-        "build-tokens"
+        "//#build-tokens"
       ]
     },
     "//#lint-css": {
       "dependsOn": [
-        "build-tokens"
+        "//#build-tokens"
       ]
     },
     "//#lint-all": {
@@ -62,7 +62,7 @@
     "typecheck": {},
     "test": {
       "dependsOn": [
-        "build-tokens"
+        "//#build-tokens"
       ],
       "outputs": [
         "coverage/**"
