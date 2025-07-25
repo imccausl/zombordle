@@ -44,6 +44,7 @@ export const SoundControl: React.FC = () => {
                 muted={isMuted}
             >
                 <source src="/zombo_theme.mp3" />
+                <track kind="captions" srcLang="en" label="No captions" />
             </video>
         </SoundControlContainer>
     )

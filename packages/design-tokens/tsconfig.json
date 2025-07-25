@@ -10,4 +10,7 @@
   "include": [
     "tokens/**/*"
   ],
+  "exclude": [
+    "lib"
+  ]
 }

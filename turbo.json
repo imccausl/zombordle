@@ -12,24 +12,24 @@
       "persistent": true,
       "cache": false,
       "dependsOn": [
-        "build-tokens"
+        "//#build-tokens"
       ]
     },
     "test:watch": {
       "persistent": true,
       "cache": false,
       "dependsOn": [
-        "build-tokens"
+        "//#build-tokens"
       ]
     },
     "test:related": {
       "dependsOn": [
-        "build-tokens"
+        "//#build-tokens"
       ]
     },
     "build": {
       "dependsOn": [
-        "build-tokens"
+        "//#build-tokens"
       ],
       "outputs": [
         ".next/**",
@@ -38,21 +38,31 @@
         "out/**"
       ]
     },
-    "build-tokens": {
+    "//#build-tokens": {
       "outputs": [
         "lib"
       ]
     },
-    "lint": {
+    "//#lint-js": {
       "dependsOn": [
-        "build-tokens"
+        "//#build-tokens"
       ]
     },
-    "//#lint-css": {},
+    "//#lint-css": {
+      "dependsOn": [
+        "//#build-tokens"
+      ]
+    },
+    "//#lint-all": {
+      "dependsOn": [
+        "lint-css",
+        "lint-js"
+      ]
+    },
     "typecheck": {},
     "test": {
       "dependsOn": [
-        "build-tokens"
+        "//#build-tokens"
       ],
       "outputs": [
         "coverage/**"

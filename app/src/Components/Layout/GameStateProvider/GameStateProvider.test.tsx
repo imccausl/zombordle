@@ -102,7 +102,7 @@ describe('GameStateProvider', () => {
                     </GameStateProvider>,
                 )
 
-                screen.getByText(containsCorrectWord)
+                expect(screen.getByText(containsCorrectWord)).toBeInTheDocument()
             },
         )
     })
