@@ -47,7 +47,7 @@ __metadata:
     "@zombordle/design-tokens": "workspace:packages/design-tokens"
     formula-one: "workspace:packages/formula-one"
     jsdom: "npm:^24.1.1"
-    logrocket: "npm:^7.0.0"
+    logrocket: "npm:^10.1.0"
     next: "npm:^14.2.5"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
@@ -7703,10 +7703,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"logrocket@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "logrocket@npm:7.0.0"
-  checksum: 10/3a8b329f6cfca0c7975ac5af44544e051ebb3f0dae922fed77d1427fa8b009a81465913fda81acdee6b08e26f0c9e7f789931d9ba4eac7045b9a8b29f258cc1a
+"logrocket@npm:^10.1.0":
+  version: 10.1.0
+  resolution: "logrocket@npm:10.1.0"
+  checksum: 10/5b9a6f53068e5627eec473840b8b846c3ac3d3f8746c8bc935d076582f642405e0b30e99730f3e131c7dc709b3b43f29d084d8d69aef95cac14c9a8fe69c40d6
   languageName: node
   linkType: hard
 
