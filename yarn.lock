@@ -39,7 +39,7 @@ __metadata:
     "@testing-library/jest-dom": "npm:^6.4.8"
     "@testing-library/react": "npm:^16.0.0"
     "@testing-library/user-event": "npm:^14.5.2"
-    "@types/node": "npm:20.14.15"
+    "@types/node": "npm:20.19.13"
     "@types/react": "npm:^18.3.3"
     "@types/seedrandom": "npm:^3.0.8"
     "@vitejs/plugin-react": "npm:^4.3.1"
@@ -3261,12 +3261,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.14.15, @types/node@npm:^20.14.15":
+"@types/node@npm:*":
   version: 20.14.15
   resolution: "@types/node@npm:20.14.15"
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: 10/87a4a4313e886c1db1c8042004956095477e040f67df993fd16a2d50488c750bda81e85bf702c2e629e964605034e8dfe0cb91b65ce22b6b8eec37ece61c6b6c
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.19.13, @types/node@npm:^20.19.13":
+  version: 20.19.13
+  resolution: "@types/node@npm:20.19.13"
+  dependencies:
+    undici-types: "npm:~6.21.0"
+  checksum: 10/41014282d24d4a218dcbda6ed09d8d2692fe988426bc030e629d560c7f7886aaaaaaf94cba3c486c6c3d7a4ab4afcbe7dac941a661803b9be340af2a9246aab8
   languageName: node
   linkType: hard
 
@@ -3918,7 +3927,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@zombordle/design-tokens@workspace:packages/design-tokens"
   dependencies:
-    "@types/node": "npm:^20.14.15"
+    "@types/node": "npm:^20.19.13"
     style-dictionary: "npm:^3.9.2"
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.8.3"
@@ -6235,7 +6244,7 @@ __metadata:
     "@testing-library/jest-dom": "npm:^6.4.8"
     "@testing-library/react": "npm:^16.0.0"
     "@testing-library/user-event": "npm:^14.5.2"
-    "@types/node": "npm:20.14.15"
+    "@types/node": "npm:20.19.13"
     "@types/react": "npm:^18.3.3"
     "@vitejs/plugin-react": "npm:^4.3.1"
     jsdom: "npm:^24.1.1"
@@ -10630,6 +10639,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"undici-types@npm:~6.21.0":
+  version: 6.21.0
+  resolution: "undici-types@npm:6.21.0"
+  checksum: 10/ec8f41aa4359d50f9b59fa61fe3efce3477cc681908c8f84354d8567bb3701fafdddf36ef6bff307024d3feb42c837cf6f670314ba37fc8145e219560e473d14
+  languageName: node
+  linkType: hard
+
 "unicode-canonical-property-names-ecmascript@npm:^2.0.0":
   version: 2.0.0
   resolution: "unicode-canonical-property-names-ecmascript@npm:2.0.0"
@@ -11347,7 +11363,7 @@ __metadata:
     "@testing-library/jest-dom": "npm:^6.4.8"
     "@testing-library/react": "npm:^16.0.0"
     "@testing-library/user-event": "npm:^14.5.2"
-    "@types/node": "npm:^20.14.15"
+    "@types/node": "npm:^20.19.13"
     "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:^18.3.0"
     "@types/testing-library__jest-dom": "npm:^6.0.0"
